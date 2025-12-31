@@ -1,0 +1,95 @@
+/*!
+ * Prismleaf Brand Styles
+ *
+ * Region-level branding for the Prismleaf classic theme.
+ * Consumes design tokens declared in assets/styles/tokens/*.css and Customizer-driven variables.
+ *
+ * @package prismleaf
+ */
+
+/* Content surface. */
+.prismleaf-region-content {
+	background-color: var(--prismleaf-region-content-background);
+	color: var(--prismleaf-region-content-foreground);
+
+	border-width: var(--prismleaf-border-width-thin);
+	border-style: var(--prismleaf-region-content-border-style);
+	border-color: var(--prismleaf-region-content-border-color);
+	border-radius: var(--prismleaf-region-content-radius);
+
+	box-shadow: var(--prismleaf-region-content-shadow);
+}
+
+/* Header region surface. */
+.prismleaf-region-header {
+	background-color: var(--prismleaf-region-header-background);
+	color: var(--prismleaf-region-header-foreground);
+
+	border-width: var(--prismleaf-border-width-thin);
+	border-style: var(--prismleaf-region-header-border-style);
+	border-color: var(--prismleaf-region-header-border-color);
+	border-radius: var(--prismleaf-region-header-radius);
+
+	box-shadow: var(--prismleaf-region-header-shadow);
+}
+
+/* Framed shell regions are square, borderless, and flat. */
+.prismleaf-layout-framed .prismleaf-region-header,
+.prismleaf-layout-framed .prismleaf-region-footer,
+.prismleaf-layout-framed .prismleaf-region-sidebar-left,
+.prismleaf-layout-framed .prismleaf-region-sidebar-right {
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* Contained header/footer/sidebars inherit the content surface. */
+.prismleaf-layout-not-framed.prismleaf-header-contained .prismleaf-region-content .prismleaf-region-header,
+.prismleaf-layout-not-framed.prismleaf-footer-contained .prismleaf-region-content .prismleaf-region-footer,
+.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained .prismleaf-region-content .prismleaf-region-sidebar-left,
+.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained .prismleaf-region-content .prismleaf-region-sidebar-right {
+	background-color: transparent;
+	color: inherit;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* Footer region surface. */
+.prismleaf-region-footer {
+	background-color: var(--prismleaf-region-footer-background);
+	color: var(--prismleaf-region-footer-foreground);
+
+	border-width: var(--prismleaf-border-width-thin);
+	border-style: var(--prismleaf-region-footer-border-style);
+	border-color: var(--prismleaf-region-footer-border-color);
+	border-radius: var(--prismleaf-region-footer-radius);
+
+	box-shadow: var(--prismleaf-region-footer-shadow);
+}
+
+/* Left sidebar region surfaces. */
+.prismleaf-region-sidebar-left {
+	background-color: var(--prismleaf-region-sidebar-left-background);
+	color: var(--prismleaf-region-sidebar-left-foreground);
+
+	border-width: var(--prismleaf-border-width-thin);
+	border-style: var(--prismleaf-region-sidebar-left-border-style);
+	border-color: var(--prismleaf-region-sidebar-left-border-color);
+	border-radius: var(--prismleaf-region-sidebar-left-radius);
+
+	box-shadow: var(--prismleaf-region-sidebar-left-shadow);
+}
+
+/* Right sidebar region surfaces. */
+.prismleaf-region-sidebar-right {
+	background-color: var(--prismleaf-region-sidebar-right-background);
+	color: var(--prismleaf-region-sidebar-right-foreground);
+
+	border-width: var(--prismleaf-border-width-thin);
+	border-style: var(--prismleaf-region-sidebar-right-border-style);
+	border-color: var(--prismleaf-region-sidebar-right-border-color);
+	border-radius: var(--prismleaf-region-sidebar-right-radius);
+
+	box-shadow: var(--prismleaf-region-sidebar-right-shadow);
+}

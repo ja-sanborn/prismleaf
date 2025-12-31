@@ -1,0 +1,214 @@
+/*!
+ * Prismleaf Tokens: Foundational
+ *
+ * Foundational tokens for typography, spacing, layout, and motion.
+ *
+ * @package prismleaf
+ */
+
+:root {
+	/* Font families. */
+	--prismleaf-font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+	--prismleaf-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+	--prismleaf-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+	/* Type scale. */
+	--prismleaf-font-size-base: 16px;
+	--prismleaf-font-size-xs: 0.8rem;
+	--prismleaf-font-size-sm: 0.875rem;
+	--prismleaf-font-size-md: 1rem;
+	--prismleaf-font-size-lg: 1.25rem;
+	--prismleaf-font-size-xl: 1.563rem;
+	--prismleaf-font-size-2xl: 1.953rem;
+	--prismleaf-font-size-3xl: 2.441rem;
+
+	/* Font weights. */
+	--prismleaf-font-weight-regular: 400;
+	--prismleaf-font-weight-medium: 500;
+	--prismleaf-font-weight-semibold: 600;
+	--prismleaf-font-weight-bold: 700;
+
+	/* Line heights. */
+	--prismleaf-line-height-tight: 1.2;
+	--prismleaf-line-height-snug: 1.35;
+	--prismleaf-line-height-base: 1.6;
+	--prismleaf-line-height-loose: 1.75;
+
+	/* Letter spacing. */
+	--prismleaf-letter-spacing-tight: -0.01em;
+	--prismleaf-letter-spacing-normal: 0;
+	--prismleaf-letter-spacing-wide: 0.05em;
+	--prismleaf-letter-spacing-wider: 0.1em;
+
+	/* Spacing scale. */
+	--prismleaf-space-0: 0;
+	--prismleaf-space-1: 4px;
+	--prismleaf-space-2: 8px;
+	--prismleaf-space-3: 16px;
+	--prismleaf-space-4: 24px;
+	--prismleaf-space-5: 32px;
+	--prismleaf-space-6: 48px;
+
+	/* Touch targets and control sizing. */
+	--prismleaf-tap-target-min: 44px;
+	--prismleaf-control-padding-y: var(--prismleaf-space-2);
+	--prismleaf-control-padding-x: var(--prismleaf-space-3);
+	--prismleaf-control-min-height: var(--prismleaf-tap-target-min);
+
+	/* Border radius. */
+	--prismleaf-radius-small: 8px;
+	--prismleaf-radius-medium: 16px;
+	--prismleaf-radius-large: 24px;
+	--prismleaf-radius-pill: 9999px;
+
+	/* Borders. */
+	--prismleaf-border-style: solid;
+	--prismleaf-border-width-thin: 1px;
+	--prismleaf-border-width-thick: 2px;
+
+	/* Focus outline tokens. */
+	--prismleaf-focus-width: 3px;
+	--prismleaf-focus-offset: 2px;
+	--prismleaf-focus-style: solid;
+	--prismleaf-focus-radius: var(--prismleaf-radius-small);
+
+	/* Z-index layers. */
+	--prismleaf-z-base: 0;
+	--prismleaf-z-dropdown: 100;
+	--prismleaf-z-sticky: 200;
+	--prismleaf-z-modal: 300;
+	--prismleaf-z-toast: 400;
+
+	/* Motion tokens. */
+	--prismleaf-motion-multiplier: 1;
+
+	/* Durations (scaled by multiplier in usage via calc()). */
+	--prismleaf-duration-fast: 120ms;
+	--prismleaf-duration-base: 180ms;
+	--prismleaf-duration-slow: 240ms;
+
+	/* Easing curves (MD3-aligned). */
+	--prismleaf-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+	--prismleaf-ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
+	--prismleaf-ease-decelerate: cubic-bezier(0, 0, 0, 1);
+	--prismleaf-ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+
+	/* Opacity for subtle dividers and states. */
+	--prismleaf-stroke-opacity: 0.12;
+	--prismleaf-state-hover-opacity: 0.08;
+	--prismleaf-state-focus-opacity: 0.12;
+	--prismleaf-state-pressed-opacity: 0.12;
+	--prismleaf-state-dragged-opacity: 0.16;
+	--prismleaf-state-disabled-opacity: 0.38;
+
+	/* Content sizing. */
+	--prismleaf-content-max: 1480px;
+
+	/* Layout sizing hooks consumed by layout.css (no visual styling). */
+	--prismleaf-admin-bar-offset: 0px;
+	--prismleaf-header-height: auto;
+	--prismleaf-footer-height: auto;
+
+	/* Sidebar widths. */
+	--prismleaf-sidebar-width-compact: 280px;
+	--prismleaf-sidebar-width-default: 300px;
+	--prismleaf-sidebar-width-wide: 340px;
+	--prismleaf-sidebar-left-width: var(--prismleaf-sidebar-width-default);
+	--prismleaf-sidebar-right-width: var(--prismleaf-sidebar-width-default);
+
+	/* Gaps between layout regions (sidebar ↔ content). */
+	--prismleaf-region-gap-sm: var(--prismleaf-space-1);
+	--prismleaf-region-gap-md: var(--prismleaf-space-2);
+	--prismleaf-region-gap-lg: var(--prismleaf-space-3);
+	--prismleaf-region-gap: var(--prismleaf-region-gap-md);
+
+	/* Inner padding for card-like regions. */
+	--prismleaf-card-padding-sm: var(--prismleaf-space-1);
+	--prismleaf-card-padding-md: var(--prismleaf-space-2);
+	--prismleaf-card-padding-lg: var(--prismleaf-space-3);
+	--prismleaf-card-padding: var(--prismleaf-card-padding-md);
+
+	/* Outer page padding (viewport edge ↔ first region). */
+	--prismleaf-page-padding-x-sm: var(--prismleaf-space-1);
+	--prismleaf-page-padding-x-md: var(--prismleaf-space-2);
+	--prismleaf-page-padding-x-lg: var(--prismleaf-space-3);
+	--prismleaf-page-padding-x: var(--prismleaf-page-padding-x-md);
+
+	/* Vertical page padding (useful for full-height layouts). */
+	--prismleaf-page-padding-y-sm: var(--prismleaf-space-1);
+	--prismleaf-page-padding-y-md: var(--prismleaf-space-2);
+	--prismleaf-page-padding-y-lg: var(--prismleaf-space-3);
+	--prismleaf-page-padding-y: var(--prismleaf-page-padding-y-md);
+}
+
+/* Accessibility helpers. */
+.screen-reader-text {
+	position: absolute;
+	inline-size: 1px;
+	block-size: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.screen-reader-text:focus,
+.screen-reader-text:active {
+	clip: auto;
+	inline-size: auto;
+	block-size: auto;
+	margin: 0;
+	padding: var(--prismleaf-space-1);
+	background: var(--prismleaf-color-surface, #fff);
+	color: inherit;
+	z-index: var(--prismleaf-z-dropdown);
+}
+
+/* Mobile breakpoint. */
+@media (max-width: 769px) {
+	:root {
+		--prismleaf-sidebar-left-width: 100%;
+		--prismleaf-sidebar-right-width: 100%;
+		--prismleaf-region-gap: var(--prismleaf-region-gap-sm);
+		--prismleaf-card-padding: var(--prismleaf-card-padding-sm);
+		--prismleaf-page-padding-x: var(--prismleaf-page-padding-x-sm);
+		--prismleaf-page-padding-y: var(--prismleaf-page-padding-y-sm);
+	}
+}
+
+/* Small (tablet) breakpoint. */
+@media (min-width: 770px) {
+	:root {
+		--prismleaf-sidebar-left-width: var(--prismleaf-sidebar-width-compact);
+		--prismleaf-sidebar-right-width: var(--prismleaf-sidebar-width-compact);
+		--prismleaf-region-gap: var(--prismleaf-region-gap-sm);
+		--prismleaf-card-padding: var(--prismleaf-card-padding-sm);
+		--prismleaf-page-padding-x: var(--prismleaf-page-padding-x-sm);
+		--prismleaf-page-padding-y: var(--prismleaf-page-padding-y-sm);
+	}
+}
+
+/* Medium breakpoint. */
+@media (min-width: 1080px) {
+	:root {
+		--prismleaf-sidebar-left-width: var(--prismleaf-sidebar-width-default);
+		--prismleaf-sidebar-right-width: var(--prismleaf-sidebar-width-default);
+		--prismleaf-region-gap: var(--prismleaf-region-gap-md);
+		--prismleaf-card-padding: var(--prismleaf-card-padding-md);
+		--prismleaf-page-padding-x: var(--prismleaf-page-padding-x-md);
+		--prismleaf-page-padding-y: var(--prismleaf-page-padding-y-md);
+	}
+}
+
+/* Large breakpoint. */
+@media (min-width: 1440px) {
+	:root {
+		--prismleaf-sidebar-left-width: var(--prismleaf-sidebar-width-wide);
+		--prismleaf-sidebar-right-width: var(--prismleaf-sidebar-width-wide);
+		--prismleaf-region-gap: var(--prismleaf-region-gap-lg);
+		--prismleaf-card-padding: var(--prismleaf-card-padding-lg);
+		--prismleaf-page-padding-x: var(--prismleaf-page-padding-x-lg);
+		--prismleaf-page-padding-y: var(--prismleaf-page-padding-y-lg);
+	}
+}

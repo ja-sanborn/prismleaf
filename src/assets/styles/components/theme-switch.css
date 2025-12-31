@@ -1,0 +1,106 @@
+/*!
+ * Prismleaf Theme Switcher
+ *
+ * Minimal styling for the auto/light/dark toggle.
+ *
+ * @package prismleaf
+ */
+
+/* Container. */
+.prismleaf-theme-switch {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.prismleaf-theme-switch__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-radius: var(--prismleaf-radius-pill);
+	background: transparent;
+	color: var(--prismleaf-color-tertiary);
+	box-shadow: var(--prismleaf-shadow);
+	transition:
+		color calc(var(--prismleaf-duration-fast) * var(--prismleaf-motion-multiplier)) var(--prismleaf-ease-standard),
+		background-color calc(var(--prismleaf-duration-fast) * var(--prismleaf-motion-multiplier)) var(--prismleaf-ease-standard),
+		border-color calc(var(--prismleaf-duration-fast) * var(--prismleaf-motion-multiplier)) var(--prismleaf-ease-standard);
+}
+
+/* Button states. */
+.prismleaf-theme-switch__button:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+.prismleaf-theme-switch__button:hover:not(:disabled) {
+	background-color: color-mix(in srgb, var(--prismleaf-color-tertiary) 12%, transparent);
+}
+
+.prismleaf-theme-switch__button:active:not(:disabled) {
+	background-color: color-mix(in srgb, var(--prismleaf-color-tertiary) 18%, transparent);
+}
+
+.prismleaf-theme-switch__button:disabled {
+	opacity: var(--prismleaf-state-disabled-opacity);
+	cursor: default;
+	box-shadow: none;
+}
+
+/* Icon glyphs. */
+.prismleaf-theme-switch__icon {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	background-color: currentColor;
+	mask-repeat: no-repeat;
+	mask-position: center;
+	mask-size: 24px 24px;
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	-webkit-mask-size: 24px 24px;
+}
+
+/* Icon mapping by state. */
+.prismleaf-theme-switch[data-state="auto"] .prismleaf-theme-switch__icon {
+	mask-image: url('../../images/theme-auto.svg');
+	-webkit-mask-image: url('../../images/theme-auto.svg');
+}
+
+.prismleaf-theme-switch[data-state="light"] .prismleaf-theme-switch__icon {
+	mask-image: url('../../images/theme-light.svg');
+	-webkit-mask-image: url('../../images/theme-light.svg');
+}
+
+.prismleaf-theme-switch[data-state="dark"] .prismleaf-theme-switch__icon {
+	mask-image: url('../../images/theme-dark.svg');
+	-webkit-mask-image: url('../../images/theme-dark.svg');
+}
+
+@supports not (mask: url('../../images/theme-auto.svg')) {
+	.prismleaf-theme-switch__icon {
+		background-color: transparent;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 24px 24px;
+		mask: none;
+		-webkit-mask: none;
+	}
+
+	.prismleaf-theme-switch[data-state="auto"] .prismleaf-theme-switch__icon {
+		background-image: url('../../images/theme-auto.svg');
+	}
+
+	.prismleaf-theme-switch[data-state="light"] .prismleaf-theme-switch__icon {
+		background-image: url('../../images/theme-light.svg');
+	}
+
+	.prismleaf-theme-switch[data-state="dark"] .prismleaf-theme-switch__icon {
+		background-image: url('../../images/theme-dark.svg');
+	}
+}
