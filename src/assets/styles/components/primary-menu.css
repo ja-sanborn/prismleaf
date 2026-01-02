@@ -1,0 +1,127 @@
+/*!
+	* Prismleaf Primary Menu
+	*
+	* Styling for the primary navigation menu.
+	*
+	* @package prismleaf
+	*/
+
+:root {
+	--prismleaf-menu-primary-bg-light-default: var(--prismleaf-color-light-primary);
+	--prismleaf-menu-primary-bg-hover-light-default: var(--prismleaf-color-light-primary-darker);
+	--prismleaf-menu-primary-bg-active-light-default: var(--prismleaf-color-light-primary-darkest);
+	--prismleaf-menu-primary-link-light-default: var(--prismleaf-color-light-on-primary);
+	--prismleaf-menu-primary-link-hover-light-default: var(--prismleaf-color-light-on-primary);
+	--prismleaf-menu-primary-link-active-light-default: var(--prismleaf-color-light-on-primary);
+	--prismleaf-menu-primary-link-visited-light-default: var(--prismleaf-color-light-on-primary);
+
+	--prismleaf-menu-primary-bg-dark-default: var(--prismleaf-color-dark-primary);
+	--prismleaf-menu-primary-bg-hover-dark-default: var(--prismleaf-color-dark-primary-darker);
+	--prismleaf-menu-primary-bg-active-dark-default: var(--prismleaf-color-dark-primary-darkest);
+	--prismleaf-menu-primary-link-dark-default: var(--prismleaf-color-dark-on-primary);
+	--prismleaf-menu-primary-link-hover-dark-default: var(--prismleaf-color-dark-on-primary);
+	--prismleaf-menu-primary-link-active-dark-default: var(--prismleaf-color-dark-on-primary);
+	--prismleaf-menu-primary-link-visited-dark-default: var(--prismleaf-color-dark-on-primary);
+
+	--prismleaf-menu-primary-bg-light: var(--prismleaf-menu-primary-bg-light-override, var(--prismleaf-menu-primary-bg-light-default));
+	--prismleaf-menu-primary-bg-hover-light: var(--prismleaf-menu-primary-bg-hover-light-override, var(--prismleaf-menu-primary-bg-hover-light-default));
+	--prismleaf-menu-primary-bg-active-light: var(--prismleaf-menu-primary-bg-active-light-override, var(--prismleaf-menu-primary-bg-active-light-default));
+	--prismleaf-menu-primary-link-light: var(--prismleaf-menu-primary-link-light-override, var(--prismleaf-menu-primary-link-light-default));
+	--prismleaf-menu-primary-link-hover-light: var(--prismleaf-menu-primary-link-hover-light-override, var(--prismleaf-menu-primary-link-hover-light-default));
+	--prismleaf-menu-primary-link-active-light: var(--prismleaf-menu-primary-link-active-light-override, var(--prismleaf-menu-primary-link-active-light-default));
+	--prismleaf-menu-primary-link-visited-light: var(--prismleaf-menu-primary-link-visited-light-override, var(--prismleaf-menu-primary-link-visited-light-default));
+
+	--prismleaf-menu-primary-bg-dark: var(--prismleaf-menu-primary-bg-dark-override, var(--prismleaf-menu-primary-bg-dark-default));
+	--prismleaf-menu-primary-bg-hover-dark: var(--prismleaf-menu-primary-bg-hover-dark-override, var(--prismleaf-menu-primary-bg-hover-dark-default));
+	--prismleaf-menu-primary-bg-active-dark: var(--prismleaf-menu-primary-bg-active-dark-override, var(--prismleaf-menu-primary-bg-active-dark-default));
+	--prismleaf-menu-primary-link-dark: var(--prismleaf-menu-primary-link-dark-override, var(--prismleaf-menu-primary-link-dark-default));
+	--prismleaf-menu-primary-link-hover-dark: var(--prismleaf-menu-primary-link-hover-dark-override, var(--prismleaf-menu-primary-link-hover-dark-default));
+	--prismleaf-menu-primary-link-active-dark: var(--prismleaf-menu-primary-link-active-dark-override, var(--prismleaf-menu-primary-link-active-dark-default));
+	--prismleaf-menu-primary-link-visited-dark: var(--prismleaf-menu-primary-link-visited-dark-override, var(--prismleaf-menu-primary-link-visited-dark-default));
+
+	--prismleaf-menu-primary-bg: var(--prismleaf-menu-primary-bg-light);
+	--prismleaf-menu-primary-bg-hover: var(--prismleaf-menu-primary-bg-hover-light);
+	--prismleaf-menu-primary-bg-active: var(--prismleaf-menu-primary-bg-active-light);
+	--prismleaf-menu-primary-link: var(--prismleaf-menu-primary-link-light);
+	--prismleaf-menu-primary-link-hover: var(--prismleaf-menu-primary-link-hover-light);
+	--prismleaf-menu-primary-link-active: var(--prismleaf-menu-primary-link-active-light);
+	--prismleaf-menu-primary-link-visited: var(--prismleaf-menu-primary-link-visited-light);
+}
+
+@media (prefers-color-scheme: dark) {
+
+	:root {
+		--prismleaf-menu-primary-bg: var(--prismleaf-menu-primary-bg-dark);
+		--prismleaf-menu-primary-bg-hover: var(--prismleaf-menu-primary-bg-hover-dark);
+		--prismleaf-menu-primary-bg-active: var(--prismleaf-menu-primary-bg-active-dark);
+		--prismleaf-menu-primary-link: var(--prismleaf-menu-primary-link-dark);
+		--prismleaf-menu-primary-link-hover: var(--prismleaf-menu-primary-link-hover-dark);
+		--prismleaf-menu-primary-link-active: var(--prismleaf-menu-primary-link-active-dark);
+		--prismleaf-menu-primary-link-visited: var(--prismleaf-menu-primary-link-visited-dark);
+	}
+}
+
+:root[data-prismleaf-color-scheme="light"] {
+	--prismleaf-menu-primary-bg: var(--prismleaf-menu-primary-bg-light);
+	--prismleaf-menu-primary-bg-hover: var(--prismleaf-menu-primary-bg-hover-light);
+	--prismleaf-menu-primary-bg-active: var(--prismleaf-menu-primary-bg-active-light);
+	--prismleaf-menu-primary-link: var(--prismleaf-menu-primary-link-light);
+	--prismleaf-menu-primary-link-hover: var(--prismleaf-menu-primary-link-hover-light);
+	--prismleaf-menu-primary-link-active: var(--prismleaf-menu-primary-link-active-light);
+	--prismleaf-menu-primary-link-visited: var(--prismleaf-menu-primary-link-visited-light);
+}
+
+:root[data-prismleaf-color-scheme="dark"] {
+	--prismleaf-menu-primary-bg: var(--prismleaf-menu-primary-bg-dark);
+	--prismleaf-menu-primary-bg-hover: var(--prismleaf-menu-primary-bg-hover-dark);
+	--prismleaf-menu-primary-bg-active: var(--prismleaf-menu-primary-bg-active-dark);
+	--prismleaf-menu-primary-link: var(--prismleaf-menu-primary-link-dark);
+	--prismleaf-menu-primary-link-hover: var(--prismleaf-menu-primary-link-hover-dark);
+	--prismleaf-menu-primary-link-active: var(--prismleaf-menu-primary-link-active-dark);
+	--prismleaf-menu-primary-link-visited: var(--prismleaf-menu-primary-link-visited-dark);
+}
+
+.prismleaf-primary-menu {
+	background: transparent;
+	color: var(--prismleaf-menu-primary-link);
+	--prismleaf-menu-divider-color: var(--prismleaf-region-header-background);
+}
+
+.prismleaf-primary-menu .prismleaf-menu-list {
+	padding: 0;
+	gap: 0;
+}
+
+.prismleaf-primary-menu.prismleaf-menu-stretch {
+	background: var(--prismleaf-menu-primary-bg);
+}
+
+.prismleaf-primary-menu.prismleaf-menu-buttons .prismleaf-menu-list {
+	gap: var(--prismleaf-space-1);
+	padding: 0;
+}
+
+.prismleaf-primary-menu .prismleaf-menu-list a {
+	color: var(--prismleaf-menu-primary-link);
+	background-color: var(--prismleaf-menu-primary-bg);
+	border-radius: 0;
+}
+
+.prismleaf-primary-menu.prismleaf-menu-buttons .prismleaf-menu-list a {
+	padding: var(--prismleaf-space-2);
+	border-radius: var(--prismleaf-radius-small);
+}
+
+.prismleaf-primary-menu .prismleaf-menu-list a:visited {
+	color: var(--prismleaf-menu-primary-link-visited);
+}
+
+.prismleaf-primary-menu .prismleaf-menu-list a:hover {
+	color: var(--prismleaf-menu-primary-link-hover);
+	background-color: var(--prismleaf-menu-primary-bg-hover);
+}
+
+.prismleaf-primary-menu .prismleaf-menu-list a:active {
+	color: var(--prismleaf-menu-primary-link-active);
+	background-color: var(--prismleaf-menu-primary-bg-active);
+}

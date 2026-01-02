@@ -1,11 +1,11 @@
 /*!
- * Prismleaf Layout
- *
- * Structural layout only: sizing, spacing, and scroll containers.
- * Consumes design tokens declared in assets/styles/tokens/*.css.
- *
- * @package prismleaf
- */
+	* Prismleaf Layout
+	*
+	* Structural layout only: sizing, spacing, and scroll containers.
+	* Consumes design tokens declared in assets/styles/tokens/*.css.
+	*
+	* @package prismleaf
+	*/
 
 /* Admin bar offset is consumed by framed mode. */
 .admin-bar {
@@ -13,6 +13,7 @@
 }
 
 @media (max-width: 782px) {
+
 	.admin-bar {
 		--prismleaf-admin-bar-offset: var(--wp-admin--admin-bar--height, 46px);
 	}
@@ -29,6 +30,38 @@
 	min-height: 0;
 }
 
+.prismleaf-region-header.prismleaf-header-has-background {
+	background-image: var(--prismleaf-header-background-image, none);
+	background-position: center center;
+	background-repeat: var(--prismleaf-header-background-repeat, no-repeat);
+	background-size: var(--prismleaf-header-background-size, auto);
+	--prismleaf-header-backplate-bg: color-mix(in srgb, var(--prismleaf-region-header-background) 85%, transparent);
+	--prismleaf-header-backplate-border: color-mix(in srgb, var(--prismleaf-region-header-foreground) 25%, transparent);
+	--prismleaf-header-backplate-shadow: var(--prismleaf-shadow);
+	--prismleaf-header-background-repeat: no-repeat;
+	--prismleaf-header-background-size: auto;
+}
+
+.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:tiled"] {
+	--prismleaf-header-background-repeat: repeat;
+	--prismleaf-header-background-size: auto;
+}
+
+.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:stretch"] {
+	--prismleaf-header-background-repeat: no-repeat;
+	--prismleaf-header-background-size: cover;
+}
+
+.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:fill"] {
+	--prismleaf-header-background-repeat: no-repeat;
+	--prismleaf-header-background-size: 100% 100%;
+}
+
+.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:auto"] {
+	--prismleaf-header-background-repeat: no-repeat;
+	--prismleaf-header-background-size: auto;
+}
+
 /* Region visibility toggles. */
 .prismleaf-header-hidden .prismleaf-region-header,
 .prismleaf-footer-hidden .prismleaf-region-footer,
@@ -38,7 +71,8 @@
 }
 
 /* Desktop layout (>= 770px). */
-@media (min-width: 770px) {
+@media (min-width: 769px) {
+
 	html.prismleaf-layout-framed,
 	body.prismleaf-layout-framed {
 		overflow: hidden;
@@ -58,6 +92,7 @@
 	}
 
 	@supports (height: 100dvh) {
+
 		.prismleaf-layout-framed .prismleaf-frame {
 			width: 100dvw;
 			height: calc(100dvh - var(--prismleaf-admin-bar-offset));
@@ -95,22 +130,6 @@
 		padding: var(--prismleaf-region-gap);
 	}
 
-	.prismleaf-layout-framed.prismleaf-header-hidden .prismleaf-frame {
-		grid-template-rows: 0 1fr var(--prismleaf-footer-height);
-	}
-
-	.prismleaf-layout-framed.prismleaf-footer-hidden .prismleaf-frame {
-		grid-template-rows: var(--prismleaf-header-height) 1fr 0;
-	}
-
-	.prismleaf-layout-framed.prismleaf-sidebar-left-hidden .prismleaf-frame {
-		grid-template-columns: 0 1fr var(--prismleaf-sidebar-right-width);
-	}
-
-	.prismleaf-layout-framed.prismleaf-sidebar-right-hidden .prismleaf-frame {
-		grid-template-columns: var(--prismleaf-sidebar-left-width) 1fr 0;
-	}
-
 	.prismleaf-layout-framed .prismleaf-region {
 		padding: var(--prismleaf-card-padding);
 	}
@@ -127,6 +146,7 @@
 		max-width: none;
 		margin: 0;
 		height: auto;
+		min-height: 100svh;
 		display: grid;
 		grid-template-rows: auto 1fr auto;
 		grid-template-columns: var(--prismleaf-sidebar-left-width) 1fr var(--prismleaf-sidebar-right-width);
@@ -139,11 +159,34 @@
 		padding-inline: var(--prismleaf-page-padding-x);
 	}
 
+	@supports (height: 100dvh) {
+
+		.prismleaf-layout-not-framed .prismleaf-frame {
+			min-height: 100dvh;
+		}
+	}
+
 	.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained .prismleaf-frame {
 		grid-template-columns: 0 1fr var(--prismleaf-sidebar-right-width);
 	}
 
 	.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained .prismleaf-frame {
+		grid-template-columns: var(--prismleaf-sidebar-left-width) 1fr 0;
+	}
+
+	.prismleaf-layout-framed.prismleaf-header-hidden .prismleaf-frame {
+		grid-template-rows: 0 1fr var(--prismleaf-footer-height);
+	}
+
+	.prismleaf-layout-framed.prismleaf-footer-hidden .prismleaf-frame {
+		grid-template-rows: var(--prismleaf-header-height) 1fr 0;
+	}
+
+	.prismleaf-layout-framed.prismleaf-sidebar-left-hidden .prismleaf-frame {
+		grid-template-columns: 0 1fr var(--prismleaf-sidebar-right-width);
+	}
+
+	.prismleaf-layout-framed.prismleaf-sidebar-right-hidden .prismleaf-frame {
 		grid-template-columns: var(--prismleaf-sidebar-left-width) 1fr 0;
 	}
 
@@ -191,6 +234,28 @@
 		padding: var(--prismleaf-card-padding);
 	}
 
+	/* Contained regions live "inside" the main content area spacing. */
+	.prismleaf-layout-not-framed.prismleaf-header-contained .prismleaf-region-header,
+	.prismleaf-layout-not-framed.prismleaf-footer-contained .prismleaf-region-footer,
+	.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained .prismleaf-region-sidebar-left,
+	.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained .prismleaf-region-sidebar-right,
+	.prismleaf-layout-not-framed .prismleaf-region-middle {
+		margin: 0;
+		padding: var(--prismleaf-card-padding);
+	}
+
+	/*
+		* Not-contained regions are positioned by the layout; spacing differences are
+		* driven via Customizer variable overrides (no structural changes here).
+		*/
+	.prismleaf-layout-not-framed.prismleaf-header-not-contained .prismleaf-region-header,
+	.prismleaf-layout-not-framed.prismleaf-footer-not-contained .prismleaf-region-footer,
+	.prismleaf-layout-not-framed.prismleaf-sidebar-left-not-contained .prismleaf-region-sidebar-left,
+	.prismleaf-layout-not-framed.prismleaf-sidebar-right-not-contained .prismleaf-region-sidebar-right {
+		margin: 0;
+		padding: var(--prismleaf-card-padding);
+	}
+
 	.prismleaf-layout-not-framed .prismleaf-region-content > .prismleaf-region-header {
 		grid-area: header;
 	}
@@ -235,31 +300,48 @@
 			"footer footer footer";
 	}
 
-	/* Contained regions live "inside" the main content area spacing. */
-	.prismleaf-layout-not-framed.prismleaf-header-contained .prismleaf-region-header,
-	.prismleaf-layout-not-framed.prismleaf-footer-contained .prismleaf-region-footer,
-	.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained .prismleaf-region-sidebar-left,
-	.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained .prismleaf-region-sidebar-right,
-	.prismleaf-layout-not-framed .prismleaf-region-middle {
-		margin: 0;
-		padding: var(--prismleaf-card-padding);
+
+	/* Non-floating regions hug the viewport edge on desktop layouts. */
+	.prismleaf-layout-not-framed.prismleaf-header-not-contained.prismleaf-header-not-floating .prismleaf-region-header {
+		margin-top: calc(-1 * var(--prismleaf-page-padding-y));
+		margin-inline: calc(50% - 50svw);
+		width: 100svw;
+		padding: 0;
 	}
 
-	/*
-	 * Not-contained regions are positioned by the layout; spacing differences are
-	 * driven via Customizer variable overrides (no structural changes here).
-	 */
-	.prismleaf-layout-not-framed.prismleaf-header-not-contained .prismleaf-region-header,
-	.prismleaf-layout-not-framed.prismleaf-footer-not-contained .prismleaf-region-footer,
-	.prismleaf-layout-not-framed.prismleaf-sidebar-left-not-contained .prismleaf-region-sidebar-left,
-	.prismleaf-layout-not-framed.prismleaf-sidebar-right-not-contained .prismleaf-region-sidebar-right {
-		margin: 0;
-		padding: var(--prismleaf-card-padding);
+	.prismleaf-layout-not-framed.prismleaf-footer-not-contained.prismleaf-footer-not-floating .prismleaf-region-footer {
+		margin-bottom: calc(-1 * var(--prismleaf-page-padding-y));
+		margin-inline: calc(50% - 50svw);
+		width: 100svw;
+		padding: 0;
 	}
+
+	.prismleaf-layout-not-framed.prismleaf-sidebar-left-not-contained.prismleaf-sidebar-left-not-floating .prismleaf-region-sidebar-left {
+		margin-left: calc(-1 * var(--prismleaf-page-padding-x));
+	}
+
+	.prismleaf-layout-not-framed.prismleaf-sidebar-right-not-contained.prismleaf-sidebar-right-not-floating .prismleaf-region-sidebar-right {
+		margin-right: calc(-1 * var(--prismleaf-page-padding-x));
+	}
+
+	@supports (width: 100dvw) {
+
+		.prismleaf-layout-not-framed.prismleaf-header-not-contained.prismleaf-header-not-floating .prismleaf-region-header {
+			margin-inline: calc(50% - 50dvw);
+			width: 100dvw;
+		}
+
+		.prismleaf-layout-not-framed.prismleaf-footer-not-contained.prismleaf-footer-not-floating .prismleaf-region-footer {
+			margin-inline: calc(50% - 50dvw);
+			width: 100dvw;
+		}
+	}
+
 }
 
 /* Mobile / stacked layout (<= 769px). */
-@media (max-width: 769px) {
+@media (max-width: 768px) {
+
 	.prismleaf-frame {
 		position: static;
 		width: auto;

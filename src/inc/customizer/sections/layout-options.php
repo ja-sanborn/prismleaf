@@ -19,15 +19,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Register layout-related Customizer settings and controls.
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Manager $wp_customize Customizer manager instance.
- * @return void
- */
 if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
+	/**
+	 * Register layout-related Customizer settings and controls.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @return void
+	 */
 	function prismleaf_customize_register_global_layout( $wp_customize ) {
 		$wp_customize->add_section(
 			'prismleaf_layout',
@@ -130,14 +130,36 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 		$wp_customize->add_control(
 			'prismleaf_layout_header_contained',
 			array(
-				'type'        => 'checkbox',
-				'section'     => 'prismleaf_layout',
-				'label'       => __( 'Contain header', 'prismleaf' ),
-				'description' => __(
+				'type'            => 'checkbox',
+				'section'         => 'prismleaf_layout',
+				'label'           => __( 'Contain header', 'prismleaf' ),
+				'description'     => __(
 					'When enabled (non-framed desktop), the header is rendered inside the main content area. This option is disabled when using the framed layout.',
 					'prismleaf'
 				),
 				'active_callback' => 'prismleaf_customize_callback_header_contained_active',
+			)
+		);
+
+		$wp_customize->add_setting(
+			'prismleaf_layout_header_floating',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => true,
+				'sanitize_callback' => 'wp_validate_boolean',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'prismleaf_layout_header_floating',
+			array(
+				'type'            => 'checkbox',
+				'section'         => 'prismleaf_layout',
+				'label'           => __( 'Floating header', 'prismleaf' ),
+				'description'     => __( 'When disabled, the header stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_header_floating_active',
 			)
 		);
 
@@ -155,11 +177,11 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 		$wp_customize->add_control(
 			'prismleaf_layout_header_height',
 			array(
-				'type'        => 'number',
-				'section'     => 'prismleaf_layout',
-				'label'       => __( 'Header height', 'prismleaf' ),
-				'description' => __( 'Optional. Leave blank to use the theme default. Values 0–15 are treated as auto height; 16–240 are fixed heights.', 'prismleaf' ),
-				'input_attrs' => array(
+				'type'            => 'number',
+				'section'         => 'prismleaf_layout',
+				'label'           => __( 'Header height', 'prismleaf' ),
+				'description'     => __( 'Optional. Leave blank to use the theme default. Values 0–15 are treated as auto height; 16–240 are fixed heights.', 'prismleaf' ),
+				'input_attrs'     => array(
 					'min'  => 0,
 					'max'  => 240,
 					'step' => 1,
@@ -226,14 +248,36 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 		$wp_customize->add_control(
 			'prismleaf_layout_footer_contained',
 			array(
-				'type'        => 'checkbox',
-				'section'     => 'prismleaf_layout',
-				'label'       => __( 'Contain footer', 'prismleaf' ),
-				'description' => __(
+				'type'            => 'checkbox',
+				'section'         => 'prismleaf_layout',
+				'label'           => __( 'Contain footer', 'prismleaf' ),
+				'description'     => __(
 					'When enabled (non-framed desktop), the footer is rendered inside the main content area. This option is disabled when using the framed layout.',
 					'prismleaf'
 				),
 				'active_callback' => 'prismleaf_customize_callback_footer_contained_active',
+			)
+		);
+
+		$wp_customize->add_setting(
+			'prismleaf_layout_footer_floating',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => true,
+				'sanitize_callback' => 'wp_validate_boolean',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'prismleaf_layout_footer_floating',
+			array(
+				'type'            => 'checkbox',
+				'section'         => 'prismleaf_layout',
+				'label'           => __( 'Floating footer', 'prismleaf' ),
+				'description'     => __( 'When disabled, the footer stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_footer_floating_active',
 			)
 		);
 
@@ -251,11 +295,11 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 		$wp_customize->add_control(
 			'prismleaf_layout_footer_height',
 			array(
-				'type'        => 'number',
-				'section'     => 'prismleaf_layout',
-				'label'       => __( 'Footer height', 'prismleaf' ),
-				'description' => __( 'Optional. Leave blank to use the theme default. Values 0–15 are treated as auto height; 16–240 are fixed heights.', 'prismleaf' ),
-				'input_attrs' => array(
+				'type'            => 'number',
+				'section'         => 'prismleaf_layout',
+				'label'           => __( 'Footer height', 'prismleaf' ),
+				'description'     => __( 'Optional. Leave blank to use the theme default. Values 0–15 are treated as auto height; 16–240 are fixed heights.', 'prismleaf' ),
+				'input_attrs'     => array(
 					'min'  => 0,
 					'max'  => 240,
 					'step' => 1,
@@ -276,6 +320,7 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 		);
 
 		foreach ( $sidebars as $side => $label ) {
+			$priority_base   = ( 'left' === $side ) ? 40 : 60;
 			$visible_setting = "prismleaf_layout_sidebar_{$side}_visible";
 			$width_setting   = "prismleaf_layout_sidebar_{$side}_width";
 			$coll_setting    = "prismleaf_layout_sidebar_{$side}_collapsible";
@@ -297,8 +342,9 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 					$wp_customize,
 					"prismleaf_layout_heading_sidebar_{$side}",
 					array(
-						'section' => 'prismleaf_layout',
-						'label'   => isset( $sidebar_headers[ $side ] ) ? $sidebar_headers[ $side ] : $label,
+						'section'  => 'prismleaf_layout',
+						'label'    => isset( $sidebar_headers[ $side ] ) ? $sidebar_headers[ $side ] : $label,
+						'priority' => $priority_base,
 					)
 				)
 			);
@@ -317,13 +363,13 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 			$wp_customize->add_control(
 				$visible_setting,
 				array(
-					'type'        => 'checkbox',
-					'section'     => 'prismleaf_layout',
+					'type'            => 'checkbox',
+					'section'         => 'prismleaf_layout',
 					/* translators: %s is sidebar name. */
-					'label'       => sprintf( __( 'Show %s', 'prismleaf' ), $label ),
-					'description' => __( 'Controls whether this sidebar is displayed.', 'prismleaf' ),
+					'label'           => sprintf( __( 'Show %s', 'prismleaf' ), $label ),
+					'description'     => __( 'Controls whether this sidebar is displayed.', 'prismleaf' ),
 					'active_callback' => 'prismleaf_customize_callback_not_all_hidden',
-					'priority'        => 28,
+					'priority'        => $priority_base + 1,
 				)
 			);
 
@@ -341,16 +387,42 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 			$wp_customize->add_control(
 				$cont_setting,
 				array(
-					'type'        => 'checkbox',
-					'section'     => 'prismleaf_layout',
+					'type'            => 'checkbox',
+					'section'         => 'prismleaf_layout',
 					/* translators: %s is sidebar name. */
-					'label'       => sprintf( __( 'Contain %s', 'prismleaf' ), $label ),
-					'description' => __(
+					'label'           => sprintf( __( 'Contain %s', 'prismleaf' ), $label ),
+					'description'     => __(
 						'When enabled, the sidebar is visually separated from the site edges. This option is disabled when using the framed layout.',
 						'prismleaf'
 					),
 					'active_callback' => 'prismleaf_customize_callback_sidebar_contained_active',
-					'priority'        => 30,
+					'priority'        => $priority_base + 2,
+				)
+			);
+
+			$floating_setting = "prismleaf_layout_sidebar_{$side}_floating";
+
+			$wp_customize->add_setting(
+				$floating_setting,
+				array(
+					'type'              => 'theme_mod',
+					'capability'        => 'edit_theme_options',
+					'default'           => true,
+					'sanitize_callback' => 'wp_validate_boolean',
+					'transport'         => 'refresh',
+				)
+			);
+
+			$wp_customize->add_control(
+				$floating_setting,
+				array(
+					'type'            => 'checkbox',
+					'section'         => 'prismleaf_layout',
+					/* translators: %s is sidebar name. */
+					'label'           => sprintf( __( 'Floating %s', 'prismleaf' ), $label ),
+					'description'     => __( 'When disabled, the sidebar stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
+					'active_callback' => 'prismleaf_customize_callback_sidebar_floating_active',
+					'priority'        => $priority_base + 3,
 				)
 			);
 
@@ -368,18 +440,18 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 			$wp_customize->add_control(
 				$width_setting,
 				array(
-					'type'        => 'number',
-					'section'     => 'prismleaf_layout',
+					'type'            => 'number',
+					'section'         => 'prismleaf_layout',
 					/* translators: %s is sidebar name. */
-					'label'       => sprintf( __( '%s width (desktop)', 'prismleaf' ), $label ),
-					'description' => __( 'Width in pixels on desktop layouts.', 'prismleaf' ),
-					'input_attrs' => array(
+					'label'           => sprintf( __( '%s width (desktop)', 'prismleaf' ), $label ),
+					'description'     => __( 'Width in pixels on desktop layouts.', 'prismleaf' ),
+					'input_attrs'     => array(
 						'min'  => 200,
 						'max'  => 400,
 						'step' => 10,
 					),
 					'active_callback' => 'prismleaf_customize_callback_sidebar_visible',
-					'priority'        => 31,
+					'priority'        => $priority_base + 4,
 				)
 			);
 
@@ -397,13 +469,13 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 			$wp_customize->add_control(
 				$coll_setting,
 				array(
-					'type'        => 'checkbox',
-					'section'     => 'prismleaf_layout',
+					'type'            => 'checkbox',
+					'section'         => 'prismleaf_layout',
 					/* translators: %s is sidebar name. */
-					'label'       => sprintf( __( '%s collapsible on desktop', 'prismleaf' ), $label ),
-					'description' => __( 'When enabled, the sidebar can collapse. Collapsing does not apply to the stacked mobile layout.', 'prismleaf' ),
+					'label'           => sprintf( __( '%s collapsible on desktop', 'prismleaf' ), $label ),
+					'description'     => __( 'When enabled, the sidebar can collapse. Collapsing does not apply to the stacked mobile layout.', 'prismleaf' ),
 					'active_callback' => 'prismleaf_customize_callback_sidebar_visible',
-					'priority'        => 32,
+					'priority'        => $priority_base + 5,
 				)
 			);
 		}
@@ -411,28 +483,44 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 }
 add_action( 'customize_register', 'prismleaf_customize_register_global_layout' );
 
-/**
- * Add layout-related body classes based on Customizer settings.
- *
- * @since 1.0.0
- *
- * @param string[] $classes Existing body classes.
- * @return string[] Modified body classes.
- */
 if ( ! function_exists( 'prismleaf_layout_body_classes' ) ) {
+	/**
+	 * Add layout-related body classes based on Customizer settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string[] $classes Existing body classes.
+	 * @return string[] Modified body classes.
+	 */
 	function prismleaf_layout_body_classes( $classes ) {
 		$is_mobile = wp_is_mobile();
 
-		$framed = (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_layout_framed', false ) );
+		$framed = prismleaf_get_theme_mod_bool( 'prismleaf_layout_framed', false );
 		if ( $is_mobile ) {
 			$framed = false;
 		}
 
-		$header_visible = (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_layout_header_visible', true ) );
-		$footer_visible = (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_layout_footer_visible', true ) );
+		$header_visible = prismleaf_get_theme_mod_bool( 'prismleaf_layout_header_visible', true );
+		$footer_visible = prismleaf_get_theme_mod_bool( 'prismleaf_layout_footer_visible', true );
 
-		$sidebar_left_visible  = (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_layout_sidebar_left_visible', true ) );
-		$sidebar_right_visible = (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_layout_sidebar_right_visible', true ) );
+		$sidebar_left_visible  = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_left_visible', true );
+		$sidebar_right_visible = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_right_visible', true );
+
+		if ( ! $header_visible ) {
+			$classes[] = 'prismleaf-header-hidden';
+		}
+
+		if ( ! $footer_visible ) {
+			$classes[] = 'prismleaf-footer-hidden';
+		}
+
+		if ( ! $sidebar_left_visible ) {
+			$classes[] = 'prismleaf-sidebar-left-hidden';
+		}
+
+		if ( ! $sidebar_right_visible ) {
+			$classes[] = 'prismleaf-sidebar-right-hidden';
+		}
 
 		$all_hidden = prismleaf_layout_all_regions_hidden();
 		if ( $all_hidden ) {
@@ -442,23 +530,43 @@ if ( ! function_exists( 'prismleaf_layout_body_classes' ) ) {
 		$classes[] = $framed ? 'prismleaf-layout-framed' : 'prismleaf-layout-not-framed';
 
 		if ( $header_visible ) {
-			$contained = $is_mobile ? false : (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_layout_header_contained', true ) );
+			$contained = $is_mobile ? false : prismleaf_get_theme_mod_bool( 'prismleaf_layout_header_contained', true );
 			$classes[] = $contained ? 'prismleaf-header-contained' : 'prismleaf-header-not-contained';
+
+			if ( ! $contained ) {
+				$floating  = prismleaf_get_theme_mod_bool( 'prismleaf_layout_header_floating', true );
+				$classes[] = $floating ? 'prismleaf-header-floating' : 'prismleaf-header-not-floating';
+			}
 		}
 
 		if ( $footer_visible ) {
-			$contained = $is_mobile ? false : (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_layout_footer_contained', true ) );
+			$contained = $is_mobile ? false : prismleaf_get_theme_mod_bool( 'prismleaf_layout_footer_contained', true );
 			$classes[] = $contained ? 'prismleaf-footer-contained' : 'prismleaf-footer-not-contained';
+
+			if ( ! $contained ) {
+				$floating  = prismleaf_get_theme_mod_bool( 'prismleaf_layout_footer_floating', true );
+				$classes[] = $floating ? 'prismleaf-footer-floating' : 'prismleaf-footer-not-floating';
+			}
 		}
 
 		if ( $sidebar_left_visible ) {
-			$contained = $is_mobile ? false : (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_layout_sidebar_left_contained', true ) );
+			$contained = $is_mobile ? false : prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_left_contained', true );
 			$classes[] = $contained ? 'prismleaf-sidebar-left-contained' : 'prismleaf-sidebar-left-not-contained';
+
+			if ( ! $contained ) {
+				$floating  = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_left_floating', true );
+				$classes[] = $floating ? 'prismleaf-sidebar-left-floating' : 'prismleaf-sidebar-left-not-floating';
+			}
 		}
 
 		if ( $sidebar_right_visible ) {
-			$contained = $is_mobile ? false : (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_layout_sidebar_right_contained', true ) );
+			$contained = $is_mobile ? false : prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_right_contained', true );
 			$classes[] = $contained ? 'prismleaf-sidebar-right-contained' : 'prismleaf-sidebar-right-not-contained';
+
+			if ( ! $contained ) {
+				$floating  = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_right_floating', true );
+				$classes[] = $floating ? 'prismleaf-sidebar-right-floating' : 'prismleaf-sidebar-right-not-floating';
+			}
 		}
 
 		return $classes;

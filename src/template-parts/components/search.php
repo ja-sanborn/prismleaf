@@ -11,12 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$placeholder = (string) get_theme_mod( 'prismleaf_search_placeholder', __( 'Search', 'prismleaf' ) );
-$flyout      = get_theme_mod( 'prismleaf_search_flyout', true );
+$placeholder   = prismleaf_get_theme_mod_string( 'prismleaf_search_placeholder', __( 'Search', 'prismleaf' ) );
+$flyout        = prismleaf_get_theme_mod_bool( 'prismleaf_search_flyout', true );
+$header_has_bg = prismleaf_header_has_background_image();
 
 $options = array(
-	'placeholder' => $placeholder,
-	'flyout'      => $flyout,
+	'placeholder'   => $placeholder,
+	'flyout'        => $flyout,
+	'header_has_bg' => $header_has_bg,
 );
 
 $options = prismleaf_prepare_search_options(

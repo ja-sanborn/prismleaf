@@ -20,8 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function prismleaf_get_search_base_defaults() {
 	return array(
-		'placeholder' => __( 'Search', 'prismleaf' ),
-		'flyout'      => false,
+		'placeholder'   => __( 'Search', 'prismleaf' ),
+		'flyout'        => false,
+		'header_has_bg' => false,
 	);
 }
 
@@ -41,14 +42,18 @@ function prismleaf_prepare_search_options( $options, $context_defaults = array()
 
 	$defaults = array_merge( $base_defaults, $context_defaults );
 
-	$placeholder = isset( $options['placeholder'] ) ? sanitize_text_field( wp_unslash( $options['placeholder'] ) ) : $defaults['placeholder'];
+	$placeholder = isset( $options['placeholder'] ) ? (string) $options['placeholder'] : $defaults['placeholder'];
 	$placeholder = '' === $placeholder ? $defaults['placeholder'] : $placeholder;
 
-	$flyout = isset( $options['flyout'] ) ? (bool) wp_validate_boolean( $options['flyout'] ) : (bool) $defaults['flyout'];
+	$flyout        = isset( $options['flyout'] ) ? (bool) wp_validate_boolean( $options['flyout'] ) : (bool) $defaults['flyout'];
+	$header_has_bg = isset( $options['header_has_bg'] )
+		? (bool) wp_validate_boolean( $options['header_has_bg'] )
+		: (bool) $defaults['header_has_bg'];
 
 	return array(
-		'placeholder' => $placeholder,
-		'flyout'      => $flyout,
+		'placeholder'   => $placeholder,
+		'flyout'        => $flyout,
+		'header_has_bg' => $header_has_bg,
 	);
 }
 
@@ -64,30 +69,33 @@ function prismleaf_render_search_component( $options = array() ) {
 	$options = prismleaf_prepare_search_options( $options );
 
 	static $instance = 0;
-	$instance++;
+	++$instance;
 
-	$input_id  = 'prismleaf-search-input-' . $instance;
-	$is_flyout = $options['flyout'];
+	$input_id      = 'prismleaf-search-input-' . $instance;
+	$is_flyout     = $options['flyout'];
+	$header_has_bg = (bool) $options['header_has_bg'];
 
 	$form_classes = array(
 		'prismleaf-search',
-		$is_flyout ? 'prismleaf-search--flyout' : 'prismleaf-search--inline',
+		$is_flyout ? 'prismleaf-search-flyout' : 'prismleaf-search-inline',
+		$header_has_bg ? 'prismleaf-search-header-background' : '',
 	);
 
 	$form_classes = array_values(
 		array_filter(
 			$form_classes,
-			static function( $value ) {
+			static function ( $value ) {
 				return '' !== (string) $value;
 			}
 		)
 	);
+
 	?>
 	<form class="<?php echo esc_attr( implode( ' ', $form_classes ) ); ?>" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" data-flyout="<?php echo esc_attr( $is_flyout ? '1' : '0' ); ?>">
 		<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>">
 			<?php esc_html_e( 'Search', 'prismleaf' ); ?>
 		</label>
-		<div class="prismleaf-search__controls">
+		<div class="prismleaf-search-controls">
 			<input
 				type="search"
 				id="<?php echo esc_attr( $input_id ); ?>"

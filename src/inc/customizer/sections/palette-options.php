@@ -17,15 +17,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Activate dark brand controls only when their light counterparts are set.
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Control $control Control instance.
- * @return bool
- */
 if ( ! function_exists( 'prismleaf_customize_callback_brand_dark_role_enabled' ) ) {
+	/**
+	 * Activate dark brand controls only when their light counterparts are set.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Control $control Control instance.
+	 * @return bool
+	 */
 	function prismleaf_customize_callback_brand_dark_role_enabled( $control ) {
 		if ( ! ( $control instanceof WP_Customize_Control ) ) {
 			return false;
@@ -34,7 +34,7 @@ if ( ! function_exists( 'prismleaf_customize_callback_brand_dark_role_enabled' )
 		// Dark controls are disabled when the site is forced to light mode.
 		$force_light = function_exists( 'prismleaf_customize_get_bool' )
 			? prismleaf_customize_get_bool( $control->manager, 'prismleaf_brand_force_light', false )
-			: (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_brand_force_light', false ) );
+			: prismleaf_get_theme_mod_bool( 'prismleaf_brand_force_light', false );
 
 		if ( $force_light ) {
 			return false;
@@ -63,25 +63,25 @@ if ( ! function_exists( 'prismleaf_customize_callback_brand_dark_role_enabled' )
 			$light_value = get_theme_mod( $light_setting, null );
 		}
 
-		$light_sanitized = prismleaf_sanitize_optional_hex_color( $light_value );
+		$light_value = is_string( $light_value ) ? trim( $light_value ) : '';
 
-		return null !== $light_sanitized;
+		return '' !== $light_value;
 	}
 }
 
-/**
- * Register branding-related Customizer settings and controls.
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Manager $wp_customize Customizer manager instance.
- * @return void
- */
 if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
+	/**
+	 * Register branding-related Customizer settings and controls.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @return void
+	 */
 	function prismleaf_customize_register_global_branding( $wp_customize ) {
-	if ( ! $wp_customize->get_panel( 'prismleaf_theme_options' ) ) {
-		return;
-	}
+		if ( ! $wp_customize->get_panel( 'prismleaf_theme_options' ) ) {
+			return;
+		}
 
 		$wp_customize->add_section(
 			'prismleaf_branding',
@@ -170,8 +170,8 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 					/* translators: 1: Color role label. 2: Palette scheme label. */
 					'label'       => sprintf( __( '%1$s (%2$s)', 'prismleaf' ), $role_label, $scheme_label ),
 					'description' => ( 'dark' === $scheme )
-						? __( 'Optional. Only available after the matching light color is set.', 'prismleaf' )
-						: __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+												? __( 'Optional. Only available after the matching light color is set.', 'prismleaf' )
+												: __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
 				);
 
 				// Dark overrides cannot be set unless Light is already overridden.
@@ -193,21 +193,21 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 add_action( 'customize_register', 'prismleaf_customize_register_global_branding' );
 add_action( 'customize_save_after', 'prismleaf_customize_save_brand_palettes' );
 
-/**
- * Enforce brand save rules (no dark override without light).
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Manager $manager Customizer manager instance.
- * @return void
- */
 if ( ! function_exists( 'prismleaf_customize_save_brand_palettes' ) ) {
+	/**
+	 * Enforce brand save rules (no dark override without light).
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $manager Customizer manager instance.
+	 * @return void
+	 */
 	function prismleaf_customize_save_brand_palettes( $manager ) {
 		if ( ! ( $manager instanceof WP_Customize_Manager ) ) {
 			return;
 		}
 
-		$force_light = (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_brand_force_light', false ) );
+		$force_light = prismleaf_get_theme_mod_bool( 'prismleaf_brand_force_light', false );
 
 		$roles = array( 'primary', 'secondary', 'tertiary', 'error', 'warning', 'info' );
 
@@ -230,6 +230,3 @@ if ( ! function_exists( 'prismleaf_customize_save_brand_palettes' ) ) {
 		}
 	}
 }
-
-
-

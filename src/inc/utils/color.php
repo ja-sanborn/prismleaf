@@ -11,15 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Convert a hex color to RGB.
- *
- * @since 1.0.0
- *
- * @param string $hex Hex color.
- * @return array<int,int>|null Array of [r, g, b] or null on failure.
- */
 if ( ! function_exists( 'prismleaf_hex_to_rgb' ) ) {
+	/**
+	 * Convert a hex color to RGB.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $hex Hex color.
+	 * @return array<int,int>|null Array of [r, g, b] or null on failure.
+	 */
 	function prismleaf_hex_to_rgb( $hex ) {
 		$hex = ltrim( strtolower( trim( (string) $hex ) ), '#' );
 
@@ -39,15 +39,15 @@ if ( ! function_exists( 'prismleaf_hex_to_rgb' ) ) {
 	}
 }
 
-/**
- * Convert RGB to a hex color.
- *
- * @since 1.0.0
- *
- * @param array<int,int> $rgb Array of [r, g, b].
- * @return string|null Hex color string or null on failure.
- */
 if ( ! function_exists( 'prismleaf_rgb_to_hex' ) ) {
+	/**
+	 * Convert RGB to a hex color.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array<int,int> $rgb Array of [r, g, b].
+	 * @return string|null Hex color string or null on failure.
+	 */
 	function prismleaf_rgb_to_hex( $rgb ) {
 		if ( ! is_array( $rgb ) || 3 !== count( $rgb ) ) {
 			return null;
@@ -61,15 +61,15 @@ if ( ! function_exists( 'prismleaf_rgb_to_hex' ) ) {
 	}
 }
 
-/**
- * Convert RGB to HSL.
- *
- * @since 1.0.0
- *
- * @param array<int,int> $rgb Array of [r, g, b].
- * @return array<int,float>|null Array of [h, s, l] (0..1) or null on failure.
- */
 if ( ! function_exists( 'prismleaf_rgb_to_hsl' ) ) {
+	/**
+	 * Convert RGB to HSL.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array<int,int> $rgb Array of [r, g, b].
+	 * @return array<int,float>|null Array of [h, s, l] (0..1) or null on failure.
+	 */
 	function prismleaf_rgb_to_hsl( $rgb ) {
 		if ( ! is_array( $rgb ) || 3 !== count( $rgb ) ) {
 			return null;
@@ -105,15 +105,15 @@ if ( ! function_exists( 'prismleaf_rgb_to_hsl' ) ) {
 	}
 }
 
-/**
- * Convert HSL to RGB.
- *
- * @since 1.0.0
- *
- * @param array<int,float> $hsl Array of [h, s, l] (0..1).
- * @return array<int,int>|null Array of [r, g, b] or null on failure.
- */
 if ( ! function_exists( 'prismleaf_hsl_to_rgb' ) ) {
+	/**
+	 * Convert HSL to RGB.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array<int,float> $hsl Array of [h, s, l] (0..1).
+	 * @return array<int,int>|null Array of [r, g, b] or null on failure.
+	 */
 	function prismleaf_hsl_to_rgb( $hsl ) {
 		if ( ! is_array( $hsl ) || 3 !== count( $hsl ) ) {
 			return null;
@@ -135,12 +135,12 @@ if ( ! function_exists( 'prismleaf_hsl_to_rgb' ) ) {
 		$q = ( $l < 0.5 ) ? ( $l * ( 1 + $s ) ) : ( $l + $s - ( $l * $s ) );
 		$p = 2 * $l - $q;
 
-		$hue_to_rgb = static function( $p, $q, $t ) {
+		$hue_to_rgb = static function ( $p, $q, $t ) {
 			if ( $t < 0 ) {
-				$t += 1;
+				++$t;
 			}
 			if ( $t > 1 ) {
-				$t -= 1;
+				--$t;
 			}
 			if ( $t < 1 / 6 ) {
 				return $p + ( $q - $p ) * 6 * $t;
@@ -166,15 +166,15 @@ if ( ! function_exists( 'prismleaf_hsl_to_rgb' ) ) {
 	}
 }
 
-/**
- * Calculate relative luminance for a hex color.
- *
- * @since 1.0.0
- *
- * @param string $hex Hex color.
- * @return float|null Luminance or null on failure.
- */
 if ( ! function_exists( 'prismleaf_relative_luminance' ) ) {
+	/**
+	 * Calculate relative luminance for a hex color.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $hex Hex color.
+	 * @return float|null Luminance or null on failure.
+	 */
 	function prismleaf_relative_luminance( $hex ) {
 		$rgb = prismleaf_hex_to_rgb( $hex );
 
@@ -183,7 +183,7 @@ if ( ! function_exists( 'prismleaf_relative_luminance' ) ) {
 		}
 
 		$srgb = array_map(
-			static function( $v ) {
+			static function ( $v ) {
 				$v = $v / 255;
 				return ( $v <= 0.03928 ) ? ( $v / 12.92 ) : pow( ( ( $v + 0.055 ) / 1.055 ), 2.4 );
 			},
@@ -194,16 +194,16 @@ if ( ! function_exists( 'prismleaf_relative_luminance' ) ) {
 	}
 }
 
-/**
- * Calculate contrast ratio between two hex colors.
- *
- * @since 1.0.0
- *
- * @param string $hex1 First hex color.
- * @param string $hex2 Second hex color.
- * @return float|null Contrast ratio or null on failure.
- */
 if ( ! function_exists( 'prismleaf_contrast_ratio' ) ) {
+	/**
+	 * Calculate contrast ratio between two hex colors.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $hex1 First hex color.
+	 * @param string $hex2 Second hex color.
+	 * @return float|null Contrast ratio or null on failure.
+	 */
 	function prismleaf_contrast_ratio( $hex1, $hex2 ) {
 		$l1 = prismleaf_relative_luminance( $hex1 );
 		$l2 = prismleaf_relative_luminance( $hex2 );
@@ -219,15 +219,15 @@ if ( ! function_exists( 'prismleaf_contrast_ratio' ) ) {
 	}
 }
 
-/**
- * Pick an accessible on-color (black or white) for a background.
- *
- * @since 1.0.0
- *
- * @param string $background_hex Background hex color.
- * @return string Hex color for foreground.
- */
 if ( ! function_exists( 'prismleaf_pick_on_color' ) ) {
+	/**
+	 * Pick an accessible on-color (black or white) for a background.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $background_hex Background hex color.
+	 * @return string Hex color for foreground.
+	 */
 	function prismleaf_pick_on_color( $background_hex ) {
 		$white = '#ffffff';
 		$black = '#000000';
@@ -243,16 +243,16 @@ if ( ! function_exists( 'prismleaf_pick_on_color' ) ) {
 	}
 }
 
-/**
- * Adjust a hex color lightness in HSL space.
- *
- * @since 1.0.0
- *
- * @param string $hex   Hex color.
- * @param float  $delta Lightness delta (-1..1).
- * @return string|null Adjusted hex color or null on failure.
- */
 if ( ! function_exists( 'prismleaf_adjust_lightness' ) ) {
+	/**
+	 * Adjust a hex color lightness in HSL space.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $hex   Hex color.
+	 * @param float  $delta Lightness delta (-1..1).
+	 * @return string|null Adjusted hex color or null on failure.
+	 */
 	function prismleaf_adjust_lightness( $hex, $delta ) {
 		$rgb = prismleaf_hex_to_rgb( $hex );
 
@@ -274,16 +274,16 @@ if ( ! function_exists( 'prismleaf_adjust_lightness' ) ) {
 	}
 }
 
-/**
- * Generate a palette from a base color.
- *
- * @since 1.0.0
- *
- * @param string $base_hex Base hex color.
- * @param string $scheme   Scheme: 'light' or 'dark'.
- * @return array<string,string> Palette values.
- */
 if ( ! function_exists( 'prismleaf_generate_palette_from_base' ) ) {
+	/**
+	 * Generate a palette from a base color.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $base_hex Base hex color.
+	 * @param string $scheme   Scheme: 'light' or 'dark'.
+	 * @return array<string,string> Palette values.
+	 */
 	function prismleaf_generate_palette_from_base( $base_hex, $scheme ) {
 		$base_hex = sanitize_hex_color( $base_hex );
 
@@ -308,13 +308,12 @@ if ( ! function_exists( 'prismleaf_generate_palette_from_base' ) ) {
 		$container_hex = prismleaf_adjust_lightness( $base_hex, $container_delta );
 
 		$palette = array(
-			'base'          => $base_hex,
-			'on_base'       => prismleaf_pick_on_color( $base_hex ),
-			'base_darker'   => prismleaf_adjust_lightness( $base_hex, $base_darker_delta ),
-			'base_darkest'  => prismleaf_adjust_lightness( $base_hex, $base_darkest_delta ),
-			'base_lighter'  => prismleaf_adjust_lightness( $base_hex, $base_lighter_delta ),
-			'base_lightest' => prismleaf_adjust_lightness( $base_hex, $base_lightest_delta ),
-
+			'base'               => $base_hex,
+			'on_base'            => prismleaf_pick_on_color( $base_hex ),
+			'base_darker'        => prismleaf_adjust_lightness( $base_hex, $base_darker_delta ),
+			'base_darkest'       => prismleaf_adjust_lightness( $base_hex, $base_darkest_delta ),
+			'base_lighter'       => prismleaf_adjust_lightness( $base_hex, $base_lighter_delta ),
+			'base_lightest'      => prismleaf_adjust_lightness( $base_hex, $base_lightest_delta ),
 			'container'          => $container_hex,
 			'on_container'       => $container_hex ? prismleaf_pick_on_color( $container_hex ) : null,
 			'container_darker'   => $container_hex ? prismleaf_adjust_lightness( $container_hex, $container_darker_delta ) : null,
@@ -331,15 +330,15 @@ if ( ! function_exists( 'prismleaf_generate_palette_from_base' ) ) {
 	}
 }
 
-/**
- * Derive a dark base color from a light base color.
- *
- * @since 1.0.0
- *
- * @param string $light_hex Light base hex color.
- * @return string Derived dark base hex color, or empty string on failure.
- */
 if ( ! function_exists( 'prismleaf_derive_dark_base_from_light' ) ) {
+	/**
+	 * Derive a dark base color from a light base color.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $light_hex Light base hex color.
+	 * @return string Derived dark base hex color, or empty string on failure.
+	 */
 	function prismleaf_derive_dark_base_from_light( $light_hex ) {
 		$light_hex = sanitize_hex_color( $light_hex );
 

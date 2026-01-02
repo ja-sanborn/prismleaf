@@ -1,12 +1,13 @@
 /*!
- * Prismleaf Tokens: Active
- *
- * Active palette mappings and semantic tokens.
- *
- * @package prismleaf
- */
+	* Prismleaf Tokens: Active
+	*
+	* Active palette mappings and semantic tokens.
+	*
+	* @package prismleaf
+	*/
 
 :root {
+
 	/* Active palette: brand roles. */
 	--prismleaf-color-primary: var(--prismleaf-color-light-primary);
 	--prismleaf-color-on-primary: var(--prismleaf-color-light-on-primary);
@@ -123,10 +124,91 @@
 	--prismleaf-color-disabled-surface: var(--prismleaf-color-light-disabled-surface);
 	--prismleaf-color-scrim: var(--prismleaf-color-light-scrim);
 
+
+	/* Branding. */
+
+	/* Active palette: code. */
+	--prismleaf-color-code-surface: var(--prismleaf-color-surface-variant);
+	--prismleaf-color-on-code-surface: var(--prismleaf-color-on-surface-variant);
+	--prismleaf-color-code-foreground: var(--prismleaf-color-foreground);
+
+	/* Active palette: hyperlink defaults. */
+	--prismleaf-color-link: var(--prismleaf-color-secondary);
+	--prismleaf-color-link-hover: var(--prismleaf-color-secondary-darker);
+	--prismleaf-color-link-active: var(--prismleaf-color-secondary-darkest);
+	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-darker);
+	--prismleaf-color-on-link: var(--prismleaf-color-on-secondary);
+
+	/* Active palette: hyperlink titles. */
+	--prismleaf-color-title-link: var(--prismleaf-color-primary);
+	--prismleaf-color-title-link-hover: var(--prismleaf-color-primary-darker);
+	--prismleaf-color-title-link-active: var(--prismleaf-color-primary-darkest);
+	--prismleaf-color-title-link-visited: var(--prismleaf-color-primary-darker);
+	--prismleaf-color-on-title-link: var(--prismleaf-color-on-primary);
+
+	/* Active palette: hyperlink variant. */
+	--prismleaf-color-variant-link: var(--prismleaf-color-tertiary);
+	--prismleaf-color-variant-link-hover: var(--prismleaf-color-tertiary-darker);
+	--prismleaf-color-variant-link-active: var(--prismleaf-color-tertiary-darkest);
+	--prismleaf-color-variant-link-visited: var(--prismleaf-color-tertiary-darker);
+	--prismleaf-color-on-variant-link: var(--prismleaf-color-on-tertiary);
+
+	/* Active palette: focus. */
+	--prismleaf-color-focus-ring: var(--prismleaf-color-secondary);
+	--prismleaf-color-focus-ring-hover: var(--prismleaf-color-secondary-darker);
+	--prismleaf-color-focus-ring-active: var(--prismleaf-color-secondary-darkest);
+	--prismleaf-color-on-focus-ring: var(--prismleaf-color-on-secondary);
+
+	/* Active palette: selection. */
+	--prismleaf-color-selection-background: var(--prismleaf-color-secondary-container);
+	--prismleaf-color-selection-foreground: var(--prismleaf-color-on-secondary-container);
+
+	/* Active palette: content. */
+	--prismleaf-region-content-background: var(--prismleaf-color-surface);
+	--prismleaf-region-content-foreground: var(--prismleaf-color-on-surface);
+	--prismleaf-region-content-border-style: var(--prismleaf-border-style);
+	--prismleaf-region-content-border-color: var(--prismleaf-color-outline);
+	--prismleaf-region-content-radius: var(--prismleaf-radius-medium);
+	--prismleaf-region-content-shadow: var(--prismleaf-shadow);
+
+	/* Active palette: header. */
+	--prismleaf-region-header-background: var(--prismleaf-color-surface);
+	--prismleaf-region-header-foreground: var(--prismleaf-color-on-surface);
+	--prismleaf-region-header-border-style: var(--prismleaf-border-style);
+	--prismleaf-region-header-border-color: var(--prismleaf-color-outline);
+	--prismleaf-region-header-radius: var(--prismleaf-radius-medium);
+	--prismleaf-region-header-shadow: var(--prismleaf-shadow);
+
+	/* Active palette: footer. */
+	--prismleaf-region-footer-background: var(--prismleaf-color-surface-variant);
+	--prismleaf-region-footer-foreground: var(--prismleaf-color-on-surface-variant);
+	--prismleaf-region-footer-border-style: var(--prismleaf-border-style);
+	--prismleaf-region-footer-border-color: var(--prismleaf-color-outline);
+	--prismleaf-region-footer-radius: var(--prismleaf-radius-medium);
+	--prismleaf-region-footer-shadow: var(--prismleaf-shadow);
+
+	/* Active palette: sidebar left. */
+	--prismleaf-region-sidebar-left-background: var(--prismleaf-color-surface-variant);
+	--prismleaf-region-sidebar-left-foreground: var(--prismleaf-color-on-surface-variant);
+	--prismleaf-region-sidebar-left-border-style: var(--prismleaf-border-style);
+	--prismleaf-region-sidebar-left-border-color: var(--prismleaf-color-outline);
+	--prismleaf-region-sidebar-left-radius: var(--prismleaf-radius-medium);
+	--prismleaf-region-sidebar-left-shadow: var(--prismleaf-shadow);
+
+	/* Active palette: sidebar right. */
+	--prismleaf-region-sidebar-right-background: var(--prismleaf-color-surface-variant);
+	--prismleaf-region-sidebar-right-foreground: var(--prismleaf-color-on-surface-variant);
+	--prismleaf-region-sidebar-right-border-style: var(--prismleaf-border-style);
+	--prismleaf-region-sidebar-right-border-color: var(--prismleaf-color-outline);
+	--prismleaf-region-sidebar-right-radius: var(--prismleaf-radius-medium);
+	--prismleaf-region-sidebar-right-shadow: var(--prismleaf-shadow);
 }
+
 /* System dark mode. */
 @media (prefers-color-scheme: dark) {
+
 	:root {
+
 		/* Active palette: brand roles. */
 		--prismleaf-color-primary: var(--prismleaf-color-dark-primary);
 		--prismleaf-color-on-primary: var(--prismleaf-color-dark-on-primary);
@@ -248,10 +330,89 @@
 		--prismleaf-color-title-link-visited: var(--prismleaf-color-dark-title-link-visited);
 		--prismleaf-site-tagline-color: var(--prismleaf-color-dark-site-tagline);
 	}
+
+	/* Branding. */
+
+	/* Active palette: code. */
+	--prismleaf-color-code-surface: var(--prismleaf-color-surface-variant);
+	--prismleaf-color-on-code-surface: var(--prismleaf-color-on-surface-variant);
+	--prismleaf-color-code-foreground: var(--prismleaf-color-foreground);
+
+	/* Active palette: hyperlink defaults. */
+	--prismleaf-color-link: var(--prismleaf-color-secondary);
+	--prismleaf-color-link-hover: var(--prismleaf-color-secondary-darker);
+	--prismleaf-color-link-active: var(--prismleaf-color-secondary-darkest);
+	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-darker);
+	--prismleaf-color-on-link: var(--prismleaf-color-on-secondary);
+
+	/* Active palette: hyperlink titles. */
+	--prismleaf-color-title-link: var(--prismleaf-color-primary);
+	--prismleaf-color-title-link-hover: var(--prismleaf-color-primary-darker);
+	--prismleaf-color-title-link-active: var(--prismleaf-color-primary-darkest);
+	--prismleaf-color-title-link-visited: var(--prismleaf-color-primary-darker);
+	--prismleaf-color-on-title-link: var(--prismleaf-color-on-primary);
+
+	/* Active palette: hyperlink variant. */
+	--prismleaf-color-variant-link: var(--prismleaf-color-tertiary);
+	--prismleaf-color-variant-link-hover: var(--prismleaf-color-tertiary-darker);
+	--prismleaf-color-variant-link-active: var(--prismleaf-color-tertiary-darkest);
+	--prismleaf-color-variant-link-visited: var(--prismleaf-color-tertiary-darker);
+	--prismleaf-color-on-variant-link: var(--prismleaf-color-on-tertiary);
+
+	/* Active palette: focus. */
+	--prismleaf-color-focus-ring: var(--prismleaf-color-secondary);
+	--prismleaf-color-focus-ring-hover: var(--prismleaf-color-secondary-darker);
+	--prismleaf-color-focus-ring-active: var(--prismleaf-color-secondary-darkest);
+	--prismleaf-color-on-focus-ring: var(--prismleaf-color-on-secondary);
+
+	/* Active palette: selection. */
+	--prismleaf-color-selection-background: var(--prismleaf-color-secondary-container);
+	--prismleaf-color-selection-foreground: var(--prismleaf-color-on-secondary-container);
+
+	/* Active palette: content. */
+	--prismleaf-region-content-background: var(--prismleaf-color-surface);
+	--prismleaf-region-content-foreground: var(--prismleaf-color-on-surface);
+	--prismleaf-region-content-border-style: var(--prismleaf-border-style);
+	--prismleaf-region-content-border-color: var(--prismleaf-color-outline);
+	--prismleaf-region-content-radius: var(--prismleaf-radius-medium);
+	--prismleaf-region-content-shadow: var(--prismleaf-shadow);
+
+	/* Active palette: header. */
+	--prismleaf-region-header-background: var(--prismleaf-color-surface);
+	--prismleaf-region-header-foreground: var(--prismleaf-color-on-surface);
+	--prismleaf-region-header-border-style: var(--prismleaf-border-style);
+	--prismleaf-region-header-border-color: var(--prismleaf-color-outline);
+	--prismleaf-region-header-radius: var(--prismleaf-radius-medium);
+	--prismleaf-region-header-shadow: var(--prismleaf-shadow);
+
+	/* Active palette: footer. */
+	--prismleaf-region-footer-background: var(--prismleaf-color-surface-variant);
+	--prismleaf-region-footer-foreground: var(--prismleaf-color-on-surface-variant);
+	--prismleaf-region-footer-border-style: var(--prismleaf-border-style);
+	--prismleaf-region-footer-border-color: var(--prismleaf-color-outline);
+	--prismleaf-region-footer-radius: var(--prismleaf-radius-medium);
+	--prismleaf-region-footer-shadow: var(--prismleaf-shadow);
+
+	/* Active palette: sidebar left. */
+	--prismleaf-region-sidebar-left-background: var(--prismleaf-color-surface-variant);
+	--prismleaf-region-sidebar-left-foreground: var(--prismleaf-color-on-surface-variant);
+	--prismleaf-region-sidebar-left-border-style: var(--prismleaf-border-style);
+	--prismleaf-region-sidebar-left-border-color: var(--prismleaf-color-outline);
+	--prismleaf-region-sidebar-left-radius: var(--prismleaf-radius-medium);
+	--prismleaf-region-sidebar-left-shadow: var(--prismleaf-shadow);
+
+	/* Active palette: sidebar right. */
+	--prismleaf-region-sidebar-right-background: var(--prismleaf-color-surface-variant);
+	--prismleaf-region-sidebar-right-foreground: var(--prismleaf-color-on-surface-variant);
+	--prismleaf-region-sidebar-right-border-style: var(--prismleaf-border-style);
+	--prismleaf-region-sidebar-right-border-color: var(--prismleaf-color-outline);
+	--prismleaf-region-sidebar-right-radius: var(--prismleaf-radius-medium);
+	--prismleaf-region-sidebar-right-shadow: var(--prismleaf-shadow);
 }
 
 /* User-selected light overrides. */
 :root[data-prismleaf-color-scheme="light"] {
+
 	/* Active palette: brand roles. */
 	--prismleaf-color-primary: var(--prismleaf-color-light-primary);
 	--prismleaf-color-on-primary: var(--prismleaf-color-light-on-primary);
@@ -371,6 +532,7 @@
 
 /* User selected dark overrides. */
 :root[data-prismleaf-color-scheme="dark"] {
+
 	/* Active palette: brand roles. */
 	--prismleaf-color-primary: var(--prismleaf-color-dark-primary);
 	--prismleaf-color-on-primary: var(--prismleaf-color-dark-on-primary);
@@ -490,6 +652,7 @@
 
 /* Derived semantic color tokens (if supported). */
 @supports (color: color-mix(in srgb, black 50%, transparent)) {
+
 	:root {
 		--prismleaf-color-outline: color-mix(in srgb, var(--prismleaf-color-on-surface) 30%, transparent);
 		--prismleaf-color-outline-variant: color-mix(in srgb, var(--prismleaf-color-on-surface) 18%, transparent);
@@ -498,10 +661,9 @@
 		--prismleaf-color-disabled-foreground: color-mix(in srgb, var(--prismleaf-color-on-surface) 38%, transparent);
 		--prismleaf-color-disabled-surface: color-mix(in srgb, var(--prismleaf-color-on-surface) 12%, transparent);
 	}
-}
 
-/* Branding. */
-:root {
+	/* Branding. */
+
 	/* Active palette: code. */
 	--prismleaf-color-code-surface: var(--prismleaf-color-surface-variant);
 	--prismleaf-color-on-code-surface: var(--prismleaf-color-on-surface-variant);
@@ -578,3 +740,4 @@
 	--prismleaf-region-sidebar-right-radius: var(--prismleaf-radius-medium);
 	--prismleaf-region-sidebar-right-shadow: var(--prismleaf-shadow);
 }
+

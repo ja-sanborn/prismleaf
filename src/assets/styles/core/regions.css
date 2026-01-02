@@ -1,11 +1,11 @@
 /*!
- * Prismleaf Brand Styles
- *
- * Region-level branding for the Prismleaf classic theme.
- * Consumes design tokens declared in assets/styles/tokens/*.css and Customizer-driven variables.
- *
- * @package prismleaf
- */
+	* Prismleaf Brand Styles
+	*
+	* Region-level branding for the Prismleaf classic theme.
+	* Consumes design tokens declared in assets/styles/tokens/*.css and Customizer-driven variables.
+	*
+	* @package prismleaf
+	*/
 
 /* Content surface. */
 .prismleaf-region-content {
@@ -31,28 +31,6 @@
 	border-radius: var(--prismleaf-region-header-radius);
 
 	box-shadow: var(--prismleaf-region-header-shadow);
-}
-
-/* Framed shell regions are square, borderless, and flat. */
-.prismleaf-layout-framed .prismleaf-region-header,
-.prismleaf-layout-framed .prismleaf-region-footer,
-.prismleaf-layout-framed .prismleaf-region-sidebar-left,
-.prismleaf-layout-framed .prismleaf-region-sidebar-right {
-	border: 0;
-	border-radius: 0;
-	box-shadow: none;
-}
-
-/* Contained header/footer/sidebars inherit the content surface. */
-.prismleaf-layout-not-framed.prismleaf-header-contained .prismleaf-region-content .prismleaf-region-header,
-.prismleaf-layout-not-framed.prismleaf-footer-contained .prismleaf-region-content .prismleaf-region-footer,
-.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained .prismleaf-region-content .prismleaf-region-sidebar-left,
-.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained .prismleaf-region-content .prismleaf-region-sidebar-right {
-	background-color: transparent;
-	color: inherit;
-	border: 0;
-	border-radius: 0;
-	box-shadow: none;
 }
 
 /* Footer region surface. */
@@ -92,4 +70,34 @@
 	border-radius: var(--prismleaf-region-sidebar-right-radius);
 
 	box-shadow: var(--prismleaf-region-sidebar-right-shadow);
+}
+
+/* Framed shell regions are square, borderless, and flat. */
+.prismleaf-layout-framed .prismleaf-region-header,
+.prismleaf-layout-framed .prismleaf-region-footer,
+.prismleaf-layout-framed .prismleaf-region-sidebar-left,
+.prismleaf-layout-framed .prismleaf-region-sidebar-right {
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* Contained header/footer/sidebars inherit the content surface. */
+.prismleaf-layout-not-framed.prismleaf-header-contained .prismleaf-region-content .prismleaf-region-header,
+.prismleaf-layout-not-framed.prismleaf-footer-contained .prismleaf-region-content .prismleaf-region-footer,
+.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained .prismleaf-region-content .prismleaf-region-sidebar-left,
+.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained .prismleaf-region-content .prismleaf-region-sidebar-right {
+	background-color: transparent;
+	color: inherit;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* Not-contained, not-floating regions are square. */
+.prismleaf-layout-not-framed.prismleaf-header-not-contained.prismleaf-header-not-floating .prismleaf-region-header,
+.prismleaf-layout-not-framed.prismleaf-footer-not-contained.prismleaf-footer-not-floating .prismleaf-region-footer,
+.prismleaf-layout-not-framed.prismleaf-sidebar-left-not-contained.prismleaf-sidebar-left-not-floating .prismleaf-region-sidebar-left,
+.prismleaf-layout-not-framed.prismleaf-sidebar-right-not-contained.prismleaf-sidebar-right-not-floating .prismleaf-region-sidebar-right {
+	border-radius: 0;
 }
