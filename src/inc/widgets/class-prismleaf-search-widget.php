@@ -10,9 +10,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Prismleaf_Search_Widget' ) ) {
+	/**
+	 * Prismleaf Search widget.
+	 *
+	 * @since 1.0.0
+	 */
 	class Prismleaf_Search_Widget extends WP_Widget {
 		/**
 		 * Constructor.
+		 *
+		 * @since 1.0.0
 		 */
 		public function __construct() {
 			parent::__construct(
@@ -27,8 +34,11 @@ if ( ! class_exists( 'Prismleaf_Search_Widget' ) ) {
 		/**
 		 * Output the widget content.
 		 *
+		 * @since 1.0.0
+		 *
 		 * @param array $args     Widget arguments.
 		 * @param array $instance Saved values.
+		 * @return void
 		 */
 		public function widget( $args, $instance ) {
 			$options = prismleaf_prepare_search_options(
@@ -52,6 +62,8 @@ if ( ! class_exists( 'Prismleaf_Search_Widget' ) ) {
 		/**
 		 * Update a widget instance.
 		 *
+		 * @since 1.0.0
+		 *
 		 * @param array $new_instance New values.
 		 * @param array $old_instance Old values.
 		 * @return array
@@ -73,7 +85,10 @@ if ( ! class_exists( 'Prismleaf_Search_Widget' ) ) {
 		/**
 		 * Output widget form fields.
 		 *
+		 * @since 1.0.0
+		 *
 		 * @param array $instance Saved values.
+		 * @return void
 		 */
 		public function form( $instance ) {
 			$defaults = array(
@@ -81,7 +96,7 @@ if ( ! class_exists( 'Prismleaf_Search_Widget' ) ) {
 				'flyout'      => false,
 			);
 
-			$instance = wp_parse_args( (array) $instance, $defaults );
+			$instance    = wp_parse_args( (array) $instance, $defaults );
 			$placeholder = sanitize_text_field( $instance['placeholder'] );
 			$flyout      = (bool) wp_validate_boolean( $instance['flyout'] );
 			?>
@@ -101,15 +116,3 @@ if ( ! class_exists( 'Prismleaf_Search_Widget' ) ) {
 		}
 	}
 }
-
-/**
- * Register the widget.
- *
- * @since 1.0.0
- *
- * @return void
- */
-function prismleaf_register_search_widget() {
-	register_widget( 'Prismleaf_Search_Widget' );
-}
-add_action( 'widgets_init', 'prismleaf_register_search_widget' );

@@ -1,0 +1,127 @@
+/*!
+	* Prismleaf Secondary Menu
+	*
+	* Styling for the secondary navigation menu.
+	*
+	* @package prismleaf
+	*/
+
+:root {
+	--prismleaf-menu-secondary-bg-light-default: var(--prismleaf-color-light-primary);
+	--prismleaf-menu-secondary-bg-hover-light-default: var(--prismleaf-color-light-primary-darker);
+	--prismleaf-menu-secondary-bg-active-light-default: var(--prismleaf-color-light-primary-darkest);
+	--prismleaf-menu-secondary-link-light-default: var(--prismleaf-color-light-on-primary);
+	--prismleaf-menu-secondary-link-hover-light-default: var(--prismleaf-color-light-on-primary);
+	--prismleaf-menu-secondary-link-active-light-default: var(--prismleaf-color-light-on-primary);
+	--prismleaf-menu-secondary-link-visited-light-default: var(--prismleaf-color-light-on-primary);
+
+	--prismleaf-menu-secondary-bg-dark-default: var(--prismleaf-color-dark-primary);
+	--prismleaf-menu-secondary-bg-hover-dark-default: var(--prismleaf-color-dark-primary-darker);
+	--prismleaf-menu-secondary-bg-active-dark-default: var(--prismleaf-color-dark-primary-darkest);
+	--prismleaf-menu-secondary-link-dark-default: var(--prismleaf-color-dark-on-primary);
+	--prismleaf-menu-secondary-link-hover-dark-default: var(--prismleaf-color-dark-on-primary);
+	--prismleaf-menu-secondary-link-active-dark-default: var(--prismleaf-color-dark-on-primary);
+	--prismleaf-menu-secondary-link-visited-dark-default: var(--prismleaf-color-dark-on-primary);
+
+	--prismleaf-menu-secondary-bg-light: var(--prismleaf-menu-secondary-bg-light-override, var(--prismleaf-menu-secondary-bg-light-default));
+	--prismleaf-menu-secondary-bg-hover-light: var(--prismleaf-menu-secondary-bg-hover-light-override, var(--prismleaf-menu-secondary-bg-hover-light-default));
+	--prismleaf-menu-secondary-bg-active-light: var(--prismleaf-menu-secondary-bg-active-light-override, var(--prismleaf-menu-secondary-bg-active-light-default));
+	--prismleaf-menu-secondary-link-light: var(--prismleaf-menu-secondary-link-light-override, var(--prismleaf-menu-secondary-link-light-default));
+	--prismleaf-menu-secondary-link-hover-light: var(--prismleaf-menu-secondary-link-hover-light-override, var(--prismleaf-menu-secondary-link-hover-light-default));
+	--prismleaf-menu-secondary-link-active-light: var(--prismleaf-menu-secondary-link-active-light-override, var(--prismleaf-menu-secondary-link-active-light-default));
+	--prismleaf-menu-secondary-link-visited-light: var(--prismleaf-menu-secondary-link-visited-light-override, var(--prismleaf-menu-secondary-link-visited-light-default));
+
+	--prismleaf-menu-secondary-bg-dark: var(--prismleaf-menu-secondary-bg-dark-override, var(--prismleaf-menu-secondary-bg-dark-default));
+	--prismleaf-menu-secondary-bg-hover-dark: var(--prismleaf-menu-secondary-bg-hover-dark-override, var(--prismleaf-menu-secondary-bg-hover-dark-default));
+	--prismleaf-menu-secondary-bg-active-dark: var(--prismleaf-menu-secondary-bg-active-dark-override, var(--prismleaf-menu-secondary-bg-active-dark-default));
+	--prismleaf-menu-secondary-link-dark: var(--prismleaf-menu-secondary-link-dark-override, var(--prismleaf-menu-secondary-link-dark-default));
+	--prismleaf-menu-secondary-link-hover-dark: var(--prismleaf-menu-secondary-link-hover-dark-override, var(--prismleaf-menu-secondary-link-hover-dark-default));
+	--prismleaf-menu-secondary-link-active-dark: var(--prismleaf-menu-secondary-link-active-dark-override, var(--prismleaf-menu-secondary-link-active-dark-default));
+	--prismleaf-menu-secondary-link-visited-dark: var(--prismleaf-menu-secondary-link-visited-dark-override, var(--prismleaf-menu-secondary-link-visited-dark-default));
+
+	--prismleaf-menu-secondary-bg: var(--prismleaf-menu-secondary-bg-light);
+	--prismleaf-menu-secondary-bg-hover: var(--prismleaf-menu-secondary-bg-hover-light);
+	--prismleaf-menu-secondary-bg-active: var(--prismleaf-menu-secondary-bg-active-light);
+	--prismleaf-menu-secondary-link: var(--prismleaf-menu-secondary-link-light);
+	--prismleaf-menu-secondary-link-hover: var(--prismleaf-menu-secondary-link-hover-light);
+	--prismleaf-menu-secondary-link-active: var(--prismleaf-menu-secondary-link-active-light);
+	--prismleaf-menu-secondary-link-visited: var(--prismleaf-menu-secondary-link-visited-light);
+}
+
+@media (prefers-color-scheme: dark) {
+
+	:root {
+		--prismleaf-menu-secondary-bg: var(--prismleaf-menu-secondary-bg-dark);
+		--prismleaf-menu-secondary-bg-hover: var(--prismleaf-menu-secondary-bg-hover-dark);
+		--prismleaf-menu-secondary-bg-active: var(--prismleaf-menu-secondary-bg-active-dark);
+		--prismleaf-menu-secondary-link: var(--prismleaf-menu-secondary-link-dark);
+		--prismleaf-menu-secondary-link-hover: var(--prismleaf-menu-secondary-link-hover-dark);
+		--prismleaf-menu-secondary-link-active: var(--prismleaf-menu-secondary-link-active-dark);
+		--prismleaf-menu-secondary-link-visited: var(--prismleaf-menu-secondary-link-visited-dark);
+	}
+}
+
+:root[data-prismleaf-color-scheme="light"] {
+	--prismleaf-menu-secondary-bg: var(--prismleaf-menu-secondary-bg-light);
+	--prismleaf-menu-secondary-bg-hover: var(--prismleaf-menu-secondary-bg-hover-light);
+	--prismleaf-menu-secondary-bg-active: var(--prismleaf-menu-secondary-bg-active-light);
+	--prismleaf-menu-secondary-link: var(--prismleaf-menu-secondary-link-light);
+	--prismleaf-menu-secondary-link-hover: var(--prismleaf-menu-secondary-link-hover-light);
+	--prismleaf-menu-secondary-link-active: var(--prismleaf-menu-secondary-link-active-light);
+	--prismleaf-menu-secondary-link-visited: var(--prismleaf-menu-secondary-link-visited-light);
+}
+
+:root[data-prismleaf-color-scheme="dark"] {
+	--prismleaf-menu-secondary-bg: var(--prismleaf-menu-secondary-bg-dark);
+	--prismleaf-menu-secondary-bg-hover: var(--prismleaf-menu-secondary-bg-hover-dark);
+	--prismleaf-menu-secondary-bg-active: var(--prismleaf-menu-secondary-bg-active-dark);
+	--prismleaf-menu-secondary-link: var(--prismleaf-menu-secondary-link-dark);
+	--prismleaf-menu-secondary-link-hover: var(--prismleaf-menu-secondary-link-hover-dark);
+	--prismleaf-menu-secondary-link-active: var(--prismleaf-menu-secondary-link-active-dark);
+	--prismleaf-menu-secondary-link-visited: var(--prismleaf-menu-secondary-link-visited-dark);
+}
+
+.prismleaf-secondary-menu {
+	background: transparent;
+	color: var(--prismleaf-menu-secondary-link);
+	--prismleaf-menu-divider-color: var(--prismleaf-region-header-background);
+}
+
+.prismleaf-secondary-menu .prismleaf-menu-list {
+	padding: 0;
+	gap: 0;
+}
+
+.prismleaf-secondary-menu.prismleaf-menu-stretch {
+	background: var(--prismleaf-menu-secondary-bg);
+}
+
+.prismleaf-secondary-menu.prismleaf-menu-buttons .prismleaf-menu-list {
+	gap: var(--prismleaf-space-1);
+	padding: 0;
+}
+
+.prismleaf-secondary-menu .prismleaf-menu-list a {
+	color: var(--prismleaf-menu-secondary-link);
+	background-color: var(--prismleaf-menu-secondary-bg);
+	border-radius: 0;
+}
+
+.prismleaf-secondary-menu.prismleaf-menu-buttons .prismleaf-menu-list a {
+	padding: var(--prismleaf-space-2);
+	border-radius: var(--prismleaf-radius-small);
+}
+
+.prismleaf-secondary-menu .prismleaf-menu-list a:visited {
+	color: var(--prismleaf-menu-secondary-link-visited);
+}
+
+.prismleaf-secondary-menu .prismleaf-menu-list a:hover {
+	color: var(--prismleaf-menu-secondary-link-hover);
+	background-color: var(--prismleaf-menu-secondary-bg-hover);
+}
+
+.prismleaf-secondary-menu .prismleaf-menu-list a:active {
+	color: var(--prismleaf-menu-secondary-link-active);
+	background-color: var(--prismleaf-menu-secondary-bg-active);
+}

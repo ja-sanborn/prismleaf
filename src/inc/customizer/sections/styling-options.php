@@ -15,23 +15,64 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Register Customizer controls for Theme Options → Global Style.
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Manager $wp_customize Customizer manager instance.
- * @return void
- */
-if ( ! function_exists( 'prismleaf_customize_register_global_style' ) ) {
-	function prismleaf_customize_register_global_style( $wp_customize ) {
-	if ( ! $wp_customize instanceof WP_Customize_Manager ) {
-		return;
-	}
+if ( ! function_exists( 'prismleaf_customize_callback_header_background_image_set' ) ) {
+	/**
+	 * Show header background display control only when an image is set.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Control $control Control instance.
+	 * @return bool
+	 */
+	function prismleaf_customize_callback_header_background_image_set( $control ) {
+		if ( ! ( $control instanceof WP_Customize_Control ) ) {
+			return true;
+		}
 
-	if ( ! $wp_customize->get_panel( 'prismleaf_theme_options' ) ) {
-		return;
+		$value = prismleaf_customize_get_string( $control->manager, 'prismleaf_header_background_image', '' );
+
+		return '' !== trim( $value );
 	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_header_background_display' ) ) {
+	/**
+	 * Sanitize the header background display option.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string|null $value Background display value.
+	 * @return string
+	 */
+	function prismleaf_sanitize_header_background_display( $value ) {
+		$value   = (string) $value;
+		$allowed = array( 'tiled', 'stretch', 'fill', 'auto' );
+
+		if ( in_array( $value, $allowed, true ) ) {
+			return $value;
+		}
+
+		return 'tiled';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_customize_register_global_style' ) ) {
+	/**
+	 * Register Customizer controls for Theme Options → Global Style.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @return void
+	 */
+	function prismleaf_customize_register_global_style( $wp_customize ) {
+		if ( ! $wp_customize instanceof WP_Customize_Manager ) {
+			return;
+		}
+
+		if ( ! $wp_customize->get_panel( 'prismleaf_theme_options' ) ) {
+			return;
+		}
 
 		$wp_customize->add_section(
 			'prismleaf_global',
@@ -115,12 +156,12 @@ if ( ! function_exists( 'prismleaf_customize_register_global_style' ) ) {
 					'label'       => __( 'Border style', 'prismleaf' ),
 					'description' => __( 'Optional. Use Default to keep the theme token-driven border behavior.', 'prismleaf' ),
 					'choices'     => array(
-						''        => __( 'Default (use theme)', 'prismleaf' ),
-						'none'    => __( 'None', 'prismleaf' ),
-						'solid'   => __( 'Solid', 'prismleaf' ),
-						'dashed'  => __( 'Dashed', 'prismleaf' ),
-						'dotted'  => __( 'Dotted', 'prismleaf' ),
-						'double'  => __( 'Double', 'prismleaf' ),
+						''       => __( 'Default (use theme)', 'prismleaf' ),
+						'none'   => __( 'None', 'prismleaf' ),
+						'solid'  => __( 'Solid', 'prismleaf' ),
+						'dashed' => __( 'Dashed', 'prismleaf' ),
+						'dotted' => __( 'Dotted', 'prismleaf' ),
+						'double' => __( 'Double', 'prismleaf' ),
 					),
 				)
 			);
@@ -172,6 +213,59 @@ if ( ! function_exists( 'prismleaf_customize_register_global_style' ) ) {
 					)
 				)
 			);
+
+			if ( 'header' === $key ) {
+				$wp_customize->add_setting(
+					'prismleaf_header_background_image',
+					array(
+						'type'              => 'theme_mod',
+						'capability'        => 'edit_theme_options',
+						'default'           => null,
+						'sanitize_callback' => 'esc_url_raw',
+						'transport'         => 'refresh',
+					)
+				);
+
+				$wp_customize->add_control(
+					new WP_Customize_Image_Control(
+						$wp_customize,
+						'prismleaf_header_background_image',
+						array(
+							'section'     => 'prismleaf_global',
+							'label'       => __( 'Header background image', 'prismleaf' ),
+							'description' => __( 'Optional. Leave blank for no image.', 'prismleaf' ),
+						)
+					)
+				);
+
+				$wp_customize->add_setting(
+					'prismleaf_header_background_display',
+					array(
+						'type'              => 'theme_mod',
+						'capability'        => 'edit_theme_options',
+						'default'           => 'tiled',
+						'sanitize_callback' => 'prismleaf_sanitize_header_background_display',
+						'transport'         => 'refresh',
+					)
+				);
+
+				$wp_customize->add_control(
+					'prismleaf_header_background_display',
+					array(
+						'type'            => 'select',
+						'section'         => 'prismleaf_global',
+						'label'           => __( 'Header background image display', 'prismleaf' ),
+						'description'     => __( 'Choose how the header background image is drawn.', 'prismleaf' ),
+						'choices'         => array(
+							'tiled'   => __( 'Tiled', 'prismleaf' ),
+							'stretch' => __( 'Stretch', 'prismleaf' ),
+							'fill'    => __( 'Fill', 'prismleaf' ),
+							'auto'    => __( 'Auto', 'prismleaf' ),
+						),
+						'active_callback' => 'prismleaf_customize_callback_header_background_image_set',
+					)
+				);
+			}
 
 			// Foreground (optional).
 			$wp_customize->add_setting(
@@ -229,6 +323,3 @@ if ( ! function_exists( 'prismleaf_customize_register_global_style' ) ) {
 	}
 }
 add_action( 'customize_register', 'prismleaf_customize_register_global_style' );
-
-
-

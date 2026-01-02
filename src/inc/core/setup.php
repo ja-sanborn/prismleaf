@@ -9,14 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Register theme supports.
- *
- * @since 1.0.0
- *
- * @return void
- */
 if ( ! function_exists( 'prismleaf_setup' ) ) {
+	/**
+	 * Register theme supports.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
 	function prismleaf_setup() {
 		load_theme_textdomain( 'prismleaf', get_template_directory() . '/languages' );
 
@@ -61,19 +61,27 @@ if ( ! function_exists( 'prismleaf_setup' ) ) {
 		add_theme_support( 'align-wide' );
 		add_theme_support( 'responsive-embeds' );
 		add_theme_support( 'editor-styles' );
+
+		register_nav_menus(
+			array(
+				'primary'   => __( 'Primary Menu', 'prismleaf' ),
+				'secondary' => __( 'Secondary Menu', 'prismleaf' ),
+				'mobile'    => __( 'Mobile Menu', 'prismleaf' ),
+			)
+		);
 	}
 }
 add_action( 'after_setup_theme', 'prismleaf_setup' );
 
-/**
- * Register Theme Options in Customizer settings.
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Manager $wp_customize Customizer manager instance.
- * @return void
- */
 if ( ! function_exists( 'prismleaf_setup_customizer' ) ) {
+	/**
+	 * Register Theme Options in Customizer settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @return void
+	 */
 	function prismleaf_setup_customizer( $wp_customize ) {
 		if ( ! $wp_customize->get_panel( 'prismleaf_theme_options' ) ) {
 			$wp_customize->add_panel(
@@ -92,20 +100,20 @@ if ( ! function_exists( 'prismleaf_setup_customizer' ) ) {
 }
 add_action( 'customize_register', 'prismleaf_setup_customizer' );
 
-/**
- * Force a color scheme attribute on the root element when configured.
- *
- * @since 1.0.0
- *
- * @param string $output Existing language attributes string.
- * @return string
- */
 if ( ! function_exists( 'prismleaf_language_attributes_force_color_scheme' ) ) {
+	/**
+	 * Force a color scheme attribute on the root element when configured.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $output Existing language attributes string.
+	 * @return string
+	 */
 	function prismleaf_language_attributes_force_color_scheme( $output ) {
-		$force_light = (bool) wp_validate_boolean( get_theme_mod( 'prismleaf_brand_force_light', false ) );
+		$force_light = prismleaf_get_theme_mod_bool( 'prismleaf_brand_force_light', false );
 
 		if ( $force_light ) {
-			$output = trim( $output );
+			$output  = trim( $output );
 			$output .= ' data-prismleaf-color-scheme="light"';
 		}
 

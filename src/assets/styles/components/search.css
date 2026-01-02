@@ -1,10 +1,10 @@
 /*!
- * Prismleaf Search
- *
- * Shared styling for the Prismleaf Search component.
- *
- * @package prismleaf
- */
+	* Prismleaf Search
+	*
+	* Shared styling for the Prismleaf Search component.
+	*
+	* @package prismleaf
+	*/
 
 .prismleaf-search {
 	display: inline-flex;
@@ -12,11 +12,19 @@
 	justify-content: flex-start;
 }
 
-.prismleaf-search__controls {
+.prismleaf-search-controls {
 	display: inline-flex;
 	align-items: center;
 	gap: var(--prismleaf-space-1);
 	position: relative;
+}
+
+.prismleaf-search-header-background .prismleaf-search-controls {
+	background-color: var(--prismleaf-header-backplate-bg, var(--prismleaf-region-header-background));
+	border: var(--prismleaf-border-width-thin) solid var(--prismleaf-header-backplate-border, transparent);
+	border-radius: var(--prismleaf-radius-pill);
+	box-shadow: var(--prismleaf-header-backplate-shadow, none);
+	padding: var(--prismleaf-space-1);
 }
 
 .prismleaf-search-input {
@@ -52,6 +60,10 @@
 	cursor: pointer;
 }
 
+.prismleaf-search-header-background .prismleaf-search-button {
+	background-color: color-mix(in srgb, var(--prismleaf-region-header-background) 75%, transparent);
+}
+
 .prismleaf-search-button:focus {
 	outline: none;
 }
@@ -59,6 +71,11 @@
 .prismleaf-search-button:focus-visible {
 	outline: none;
 	border-color: var(--prismleaf-color-primary);
+}
+
+.prismleaf-search-button:disabled {
+	cursor: default;
+	opacity: var(--prismleaf-state-disabled-opacity);
 }
 
 .prismleaf-search-button:hover:not(:disabled) {
@@ -69,25 +86,21 @@
 	background-color: color-mix(in srgb, var(--prismleaf-color-tertiary) 18%, transparent);
 }
 
-.prismleaf-search-button:disabled {
-	cursor: default;
-	opacity: var(--prismleaf-state-disabled-opacity);
-}
-
 .prismleaf-search-button::before {
 	content: "";
 	display: inline-block;
 	inline-size: 24px;
 	block-size: 24px;
-	background-color: currentColor;
-	mask: url('../../images/magnifying-glass.svg') no-repeat center / 24px 24px;
-	-webkit-mask: url('../../images/magnifying-glass.svg') no-repeat center / 24px 24px;
+	background-color: currentcolor;
+	mask: url(../../images/magnifying-glass.svg) no-repeat center / 24px 24px;
+	-webkit-mask: url(../../images/magnifying-glass.svg) no-repeat center / 24px 24px;
 }
 
-@supports not (mask: url('../../images/magnifying-glass.svg')) {
+@supports not (mask: url(../../images/magnifying-glass.svg)) {
+
 	.prismleaf-search-button::before {
 		background-color: transparent;
-		background-image: url('../../images/magnifying-glass.svg');
+		background-image: url(../../images/magnifying-glass.svg);
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: 16px 16px;
@@ -96,7 +109,7 @@
 	}
 }
 
-.prismleaf-search--flyout .prismleaf-search-input {
+.prismleaf-search-flyout .prismleaf-search-input {
 	position: absolute;
 	inset-block-start: 50%;
 	inset-inline-end: calc(100% + var(--prismleaf-space-1));
@@ -107,14 +120,14 @@
 	pointer-events: none;
 }
 
-.prismleaf-search--flyout.prismleaf-search--open .prismleaf-search-input {
+.prismleaf-search-inline .prismleaf-search-input {
+	position: static;
 	opacity: 1;
 	visibility: visible;
 	pointer-events: auto;
 }
 
-.prismleaf-search--inline .prismleaf-search-input {
-	position: static;
+.prismleaf-search-flyout.prismleaf-search-open .prismleaf-search-input {
 	opacity: 1;
 	visibility: visible;
 	pointer-events: auto;

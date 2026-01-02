@@ -11,33 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Show icon corner options only when the icon is visible.
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Control $control Control instance.
- * @return bool
- */
-if ( ! function_exists( 'prismleaf_customize_callback_site_metadata_icon_visible' ) ) {
-	function prismleaf_customize_callback_site_metadata_icon_visible( $control ) {
-		if ( ! ( $control instanceof WP_Customize_Control ) ) {
-			return true;
-		}
-
-		return prismleaf_customize_get_bool( $control->manager, 'prismleaf_site_metadata_icon_visible', true );
-	}
-}
-
-/**
- * Show tagline position options only when the tagline is visible.
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Control $control Control instance.
- * @return bool
- */
 if ( ! function_exists( 'prismleaf_customize_callback_site_metadata_tagline_visible' ) ) {
+	/**
+	 * Show tagline position options only when the tagline is visible.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Control $control Control instance.
+	 * @return bool
+	 */
 	function prismleaf_customize_callback_site_metadata_tagline_visible( $control ) {
 		if ( ! ( $control instanceof WP_Customize_Control ) ) {
 			return true;
@@ -47,15 +29,15 @@ if ( ! function_exists( 'prismleaf_customize_callback_site_metadata_tagline_visi
 	}
 }
 
-/**
- * Enable dark title color only when light title color is set.
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Control $control Control instance.
- * @return bool
- */
 if ( ! function_exists( 'prismleaf_customize_callback_site_metadata_title_dark_enabled' ) ) {
+	/**
+	 * Enable dark title color only when light title color is set.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Control $control Control instance.
+	 * @return bool
+	 */
 	function prismleaf_customize_callback_site_metadata_title_dark_enabled( $control ) {
 		if ( ! ( $control instanceof WP_Customize_Control ) ) {
 			return false;
@@ -73,19 +55,21 @@ if ( ! function_exists( 'prismleaf_customize_callback_site_metadata_title_dark_e
 			$value = get_theme_mod( 'prismleaf_site_metadata_title_color_light', null );
 		}
 
-		return null !== prismleaf_sanitize_optional_hex_color( $value );
+		$value = is_string( $value ) ? trim( $value ) : '';
+
+		return '' !== $value;
 	}
 }
 
-/**
- * Enable dark tagline color only when light tagline color is set.
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Control $control Control instance.
- * @return bool
- */
 if ( ! function_exists( 'prismleaf_customize_callback_site_metadata_tagline_dark_enabled' ) ) {
+	/**
+	 * Enable dark tagline color only when light tagline color is set.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Control $control Control instance.
+	 * @return bool
+	 */
 	function prismleaf_customize_callback_site_metadata_tagline_dark_enabled( $control ) {
 		if ( ! ( $control instanceof WP_Customize_Control ) ) {
 			return false;
@@ -103,19 +87,21 @@ if ( ! function_exists( 'prismleaf_customize_callback_site_metadata_tagline_dark
 			$value = get_theme_mod( 'prismleaf_site_metadata_tagline_color_light', null );
 		}
 
-		return null !== prismleaf_sanitize_optional_hex_color( $value );
+		$value = is_string( $value ) ? trim( $value ) : '';
+
+		return '' !== $value;
 	}
 }
 
-/**
- * Register Branding Customizer settings and controls.
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Manager $wp_customize Customizer manager instance.
- * @return void
- */
 if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
+	/**
+	 * Register Branding Customizer settings and controls.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @return void
+	 */
 	function prismleaf_customize_register_site_metadata( $wp_customize ) {
 		if ( ! ( $wp_customize instanceof WP_Customize_Manager ) ) {
 			return;
@@ -152,63 +138,7 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 				'type'        => 'checkbox',
 				'section'     => 'prismleaf_site_metadata',
 				'label'       => __( 'Show icon', 'prismleaf' ),
-				'description' => __( 'Controls whether the site icon is displayed.', 'prismleaf' ),
-			)
-		);
-
-		$wp_customize->add_setting(
-			'prismleaf_site_metadata_icon_size',
-			array(
-				'type'              => 'theme_mod',
-				'capability'        => 'edit_theme_options',
-				'default'           => null,
-				'sanitize_callback' => 'prismleaf_sanitize_site_metadata_icon_size',
-				'transport'         => 'refresh',
-			)
-		);
-
-		$wp_customize->add_control(
-			'prismleaf_site_metadata_icon_size',
-			array(
-				'type'            => 'select',
-				'section'         => 'prismleaf_site_metadata',
-				'label'           => __( 'Icon size', 'prismleaf' ),
-				'description'     => __( 'Select the icon size. Default uses the theme styles.', 'prismleaf' ),
-				'choices'         => array(
-					''       => __( 'Default (use theme)', 'prismleaf' ),
-					'small'  => __( 'Small', 'prismleaf' ),
-					'medium' => __( 'Medium', 'prismleaf' ),
-					'large'  => __( 'Large', 'prismleaf' ),
-				),
-				'active_callback' => 'prismleaf_customize_callback_site_metadata_icon_visible',
-			)
-		);
-
-		$wp_customize->add_setting(
-			'prismleaf_site_metadata_icon_corners',
-			array(
-				'type'              => 'theme_mod',
-				'capability'        => 'edit_theme_options',
-				'default'           => null,
-				'sanitize_callback' => 'prismleaf_sanitize_site_metadata_icon_corners',
-				'transport'         => 'refresh',
-			)
-		);
-
-		$wp_customize->add_control(
-			'prismleaf_site_metadata_icon_corners',
-			array(
-				'type'            => 'select',
-				'section'         => 'prismleaf_site_metadata',
-				'label'           => __( 'Icon corners', 'prismleaf' ),
-				'description'     => __( 'Choose the icon shape.', 'prismleaf' ),
-				'choices'         => array(
-					''       => __( 'Default (use theme)', 'prismleaf' ),
-					'square' => __( 'Square', 'prismleaf' ),
-					'circle' => __( 'Circle', 'prismleaf' ),
-					'round'  => __( 'Round', 'prismleaf' ),
-				),
-				'active_callback' => 'prismleaf_customize_callback_site_metadata_icon_visible',
+				'description' => __( 'Controls whether the site icon appears in branding.', 'prismleaf' ),
 			)
 		);
 
@@ -358,15 +288,15 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 }
 add_action( 'customize_register', 'prismleaf_customize_register_site_metadata' );
 
-/**
- * Enforce site metadata save rules (no dark override without light).
- *
- * @since 1.0.0
- *
- * @param WP_Customize_Manager $manager Customizer manager instance.
- * @return void
- */
 if ( ! function_exists( 'prismleaf_customize_save_site_metadata_palettes' ) ) {
+	/**
+	 * Enforce site metadata save rules (no dark override without light).
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $manager Customizer manager instance.
+	 * @return void
+	 */
 	function prismleaf_customize_save_site_metadata_palettes( $manager ) {
 		if ( ! ( $manager instanceof WP_Customize_Manager ) ) {
 			return;
@@ -394,6 +324,3 @@ if ( ! function_exists( 'prismleaf_customize_save_site_metadata_palettes' ) ) {
 	}
 }
 add_action( 'customize_save_after', 'prismleaf_customize_save_site_metadata_palettes' );
-
-
-

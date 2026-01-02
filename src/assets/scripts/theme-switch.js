@@ -1,25 +1,28 @@
-/* global PrismleafThemeSwitch */
-( function () {
+(function () {
 	const doc = document.documentElement;
 	const storageKey = 'prismleaf-color-scheme';
 	const prefersDark = window.matchMedia
-		? window.matchMedia( '(prefers-color-scheme: dark)' )
+		? window.matchMedia('(prefers-color-scheme: dark)')
 		: null;
 
 	const data = window.PrismleafThemeSwitch || {};
-	const forceLight = !! data.forceLight;
-	const initial = forceLight ? 'light' : ( data.initialState || 'auto' );
-	const wrapper = document.querySelector( '.prismleaf-theme-switch' );
-	const button = wrapper ? wrapper.querySelector( '.prismleaf-theme-switch__button' ) : null;
-	const live = wrapper ? wrapper.querySelector( '.prismleaf-theme-switch__live' ) : null;
+	const forceLight = !!data.forceLight;
+	const initial = forceLight ? 'light' : data.initialState || 'auto';
+	const wrapper = document.querySelector('.prismleaf-theme-switch');
+	const button = wrapper
+		? wrapper.querySelector('.prismleaf-theme-switch-button')
+		: null;
+	const live = wrapper
+		? wrapper.querySelector('.prismleaf-theme-switch-live')
+		: null;
 
-	if ( ! wrapper || ! button ) {
+	if (!wrapper || !button) {
 		return;
 	}
 
 	let state = initial;
 
-	const setAriaLabel = ( nextState, includeHint = true ) => {
+	const setAriaLabel = (nextState, includeHint = true) => {
 		const labels = {
 			auto: data.labelAuto || 'Color scheme: Auto',
 			light: data.labelLight || 'Color scheme: Light',
@@ -32,93 +35,99 @@
 			dark: data.hintNextAuto || 'Next: Auto',
 		};
 
-		const label = labels[ nextState ] || labels.auto;
-		const hint = includeHint ? ( nextMap[ nextState ] || '' ) : '';
-		button.setAttribute( 'aria-label', hint ? `${ label }. ${ hint }` : label );
-		button.setAttribute( 'title', hint ? `${ label }. ${ hint }` : label );
-		button.setAttribute( 'aria-pressed', 'auto' === nextState ? 'mixed' : ( 'dark' === nextState ? 'true' : 'false' ) );
-		if ( live ) {
+		const label = labels[nextState] || labels.auto;
+		const hint = includeHint ? nextMap[nextState] || '' : '';
+		button.setAttribute('aria-label', hint ? `${label}. ${hint}` : label);
+		button.setAttribute('title', hint ? `${label}. ${hint}` : label);
+		let pressedState = 'false';
+		if ('auto' === nextState) {
+			pressedState = 'mixed';
+		} else if ('dark' === nextState) {
+			pressedState = 'true';
+		}
+		button.setAttribute('aria-pressed', pressedState);
+		if (live) {
 			live.textContent = label;
 		}
 	};
 
-	const setIcon = ( nextState ) => {
-		const iconEl = wrapper.querySelector( '.prismleaf-theme-switch__icon' );
-		if ( iconEl ) {
+	const setIcon = (nextState) => {
+		const iconEl = wrapper.querySelector('.prismleaf-theme-switch-icon');
+		if (iconEl) {
 			iconEl.textContent = '';
-			iconEl.setAttribute( 'data-state', nextState );
+			iconEl.setAttribute('data-state', nextState);
 		}
 	};
 
-	const persist = ( value ) => {
+	const persist = (value) => {
 		try {
-			window.localStorage.setItem( storageKey, value );
-		} catch ( e ) {
+			window.localStorage.setItem(storageKey, value);
+		} catch (e) {
 			// Ignore storage errors.
 		}
 	};
 
 	const readPersisted = () => {
-		if ( forceLight ) {
+		if (forceLight) {
 			return 'light';
 		}
 		try {
-			const saved = window.localStorage.getItem( storageKey );
+			const saved = window.localStorage.getItem(storageKey);
 			return saved || 'auto';
-		} catch ( e ) {
+		} catch (e) {
 			return 'auto';
 		}
 	};
 
-	const applyScheme = ( scheme, includeHint = true ) => {
-		const effective =
-			'auto' === scheme
-				? ( prefersDark && prefersDark.matches ? 'dark' : 'light' )
-				: scheme;
+	const applyScheme = (scheme, includeHint = true) => {
+		let effective = scheme;
+		if ('auto' === scheme) {
+			effective = prefersDark && prefersDark.matches ? 'dark' : 'light';
+		}
 
-		doc.setAttribute( 'data-prismleaf-color-scheme', effective );
-		wrapper.setAttribute( 'data-state', scheme );
+		doc.setAttribute('data-prismleaf-color-scheme', effective);
+		wrapper.setAttribute('data-state', scheme);
 		state = scheme;
-		setAriaLabel( scheme, includeHint );
-		setIcon( scheme );
-		if ( ! forceLight ) {
-			persist( scheme );
+		setAriaLabel(scheme, includeHint);
+		setIcon(scheme);
+		if (!forceLight) {
+			persist(scheme);
 		}
 	};
 
 	const cycleState = () => {
-		if ( forceLight ) {
+		if (forceLight) {
 			return;
 		}
 
 		let next = 'auto';
-		if ( 'auto' === state ) {
+		if ('auto' === state) {
 			next = 'light';
-		} else if ( 'light' === state ) {
+		} else if ('light' === state) {
 			next = 'dark';
 		} else {
 			next = 'auto';
 		}
 
-		applyScheme( next );
+		applyScheme(next);
 	};
 
-	if ( forceLight ) {
-		applyScheme( 'light', false );
-		button.setAttribute( 'disabled', 'disabled' );
+	if (forceLight) {
+		applyScheme('light', false);
+		button.setAttribute('disabled', 'disabled');
 		return;
 	}
 
 	const starting = readPersisted();
-	applyScheme( starting );
+	applyScheme(starting);
 
-	button.addEventListener( 'click', cycleState );
+	button.addEventListener('click', cycleState);
 
-	if ( prefersDark && prefersDark.addEventListener ) {
-		prefersDark.addEventListener( 'change', () => {
-			if ( 'auto' === state ) {
-				applyScheme( 'auto' );
+	if (prefersDark && prefersDark.addEventListener) {
+		prefersDark.addEventListener('change', () => {
+			if ('auto' === state) {
+				applyScheme('auto');
 			}
-		} );
+		});
 	}
-} )();
+})();

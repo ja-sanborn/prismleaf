@@ -1,10 +1,10 @@
 /*!
- * Prismleaf Theme Switcher
- *
- * Minimal styling for the auto/light/dark toggle.
- *
- * @package prismleaf
- */
+	* Prismleaf Theme Switcher
+	*
+	* Minimal styling for the auto/light/dark toggle.
+	*
+	* @package prismleaf
+	*/
 
 /* Container. */
 .prismleaf-theme-switch {
@@ -13,7 +13,7 @@
 	justify-content: center;
 }
 
-.prismleaf-theme-switch__button {
+.prismleaf-theme-switch-button {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -32,32 +32,56 @@
 		border-color calc(var(--prismleaf-duration-fast) * var(--prismleaf-motion-multiplier)) var(--prismleaf-ease-standard);
 }
 
+.prismleaf-theme-switch-header-background .prismleaf-theme-switch-button {
+	background-color: var(--prismleaf-header-backplate-bg, var(--prismleaf-region-header-background));
+	border: var(--prismleaf-border-width-thin) solid var(--prismleaf-header-backplate-border, transparent);
+	box-shadow: var(--prismleaf-header-backplate-shadow, none);
+	width: calc(24px + (var(--prismleaf-space-1) * 2));
+	height: calc(24px + (var(--prismleaf-space-1) * 2));
+}
+
 /* Button states. */
-.prismleaf-theme-switch__button:focus-visible {
-	outline: 2px solid currentColor;
+.prismleaf-theme-switch-button:focus-visible {
+	outline: 2px solid currentcolor;
 	outline-offset: 2px;
 }
 
-.prismleaf-theme-switch__button:hover:not(:disabled) {
-	background-color: color-mix(in srgb, var(--prismleaf-color-tertiary) 12%, transparent);
-}
-
-.prismleaf-theme-switch__button:active:not(:disabled) {
-	background-color: color-mix(in srgb, var(--prismleaf-color-tertiary) 18%, transparent);
-}
-
-.prismleaf-theme-switch__button:disabled {
+.prismleaf-theme-switch-button:disabled {
 	opacity: var(--prismleaf-state-disabled-opacity);
 	cursor: default;
 	box-shadow: none;
 }
 
+.prismleaf-theme-switch-button:hover:not(:disabled) {
+	background-color: color-mix(in srgb, var(--prismleaf-color-tertiary) 12%, transparent);
+}
+
+.prismleaf-theme-switch-button:active:not(:disabled) {
+	background-color: color-mix(in srgb, var(--prismleaf-color-tertiary) 18%, transparent);
+}
+
+.prismleaf-theme-switch-header-background .prismleaf-theme-switch-button:hover:not(:disabled) {
+	background-color: color-mix(
+		in srgb,
+		var(--prismleaf-color-tertiary) 12%,
+		var(--prismleaf-header-backplate-bg, var(--prismleaf-region-header-background))
+	);
+}
+
+.prismleaf-theme-switch-header-background .prismleaf-theme-switch-button:active:not(:disabled) {
+	background-color: color-mix(
+		in srgb,
+		var(--prismleaf-color-tertiary) 18%,
+		var(--prismleaf-header-backplate-bg, var(--prismleaf-region-header-background))
+	);
+}
+
 /* Icon glyphs. */
-.prismleaf-theme-switch__icon {
+.prismleaf-theme-switch-icon {
 	width: 24px;
 	height: 24px;
 	display: inline-block;
-	background-color: currentColor;
+	background-color: currentcolor;
 	mask-repeat: no-repeat;
 	mask-position: center;
 	mask-size: 24px 24px;
@@ -67,23 +91,24 @@
 }
 
 /* Icon mapping by state. */
-.prismleaf-theme-switch[data-state="auto"] .prismleaf-theme-switch__icon {
-	mask-image: url('../../images/theme-auto.svg');
-	-webkit-mask-image: url('../../images/theme-auto.svg');
+.prismleaf-theme-switch[data-state="auto"] .prismleaf-theme-switch-icon {
+	mask-image: url(../../images/theme-auto.svg);
+	-webkit-mask-image: url(../../images/theme-auto.svg);
 }
 
-.prismleaf-theme-switch[data-state="light"] .prismleaf-theme-switch__icon {
-	mask-image: url('../../images/theme-light.svg');
-	-webkit-mask-image: url('../../images/theme-light.svg');
+.prismleaf-theme-switch[data-state="light"] .prismleaf-theme-switch-icon {
+	mask-image: url(../../images/theme-light.svg);
+	-webkit-mask-image: url(../../images/theme-light.svg);
 }
 
-.prismleaf-theme-switch[data-state="dark"] .prismleaf-theme-switch__icon {
-	mask-image: url('../../images/theme-dark.svg');
-	-webkit-mask-image: url('../../images/theme-dark.svg');
+.prismleaf-theme-switch[data-state="dark"] .prismleaf-theme-switch-icon {
+	mask-image: url(../../images/theme-dark.svg);
+	-webkit-mask-image: url(../../images/theme-dark.svg);
 }
 
-@supports not (mask: url('../../images/theme-auto.svg')) {
-	.prismleaf-theme-switch__icon {
+@supports not (mask: url(../../images/theme-auto.svg)) {
+
+	.prismleaf-theme-switch-icon {
 		background-color: transparent;
 		background-repeat: no-repeat;
 		background-position: center;
@@ -92,15 +117,15 @@
 		-webkit-mask: none;
 	}
 
-	.prismleaf-theme-switch[data-state="auto"] .prismleaf-theme-switch__icon {
-		background-image: url('../../images/theme-auto.svg');
+	.prismleaf-theme-switch[data-state="auto"] .prismleaf-theme-switch-icon {
+		background-image: url(../../images/theme-auto.svg);
 	}
 
-	.prismleaf-theme-switch[data-state="light"] .prismleaf-theme-switch__icon {
-		background-image: url('../../images/theme-light.svg');
+	.prismleaf-theme-switch[data-state="light"] .prismleaf-theme-switch-icon {
+		background-image: url(../../images/theme-light.svg);
 	}
 
-	.prismleaf-theme-switch[data-state="dark"] .prismleaf-theme-switch__icon {
-		background-image: url('../../images/theme-dark.svg');
+	.prismleaf-theme-switch[data-state="dark"] .prismleaf-theme-switch-icon {
+		background-image: url(../../images/theme-dark.svg);
 	}
 }

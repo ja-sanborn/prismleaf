@@ -11,10 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$prismleaf_framed           = (bool) get_theme_mod( 'prismleaf_layout_framed', false );
-$prismleaf_header_visible   = (bool) get_theme_mod( 'prismleaf_layout_header_visible', true );
-$prismleaf_header_contained = (bool) get_theme_mod( 'prismleaf_layout_header_contained', true );
+$prismleaf_framed           = prismleaf_get_theme_mod_bool( 'prismleaf_layout_framed', false );
+$prismleaf_header_visible   = prismleaf_get_theme_mod_bool( 'prismleaf_layout_header_visible', true );
+$prismleaf_header_contained = prismleaf_get_theme_mod_bool( 'prismleaf_layout_header_contained', true );
 $prismleaf_mobile           = wp_is_mobile();
+$prismleaf_header_bg        = trim( prismleaf_get_theme_mod_string( 'prismleaf_header_background_image', '' ) );
+$prismleaf_header_display   = prismleaf_get_theme_mod_string( 'prismleaf_header_background_display', 'tiled' );
 
 // When all regions are hidden, framed is treated as off.
 if ( function_exists( 'prismleaf_layout_all_regions_hidden' ) && prismleaf_layout_all_regions_hidden() ) {
@@ -31,6 +33,24 @@ if ( $prismleaf_mobile ) {
 if ( $prismleaf_framed ) {
 	$prismleaf_header_contained = false;
 }
+
+$prismleaf_header_classes = array(
+	'prismleaf-region',
+	'prismleaf-region-header',
+);
+
+$prismleaf_header_style = '';
+
+if ( '' !== $prismleaf_header_bg ) {
+	$prismleaf_header_classes[] = 'prismleaf-header-has-background';
+	$prismleaf_header_style     = sprintf(
+		'--prismleaf-header-background-image:url("%s"); --prismleaf-header-background-display:%s;',
+		esc_url( $prismleaf_header_bg ),
+		esc_attr( $prismleaf_header_display )
+	);
+}
+
+$prismleaf_header_class_attr = implode( ' ', $prismleaf_header_classes );
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -48,7 +68,7 @@ if ( $prismleaf_framed ) {
 
 <div class="prismleaf-frame">
 	<?php if ( $prismleaf_header_visible && ( $prismleaf_framed || ! $prismleaf_header_contained ) ) : ?>
-		<header class="prismleaf-region prismleaf-region-header">
+		<header class="<?php echo esc_attr( $prismleaf_header_class_attr ); ?>"<?php echo '' !== $prismleaf_header_style ? ' style="' . esc_attr( $prismleaf_header_style ) . '"' : ''; ?>>
 			<?php get_template_part( 'template-parts/core/layout-header' ); ?>
 		</header>
 	<?php endif; ?>
@@ -56,7 +76,7 @@ if ( $prismleaf_framed ) {
 	<div class="prismleaf-region prismleaf-region-middle">
 		<div class="prismleaf-region prismleaf-region-content">
 			<?php if ( $prismleaf_header_visible && ( ! $prismleaf_framed && $prismleaf_header_contained ) ) : ?>
-				<header class="prismleaf-region prismleaf-region-header">
+				<header class="<?php echo esc_attr( $prismleaf_header_class_attr ); ?>"<?php echo '' !== $prismleaf_header_style ? ' style="' . esc_attr( $prismleaf_header_style ) . '"' : ''; ?>>
 					<?php get_template_part( 'template-parts/core/layout-header' ); ?>
 				</header>
 			<?php endif; ?>

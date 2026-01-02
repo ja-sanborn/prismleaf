@@ -1,11 +1,11 @@
 /*!
- * Prismleaf Base Styles
- *
- * Global element defaults and accessibility-friendly baselines for the Prismleaf
- * classic theme. Consumes design tokens declared in assets/styles/tokens/*.css.
- *
- * @package prismleaf
- */
+	* Prismleaf Base Styles
+	*
+	* Global element defaults and accessibility-friendly baselines for the Prismleaf
+	* classic theme. Consumes design tokens declared in assets/styles/tokens/*.css.
+	*
+	* @package prismleaf
+	*/
 
 /* Apply border-box sizing so width/height include padding and borders. */
 *,
@@ -26,6 +26,7 @@ html {
 }
 
 @media (prefers-color-scheme: dark) {
+
 	html {
 		color-scheme: dark;
 	}
@@ -74,13 +75,14 @@ main {
 body {
 	min-height: 100svh;
 	font-family: var(--prismleaf-font-sans);
-	text-rendering: optimizeLegibility;
+	text-rendering: optimizelegibility;
 	color: var(--prismleaf-color-foreground);
 	background-color: var(--prismleaf-color-background);
 }
 
 /* Prefer dynamic viewport height when supported. */
 @supports (min-height: 100dvh) {
+
 	body {
 		min-height: 100dvh;
 	}
@@ -225,7 +227,7 @@ a:active {
 
 /* Prevent in-page anchor targets from hiding beneath fixed UI. */
 :target {
-	scroll-margin-top: var(--prismleaf-admin-bar-offset, 0px);
+	scroll-margin-top: var(--prismleaf-admin-bar-offset, 0);
 }
 
 /* Normalize form controls while preserving accessibility and UA affordances. */
@@ -389,6 +391,7 @@ textarea {
 
 /* Let the OS manage colors when forced-colors mode is active. */
 @media (forced-colors: active) {
+
 	/* Ensure the theme does not prevent the system from enforcing contrast. */
 	*,
 	*::before,
@@ -426,6 +429,7 @@ textarea {
 
 /* Reduce motion and smooth scrolling when the user requests it. */
 @media (prefers-reduced-motion: reduce) {
+
 	* {
 		scroll-behavior: auto !important;
 		transition: none !important;

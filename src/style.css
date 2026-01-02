@@ -1,12 +1,17 @@
 /*!
 Theme Name: Prismleaf
+Theme URI: https://github.com/ja-sanborn/prismleaf
 Author: Jessica Alexis Sanborn
-Author URI:
-Description: Modern, responsive, accessible-by-default, and customizable classic (non-FSE) theme using Material Design 3–inspired design tokens for color, typography, spacing, and shape.
+Author URI: https://github.com/ja-sanborn/
+Description: Modern, responsive, accessible-by-default, and customizable classic (non-FSE) theme using Material Design 3-inspired design tokens for color, typography, spacing, and shape.
 Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: prismleaf
+Tags: accessibility-ready, blog, custom-background, custom-colors, custom-logo, custom-menu, featured-images, one-column, two-columns, right-sidebar, left-sidebar, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready
 */
 
 /* Styles are enqueued from assets/styles/core and assets/styles/components. */

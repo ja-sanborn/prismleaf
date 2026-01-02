@@ -16,10 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <p>
- 	 <?php
- 	 esc_html_e(
- 	  	'Footer placeholder content. This area typically contains site information, secondary navigation, and legal text.',
- 	  	'prismleaf'
- 	 );
- 	 ?>
+			<?php
+			esc_html_e(
+				'Footer placeholder content. This area typically contains site information, secondary navigation, and legal text.',
+				'prismleaf'
+			);
+			?>
 </p>

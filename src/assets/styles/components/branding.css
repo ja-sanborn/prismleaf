@@ -1,18 +1,13 @@
 /*!
- * Prismleaf Site Metadata
- *
- * Styling for the site icon, title, and tagline cluster.
- *
- * @package prismleaf
- */
+	* Prismleaf Branding
+	*
+	* Styling for the site title and tagline cluster.
+	*
+	* @package prismleaf
+	*/
 
-/* Site metadata tokens. */
+/* Branding tokens. */
 :root {
-	/* Icon sizes. */
-	--prismleaf-icon-sm: 32px;
-	--prismleaf-icon-md: 48px;
-	--prismleaf-icon-lg: 64px;
-	--prismleaf-site-icon-size: var(--prismleaf-icon-md);
 
 	/* Light palette: hyperlink titles. */
 	--prismleaf-color-light-title-link: var(--prismleaf-color-primary);
@@ -38,6 +33,7 @@
 
 /* System dark mode. */
 @media (prefers-color-scheme: dark) {
+
 	:root {
 		--prismleaf-color-title-link: var(--prismleaf-color-dark-title-link);
 		--prismleaf-color-title-link-hover: var(--prismleaf-color-dark-title-link-hover);
@@ -66,7 +62,7 @@
 }
 
 /* Layout. */
-.prismleaf-site-metadata {
+.prismleaf-branding {
 	display: flex;
 	align-items: center;
 	gap: var(--prismleaf-space-1);
@@ -74,7 +70,7 @@
 	text-align: start;
 }
 
-.prismleaf-site-metadata__text {
+.prismleaf-branding-text {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -85,73 +81,24 @@
 	padding: var(--prismleaf-space-1);
 }
 
-/* Icon. */
-.prismleaf-site-icon {
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	flex: 0 0 auto;
-}
-
-.prismleaf-site-icon .prismleaf-site-icon-link {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	line-height: 0;
-	position: relative;
-	overflow: hidden;
-	border-radius: 50%;
-	width: var(--prismleaf-site-icon-size);
-	height: var(--prismleaf-site-icon-size);
-}
-
-.prismleaf-site-icon .prismleaf-site-icon-image {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-.prismleaf-site-icon .prismleaf-site-icon-link::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background: var(--prismleaf-color-on-surface);
-	opacity: 0;
-	transition: opacity calc(var(--prismleaf-duration-fast) * var(--prismleaf-motion-multiplier)) var(--prismleaf-ease-standard);
-	pointer-events: none;
-}
-
-.prismleaf-site-icon .prismleaf-site-icon-link:hover::after,
-.prismleaf-site-icon .prismleaf-site-icon-link:focus-visible::after {
-	opacity: var(--prismleaf-state-hover-opacity);
-}
-
-/* Icon corners. */
-.prismleaf-site-metadata--icon-square .prismleaf-site-icon-image,
-.prismleaf-site-metadata--icon-square .prismleaf-site-icon-link {
-	border-radius: 0;
-}
-
-.prismleaf-site-metadata--icon-circle .prismleaf-site-icon-image,
-.prismleaf-site-metadata--icon-circle .prismleaf-site-icon-link {
-	border-radius: 50%;
-}
-
-.prismleaf-site-metadata--icon-round .prismleaf-site-icon-image,
-.prismleaf-site-metadata--icon-round .prismleaf-site-icon-link {
-	border-radius: var(--prismleaf-radius-medium);
-}
-
-.prismleaf-site-metadata--tagline-below .prismleaf-site-metadata__text {
+.prismleaf-branding-tagline-below .prismleaf-branding-text {
 	flex-direction: column;
 	align-items: flex-start;
 }
 
-.prismleaf-site-metadata--tagline-inline .prismleaf-site-metadata__text {
+.prismleaf-branding-tagline-inline .prismleaf-branding-text {
 	flex-direction: row;
 	align-items: center;
 	flex-wrap: wrap;
+}
+
+.prismleaf-branding-tagline-force-below .prismleaf-branding-text {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.prismleaf-branding-overflow-hidden .prismleaf-branding-text {
+	overflow: hidden;
 }
 
 /* Type. */
@@ -193,4 +140,29 @@
 .prismleaf-site-description {
 	font-size: var(--prismleaf-font-size-sm);
 	color: var(--prismleaf-color-site-description);
+}
+
+.prismleaf-branding-header-background .prismleaf-site-title a,
+.prismleaf-branding-header-background .prismleaf-site-description {
+	position: relative;
+	display: inline;
+	padding: 0 var(--prismleaf-space-1);
+	border-radius: var(--prismleaf-radius-small);
+	background-color: color-mix(in srgb, var(--prismleaf-region-header-background) 55%, transparent);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+
+@media (max-width: 768px) {
+
+	.prismleaf-branding-responsive .prismleaf-site-icon {
+		display: none;
+	}
+
+	.prismleaf-branding-responsive .prismleaf-branding-text {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }

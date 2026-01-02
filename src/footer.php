@@ -11,22 +11,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$prismleaf_framed = (bool) get_theme_mod( 'prismleaf_layout_framed', false );
+$prismleaf_framed = prismleaf_get_theme_mod_bool( 'prismleaf_layout_framed', false );
 $prismleaf_mobile = wp_is_mobile();
 
-$prismleaf_footer_visible   = (bool) get_theme_mod( 'prismleaf_layout_footer_visible', true );
-$prismleaf_footer_contained = (bool) get_theme_mod( 'prismleaf_layout_footer_contained', true );
+$prismleaf_footer_visible   = prismleaf_get_theme_mod_bool( 'prismleaf_layout_footer_visible', true );
+$prismleaf_footer_contained = prismleaf_get_theme_mod_bool( 'prismleaf_layout_footer_contained', true );
 
-$prismleaf_sidebar_left_visible   = (bool) get_theme_mod( 'prismleaf_layout_sidebar_left_visible', true );
-$prismleaf_sidebar_left_contained = (bool) get_theme_mod( 'prismleaf_layout_sidebar_left_contained', true );
+$prismleaf_sidebar_left_visible   = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_left_visible', true );
+$prismleaf_sidebar_left_contained = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_left_contained', true );
 
-$prismleaf_sidebar_right_visible   = (bool) get_theme_mod( 'prismleaf_layout_sidebar_right_visible', true );
-$prismleaf_sidebar_right_contained = (bool) get_theme_mod( 'prismleaf_layout_sidebar_right_contained', true );
+$prismleaf_sidebar_right_visible   = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_right_visible', true );
+$prismleaf_sidebar_right_contained = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_right_contained', true );
 
 // Mobile layout is never framed or contained.
 if ( $prismleaf_mobile ) {
-	$prismleaf_framed               = false;
-	$prismleaf_footer_contained     = false;
+	$prismleaf_framed                  = false;
+	$prismleaf_footer_contained        = false;
 	$prismleaf_sidebar_left_contained  = false;
 	$prismleaf_sidebar_right_contained = false;
 }

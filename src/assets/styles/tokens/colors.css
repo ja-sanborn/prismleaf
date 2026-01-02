@@ -1,27 +1,28 @@
 /*!
- * Prismleaf Tokens: Colors
- *
- * Light/dark palette definitions and color-only primitives.
- *
- * @package prismleaf
- */
+	* Prismleaf Tokens: Colors
+	*
+	* Light/dark palette definitions and color-only primitives.
+	*
+	* @package prismleaf
+	*/
 
 :root {
+
 	/* Light palette: brand roles. */
 	--prismleaf-color-light-primary: #c04b8d;
-	--prismleaf-color-light-on-primary: #ffffff;
+	--prismleaf-color-light-on-primary: #fff;
 	--prismleaf-color-light-primary-darker: #a83b78;
 	--prismleaf-color-light-primary-darkest: #893062;
 	--prismleaf-color-light-primary-lighter: #cb69a0;
 	--prismleaf-color-light-primary-lightest: #d587b3;
 	--prismleaf-color-light-secondary: #2e7d6f;
-	--prismleaf-color-light-on-secondary: #ffffff;
+	--prismleaf-color-light-on-secondary: #fff;
 	--prismleaf-color-light-secondary-darker: #235f55;
 	--prismleaf-color-light-secondary-darkest: #18413a;
 	--prismleaf-color-light-secondary-lighter: #399b89;
 	--prismleaf-color-light-secondary-lightest: #44b9a4;
 	--prismleaf-color-light-tertiary: #3f6fd9;
-	--prismleaf-color-light-on-tertiary: #ffffff;
+	--prismleaf-color-light-on-tertiary: #fff;
 	--prismleaf-color-light-tertiary-darker: #2859c8;
 	--prismleaf-color-light-tertiary-darkest: #214aa6;
 	--prismleaf-color-light-tertiary-lighter: #6189e0;
@@ -52,14 +53,14 @@
 	--prismleaf-color-light-on-background: #1b1b1f;
 	--prismleaf-color-light-background-darker: #f3f0f6;
 	--prismleaf-color-light-background-darkest: #e7e2ee;
-	--prismleaf-color-light-background-lighter: #ffffff;
-	--prismleaf-color-light-background-lightest: #ffffff;
-	--prismleaf-color-light-surface: #ffffff;
+	--prismleaf-color-light-background-lighter: #fff;
+	--prismleaf-color-light-background-lightest: #fff;
+	--prismleaf-color-light-surface: #fff;
 	--prismleaf-color-light-on-surface: #1b1b1f;
 	--prismleaf-color-light-surface-darker: #f3f0f6;
 	--prismleaf-color-light-surface-darkest: #e7e2ee;
-	--prismleaf-color-light-surface-lighter: #ffffff;
-	--prismleaf-color-light-surface-lightest: #ffffff;
+	--prismleaf-color-light-surface-lighter: #fff;
+	--prismleaf-color-light-surface-lightest: #fff;
 	--prismleaf-color-light-surface-variant: #f3f0f6;
 	--prismleaf-color-light-on-surface-variant: #3a3a43;
 	--prismleaf-color-light-surface-variant-darker: #e7e2ee;
@@ -67,7 +68,7 @@
 	--prismleaf-color-light-surface-variant-lighter: #f7f4f9;
 	--prismleaf-color-light-surface-variant-lightest: #fbf9fc;
 	--prismleaf-color-light-foreground: #1b1b1f;
-	--prismleaf-color-light-on-foreground: #ffffff;
+	--prismleaf-color-light-on-foreground: #fff;
 	--prismleaf-color-light-foreground-darker: #111114;
 	--prismleaf-color-light-foreground-darkest: #0b0b0d;
 	--prismleaf-color-light-foreground-lighter: #3a3a43;
@@ -75,7 +76,7 @@
 
 	/* Light palette: feedback roles. */
 	--prismleaf-color-light-error: #b3261e;
-	--prismleaf-color-light-on-error: #ffffff;
+	--prismleaf-color-light-on-error: #fff;
 	--prismleaf-color-light-error-darker: #8f1f19;
 	--prismleaf-color-light-error-darkest: #6e1713;
 	--prismleaf-color-light-error-lighter: #c73b33;
@@ -87,7 +88,7 @@
 	--prismleaf-color-light-error-container-lighter: #fbe7e6;
 	--prismleaf-color-light-error-container-lightest: #fdf1f0;
 	--prismleaf-color-light-warning: #b26a00;
-	--prismleaf-color-light-on-warning: #ffffff;
+	--prismleaf-color-light-on-warning: #fff;
 	--prismleaf-color-light-warning-darker: #8f5400;
 	--prismleaf-color-light-warning-darkest: #6f4100;
 	--prismleaf-color-light-warning-lighter: #c57d0a;
@@ -99,7 +100,7 @@
 	--prismleaf-color-light-warning-container-lighter: #ffe7c8;
 	--prismleaf-color-light-warning-container-lightest: #fff1dd;
 	--prismleaf-color-light-info: #1a73e8;
-	--prismleaf-color-light-on-info: #ffffff;
+	--prismleaf-color-light-on-info: #fff;
 	--prismleaf-color-light-info-darker: #1558b3;
 	--prismleaf-color-light-info-darkest: #10438a;
 	--prismleaf-color-light-info-lighter: #4a90f2;
@@ -190,7 +191,7 @@
 	--prismleaf-color-dark-foreground-darker: #c9c9d4;
 	--prismleaf-color-dark-foreground-darkest: #ababba;
 	--prismleaf-color-dark-foreground-lighter: #f3f3f8;
-	--prismleaf-color-dark-foreground-lightest: #ffffff;
+	--prismleaf-color-dark-foreground-lightest: #fff;
 
 	/* Dark palette: feedback roles. */
 	--prismleaf-color-dark-error: #f2b8b5;
