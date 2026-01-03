@@ -506,6 +506,16 @@ if ( ! function_exists( 'prismleaf_layout_body_classes' ) ) {
 		$sidebar_left_visible  = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_left_visible', true );
 		$sidebar_right_visible = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_right_visible', true );
 
+		if ( function_exists( 'is_active_sidebar' ) ) {
+			if ( ! is_active_sidebar( 'sidebar-left' ) ) {
+				$sidebar_left_visible = false;
+			}
+
+			if ( ! is_active_sidebar( 'sidebar-right' ) ) {
+				$sidebar_right_visible = false;
+			}
+		}
+
 		if ( ! $header_visible ) {
 			$classes[] = 'prismleaf-header-hidden';
 		}

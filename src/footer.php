@@ -23,6 +23,9 @@ $prismleaf_sidebar_left_contained = prismleaf_get_theme_mod_bool( 'prismleaf_lay
 $prismleaf_sidebar_right_visible   = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_right_visible', true );
 $prismleaf_sidebar_right_contained = prismleaf_get_theme_mod_bool( 'prismleaf_layout_sidebar_right_contained', true );
 
+$prismleaf_sidebar_left_active  = is_active_sidebar( 'sidebar-left' );
+$prismleaf_sidebar_right_active = is_active_sidebar( 'sidebar-right' );
+
 // Mobile layout is never framed or contained.
 if ( $prismleaf_mobile ) {
 	$prismleaf_framed                  = false;
@@ -30,17 +33,25 @@ if ( $prismleaf_mobile ) {
 	$prismleaf_sidebar_left_contained  = false;
 	$prismleaf_sidebar_right_contained = false;
 }
+
+if ( ! $prismleaf_sidebar_left_active ) {
+	$prismleaf_sidebar_left_visible = false;
+}
+
+if ( ! $prismleaf_sidebar_right_active ) {
+	$prismleaf_sidebar_right_visible = false;
+}
 ?>
 			</main>
 			<?php if ( $prismleaf_sidebar_left_visible && ( ! $prismleaf_framed && $prismleaf_sidebar_left_contained ) ) : ?>
 				<aside class="prismleaf-region prismleaf-region-sidebar-left">
-					<?php get_template_part( 'template-parts/core/layout-sidebar-left' ); ?>
+					<?php get_template_part( 'template-parts/core/layout-sidebar', null, array( 'position' => 'left' ) ); ?>
 				</aside>
 			<?php endif; ?>
 
 			<?php if ( $prismleaf_sidebar_right_visible && ( ! $prismleaf_framed && $prismleaf_sidebar_right_contained ) ) : ?>
 				<aside class="prismleaf-region prismleaf-region-sidebar-right">
-					<?php get_template_part( 'template-parts/core/layout-sidebar-right' ); ?>
+					<?php get_template_part( 'template-parts/core/layout-sidebar', null, array( 'position' => 'right' ) ); ?>
 				</aside>
 			<?php endif; ?>
 
@@ -54,13 +65,13 @@ if ( $prismleaf_mobile ) {
 
 	<?php if ( $prismleaf_sidebar_left_visible && ( $prismleaf_framed || ! $prismleaf_sidebar_left_contained ) ) : ?>
 		<aside class="prismleaf-region prismleaf-region-sidebar-left">
-			<?php get_template_part( 'template-parts/core/layout-sidebar-left' ); ?>
+			<?php get_template_part( 'template-parts/core/layout-sidebar', null, array( 'position' => 'left' ) ); ?>
 		</aside>
 	<?php endif; ?>
 
 	<?php if ( $prismleaf_sidebar_right_visible && ( $prismleaf_framed || ! $prismleaf_sidebar_right_contained ) ) : ?>
 		<aside class="prismleaf-region prismleaf-region-sidebar-right">
-			<?php get_template_part( 'template-parts/core/layout-sidebar-right' ); ?>
+			<?php get_template_part( 'template-parts/core/layout-sidebar', null, array( 'position' => 'right' ) ); ?>
 		</aside>
 	<?php endif; ?>
 

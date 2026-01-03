@@ -106,6 +106,7 @@ if ( ! function_exists( 'prismleaf_get_css_variable_overrides' ) ) {
 		$declarations .= prismleaf_get_brand_css_variable_overrides();
 		$declarations .= prismleaf_get_layout_css_variable_overrides();
 		$declarations .= prismleaf_get_menu_css_variable_overrides();
+		$declarations .= prismleaf_get_footer_css_variable_overrides();
 		$declarations .= prismleaf_get_global_style_css_variable_overrides();
 
 		if ( '' === $declarations ) {
@@ -185,6 +186,50 @@ if ( ! function_exists( 'prismleaf_get_menu_css_variable_overrides' ) ) {
 				$css .= "--prismleaf-menu-{$slug}-link-visited-dark-override:" . $dark_link . ';';
 			}
 		}
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_footer_css_variable_overrides' ) ) {
+	/**
+	 * Returns footer-related CSS custom property overrides.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_footer_css_variable_overrides() {
+		$widget_alignment_raw = prismleaf_get_theme_mod_string( 'prismleaf_footer_widget_alignment', 'center' );
+		$widget_alignment     = in_array( $widget_alignment_raw, array( 'left', 'center', 'right', 'stretch' ), true )
+			? $widget_alignment_raw
+			: 'center';
+
+		$copyright_alignment_raw = prismleaf_get_theme_mod_string( 'prismleaf_footer_copyright_alignment', 'right' );
+		$copyright_alignment     = in_array( $copyright_alignment_raw, array( 'left', 'center', 'right' ), true )
+			? $copyright_alignment_raw
+			: 'right';
+
+		$justify_map = array(
+			'left'    => 'flex-start',
+			'center'  => 'center',
+			'right'   => 'flex-end',
+			'stretch' => 'stretch',
+		);
+
+		$columns = ( 'stretch' === $widget_alignment )
+			? 'repeat(auto-fit,minmax(150px,1fr))'
+			: 'repeat(4,150px)';
+
+		$widget_justify = isset( $justify_map[ $widget_alignment ] ) ? $justify_map[ $widget_alignment ] : 'center';
+
+		$copyright_justify = isset( $justify_map[ $copyright_alignment ] ) ? $justify_map[ $copyright_alignment ] : 'flex-end';
+		$copyright_text    = ( 'left' === $copyright_alignment ) ? 'left' : ( 'center' === $copyright_alignment ? 'center' : 'right' );
+
+		$css  = '--prismleaf-footer-widget-columns:' . $columns . ';';
+		$css .= '--prismleaf-footer-widget-justify:' . $widget_justify . ';';
+		$css .= '--prismleaf-footer-copyright-justify:' . $copyright_justify . ';';
+		$css .= '--prismleaf-footer-copyright-text-align:' . $copyright_text . ';';
 
 		return $css;
 	}

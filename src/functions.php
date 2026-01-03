@@ -29,6 +29,7 @@ require_once PRISMLEAF_DIR . 'inc/customizer/sections/branding-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/site-icon-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/menu-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/header-options.php';
+require_once PRISMLEAF_DIR . 'inc/customizer/sections/footer-options.php';
 require_once PRISMLEAF_DIR . 'inc/components/search-component.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/search-options.php';
 require_once PRISMLEAF_DIR . 'inc/widgets/class-prismleaf-search-widget.php';

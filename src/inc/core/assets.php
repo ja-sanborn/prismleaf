@@ -153,6 +153,14 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		wp_style_add_data( 'prismleaf-header', 'rtl', 'replace' );
 
 		prismleaf_enqueue_style(
+			'prismleaf-footer',
+			'assets/styles/components/footer.css',
+			array( 'prismleaf-regions' ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-footer', 'rtl', 'replace' );
+
+		prismleaf_enqueue_style(
 			'prismleaf-primary-menu',
 			'assets/styles/components/primary-menu.css',
 			array( 'prismleaf-header' ),
