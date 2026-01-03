@@ -149,13 +149,18 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 		overscroll-behavior: contain;
-		padding: 0;
+		padding: var(--prismleaf-region-gap);
 	}
 
 	.prismleaf-layout-framed .prismleaf-region-content,
 	.prismleaf-layout-framed .prismleaf-region-sidebar-left,
 	.prismleaf-layout-framed .prismleaf-region-sidebar-right {
 		padding: var(--prismleaf-card-padding);
+	}
+
+	.prismleaf-layout-framed .prismleaf-region-sidebar-left,
+	.prismleaf-layout-framed .prismleaf-region-sidebar-right {
+		padding: var(--prismleaf-space-2);
 	}
 
 	.prismleaf-layout-framed .prismleaf-region-content {
