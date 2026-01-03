@@ -105,7 +105,7 @@
 	/* Content sizing. */
 	--prismleaf-content-max: 1480px;
 
-	/* Layout sizing hooks consumed by layout.css (no visual styling). */
+	/* Layout sizing hooks consumed by frame.css (no visual styling). */
 	--prismleaf-admin-bar-offset: 0;
 	--prismleaf-header-height: auto;
 	--prismleaf-footer-height: auto;

@@ -1,11 +1,11 @@
 /*!
-	* Prismleaf Layout
-	*
-	* Structural layout only: sizing, spacing, and scroll containers.
-	* Consumes design tokens declared in assets/styles/tokens/*.css.
-	*
-	* @package prismleaf
-	*/
+ * Prismleaf Frame
+ *
+ * Structural layout: frame sizing, grid, and content-region positioning.
+ * Consumes design tokens declared in assets/styles/tokens/*.css.
+ *
+ * @package prismleaf
+ */
 
 /* Admin bar offset is consumed by framed mode. */
 .admin-bar {
@@ -30,44 +30,22 @@
 	min-height: 0;
 }
 
-.prismleaf-region-header.prismleaf-header-has-background {
-	background-image: var(--prismleaf-header-background-image, none);
-	background-position: center center;
-	background-repeat: var(--prismleaf-header-background-repeat, no-repeat);
-	background-size: var(--prismleaf-header-background-size, auto);
-	--prismleaf-header-backplate-bg: color-mix(in srgb, var(--prismleaf-region-header-background) 85%, transparent);
-	--prismleaf-header-backplate-border: color-mix(in srgb, var(--prismleaf-region-header-foreground) 25%, transparent);
-	--prismleaf-header-backplate-shadow: var(--prismleaf-shadow);
-	--prismleaf-header-background-repeat: no-repeat;
-	--prismleaf-header-background-size: auto;
+/* Content surface. */
+.prismleaf-region-content {
+	background-color: var(--prismleaf-region-content-background);
+	color: var(--prismleaf-region-content-foreground);
+
+	border-width: var(--prismleaf-border-width-thin);
+	border-style: var(--prismleaf-region-content-border-style);
+	border-color: var(--prismleaf-region-content-border-color);
+	border-radius: var(--prismleaf-region-content-radius);
+
+	box-shadow: var(--prismleaf-region-content-shadow);
+	padding: var(--prismleaf-space-2);
 }
 
-.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:tiled"] {
-	--prismleaf-header-background-repeat: repeat;
-	--prismleaf-header-background-size: auto;
-}
-
-.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:stretch"] {
-	--prismleaf-header-background-repeat: no-repeat;
-	--prismleaf-header-background-size: cover;
-}
-
-.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:fill"] {
-	--prismleaf-header-background-repeat: no-repeat;
-	--prismleaf-header-background-size: 100% 100%;
-}
-
-.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:auto"] {
-	--prismleaf-header-background-repeat: no-repeat;
-	--prismleaf-header-background-size: auto;
-}
-
-/* Region visibility toggles. */
-.prismleaf-header-hidden .prismleaf-region-header,
-.prismleaf-footer-hidden .prismleaf-region-footer,
-.prismleaf-sidebar-left-hidden .prismleaf-region-sidebar-left,
-.prismleaf-sidebar-right-hidden .prismleaf-region-sidebar-right {
-	display: none;
+.prismleaf-content {
+	padding: var(--prismleaf-space-2);
 }
 
 /* Desktop layout (>= 770px). */
@@ -115,34 +93,6 @@
 		}
 	}
 
-	.prismleaf-layout-framed .prismleaf-region-header {
-		grid-row: 1;
-		grid-column: 1 / -1;
-		overflow: hidden;
-	}
-
-	.prismleaf-layout-framed .prismleaf-region-footer {
-		grid-row: 3;
-		grid-column: 1 / -1;
-		overflow: hidden;
-	}
-
-	.prismleaf-layout-framed .prismleaf-region-sidebar-left {
-		grid-row: 2;
-		grid-column: 1;
-		overflow-y: auto;
-		overflow-x: hidden;
-		overscroll-behavior: contain;
-	}
-
-	.prismleaf-layout-framed .prismleaf-region-sidebar-right {
-		grid-row: 2;
-		grid-column: 3;
-		overflow-y: auto;
-		overflow-x: hidden;
-		overscroll-behavior: contain;
-	}
-
 	.prismleaf-layout-framed .prismleaf-region-middle {
 		grid-row: 2;
 		grid-column: 2;
@@ -153,11 +103,6 @@
 	}
 
 	.prismleaf-layout-framed .prismleaf-region-content,
-	.prismleaf-layout-framed .prismleaf-region-sidebar-left,
-	.prismleaf-layout-framed .prismleaf-region-sidebar-right {
-		padding: var(--prismleaf-card-padding);
-	}
-
 	.prismleaf-layout-framed .prismleaf-region-sidebar-left,
 	.prismleaf-layout-framed .prismleaf-region-sidebar-right {
 		padding: var(--prismleaf-space-2);
@@ -250,27 +195,6 @@
 		grid-template-columns: 0 1fr 0;
 	}
 
-
-	.prismleaf-layout-not-framed .prismleaf-region-header {
-		grid-area: header;
-		min-height: var(--prismleaf-header-height);
-		overflow-y: hidden;
-	}
-
-	.prismleaf-layout-not-framed .prismleaf-region-footer {
-		grid-area: footer;
-		min-height: var(--prismleaf-footer-height);
-		overflow-y: hidden;
-	}
-
-	.prismleaf-layout-not-framed .prismleaf-region-sidebar-left {
-		grid-area: left;
-	}
-
-	.prismleaf-layout-not-framed .prismleaf-region-sidebar-right {
-		grid-area: right;
-	}
-
 	.prismleaf-layout-not-framed .prismleaf-region-middle {
 		grid-area: middle;
 		padding: 0;
@@ -288,29 +212,7 @@
 			"main"
 			"footer";
 		gap: var(--prismleaf-region-gap);
-		padding: var(--prismleaf-card-padding);
-	}
-
-	/* Contained regions live "inside" the main content area spacing. */
-	.prismleaf-layout-not-framed.prismleaf-header-contained .prismleaf-region-header,
-	.prismleaf-layout-not-framed.prismleaf-footer-contained .prismleaf-region-footer,
-	.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained .prismleaf-region-sidebar-left,
-	.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained .prismleaf-region-sidebar-right,
-	.prismleaf-layout-not-framed .prismleaf-region-middle {
-		margin: 0;
-		padding: var(--prismleaf-card-padding);
-	}
-
-	/*
-		* Not-contained regions are positioned by the layout; spacing differences are
-		* driven via Customizer variable overrides (no structural changes here).
-		*/
-	.prismleaf-layout-not-framed.prismleaf-header-not-contained .prismleaf-region-header,
-	.prismleaf-layout-not-framed.prismleaf-footer-not-contained .prismleaf-region-footer,
-	.prismleaf-layout-not-framed.prismleaf-sidebar-left-not-contained .prismleaf-region-sidebar-left,
-	.prismleaf-layout-not-framed.prismleaf-sidebar-right-not-contained .prismleaf-region-sidebar-right {
-		margin: 0;
-		padding: var(--prismleaf-card-padding);
+		padding: var(--prismleaf-space-2);
 	}
 
 	.prismleaf-layout-not-framed .prismleaf-region-content > .prismleaf-region-header {
@@ -334,10 +236,6 @@
 			"footer footer";
 	}
 
-	.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained:not(.prismleaf-sidebar-left-hidden) .prismleaf-region-content > .prismleaf-region-sidebar-left {
-		grid-area: left;
-	}
-
 	.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained:not(.prismleaf-sidebar-right-hidden):not(.prismleaf-sidebar-left-contained) .prismleaf-region-content,
 	.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained:not(.prismleaf-sidebar-right-hidden).prismleaf-sidebar-left-contained.prismleaf-sidebar-left-hidden .prismleaf-region-content {
 		grid-template-columns: 1fr var(--prismleaf-sidebar-right-width);
@@ -347,10 +245,6 @@
 			"footer footer";
 	}
 
-	.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained:not(.prismleaf-sidebar-right-hidden) .prismleaf-region-content > .prismleaf-region-sidebar-right {
-		grid-area: right;
-	}
-
 	.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained:not(.prismleaf-sidebar-left-hidden).prismleaf-sidebar-right-contained:not(.prismleaf-sidebar-right-hidden) .prismleaf-region-content {
 		grid-template-columns: var(--prismleaf-sidebar-left-width) 1fr var(--prismleaf-sidebar-right-width);
 		grid-template-areas:
@@ -358,44 +252,6 @@
 			"left   main   right"
 			"footer footer footer";
 	}
-
-
-	/* Non-floating regions hug the viewport edge on desktop layouts. */
-	.prismleaf-layout-not-framed.prismleaf-header-not-contained.prismleaf-header-not-floating .prismleaf-region-header {
-		margin-top: calc(-1 * var(--prismleaf-page-padding-y));
-		margin-inline: calc(50% - 50svw);
-		width: 100svw;
-		padding: 0;
-	}
-
-	.prismleaf-layout-not-framed.prismleaf-footer-not-contained.prismleaf-footer-not-floating .prismleaf-region-footer {
-		margin-bottom: calc(-1 * var(--prismleaf-page-padding-y));
-		margin-inline: calc(50% - 50svw);
-		width: 100svw;
-		padding: 0;
-	}
-
-	.prismleaf-layout-not-framed.prismleaf-sidebar-left-not-contained.prismleaf-sidebar-left-not-floating .prismleaf-region-sidebar-left {
-		margin-left: calc(-1 * var(--prismleaf-page-padding-x));
-	}
-
-	.prismleaf-layout-not-framed.prismleaf-sidebar-right-not-contained.prismleaf-sidebar-right-not-floating .prismleaf-region-sidebar-right {
-		margin-right: calc(-1 * var(--prismleaf-page-padding-x));
-	}
-
-	@supports (width: 100dvw) {
-
-		.prismleaf-layout-not-framed.prismleaf-header-not-contained.prismleaf-header-not-floating .prismleaf-region-header {
-			margin-inline: calc(50% - 50dvw);
-			width: 100dvw;
-		}
-
-		.prismleaf-layout-not-framed.prismleaf-footer-not-contained.prismleaf-footer-not-floating .prismleaf-region-footer {
-			margin-inline: calc(50% - 50dvw);
-			width: 100dvw;
-		}
-	}
-
 }
 
 /* Mobile / stacked layout (<= 769px). */
@@ -417,20 +273,30 @@
 		margin-top: var(--prismleaf-space-1);
 	}
 
-	.prismleaf-region-header,
-	.prismleaf-region-sidebar-left,
-	.prismleaf-region-sidebar-right,
-	.prismleaf-region-footer {
-		padding: var(--prismleaf-space-1);
-		overflow-x: hidden;
-	}
-
 	.prismleaf-content {
-		padding: var(--prismleaf-space-1);
+		padding: var(--prismleaf-space-2);
 		overflow-x: hidden;
 	}
 
 	.prismleaf-region-middle {
 		overflow: visible;
+	}
+
+	.prismleaf-layout-not-framed .prismleaf-region-content {
+		background-color: transparent;
+		color: inherit;
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+	}
+
+	.prismleaf-layout-not-framed .prismleaf-content {
+		background-color: var(--prismleaf-region-content-background);
+		color: var(--prismleaf-region-content-foreground);
+		box-shadow: var(--prismleaf-region-content-shadow);
+		border-width: var(--prismleaf-border-width-thin);
+		border-style: var(--prismleaf-region-content-border-style);
+		border-color: var(--prismleaf-region-content-border-color);
+		border-radius: var(--prismleaf-radius-medium);
 	}
 }

@@ -5,7 +5,7 @@
  * Builds effective CSS custom property overrides for Prismleaf.
  *
  * Output is intended to be injected via wp_add_inline_style() and consumed by
- * assets/styles/core/base.css, assets/styles/core/layout.css, and assets/styles/core/regions.css.
+ * assets/styles/core/base.css, assets/styles/core/frame.css, and region styles in assets/styles/core/header.css, footer.css, sidebar-left.css, and sidebar-right.css.
  *
  * @package prismleaf
  */
