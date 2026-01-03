@@ -194,12 +194,11 @@
 	};
 
 	/**
-	 * Derive dark base from a light base hex.
-	 * Matches prismleaf_derive_dark_base_from_light PHP.
+	 * Use the light base for dark when no override is provided.
 	 * @param {string} lightHex Light hex string.
-	 * @return {string|null} Derived dark hex or null on failure.
+	 * @return {string|null} Normalized hex or null on failure.
 	 */
-	const deriveDarkFromLight = (lightHex) => adjustLightness(lightHex, -0.3);
+	const deriveDarkFromLight = (lightHex) => normalizeHex(lightHex);
 
 	/**
 	 * Bind a light/dark setting pair for auto-derivation and clearing.

@@ -146,13 +146,13 @@ if ( ! function_exists( 'prismleaf_get_menu_css_variable_overrides' ) ) {
 				? prismleaf_generate_palette_from_base( $light_base, 'light' )
 				: array();
 
-			if ( null === $dark_base && function_exists( 'prismleaf_derive_dark_base_from_light' ) ) {
-				$dark_base = prismleaf_derive_dark_base_from_light( $light_base );
-			}
+			$palette_dark = array();
 
-			$palette_dark = ( $dark_base && function_exists( 'prismleaf_generate_palette_from_base' ) )
-				? prismleaf_generate_palette_from_base( $dark_base, 'dark' )
-				: array();
+			if ( null === $dark_base ) {
+				$palette_dark = $palette_light;
+			} elseif ( $dark_base && function_exists( 'prismleaf_generate_palette_from_base' ) ) {
+				$palette_dark = prismleaf_generate_palette_from_base( $dark_base, 'dark' );
+			}
 
 			$light_bg        = isset( $palette_light['base'] ) ? $palette_light['base'] : $light_base;
 			$light_bg_hover  = isset( $palette_light['base_darker'] ) ? $palette_light['base_darker'] : $light_bg;
@@ -425,12 +425,13 @@ if ( ! function_exists( 'prismleaf_get_brand_css_variable_overrides' ) ) {
 
 			$light_palette = prismleaf_generate_palette_from_base( $light_base, 'light' );
 
-			// Derive dark from light unless the user supplied an explicit dark override.
-			if ( null === $dark_base ) {
-				$dark_base = prismleaf_derive_dark_base_from_light( $light_base );
-			}
+			$dark_palette = array();
 
-			$dark_palette = $dark_base ? prismleaf_generate_palette_from_base( $dark_base, 'dark' ) : array();
+			if ( null === $dark_base ) {
+				$dark_palette = $light_palette;
+			} elseif ( $dark_base ) {
+				$dark_palette = prismleaf_generate_palette_from_base( $dark_base, 'dark' );
+			}
 
 			$css .= prismleaf_render_brand_palette_css( $role, 'light', $light_palette );
 
@@ -634,11 +635,9 @@ if ( ! function_exists( 'prismleaf_get_site_metadata_css_variable_overrides' ) )
 			$title_dark_raw = prismleaf_get_theme_mod_string( 'prismleaf_site_metadata_title_color_dark', '' );
 			$title_dark     = '' !== trim( $title_dark_raw ) ? $title_dark_raw : null;
 
-			if ( null === $title_dark && function_exists( 'prismleaf_derive_dark_base_from_light' ) ) {
-				$title_dark = prismleaf_derive_dark_base_from_light( $title_light );
-			}
-
-			if ( null !== $title_dark && '' !== (string) $title_dark ) {
+			if ( null === $title_dark ) {
+				$title_dark_values = $title_light_values;
+			} elseif ( '' !== (string) $title_dark ) {
 				$palette_dark = function_exists( 'prismleaf_generate_palette_from_base' )
 				? prismleaf_generate_palette_from_base( $title_dark, 'dark' )
 				: array();
@@ -682,11 +681,9 @@ if ( ! function_exists( 'prismleaf_get_site_metadata_css_variable_overrides' ) )
 			$tagline_dark_raw = prismleaf_get_theme_mod_string( 'prismleaf_site_metadata_tagline_color_dark', '' );
 			$tagline_dark     = '' !== trim( $tagline_dark_raw ) ? $tagline_dark_raw : null;
 
-			if ( null === $tagline_dark && function_exists( 'prismleaf_derive_dark_base_from_light' ) ) {
-				$tagline_dark = prismleaf_derive_dark_base_from_light( $tagline_light );
-			}
-
-			if ( null !== $tagline_dark && '' !== (string) $tagline_dark ) {
+			if ( null === $tagline_dark ) {
+				$tagline_dark_value = $tagline_light_value;
+			} elseif ( '' !== (string) $tagline_dark ) {
 				$tagline_dark_value = $tagline_dark;
 			}
 		}
