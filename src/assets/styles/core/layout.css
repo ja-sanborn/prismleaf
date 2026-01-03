@@ -78,10 +78,17 @@
 		overflow: hidden;
 	}
 
+	body.prismleaf-layout-framed {
+		height: 100svh;
+		width: 100svw;
+	}
+
 	.prismleaf-layout-framed .prismleaf-frame {
 		position: fixed;
 		top: var(--prismleaf-admin-bar-offset);
 		left: 0;
+		right: 0;
+		bottom: 0;
 		width: 100svw;
 		height: calc(100svh - var(--prismleaf-admin-bar-offset));
 		display: grid;
@@ -89,6 +96,7 @@
 		grid-template-columns: var(--prismleaf-sidebar-left-width) 1fr var(--prismleaf-sidebar-right-width);
 		gap: 0;
 		padding: 0;
+		overflow: hidden;
 	}
 
 	@supports (height: 100dvh) {
@@ -99,38 +107,54 @@
 		}
 	}
 
+	@supports (height: 100dvh) {
+
+		body.prismleaf-layout-framed {
+			height: 100dvh;
+			width: 100dvw;
+		}
+	}
+
 	.prismleaf-layout-framed .prismleaf-region-header {
 		grid-row: 1;
 		grid-column: 1 / -1;
-		overflow-y: hidden;
+		overflow: hidden;
 	}
 
 	.prismleaf-layout-framed .prismleaf-region-footer {
 		grid-row: 3;
 		grid-column: 1 / -1;
-		overflow-y: hidden;
+		overflow: hidden;
 	}
 
 	.prismleaf-layout-framed .prismleaf-region-sidebar-left {
 		grid-row: 2;
 		grid-column: 1;
 		overflow-y: auto;
+		overflow-x: hidden;
+		overscroll-behavior: contain;
 	}
 
 	.prismleaf-layout-framed .prismleaf-region-sidebar-right {
 		grid-row: 2;
 		grid-column: 3;
 		overflow-y: auto;
+		overflow-x: hidden;
+		overscroll-behavior: contain;
 	}
 
 	.prismleaf-layout-framed .prismleaf-region-middle {
 		grid-row: 2;
 		grid-column: 2;
 		overflow-y: auto;
-		padding: var(--prismleaf-region-gap);
+		overflow-x: hidden;
+		overscroll-behavior: contain;
+		padding: 0;
 	}
 
-	.prismleaf-layout-framed .prismleaf-region {
+	.prismleaf-layout-framed .prismleaf-region-content,
+	.prismleaf-layout-framed .prismleaf-region-sidebar-left,
+	.prismleaf-layout-framed .prismleaf-region-sidebar-right {
 		padding: var(--prismleaf-card-padding);
 	}
 
