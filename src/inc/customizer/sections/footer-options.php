@@ -32,27 +32,6 @@ if ( ! function_exists( 'prismleaf_sanitize_footer_widget_alignment' ) ) {
 	}
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_footer_copyright_alignment' ) ) {
-	/**
-	 * Sanitize footer copyright alignment.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $value Alignment value.
-	 * @return string
-	 */
-	function prismleaf_sanitize_footer_copyright_alignment( $value ) {
-		$value   = (string) $value;
-		$allowed = array( 'left', 'center', 'right' );
-
-		if ( in_array( $value, $allowed, true ) ) {
-			return $value;
-		}
-
-		return 'center';
-	}
-}
-
 if ( ! function_exists( 'prismleaf_sanitize_footer_copyright_text' ) ) {
 	/**
 	 * Sanitize footer copyright text.
@@ -120,31 +99,6 @@ if ( ! function_exists( 'prismleaf_customize_register_footer' ) ) {
 					'center'  => __( 'Center', 'prismleaf' ),
 					'right'   => __( 'Right', 'prismleaf' ),
 					'stretch' => __( 'Stretch', 'prismleaf' ),
-				),
-			)
-		);
-
-		$wp_customize->add_setting(
-			'prismleaf_footer_copyright_alignment',
-			array(
-				'type'              => 'theme_mod',
-				'capability'        => 'edit_theme_options',
-				'default'           => 'center',
-				'sanitize_callback' => 'prismleaf_sanitize_footer_copyright_alignment',
-				'transport'         => 'refresh',
-			)
-		);
-
-		$wp_customize->add_control(
-			'prismleaf_footer_copyright_alignment',
-			array(
-				'type'    => 'select',
-				'section' => 'prismleaf_footer',
-				'label'   => __( 'Copyright alignment', 'prismleaf' ),
-				'choices' => array(
-					'left'   => __( 'Left', 'prismleaf' ),
-					'center' => __( 'Center', 'prismleaf' ),
-					'right'  => __( 'Right', 'prismleaf' ),
 				),
 			)
 		);
