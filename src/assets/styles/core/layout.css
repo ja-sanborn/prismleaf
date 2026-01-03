@@ -406,14 +406,27 @@
 		width: auto;
 		height: auto;
 		display: block;
-		padding-block: var(--prismleaf-page-padding-y);
-		padding-inline: var(--prismleaf-page-padding-x);
+		padding: 0;
+	}
+
+	.prismleaf-frame > .prismleaf-region + .prismleaf-region {
+		margin-top: var(--prismleaf-space-1);
+	}
+
+	.prismleaf-region-content > * + * {
+		margin-top: var(--prismleaf-space-1);
 	}
 
 	.prismleaf-region-header,
 	.prismleaf-region-sidebar-left,
 	.prismleaf-region-sidebar-right,
 	.prismleaf-region-footer {
+		padding: var(--prismleaf-space-1);
+		overflow-x: hidden;
+	}
+
+	.prismleaf-content {
+		padding: var(--prismleaf-space-1);
 		overflow-x: hidden;
 	}
 

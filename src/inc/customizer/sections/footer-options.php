@@ -49,7 +49,7 @@ if ( ! function_exists( 'prismleaf_sanitize_footer_copyright_alignment' ) ) {
 			return $value;
 		}
 
-		return 'right';
+		return 'center';
 	}
 }
 
@@ -129,7 +129,7 @@ if ( ! function_exists( 'prismleaf_customize_register_footer' ) ) {
 			array(
 				'type'              => 'theme_mod',
 				'capability'        => 'edit_theme_options',
-				'default'           => 'right',
+				'default'           => 'center',
 				'sanitize_callback' => 'prismleaf_sanitize_footer_copyright_alignment',
 				'transport'         => 'refresh',
 			)

@@ -126,6 +126,7 @@
 
 .prismleaf-site-title a:hover {
 	color: var(--prismleaf-color-title-link-hover);
+	text-decoration: none;
 }
 
 .prismleaf-site-title a:active {
