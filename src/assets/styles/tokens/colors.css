@@ -8,45 +8,45 @@
 
 :root {
 
-	/* Light palette: brand roles. */
-	--prismleaf-color-light-primary: #c04b8d;
-	--prismleaf-color-light-on-primary: #fff;
-	--prismleaf-color-light-primary-darker: #a83b78;
-	--prismleaf-color-light-primary-darkest: #893062;
-	--prismleaf-color-light-primary-lighter: #cb69a0;
-	--prismleaf-color-light-primary-lightest: #d587b3;
-	--prismleaf-color-light-secondary: #2e7d6f;
-	--prismleaf-color-light-on-secondary: #fff;
-	--prismleaf-color-light-secondary-darker: #235f55;
-	--prismleaf-color-light-secondary-darkest: #18413a;
-	--prismleaf-color-light-secondary-lighter: #399b89;
-	--prismleaf-color-light-secondary-lightest: #44b9a4;
-	--prismleaf-color-light-tertiary: #3f6fd9;
-	--prismleaf-color-light-on-tertiary: #fff;
-	--prismleaf-color-light-tertiary-darker: #2859c8;
-	--prismleaf-color-light-tertiary-darkest: #214aa6;
-	--prismleaf-color-light-tertiary-lighter: #6189e0;
-	--prismleaf-color-light-tertiary-lightest: #83a2e6;
+	/* Brand roles. */
+	--prismleaf-color-primary: #c04b8d;
+	--prismleaf-color-on-primary: #fff;
+	--prismleaf-color-primary-darker: #a83b78;
+	--prismleaf-color-primary-darkest: #893062;
+	--prismleaf-color-primary-lighter: #cb69a0;
+	--prismleaf-color-primary-lightest: #d587b3;
+	--prismleaf-color-secondary: #2e7d6f;
+	--prismleaf-color-on-secondary: #fff;
+	--prismleaf-color-secondary-darker: #235f55;
+	--prismleaf-color-secondary-darkest: #18413a;
+	--prismleaf-color-secondary-lighter: #399b89;
+	--prismleaf-color-secondary-lightest: #44b9a4;
+	--prismleaf-color-tertiary: #3f6fd9;
+	--prismleaf-color-on-tertiary: #fff;
+	--prismleaf-color-tertiary-darker: #2859c8;
+	--prismleaf-color-tertiary-darkest: #214aa6;
+	--prismleaf-color-tertiary-lighter: #6189e0;
+	--prismleaf-color-tertiary-lightest: #83a2e6;
 
-	/* Light palette: containers. */
-	--prismleaf-color-light-primary-container: #f2cbdf;
-	--prismleaf-color-light-on-primary-container: #2b0f1f;
-	--prismleaf-color-light-primary-container-darker: #eaabca;
-	--prismleaf-color-light-primary-container-darkest: #e28ab6;
-	--prismleaf-color-light-primary-container-lighter: #f6d8e7;
-	--prismleaf-color-light-primary-container-lightest: #fae6f0;
-	--prismleaf-color-light-secondary-container: #cfeee7;
-	--prismleaf-color-light-on-secondary-container: #06221d;
-	--prismleaf-color-light-secondary-container-darker: #aee3d8;
-	--prismleaf-color-light-secondary-container-darkest: #8fd6c9;
-	--prismleaf-color-light-secondary-container-lighter: #d9f2ec;
-	--prismleaf-color-light-secondary-container-lightest: #e6f7f3;
-	--prismleaf-color-light-tertiary-container: #dce5ff;
-	--prismleaf-color-light-on-tertiary-container: #071a3a;
-	--prismleaf-color-light-tertiary-container-darker: #b3c7ff;
-	--prismleaf-color-light-tertiary-container-darkest: #8aa9ff;
-	--prismleaf-color-light-tertiary-container-lighter: #e7eeff;
-	--prismleaf-color-light-tertiary-container-lightest: #f1f5ff;
+	/* Brand containers. */
+	--prismleaf-color-primary-container: #f2cbdf;
+	--prismleaf-color-on-primary-container: #2b0f1f;
+	--prismleaf-color-primary-container-darker: #eaabca;
+	--prismleaf-color-primary-container-darkest: #e28ab6;
+	--prismleaf-color-primary-container-lighter: #f6d8e7;
+	--prismleaf-color-primary-container-lightest: #fae6f0;
+	--prismleaf-color-secondary-container: #cfeee7;
+	--prismleaf-color-on-secondary-container: #06221d;
+	--prismleaf-color-secondary-container-darker: #aee3d8;
+	--prismleaf-color-secondary-container-darkest: #8fd6c9;
+	--prismleaf-color-secondary-container-lighter: #d9f2ec;
+	--prismleaf-color-secondary-container-lightest: #e6f7f3;
+	--prismleaf-color-tertiary-container: #dce5ff;
+	--prismleaf-color-on-tertiary-container: #071a3a;
+	--prismleaf-color-tertiary-container-darker: #b3c7ff;
+	--prismleaf-color-tertiary-container-darkest: #8aa9ff;
+	--prismleaf-color-tertiary-container-lighter: #e7eeff;
+	--prismleaf-color-tertiary-container-lightest: #f1f5ff;
 
 	/* Light palette: neutrals. */
 	--prismleaf-color-light-background: #fbfafc;
@@ -74,43 +74,43 @@
 	--prismleaf-color-light-foreground-lighter: #3a3a43;
 	--prismleaf-color-light-foreground-lightest: #575764;
 
-	/* Light palette: feedback roles. */
-	--prismleaf-color-light-error: #b3261e;
-	--prismleaf-color-light-on-error: #fff;
-	--prismleaf-color-light-error-darker: #8f1f19;
-	--prismleaf-color-light-error-darkest: #6e1713;
-	--prismleaf-color-light-error-lighter: #c73b33;
-	--prismleaf-color-light-error-lightest: #de6a64;
-	--prismleaf-color-light-error-container: #f9dedc;
-	--prismleaf-color-light-on-error-container: #410e0b;
-	--prismleaf-color-light-error-container-darker: #f4c7c4;
-	--prismleaf-color-light-error-container-darkest: #eeaca8;
-	--prismleaf-color-light-error-container-lighter: #fbe7e6;
-	--prismleaf-color-light-error-container-lightest: #fdf1f0;
-	--prismleaf-color-light-warning: #b26a00;
-	--prismleaf-color-light-on-warning: #fff;
-	--prismleaf-color-light-warning-darker: #8f5400;
-	--prismleaf-color-light-warning-darkest: #6f4100;
-	--prismleaf-color-light-warning-lighter: #c57d0a;
-	--prismleaf-color-light-warning-lightest: #dea44a;
-	--prismleaf-color-light-warning-container: #ffdfb5;
-	--prismleaf-color-light-on-warning-container: #2a1a00;
-	--prismleaf-color-light-warning-container-darker: #ffd19a;
-	--prismleaf-color-light-warning-container-darkest: #ffc07a;
-	--prismleaf-color-light-warning-container-lighter: #ffe7c8;
-	--prismleaf-color-light-warning-container-lightest: #fff1dd;
-	--prismleaf-color-light-info: #1a73e8;
-	--prismleaf-color-light-on-info: #fff;
-	--prismleaf-color-light-info-darker: #1558b3;
-	--prismleaf-color-light-info-darkest: #10438a;
-	--prismleaf-color-light-info-lighter: #4a90f2;
-	--prismleaf-color-light-info-lightest: #8bb8ff;
-	--prismleaf-color-light-info-container: #d7e7ff;
-	--prismleaf-color-light-on-info-container: #051a3a;
-	--prismleaf-color-light-info-container-darker: #bcd8ff;
-	--prismleaf-color-light-info-container-darkest: #9fc7ff;
-	--prismleaf-color-light-info-container-lighter: #e3efff;
-	--prismleaf-color-light-info-container-lightest: #f0f7ff;
+	/* Feedback roles. */
+	--prismleaf-color-error: #b3261e;
+	--prismleaf-color-on-error: #fff;
+	--prismleaf-color-error-darker: #8f1f19;
+	--prismleaf-color-error-darkest: #6e1713;
+	--prismleaf-color-error-lighter: #c73b33;
+	--prismleaf-color-error-lightest: #de6a64;
+	--prismleaf-color-error-container: #f9dedc;
+	--prismleaf-color-on-error-container: #410e0b;
+	--prismleaf-color-error-container-darker: #f4c7c4;
+	--prismleaf-color-error-container-darkest: #eeaca8;
+	--prismleaf-color-error-container-lighter: #fbe7e6;
+	--prismleaf-color-error-container-lightest: #fdf1f0;
+	--prismleaf-color-warning: #b26a00;
+	--prismleaf-color-on-warning: #fff;
+	--prismleaf-color-warning-darker: #8f5400;
+	--prismleaf-color-warning-darkest: #6f4100;
+	--prismleaf-color-warning-lighter: #c57d0a;
+	--prismleaf-color-warning-lightest: #dea44a;
+	--prismleaf-color-warning-container: #ffdfb5;
+	--prismleaf-color-on-warning-container: #2a1a00;
+	--prismleaf-color-warning-container-darker: #ffd19a;
+	--prismleaf-color-warning-container-darkest: #ffc07a;
+	--prismleaf-color-warning-container-lighter: #ffe7c8;
+	--prismleaf-color-warning-container-lightest: #fff1dd;
+	--prismleaf-color-info: #1a73e8;
+	--prismleaf-color-on-info: #fff;
+	--prismleaf-color-info-darker: #1558b3;
+	--prismleaf-color-info-darkest: #10438a;
+	--prismleaf-color-info-lighter: #4a90f2;
+	--prismleaf-color-info-lightest: #8bb8ff;
+	--prismleaf-color-info-container: #d7e7ff;
+	--prismleaf-color-on-info-container: #051a3a;
+	--prismleaf-color-info-container-darker: #bcd8ff;
+	--prismleaf-color-info-container-darkest: #9fc7ff;
+	--prismleaf-color-info-container-lighter: #e3efff;
+	--prismleaf-color-info-container-lightest: #f0f7ff;
 
 	/* Light palette: shadows and glow. */
 	--prismleaf-shadow-light-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.08), 0 1px 1px rgba(0, 0, 0, 0.06);
@@ -126,46 +126,6 @@
 	--prismleaf-color-light-disabled-foreground: rgba(0, 0, 0, 0.38);
 	--prismleaf-color-light-disabled-surface: rgba(0, 0, 0, 0.12);
 	--prismleaf-color-light-scrim: rgba(0, 0, 0, 0.32);
-
-	/* Dark palette: brand roles. */
-	--prismleaf-color-dark-primary: var(--prismleaf-color-light-primary);
-	--prismleaf-color-dark-on-primary: var(--prismleaf-color-light-on-primary);
-	--prismleaf-color-dark-primary-darker: var(--prismleaf-color-light-primary-darker);
-	--prismleaf-color-dark-primary-darkest: var(--prismleaf-color-light-primary-darkest);
-	--prismleaf-color-dark-primary-lighter: var(--prismleaf-color-light-primary-lighter);
-	--prismleaf-color-dark-primary-lightest: var(--prismleaf-color-light-primary-lightest);
-	--prismleaf-color-dark-secondary: var(--prismleaf-color-light-secondary);
-	--prismleaf-color-dark-on-secondary: var(--prismleaf-color-light-on-secondary);
-	--prismleaf-color-dark-secondary-darker: var(--prismleaf-color-light-secondary-darker);
-	--prismleaf-color-dark-secondary-darkest: var(--prismleaf-color-light-secondary-darkest);
-	--prismleaf-color-dark-secondary-lighter: var(--prismleaf-color-light-secondary-lighter);
-	--prismleaf-color-dark-secondary-lightest: var(--prismleaf-color-light-secondary-lightest);
-	--prismleaf-color-dark-tertiary: var(--prismleaf-color-light-tertiary);
-	--prismleaf-color-dark-on-tertiary: var(--prismleaf-color-light-on-tertiary);
-	--prismleaf-color-dark-tertiary-darker: var(--prismleaf-color-light-tertiary-darker);
-	--prismleaf-color-dark-tertiary-darkest: var(--prismleaf-color-light-tertiary-darkest);
-	--prismleaf-color-dark-tertiary-lighter: var(--prismleaf-color-light-tertiary-lighter);
-	--prismleaf-color-dark-tertiary-lightest: var(--prismleaf-color-light-tertiary-lightest);
-
-	/* Dark palette: containers. */
-	--prismleaf-color-dark-primary-container: var(--prismleaf-color-light-primary-container);
-	--prismleaf-color-dark-on-primary-container: var(--prismleaf-color-light-on-primary-container);
-	--prismleaf-color-dark-primary-container-darker: var(--prismleaf-color-light-primary-container-darker);
-	--prismleaf-color-dark-primary-container-darkest: var(--prismleaf-color-light-primary-container-darkest);
-	--prismleaf-color-dark-primary-container-lighter: var(--prismleaf-color-light-primary-container-lighter);
-	--prismleaf-color-dark-primary-container-lightest: var(--prismleaf-color-light-primary-container-lightest);
-	--prismleaf-color-dark-secondary-container: var(--prismleaf-color-light-secondary-container);
-	--prismleaf-color-dark-on-secondary-container: var(--prismleaf-color-light-on-secondary-container);
-	--prismleaf-color-dark-secondary-container-darker: var(--prismleaf-color-light-secondary-container-darker);
-	--prismleaf-color-dark-secondary-container-darkest: var(--prismleaf-color-light-secondary-container-darkest);
-	--prismleaf-color-dark-secondary-container-lighter: var(--prismleaf-color-light-secondary-container-lighter);
-	--prismleaf-color-dark-secondary-container-lightest: var(--prismleaf-color-light-secondary-container-lightest);
-	--prismleaf-color-dark-tertiary-container: var(--prismleaf-color-light-tertiary-container);
-	--prismleaf-color-dark-on-tertiary-container: var(--prismleaf-color-light-on-tertiary-container);
-	--prismleaf-color-dark-tertiary-container-darker: var(--prismleaf-color-light-tertiary-container-darker);
-	--prismleaf-color-dark-tertiary-container-darkest: var(--prismleaf-color-light-tertiary-container-darkest);
-	--prismleaf-color-dark-tertiary-container-lighter: var(--prismleaf-color-light-tertiary-container-lighter);
-	--prismleaf-color-dark-tertiary-container-lightest: var(--prismleaf-color-light-tertiary-container-lightest);
 
 	/* Dark palette: neutrals. */
 	--prismleaf-color-dark-background: #121015;
@@ -192,44 +152,6 @@
 	--prismleaf-color-dark-foreground-darkest: #ababba;
 	--prismleaf-color-dark-foreground-lighter: #f3f3f8;
 	--prismleaf-color-dark-foreground-lightest: #fff;
-
-	/* Dark palette: feedback roles. */
-	--prismleaf-color-dark-error: var(--prismleaf-color-light-error);
-	--prismleaf-color-dark-on-error: var(--prismleaf-color-light-on-error);
-	--prismleaf-color-dark-error-darker: var(--prismleaf-color-light-error-darker);
-	--prismleaf-color-dark-error-darkest: var(--prismleaf-color-light-error-darkest);
-	--prismleaf-color-dark-error-lighter: var(--prismleaf-color-light-error-lighter);
-	--prismleaf-color-dark-error-lightest: var(--prismleaf-color-light-error-lightest);
-	--prismleaf-color-dark-error-container: var(--prismleaf-color-light-error-container);
-	--prismleaf-color-dark-on-error-container: var(--prismleaf-color-light-on-error-container);
-	--prismleaf-color-dark-error-container-darker: var(--prismleaf-color-light-error-container-darker);
-	--prismleaf-color-dark-error-container-darkest: var(--prismleaf-color-light-error-container-darkest);
-	--prismleaf-color-dark-error-container-lighter: var(--prismleaf-color-light-error-container-lighter);
-	--prismleaf-color-dark-error-container-lightest: var(--prismleaf-color-light-error-container-lightest);
-	--prismleaf-color-dark-warning: var(--prismleaf-color-light-warning);
-	--prismleaf-color-dark-on-warning: var(--prismleaf-color-light-on-warning);
-	--prismleaf-color-dark-warning-darker: var(--prismleaf-color-light-warning-darker);
-	--prismleaf-color-dark-warning-darkest: var(--prismleaf-color-light-warning-darkest);
-	--prismleaf-color-dark-warning-lighter: var(--prismleaf-color-light-warning-lighter);
-	--prismleaf-color-dark-warning-lightest: var(--prismleaf-color-light-warning-lightest);
-	--prismleaf-color-dark-warning-container: var(--prismleaf-color-light-warning-container);
-	--prismleaf-color-dark-on-warning-container: var(--prismleaf-color-light-on-warning-container);
-	--prismleaf-color-dark-warning-container-darker: var(--prismleaf-color-light-warning-container-darker);
-	--prismleaf-color-dark-warning-container-darkest: var(--prismleaf-color-light-warning-container-darkest);
-	--prismleaf-color-dark-warning-container-lighter: var(--prismleaf-color-light-warning-container-lighter);
-	--prismleaf-color-dark-warning-container-lightest: var(--prismleaf-color-light-warning-container-lightest);
-	--prismleaf-color-dark-info: var(--prismleaf-color-light-info);
-	--prismleaf-color-dark-on-info: var(--prismleaf-color-light-on-info);
-	--prismleaf-color-dark-info-darker: var(--prismleaf-color-light-info-darker);
-	--prismleaf-color-dark-info-darkest: var(--prismleaf-color-light-info-darkest);
-	--prismleaf-color-dark-info-lighter: var(--prismleaf-color-light-info-lighter);
-	--prismleaf-color-dark-info-lightest: var(--prismleaf-color-light-info-lightest);
-	--prismleaf-color-dark-info-container: var(--prismleaf-color-light-info-container);
-	--prismleaf-color-dark-on-info-container: var(--prismleaf-color-light-on-info-container);
-	--prismleaf-color-dark-info-container-darker: var(--prismleaf-color-light-info-container-darker);
-	--prismleaf-color-dark-info-container-darkest: var(--prismleaf-color-light-info-container-darkest);
-	--prismleaf-color-dark-info-container-lighter: var(--prismleaf-color-light-info-container-lighter);
-	--prismleaf-color-dark-info-container-lightest: var(--prismleaf-color-light-info-container-lightest);
 
 	/* Dark palette: shadows and glow. */
 	--prismleaf-shadow-dark-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.45), 0 1px 1px rgba(0, 0, 0, 0.35);

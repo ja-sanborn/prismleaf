@@ -330,6 +330,121 @@ if ( ! function_exists( 'prismleaf_generate_palette_from_base' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_generate_neutral_palette' ) ) {
+	/**
+	 * Generate a neutral palette from surface and on-surface colors.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $surface_hex    Surface hex color.
+	 * @param string $on_surface_hex On-surface hex color.
+	 * @param string $scheme         Scheme: 'light' or 'dark'.
+	 * @return array<string,string> Neutral palette values.
+	 */
+	function prismleaf_generate_neutral_palette( $surface_hex, $on_surface_hex, $scheme ) {
+		$surface_hex = sanitize_hex_color( $surface_hex );
+
+		if ( ! $surface_hex ) {
+			return array();
+		}
+
+		$on_surface_hex = sanitize_hex_color( $on_surface_hex );
+		if ( ! $on_surface_hex ) {
+			$on_surface_hex = prismleaf_pick_on_color( $surface_hex );
+		}
+
+		$scheme = strtolower( (string) $scheme );
+		$scheme = in_array( $scheme, array( 'light', 'dark' ), true ) ? $scheme : 'light';
+
+		if ( 'dark' === $scheme ) {
+			$background_base_delta      = -0.016;
+			$background_darker_delta    = -0.016;
+			$background_darkest_delta   = -0.035;
+			$background_lighter_delta   = 0.035;
+			$background_lightest_delta  = 0.075;
+
+			$surface_darker_delta       = -0.018;
+			$surface_darkest_delta      = -0.039;
+			$surface_lighter_delta      = 0.033;
+			$surface_lightest_delta     = 0.082;
+
+			$surface_variant_delta      = 0.033;
+			$variant_darker_delta       = -0.028;
+			$variant_darkest_delta      = -0.051;
+			$variant_lighter_delta      = 0.049;
+			$variant_lightest_delta     = 0.092;
+
+			$on_surface_variant_delta   = -0.112;
+			$foreground_darker_delta    = -0.112;
+			$foreground_darkest_delta   = -0.222;
+			$foreground_lighter_delta   = 0.041;
+			$foreground_lightest_delta  = 0.078;
+		} else {
+			$background_base_delta      = -0.016;
+			$background_darker_delta    = -0.031;
+			$background_darkest_delta   = -0.075;
+			$background_lighter_delta   = 0.016;
+			$background_lightest_delta  = 0.016;
+
+			$surface_darker_delta       = -0.047;
+			$surface_darkest_delta      = -0.090;
+			$surface_lighter_delta      = 0.0;
+			$surface_lightest_delta     = 0.0;
+
+			$surface_variant_delta      = -0.047;
+			$variant_darker_delta       = -0.043;
+			$variant_darkest_delta      = -0.102;
+			$variant_lighter_delta      = 0.014;
+			$variant_lightest_delta     = 0.030;
+
+			$on_surface_variant_delta   = 0.131;
+			$foreground_darker_delta    = -0.041;
+			$foreground_darkest_delta   = -0.067;
+			$foreground_lighter_delta   = 0.131;
+			$foreground_lightest_delta  = 0.253;
+		}
+
+		$background_hex = prismleaf_adjust_lightness( $surface_hex, $background_base_delta );
+		$background_hex = $background_hex ? $background_hex : $surface_hex;
+
+		$surface_variant_hex = prismleaf_adjust_lightness( $surface_hex, $surface_variant_delta );
+		$surface_variant_hex = $surface_variant_hex ? $surface_variant_hex : $surface_hex;
+
+		$palette = array(
+			'background'                 => $background_hex,
+			'on_background'              => $on_surface_hex,
+			'background_darker'          => prismleaf_adjust_lightness( $background_hex, $background_darker_delta ),
+			'background_darkest'         => prismleaf_adjust_lightness( $background_hex, $background_darkest_delta ),
+			'background_lighter'         => prismleaf_adjust_lightness( $background_hex, $background_lighter_delta ),
+			'background_lightest'        => prismleaf_adjust_lightness( $background_hex, $background_lightest_delta ),
+			'surface'                    => $surface_hex,
+			'on_surface'                 => $on_surface_hex,
+			'surface_darker'             => prismleaf_adjust_lightness( $surface_hex, $surface_darker_delta ),
+			'surface_darkest'            => prismleaf_adjust_lightness( $surface_hex, $surface_darkest_delta ),
+			'surface_lighter'            => prismleaf_adjust_lightness( $surface_hex, $surface_lighter_delta ),
+			'surface_lightest'           => prismleaf_adjust_lightness( $surface_hex, $surface_lightest_delta ),
+			'surface_variant'            => $surface_variant_hex,
+			'on_surface_variant'         => prismleaf_adjust_lightness( $on_surface_hex, $on_surface_variant_delta ),
+			'surface_variant_darker'     => prismleaf_adjust_lightness( $surface_variant_hex, $variant_darker_delta ),
+			'surface_variant_darkest'    => prismleaf_adjust_lightness( $surface_variant_hex, $variant_darkest_delta ),
+			'surface_variant_lighter'    => prismleaf_adjust_lightness( $surface_variant_hex, $variant_lighter_delta ),
+			'surface_variant_lightest'   => prismleaf_adjust_lightness( $surface_variant_hex, $variant_lightest_delta ),
+			'foreground'                 => $on_surface_hex,
+			'on_foreground'              => $background_hex,
+			'foreground_darker'          => prismleaf_adjust_lightness( $on_surface_hex, $foreground_darker_delta ),
+			'foreground_darkest'         => prismleaf_adjust_lightness( $on_surface_hex, $foreground_darkest_delta ),
+			'foreground_lighter'         => prismleaf_adjust_lightness( $on_surface_hex, $foreground_lighter_delta ),
+			'foreground_lightest'        => prismleaf_adjust_lightness( $on_surface_hex, $foreground_lightest_delta ),
+		);
+
+		foreach ( $palette as $k => $v ) {
+			$palette[ $k ] = is_string( $v ) ? $v : '';
+		}
+
+		return $palette;
+	}
+}
+
 if ( ! function_exists( 'prismleaf_derive_dark_base_from_light' ) ) {
 	/**
 	 * Derive a dark base color from a light base color.

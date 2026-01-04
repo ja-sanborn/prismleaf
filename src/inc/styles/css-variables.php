@@ -104,6 +104,7 @@ if ( ! function_exists( 'prismleaf_get_css_variable_overrides' ) ) {
 	function prismleaf_get_css_variable_overrides() {
 		$declarations  = '';
 		$declarations .= prismleaf_get_brand_css_variable_overrides();
+		$declarations .= prismleaf_get_neutral_css_variable_overrides();
 		$declarations .= prismleaf_get_layout_css_variable_overrides();
 		$declarations .= prismleaf_get_menu_css_variable_overrides();
 		$declarations .= prismleaf_get_footer_css_variable_overrides();
@@ -397,6 +398,105 @@ if ( ! function_exists( 'prismleaf_get_global_style_css_variable_overrides' ) ) 
 	}
 }
 
+if ( ! function_exists( 'prismleaf_get_neutral_css_variable_overrides' ) ) {
+	/**
+	 * Build neutral palette overrides for light/dark schemes.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_neutral_css_variable_overrides() {
+		$schemes = array( 'light', 'dark' );
+		$css     = '';
+
+		foreach ( $schemes as $scheme ) {
+			$surface_setting    = "prismleaf_neutral_{$scheme}_background";
+			$on_surface_setting = "prismleaf_neutral_{$scheme}_foreground";
+
+			$surface_raw    = prismleaf_get_theme_mod_string( $surface_setting, '' );
+			$on_surface_raw = prismleaf_get_theme_mod_string( $on_surface_setting, '' );
+
+			$surface_hex    = '' !== trim( $surface_raw ) ? $surface_raw : null;
+			$on_surface_hex = '' !== trim( $on_surface_raw ) ? $on_surface_raw : null;
+
+			if ( null === $surface_hex ) {
+				continue;
+			}
+
+			if ( null === $on_surface_hex ) {
+				$on_surface_hex = prismleaf_pick_on_color( $surface_hex );
+			}
+
+			$palette = prismleaf_generate_neutral_palette( $surface_hex, $on_surface_hex, $scheme );
+
+			if ( empty( $palette ) ) {
+				continue;
+			}
+
+			$css .= prismleaf_render_neutral_palette_css( $scheme, $palette );
+		}
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_render_neutral_palette_css' ) ) {
+	/**
+	 * Render neutral palette values into CSS custom property overrides.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string               $scheme  Scheme ('light' or 'dark').
+	 * @param array<string,string> $palette Palette values.
+	 * @return string
+	 */
+	function prismleaf_render_neutral_palette_css( $scheme, $palette ) {
+		if ( empty( $palette ) ) {
+			return '';
+		}
+
+		$scheme = ( 'dark' === $scheme ) ? 'dark' : 'light';
+
+		$map = array(
+			'background'               => "--prismleaf-color-{$scheme}-background",
+			'on_background'            => "--prismleaf-color-{$scheme}-on-background",
+			'background_darker'        => "--prismleaf-color-{$scheme}-background-darker",
+			'background_darkest'       => "--prismleaf-color-{$scheme}-background-darkest",
+			'background_lighter'       => "--prismleaf-color-{$scheme}-background-lighter",
+			'background_lightest'      => "--prismleaf-color-{$scheme}-background-lightest",
+			'surface'                  => "--prismleaf-color-{$scheme}-surface",
+			'on_surface'               => "--prismleaf-color-{$scheme}-on-surface",
+			'surface_darker'           => "--prismleaf-color-{$scheme}-surface-darker",
+			'surface_darkest'          => "--prismleaf-color-{$scheme}-surface-darkest",
+			'surface_lighter'          => "--prismleaf-color-{$scheme}-surface-lighter",
+			'surface_lightest'         => "--prismleaf-color-{$scheme}-surface-lightest",
+			'surface_variant'          => "--prismleaf-color-{$scheme}-surface-variant",
+			'on_surface_variant'       => "--prismleaf-color-{$scheme}-on-surface-variant",
+			'surface_variant_darker'   => "--prismleaf-color-{$scheme}-surface-variant-darker",
+			'surface_variant_darkest'  => "--prismleaf-color-{$scheme}-surface-variant-darkest",
+			'surface_variant_lighter'  => "--prismleaf-color-{$scheme}-surface-variant-lighter",
+			'surface_variant_lightest' => "--prismleaf-color-{$scheme}-surface-variant-lightest",
+			'foreground'               => "--prismleaf-color-{$scheme}-foreground",
+			'on_foreground'            => "--prismleaf-color-{$scheme}-on-foreground",
+			'foreground_darker'        => "--prismleaf-color-{$scheme}-foreground-darker",
+			'foreground_darkest'       => "--prismleaf-color-{$scheme}-foreground-darkest",
+			'foreground_lighter'       => "--prismleaf-color-{$scheme}-foreground-lighter",
+			'foreground_lightest'      => "--prismleaf-color-{$scheme}-foreground-lightest",
+		);
+
+		$css = '';
+
+		foreach ( $map as $key => $var_name ) {
+			if ( isset( $palette[ $key ] ) && '' !== (string) $palette[ $key ] ) {
+				$css .= $var_name . ':' . $palette[ $key ] . ';';
+			}
+		}
+
+		return $css;
+	}
+}
+
 if ( ! function_exists( 'prismleaf_get_brand_css_variable_overrides' ) ) {
 	/**
 	 * Build brand palette overrides for light/dark roles.
@@ -411,33 +511,17 @@ if ( ! function_exists( 'prismleaf_get_brand_css_variable_overrides' ) ) {
 
 		foreach ( $roles as $role ) {
 			$light_id = "prismleaf_brand_{$role}_light";
-			$dark_id  = "prismleaf_brand_{$role}_dark";
 
 			$light_raw  = prismleaf_get_theme_mod_string( $light_id, '' );
-			$dark_raw   = prismleaf_get_theme_mod_string( $dark_id, '' );
 			$light_base = '' !== trim( $light_raw ) ? $light_raw : null;
-			$dark_base  = '' !== trim( $dark_raw ) ? $dark_raw : null;
 
-			// Dark overrides are ignored unless light is set.
 			if ( null === $light_base ) {
 				continue;
 			}
 
 			$light_palette = prismleaf_generate_palette_from_base( $light_base, 'light' );
 
-			$dark_palette = array();
-
-			if ( null === $dark_base ) {
-				$dark_palette = $light_palette;
-			} elseif ( $dark_base ) {
-				$dark_palette = prismleaf_generate_palette_from_base( $dark_base, 'dark' );
-			}
-
 			$css .= prismleaf_render_brand_palette_css( $role, 'light', $light_palette );
-
-			if ( ! empty( $dark_palette ) ) {
-				$css .= prismleaf_render_brand_palette_css( $role, 'dark', $dark_palette );
-			}
 		}
 
 		return $css;
@@ -461,21 +545,20 @@ if ( ! function_exists( 'prismleaf_render_brand_palette_css' ) ) {
 		}
 
 		$role   = str_replace( '_', '-', (string) $role );
-		$scheme = ( 'dark' === $scheme ) ? 'dark' : 'light';
 
 		$map = array(
-			'base'               => "--prismleaf-color-{$scheme}-{$role}",
-			'on_base'            => "--prismleaf-color-{$scheme}-on-{$role}",
-			'base_darker'        => "--prismleaf-color-{$scheme}-{$role}-darker",
-			'base_darkest'       => "--prismleaf-color-{$scheme}-{$role}-darkest",
-			'base_lighter'       => "--prismleaf-color-{$scheme}-{$role}-lighter",
-			'base_lightest'      => "--prismleaf-color-{$scheme}-{$role}-lightest",
-			'container'          => "--prismleaf-color-{$scheme}-{$role}-container",
-			'on_container'       => "--prismleaf-color-{$scheme}-on-{$role}-container",
-			'container_darker'   => "--prismleaf-color-{$scheme}-{$role}-container-darker",
-			'container_darkest'  => "--prismleaf-color-{$scheme}-{$role}-container-darkest",
-			'container_lighter'  => "--prismleaf-color-{$scheme}-{$role}-container-lighter",
-			'container_lightest' => "--prismleaf-color-{$scheme}-{$role}-container-lightest",
+			'base'               => "--prismleaf-color-{$role}",
+			'on_base'            => "--prismleaf-color-on-{$role}",
+			'base_darker'        => "--prismleaf-color-{$role}-darker",
+			'base_darkest'       => "--prismleaf-color-{$role}-darkest",
+			'base_lighter'       => "--prismleaf-color-{$role}-lighter",
+			'base_lightest'      => "--prismleaf-color-{$role}-lightest",
+			'container'          => "--prismleaf-color-{$role}-container",
+			'on_container'       => "--prismleaf-color-on-{$role}-container",
+			'container_darker'   => "--prismleaf-color-{$role}-container-darker",
+			'container_darkest'  => "--prismleaf-color-{$role}-container-darkest",
+			'container_lighter'  => "--prismleaf-color-{$role}-container-lighter",
+			'container_lightest' => "--prismleaf-color-{$role}-container-lightest",
 		);
 
 		$css = '';

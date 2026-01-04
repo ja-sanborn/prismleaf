@@ -11,56 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'prismleaf_customize_callback_brand_dark_role_enabled' ) ) {
-	/**
-	 * Activate dark brand controls only when their light counterparts are set.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control Control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_brand_dark_role_enabled( $control ) {
-		if ( ! ( $control instanceof WP_Customize_Control ) ) {
-			return false;
-		}
-
-		// Dark controls are disabled when the site is forced to light mode.
-		$force_light = function_exists( 'prismleaf_customize_get_bool' )
-			? prismleaf_customize_get_bool( $control->manager, 'prismleaf_brand_force_light', false )
-			: prismleaf_get_theme_mod_bool( 'prismleaf_brand_force_light', false );
-
-		if ( $force_light ) {
-			return false;
-		}
-
-		$id = (string) $control->id;
-
-		if ( ! preg_match( '/^prismleaf_brand_(?P<role>[a-z0-9_]+)_dark$/', $id, $matches ) ) {
-			return false;
-		}
-
-		$role        = $matches['role'];
-		$light_value = null;
-
-		$manager = $control->manager;
-		$setting = ( $manager instanceof WP_Customize_Manager ) ? $manager->get_setting( "prismleaf_brand_{$role}_light" ) : null;
-
-		if ( $setting ) {
-			$light_value = $setting->post_value( null );
-			if ( null === $light_value ) {
-				$light_value = get_theme_mod( "prismleaf_brand_{$role}_light", null );
-			}
-		} else {
-			$light_value = get_theme_mod( "prismleaf_brand_{$role}_light", null );
-		}
-
-		$light_value = is_string( $light_value ) ? trim( $light_value ) : '';
-
-		return '' !== $light_value;
-	}
-}
-
 if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 	/**
 	 * Register global layout controls.
@@ -96,6 +46,7 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 				array(
 					'section' => $section_id,
 					'label'   => __( 'Layout', 'prismleaf' ),
+					'priority' => 10,
 				)
 			)
 		);
@@ -118,7 +69,7 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 				'section'     => $section_id,
 				'label'       => __( 'Use framed layout (desktop)', 'prismleaf' ),
 				'description' => __( 'When enabled, the site uses a fixed frame with internal scrolling panels. On mobile, the layout always stacks and scrolls normally.', 'prismleaf' ),
-				'priority'    => 10,
+				'priority'    => 11,
 			)
 		);
 	}
@@ -159,6 +110,7 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 				array(
 					'section' => $section_id,
 					'label'   => __( 'Palette', 'prismleaf' ),
+					'priority' => 20,
 				)
 			)
 		);
@@ -181,13 +133,8 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 				'section'     => $section_id,
 				'label'       => __( 'Force light mode', 'prismleaf' ),
 				'description' => __( 'When enabled, the site is always rendered in light mode and dark palette controls are hidden.', 'prismleaf' ),
-				'priority'    => 5,
+				'priority'    => 21,
 			)
-		);
-
-		$schemes = array(
-			'light' => __( 'Light palette', 'prismleaf' ),
-			'dark'  => __( 'Dark palette', 'prismleaf' ),
 		);
 
 		$roles = array(
@@ -199,65 +146,135 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 			'info'      => __( 'Info', 'prismleaf' ),
 		);
 
-		foreach ( $schemes as $scheme => $scheme_label ) {
+		$role_priority = 30;
+
+		foreach ( $roles as $role => $role_label ) {
+			$setting_id = "prismleaf_brand_{$role}_light";
+
 			$wp_customize->add_setting(
-				"prismleaf_brand_heading_{$scheme}",
+				$setting_id,
 				array(
 					'type'              => 'theme_mod',
 					'capability'        => 'edit_theme_options',
-					'sanitize_callback' => 'sanitize_text_field',
+					'default'           => null,
+					'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
 					'transport'         => 'refresh',
 				)
 			);
 
 			$wp_customize->add_control(
-				new Prismleaf_Customize_Section_Header_Control(
+				new WP_Customize_Color_Control(
 					$wp_customize,
-					"prismleaf_brand_heading_{$scheme}",
+					$setting_id,
 					array(
-						'section' => $section_id,
-						'label'   => ( 'dark' === $scheme ) ? __( 'Dark', 'prismleaf' ) : __( 'Light', 'prismleaf' ),
+						'section'     => $section_id,
+						'label'       => $role_label,
+						'description' => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+						'priority'    => $role_priority,
 					)
 				)
 			);
-
-			foreach ( $roles as $role => $role_label ) {
-				$setting_id = "prismleaf_brand_{$role}_{$scheme}";
-
-				$wp_customize->add_setting(
-					$setting_id,
-					array(
-						'type'              => 'theme_mod',
-						'capability'        => 'edit_theme_options',
-						'default'           => null,
-						'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
-						'transport'         => 'refresh',
-					)
-				);
-
-				$control_args = array(
-					'section'     => $section_id,
-					/* translators: 1: Color role label. 2: Palette scheme label. */
-					'label'       => sprintf( __( '%1$s (%2$s)', 'prismleaf' ), $role_label, $scheme_label ),
-					'description' => ( 'dark' === $scheme )
-						? __( 'Optional. Only available after the matching light color is set.', 'prismleaf' )
-						: __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
-				);
-
-				// Dark overrides cannot be set unless Light is already overridden.
-				if ( 'dark' === $scheme ) {
-					$control_args['active_callback'] = 'prismleaf_customize_callback_brand_dark_role_enabled';
-				}
-
-				$wp_customize->add_control(
-					new WP_Customize_Color_Control(
-						$wp_customize,
-						$setting_id,
-						$control_args
-					)
-				);
-			}
+			$role_priority += 1;
 		}
+
+		$wp_customize->add_setting(
+			'prismleaf_neutral_light_background',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => null,
+				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			new WP_Customize_Color_Control(
+				$wp_customize,
+				'prismleaf_neutral_light_background',
+				array(
+					'section'     => $section_id,
+					'label'       => __( 'Light background', 'prismleaf' ),
+					'description' => __( 'Optional. Drives the light neutral surface palette.', 'prismleaf' ),
+					'priority'    => $role_priority,
+				)
+			)
+		);
+		$role_priority += 1;
+
+		$wp_customize->add_setting(
+			'prismleaf_neutral_light_foreground',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => null,
+				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			new WP_Customize_Color_Control(
+				$wp_customize,
+				'prismleaf_neutral_light_foreground',
+				array(
+					'section'     => $section_id,
+					'label'       => __( 'Light foreground', 'prismleaf' ),
+					'description' => __( 'Optional. Drives the light neutral foreground palette.', 'prismleaf' ),
+					'priority'    => $role_priority,
+				)
+			)
+		);
+		$role_priority += 1;
+
+		$wp_customize->add_setting(
+			'prismleaf_neutral_dark_background',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => null,
+				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			new WP_Customize_Color_Control(
+				$wp_customize,
+				'prismleaf_neutral_dark_background',
+				array(
+					'section'     => $section_id,
+					'label'       => __( 'Dark background', 'prismleaf' ),
+					'description' => __( 'Optional. Drives the dark neutral surface palette.', 'prismleaf' ),
+					'priority'    => $role_priority,
+				)
+			)
+		);
+		$role_priority += 1;
+
+		$wp_customize->add_setting(
+			'prismleaf_neutral_dark_foreground',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => null,
+				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			new WP_Customize_Color_Control(
+				$wp_customize,
+				'prismleaf_neutral_dark_foreground',
+				array(
+					'section'     => $section_id,
+					'label'       => __( 'Dark foreground', 'prismleaf' ),
+					'description' => __( 'Optional. Drives the dark neutral foreground palette.', 'prismleaf' ),
+					'priority'    => $role_priority,
+				)
+			)
+		);
 	}
 }
 add_action( 'customize_register', 'prismleaf_customize_register_global_branding' );
@@ -277,8 +294,6 @@ if ( ! function_exists( 'prismleaf_customize_save_brand_palettes' ) ) {
 			return;
 		}
 
-		$force_light = prismleaf_get_theme_mod_bool( 'prismleaf_brand_force_light', false );
-
 		$roles = array( 'primary', 'secondary', 'tertiary', 'error', 'warning', 'info' );
 
 		foreach ( $roles as $role ) {
@@ -288,14 +303,17 @@ if ( ! function_exists( 'prismleaf_customize_save_brand_palettes' ) ) {
 			$light_value = prismleaf_sanitize_optional_hex_color( get_theme_mod( $light_id, null ) );
 			$dark_value  = prismleaf_sanitize_optional_hex_color( get_theme_mod( $dark_id, null ) );
 
-			// If light is not set, dark overrides are not allowed.
-			if ( null === $light_value && null !== $dark_value ) {
-				remove_theme_mod( $dark_id );
+			// If light is not set, dark overrides are removed.
+			if ( null === $light_value ) {
+				if ( null !== $dark_value ) {
+					remove_theme_mod( $dark_id );
+				}
+				continue;
 			}
 
-			// Force-light mode removes any dark overrides for consistency.
-			if ( $force_light && null !== $dark_value ) {
-				remove_theme_mod( $dark_id );
+			// Keep dark values in sync with light values.
+			if ( $light_value !== $dark_value ) {
+				set_theme_mod( $dark_id, $light_value );
 			}
 		}
 	}
