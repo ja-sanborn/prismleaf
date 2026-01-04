@@ -718,3 +718,61 @@ if ( ! function_exists( 'prismleaf_sanitize_border_style' ) ) {
 		return 'solid';
 	}
 }
+
+if ( ! function_exists( 'prismleaf_register_theme_option_section' ) ) {
+	/**
+	 * Ensure a theme options section exists.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param string               $section_id  Section ID.
+	 * @return void
+	 */
+	function prismleaf_register_theme_option_section( $wp_customize, $section_id ) {
+		if ( ! ( $wp_customize instanceof WP_Customize_Manager ) ) {
+			return;
+		}
+
+		$sections = array(
+			'prismleaf_global_options' => array(
+				'title'       => __( 'Global', 'prismleaf' ),
+				'description' => __( 'Global theme options such as layout mode and palette overrides.', 'prismleaf' ),
+				'priority'    => 10,
+			),
+			'prismleaf_header_options' => array(
+				'title'       => __( 'Header', 'prismleaf' ),
+				'description' => __( 'Configure header layout, styling, and components.', 'prismleaf' ),
+				'priority'    => 20,
+			),
+			'prismleaf_footer_options' => array(
+				'title'       => __( 'Footer', 'prismleaf' ),
+				'description' => __( 'Configure footer layout, styling, and content.', 'prismleaf' ),
+				'priority'    => 30,
+			),
+			'prismleaf_sidebar_options' => array(
+				'title'       => __( 'Sidebars', 'prismleaf' ),
+				'description' => __( 'Configure left and right sidebar layout and styling.', 'prismleaf' ),
+				'priority'    => 40,
+			),
+			'prismleaf_content_options' => array(
+				'title'       => __( 'Content', 'prismleaf' ),
+				'description' => __( 'Configure the content region styling.', 'prismleaf' ),
+				'priority'    => 50,
+			),
+		);
+
+		if ( ! isset( $sections[ $section_id ] ) ) {
+			return;
+		}
+
+		if ( $wp_customize->get_section( $section_id ) ) {
+			return;
+		}
+
+		$args = $sections[ $section_id ];
+		$args['panel'] = 'prismleaf_theme_options';
+		$wp_customize->add_section( $section_id, $args );
+	}
+}
+
