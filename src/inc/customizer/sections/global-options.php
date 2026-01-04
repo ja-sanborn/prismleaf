@@ -46,7 +46,7 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 				array(
 					'section' => $section_id,
 					'label'   => __( 'Layout', 'prismleaf' ),
-					'priority' => 10,
+					'priority' => 1000,
 				)
 			)
 		);
@@ -69,7 +69,7 @@ if ( ! function_exists( 'prismleaf_customize_register_global_layout' ) ) {
 				'section'     => $section_id,
 				'label'       => __( 'Use framed layout (desktop)', 'prismleaf' ),
 				'description' => __( 'When enabled, the site uses a fixed frame with internal scrolling panels. On mobile, the layout always stacks and scrolls normally.', 'prismleaf' ),
-				'priority'    => 11,
+				'priority'    => 1010,
 			)
 		);
 	}
@@ -110,7 +110,7 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 				array(
 					'section' => $section_id,
 					'label'   => __( 'Palette', 'prismleaf' ),
-					'priority' => 20,
+					'priority' => 2000,
 				)
 			)
 		);
@@ -133,22 +133,38 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 				'section'     => $section_id,
 				'label'       => __( 'Force light mode', 'prismleaf' ),
 				'description' => __( 'When enabled, the site is always rendered in light mode and dark palette controls are hidden.', 'prismleaf' ),
-				'priority'    => 21,
+				'priority'    => 2010,
 			)
 		);
 
 		$roles = array(
-			'primary'   => __( 'Primary', 'prismleaf' ),
-			'secondary' => __( 'Secondary', 'prismleaf' ),
-			'tertiary'  => __( 'Tertiary', 'prismleaf' ),
-			'error'     => __( 'Error', 'prismleaf' ),
-			'warning'   => __( 'Warning', 'prismleaf' ),
-			'info'      => __( 'Info', 'prismleaf' ),
+			'primary'   => array(
+				'label'    => __( 'Primary', 'prismleaf' ),
+				'priority' => 2020,
+			),
+			'secondary' => array(
+				'label'    => __( 'Secondary', 'prismleaf' ),
+				'priority' => 2030,
+			),
+			'tertiary'  => array(
+				'label'    => __( 'Tertiary', 'prismleaf' ),
+				'priority' => 2040,
+			),
+			'error'     => array(
+				'label'    => __( 'Error', 'prismleaf' ),
+				'priority' => 2050,
+			),
+			'warning'   => array(
+				'label'    => __( 'Warning', 'prismleaf' ),
+				'priority' => 2060,
+			),
+			'info'      => array(
+				'label'    => __( 'Info', 'prismleaf' ),
+				'priority' => 2070,
+			),
 		);
 
-		$role_priority = 30;
-
-		foreach ( $roles as $role => $role_label ) {
+		foreach ( $roles as $role => $role_data ) {
 			$setting_id = "prismleaf_brand_{$role}_light";
 
 			$wp_customize->add_setting(
@@ -168,13 +184,12 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 					$setting_id,
 					array(
 						'section'     => $section_id,
-						'label'       => $role_label,
+						'label'       => $role_data['label'],
 						'description' => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
-						'priority'    => $role_priority,
+						'priority'    => $role_data['priority'],
 					)
 				)
 			);
-			$role_priority += 1;
 		}
 
 		$wp_customize->add_setting(
@@ -196,11 +211,10 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 					'section'     => $section_id,
 					'label'       => __( 'Light background', 'prismleaf' ),
 					'description' => __( 'Optional. Drives the light neutral surface palette.', 'prismleaf' ),
-					'priority'    => $role_priority,
+					'priority'    => 2080,
 				)
 			)
 		);
-		$role_priority += 1;
 
 		$wp_customize->add_setting(
 			'prismleaf_neutral_light_foreground',
@@ -221,11 +235,10 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 					'section'     => $section_id,
 					'label'       => __( 'Light foreground', 'prismleaf' ),
 					'description' => __( 'Optional. Drives the light neutral foreground palette.', 'prismleaf' ),
-					'priority'    => $role_priority,
+					'priority'    => 2090,
 				)
 			)
 		);
-		$role_priority += 1;
 
 		$wp_customize->add_setting(
 			'prismleaf_neutral_dark_background',
@@ -246,11 +259,10 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 					'section'     => $section_id,
 					'label'       => __( 'Dark background', 'prismleaf' ),
 					'description' => __( 'Optional. Drives the dark neutral surface palette.', 'prismleaf' ),
-					'priority'    => $role_priority,
+					'priority'    => 2100,
 				)
 			)
 		);
-		$role_priority += 1;
 
 		$wp_customize->add_setting(
 			'prismleaf_neutral_dark_foreground',
@@ -271,7 +283,7 @@ if ( ! function_exists( 'prismleaf_customize_register_global_branding' ) ) {
 					'section'     => $section_id,
 					'label'       => __( 'Dark foreground', 'prismleaf' ),
 					'description' => __( 'Optional. Drives the dark neutral foreground palette.', 'prismleaf' ),
-					'priority'    => $role_priority,
+					'priority'    => 2110,
 				)
 			)
 		);
