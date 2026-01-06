@@ -273,6 +273,56 @@ if ( ! function_exists( 'prismleaf_customize_sanitize_optional_hex_color_empty_o
 	}
 }
 
+if ( ! function_exists( 'prismleaf_get_palette_role_choices' ) ) {
+	/**
+	 * Get palette role choices for composite color controls.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array<string,string>
+	 */
+	function prismleaf_get_palette_role_choices() {
+		return array(
+			''                   => __( 'Default (use theme)', 'prismleaf' ),
+			'primary'            => __( 'Primary', 'prismleaf' ),
+			'primary-container'  => __( 'Primary Container', 'prismleaf' ),
+			'secondary'          => __( 'Secondary', 'prismleaf' ),
+			'secondary-container' => __( 'Secondary Container', 'prismleaf' ),
+			'tertiary'           => __( 'Tertiary', 'prismleaf' ),
+			'tertiary-container' => __( 'Tertiary Container', 'prismleaf' ),
+			'surface'            => __( 'Surface', 'prismleaf' ),
+			'surface-variant'    => __( 'Surface Variant', 'prismleaf' ),
+			'foreground'         => __( 'Foreground', 'prismleaf' ),
+			'custom'             => __( 'Custom', 'prismleaf' ),
+		);
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_palette_role_choice' ) ) {
+	/**
+	 * Sanitize palette role selection value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Raw value.
+	 * @return string
+	 */
+	function prismleaf_sanitize_palette_role_choice( $value ) {
+		if ( null === $value ) {
+			return '';
+		}
+
+		$value   = (string) $value;
+		$allowed = array_keys( prismleaf_get_palette_role_choices() );
+
+		if ( in_array( $value, $allowed, true ) ) {
+			return $value;
+		}
+
+		return '';
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_elevation_0_3' ) ) {
 	/**
 	 * Sanitize an elevation value in the range 0–3 (inclusive).

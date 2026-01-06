@@ -22,6 +22,7 @@ require_once PRISMLEAF_DIR . 'inc/styles/css-variables.php';
 require_once PRISMLEAF_DIR . 'inc/core/setup.php';
 require_once PRISMLEAF_DIR . 'inc/core/assets.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-section-header-control.php';
+require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-palette-role-control.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/global-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/header-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/footer-options.php';

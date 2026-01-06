@@ -281,22 +281,4 @@
 	.prismleaf-region-middle {
 		overflow: visible;
 	}
-
-	.prismleaf-layout-not-framed .prismleaf-region-content {
-		background-color: transparent;
-		color: inherit;
-		border: 0;
-		border-radius: 0;
-		box-shadow: none;
-	}
-
-	.prismleaf-layout-not-framed .prismleaf-content {
-		background-color: var(--prismleaf-region-content-background);
-		color: var(--prismleaf-region-content-foreground);
-		box-shadow: var(--prismleaf-region-content-shadow);
-		border-width: var(--prismleaf-border-width-thin);
-		border-style: var(--prismleaf-region-content-border-style);
-		border-color: var(--prismleaf-region-content-border-color);
-		border-radius: var(--prismleaf-radius-medium);
-	}
 }

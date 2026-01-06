@@ -259,6 +259,16 @@ if ( ! function_exists( 'prismleaf_enqueue_scripts' ) ) {
 			true
 		);
 
+		if ( is_customize_preview() ) {
+			wp_enqueue_script(
+				'prismleaf-customizer-preview',
+				PRISMLEAF_URI . 'assets/scripts/customizer-preview.js',
+				array( 'customize-preview' ),
+				PRISMLEAF_VERSION,
+				true
+			);
+		}
+
 		$force_light = prismleaf_get_theme_mod_bool( 'prismleaf_brand_force_light', false );
 
 		wp_add_inline_script(

@@ -31,6 +31,68 @@ if ( ! function_exists( 'prismleaf_customize_callback_header_background_image_se
 	}
 }
 
+if ( ! function_exists( 'prismleaf_customize_callback_header_background_display_visible' ) ) {
+	/**
+	 * Show header background display control only when header is visible and an image is set.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Control $control Control instance.
+	 * @return bool
+	 */
+	function prismleaf_customize_callback_header_background_display_visible( $control ) {
+		if ( ! ( $control instanceof WP_Customize_Control ) ) {
+			return true;
+		}
+
+		if ( ! prismleaf_customize_callback_header_visible( $control ) ) {
+			return false;
+		}
+
+		return prismleaf_customize_callback_header_background_image_set( $control );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_customize_callback_header_visible' ) ) {
+	/**
+	 * Show header controls only when the header is visible.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Control $control Control instance.
+	 * @return bool
+	 */
+	function prismleaf_customize_callback_header_visible( $control ) {
+		if ( ! ( $control instanceof WP_Customize_Control ) ) {
+			return true;
+		}
+
+		return prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_header_visible', true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_customize_callback_header_floating_available' ) ) {
+	/**
+	 * Show floating header control only when header is visible and not contained.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Control $control Control instance.
+	 * @return bool
+	 */
+	function prismleaf_customize_callback_header_floating_available( $control ) {
+		if ( ! ( $control instanceof WP_Customize_Control ) ) {
+			return true;
+		}
+
+		if ( ! prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_header_visible', true ) ) {
+			return false;
+		}
+
+		return ! prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_header_contained', true );
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_header_background_display' ) ) {
 	/**
 	 * Sanitize the header background display option.
@@ -49,6 +111,27 @@ if ( ! function_exists( 'prismleaf_sanitize_header_background_display' ) ) {
 		}
 
 		return 'tiled';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_header_border_corners' ) ) {
+	/**
+	 * Sanitize header border corner options.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string|null $value Border corner value.
+	 * @return string
+	 */
+	function prismleaf_sanitize_header_border_corners( $value ) {
+		$value   = (string) $value;
+		$allowed = array( '', 'square', 'round', 'pill' );
+
+		if ( in_array( $value, $allowed, true ) ) {
+			return $value;
+		}
+
+		return '';
 	}
 }
 if ( ! function_exists( 'prismleaf_customize_register_header_layout' ) ) {
@@ -134,6 +217,7 @@ if ( ! function_exists( 'prismleaf_customize_register_header_layout' ) ) {
 					'When enabled (non-framed desktop), the header is rendered inside the main content area. This option is disabled when using the framed layout.',
 					'prismleaf'
 				),
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
 				'priority'        => 1020,
 			)
 		);
@@ -156,6 +240,7 @@ if ( ! function_exists( 'prismleaf_customize_register_header_layout' ) ) {
 				'section'         => $section_id,
 				'label'           => __( 'Floating header', 'prismleaf' ),
 				'description'     => __( 'When disabled, the header stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_header_floating_available',
 				'priority'        => 1030,
 			)
 		);
@@ -183,6 +268,7 @@ if ( ! function_exists( 'prismleaf_customize_register_header_layout' ) ) {
 					'max'  => 240,
 					'step' => 1,
 				),
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
 				'priority'        => 1040,
 			)
 		);
@@ -204,6 +290,7 @@ if ( ! function_exists( 'prismleaf_customize_register_header_layout' ) ) {
 				array(
 					'section' => $section_id,
 					'label'   => __( 'Style', 'prismleaf' ),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
 					'priority' => 2000,
 				)
 			)
@@ -252,6 +339,7 @@ if ( ! function_exists( 'prismleaf_customize_register_header_style' ) ) {
 				'section'     => $section_id,
 				'label'       => __( 'Elevation', 'prismleaf' ),
 				'description' => __( 'Optional. Use Default to keep theme tokens. Set None to explicitly remove elevation effects (no shadow, no glow).', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
 				'priority'    => 2010,
 				'choices'     => array(
 					'' => __( 'Default (use theme)', 'prismleaf' ),
@@ -260,6 +348,17 @@ if ( ! function_exists( 'prismleaf_customize_register_header_style' ) ) {
 					2  => __( 'Elevation 2', 'prismleaf' ),
 					3  => __( 'Elevation 3', 'prismleaf' ),
 				),
+			)
+		);
+
+		$wp_customize->add_setting(
+			'prismleaf_header_foreground_role',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => '',
+				'sanitize_callback' => 'prismleaf_sanitize_palette_role_choice',
+				'transport'         => 'refresh',
 			)
 		);
 
@@ -274,16 +373,45 @@ if ( ! function_exists( 'prismleaf_customize_register_header_style' ) ) {
 			)
 		);
 
+		$wp_customize->add_setting(
+			'prismleaf_header_foreground_custom_dark',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => null,
+				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
+				'transport'         => 'refresh',
+			)
+		);
+
 		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
+			new Prismleaf_Customize_Palette_Role_Control(
 				$wp_customize,
-				$prefix . 'foreground',
+				'prismleaf_header_foreground_control',
 				array(
-					'section'     => $section_id,
-					'label'       => __( 'Foreground color', 'prismleaf' ),
-					'description' => __( 'Optional. Leave blank to use token-driven defaults.', 'prismleaf' ),
-					'priority'    => 2020,
+					'section'         => $section_id,
+					'label'           => __( 'Foreground color', 'prismleaf' ),
+					'description'     => __( 'Optional. Leave blank to use token-driven defaults.', 'prismleaf' ),
+					'choices'         => prismleaf_get_palette_role_choices(),
+					'settings'        => array(
+						'role'  => 'prismleaf_header_foreground_role',
+						'light' => $prefix . 'foreground',
+						'dark'  => 'prismleaf_header_foreground_custom_dark',
+					),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
+					'priority'        => 2020,
 				)
+			)
+		);
+
+		$wp_customize->add_setting(
+			'prismleaf_header_background_role',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => '',
+				'sanitize_callback' => 'prismleaf_sanitize_palette_role_choice',
+				'transport'         => 'refresh',
 			)
 		);
 
@@ -298,15 +426,33 @@ if ( ! function_exists( 'prismleaf_customize_register_header_style' ) ) {
 			)
 		);
 
+		$wp_customize->add_setting(
+			'prismleaf_header_background_custom_dark',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => null,
+				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
+				'transport'         => 'refresh',
+			)
+		);
+
 		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
+			new Prismleaf_Customize_Palette_Role_Control(
 				$wp_customize,
-				$prefix . 'background',
+				'prismleaf_header_background_control',
 				array(
-					'section'     => $section_id,
-					'label'       => __( 'Background color', 'prismleaf' ),
-					'description' => __( 'Optional. Leave blank to use token-driven defaults.', 'prismleaf' ),
-					'priority'    => 2030,
+					'section'         => $section_id,
+					'label'           => __( 'Background color', 'prismleaf' ),
+					'description'     => __( 'Optional. Leave blank to use token-driven defaults.', 'prismleaf' ),
+					'choices'         => prismleaf_get_palette_role_choices(),
+					'settings'        => array(
+						'role'  => 'prismleaf_header_background_role',
+						'light' => $prefix . 'background',
+						'dark'  => 'prismleaf_header_background_custom_dark',
+					),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
+					'priority'        => 2030,
 				)
 			)
 		);
@@ -330,6 +476,7 @@ if ( ! function_exists( 'prismleaf_customize_register_header_style' ) ) {
 					'section'     => $section_id,
 					'label'       => __( 'Background image', 'prismleaf' ),
 					'description' => __( 'Optional. Leave blank for no image.', 'prismleaf' ),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
 					'priority'    => 2040,
 				)
 			)
@@ -353,12 +500,42 @@ if ( ! function_exists( 'prismleaf_customize_register_header_style' ) ) {
 				'section'         => $section_id,
 				'label'           => __( 'Background image display', 'prismleaf' ),
 				'description'     => __( 'Choose how the background image is drawn.', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_header_background_display_visible',
 				'priority'        => 2050,
 				'choices'         => array(
 					'tiled'   => __( 'Tiled', 'prismleaf' ),
 					'stretch' => __( 'Stretch', 'prismleaf' ),
 					'fill'    => __( 'Fill', 'prismleaf' ),
 					'auto'    => __( 'Auto', 'prismleaf' ),
+				),
+			)
+		);
+
+		$wp_customize->add_setting(
+			$prefix . 'border_corners',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => '',
+				'sanitize_callback' => 'prismleaf_sanitize_header_border_corners',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			$prefix . 'border_corners',
+			array(
+				'type'            => 'select',
+				'section'         => $section_id,
+				'label'           => __( 'Border corners', 'prismleaf' ),
+				'description'     => __( 'Optional. Use Default to keep the theme token-driven radius.', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
+				'priority'        => 2060,
+				'choices'         => array(
+					''       => __( 'Default (use theme)', 'prismleaf' ),
+					'square' => __( 'Square', 'prismleaf' ),
+					'round'  => __( 'Round', 'prismleaf' ),
+					'pill'   => __( 'Pill', 'prismleaf' ),
 				),
 			)
 		);
@@ -381,7 +558,8 @@ if ( ! function_exists( 'prismleaf_customize_register_header_style' ) ) {
 				'section'     => $section_id,
 				'label'       => __( 'Border style', 'prismleaf' ),
 				'description' => __( 'Optional. Use Default to keep the theme token-driven border behavior.', 'prismleaf' ),
-				'priority'    => 2060,
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
+				'priority'    => 2070,
 				'choices'     => array(
 					''       => __( 'Default (use theme)', 'prismleaf' ),
 					'none'   => __( 'None', 'prismleaf' ),
@@ -390,6 +568,17 @@ if ( ! function_exists( 'prismleaf_customize_register_header_style' ) ) {
 					'dotted' => __( 'Dotted', 'prismleaf' ),
 					'double' => __( 'Double', 'prismleaf' ),
 				),
+			)
+		);
+
+		$wp_customize->add_setting(
+			'prismleaf_header_border_color_role',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => '',
+				'sanitize_callback' => 'prismleaf_sanitize_palette_role_choice',
+				'transport'         => 'refresh',
 			)
 		);
 
@@ -404,15 +593,33 @@ if ( ! function_exists( 'prismleaf_customize_register_header_style' ) ) {
 			)
 		);
 
+		$wp_customize->add_setting(
+			'prismleaf_header_border_color_custom_dark',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => null,
+				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
+				'transport'         => 'refresh',
+			)
+		);
+
 		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
+			new Prismleaf_Customize_Palette_Role_Control(
 				$wp_customize,
-				$prefix . 'border_color',
+				'prismleaf_header_border_color_control',
 				array(
-					'section'     => $section_id,
-					'label'       => __( 'Border color', 'prismleaf' ),
-					'description' => __( 'Optional. Leave blank to use the theme default outline color.', 'prismleaf' ),
-					'priority'    => 2070,
+					'section'         => $section_id,
+					'label'           => __( 'Border color', 'prismleaf' ),
+					'description'     => __( 'Optional. Leave blank to use the theme default outline color.', 'prismleaf' ),
+					'choices'         => prismleaf_get_palette_role_choices(),
+					'settings'        => array(
+						'role'  => 'prismleaf_header_border_color_role',
+						'light' => $prefix . 'border_color',
+						'dark'  => 'prismleaf_header_border_color_custom_dark',
+					),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
+					'priority'        => 2080,
 				)
 			)
 		);
@@ -434,70 +641,6 @@ if ( ! function_exists( 'prismleaf_customize_callback_site_metadata_tagline_visi
 		}
 
 		return prismleaf_customize_get_bool( $control->manager, 'prismleaf_site_metadata_tagline_visible', true );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_site_metadata_title_dark_enabled' ) ) {
-	/**
-	 * Enable dark title color only when light title color is set.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control Control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_site_metadata_title_dark_enabled( $control ) {
-		if ( ! ( $control instanceof WP_Customize_Control ) ) {
-			return false;
-		}
-
-		$manager = $control->manager;
-		if ( ! ( $manager instanceof WP_Customize_Manager ) ) {
-			return false;
-		}
-
-		$setting = $manager->get_setting( 'prismleaf_site_metadata_title_color_light' );
-		$value   = $setting ? $setting->post_value( null ) : null;
-
-		if ( null === $value ) {
-			$value = get_theme_mod( 'prismleaf_site_metadata_title_color_light', null );
-		}
-
-		$value = is_string( $value ) ? trim( $value ) : '';
-
-		return '' !== $value;
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_site_metadata_tagline_dark_enabled' ) ) {
-	/**
-	 * Enable dark tagline color only when light tagline color is set.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control Control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_site_metadata_tagline_dark_enabled( $control ) {
-		if ( ! ( $control instanceof WP_Customize_Control ) ) {
-			return false;
-		}
-
-		$manager = $control->manager;
-		if ( ! ( $manager instanceof WP_Customize_Manager ) ) {
-			return false;
-		}
-
-		$setting = $manager->get_setting( 'prismleaf_site_metadata_tagline_color_light' );
-		$value   = $setting ? $setting->post_value( null ) : null;
-
-		if ( null === $value ) {
-			$value = get_theme_mod( 'prismleaf_site_metadata_tagline_color_light', null );
-		}
-
-		$value = is_string( $value ) ? trim( $value ) : '';
-
-		return '' !== $value;
 	}
 }
 
@@ -539,6 +682,7 @@ if ( ! function_exists( 'prismleaf_customize_register_site_icon' ) ) {
 				array(
 					'section'  => $section_id,
 					'label'    => __( 'Site Icon', 'prismleaf' ),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
 					'priority' => 3000,
 				)
 			)
@@ -562,35 +706,8 @@ if ( ! function_exists( 'prismleaf_customize_register_site_icon' ) ) {
 				'section'     => $section_id,
 				'label'       => __( 'Show icon', 'prismleaf' ),
 				'description' => __( 'Controls whether the site icon appears in branding.', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
 				'priority'    => 3010,
-			)
-		);
-
-		$wp_customize->add_setting(
-			'prismleaf_site_metadata_icon_size',
-			array(
-				'type'              => 'theme_mod',
-				'capability'        => 'edit_theme_options',
-				'default'           => null,
-				'sanitize_callback' => 'prismleaf_sanitize_site_metadata_icon_size',
-				'transport'         => 'refresh',
-			)
-		);
-
-		$wp_customize->add_control(
-			'prismleaf_site_metadata_icon_size',
-			array(
-				'type'        => 'select',
-				'section'     => $section_id,
-				'label'       => __( 'Icon size', 'prismleaf' ),
-				'description' => __( 'Select the icon size. Default uses the theme styles.', 'prismleaf' ),
-				'priority'    => 3020,
-				'choices'     => array(
-					''       => __( 'Default (use theme)', 'prismleaf' ),
-					'small'  => __( 'Small', 'prismleaf' ),
-					'medium' => __( 'Medium', 'prismleaf' ),
-					'large'  => __( 'Large', 'prismleaf' ),
-				),
 			)
 		);
 
@@ -612,7 +729,8 @@ if ( ! function_exists( 'prismleaf_customize_register_site_icon' ) ) {
 				'section'     => $section_id,
 				'label'       => __( 'Show icon border', 'prismleaf' ),
 				'description' => __( 'Adds a thin border using the standard border color.', 'prismleaf' ),
-				'priority'    => 3030,
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
+				'priority'    => 3020,
 			)
 		);
 
@@ -634,12 +752,42 @@ if ( ! function_exists( 'prismleaf_customize_register_site_icon' ) ) {
 				'section'     => $section_id,
 				'label'       => __( 'Icon corners', 'prismleaf' ),
 				'description' => __( 'Choose the icon shape.', 'prismleaf' ),
-				'priority'    => 3040,
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
+				'priority'    => 3030,
 				'choices'     => array(
 					''       => __( 'Default (use theme)', 'prismleaf' ),
 					'square' => __( 'Square', 'prismleaf' ),
 					'circle' => __( 'Circle', 'prismleaf' ),
 					'round'  => __( 'Round', 'prismleaf' ),
+				),
+			)
+		);
+
+		$wp_customize->add_setting(
+			'prismleaf_site_metadata_icon_size',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => null,
+				'sanitize_callback' => 'prismleaf_sanitize_site_metadata_icon_size',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'prismleaf_site_metadata_icon_size',
+			array(
+				'type'        => 'select',
+				'section'     => $section_id,
+				'label'       => __( 'Icon size', 'prismleaf' ),
+				'description' => __( 'Select the icon size. Default uses the theme styles.', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
+				'priority'    => 3040,
+				'choices'     => array(
+					''       => __( 'Default (use theme)', 'prismleaf' ),
+					'small'  => __( 'Small', 'prismleaf' ),
+					'medium' => __( 'Medium', 'prismleaf' ),
+					'large'  => __( 'Large', 'prismleaf' ),
 				),
 			)
 		);
@@ -685,32 +833,31 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 				array(
 					'section'  => $section_id,
 					'label'    => __( 'Site Title', 'prismleaf' ),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
 					'priority' => 4000,
 				)
 			)
 		);
 
 		$wp_customize->add_setting(
-			'prismleaf_site_metadata_title_color_light',
+			'prismleaf_site_metadata_title_role',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => '',
+				'sanitize_callback' => 'prismleaf_sanitize_palette_role_choice',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_setting(
+			'prismleaf_site_metadata_title_color',
 			array(
 				'type'              => 'theme_mod',
 				'capability'        => 'edit_theme_options',
 				'default'           => null,
 				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
 				'transport'         => 'refresh',
-			)
-		);
-
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				'prismleaf_site_metadata_title_color_light',
-				array(
-					'section'     => $section_id,
-					'label'       => __( 'Title color (Light palette)', 'prismleaf' ),
-					'description' => __( 'Optional. Leave blank to use the theme default title link colors.', 'prismleaf' ),
-					'priority'    => 4010,
-				)
 			)
 		);
 
@@ -726,14 +873,21 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 		);
 
 		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
+			new Prismleaf_Customize_Palette_Role_Control(
 				$wp_customize,
-				'prismleaf_site_metadata_title_color_dark',
+				'prismleaf_site_metadata_title_color_control',
 				array(
-					'section'         => $section_id,
-					'label'           => __( 'Title color (Dark palette)', 'prismleaf' ),
-					'description'     => __( 'Optional. Only available after a light title color is set.', 'prismleaf' ),
-					'priority'        => 4020,
+					'section'     => $section_id,
+					'label'       => __( 'Title color', 'prismleaf' ),
+					'description' => __( 'Optional. Leave blank to use the theme default title link colors.', 'prismleaf' ),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
+					'priority'    => 4010,
+					'choices'     => prismleaf_get_palette_role_choices(),
+					'settings'    => array(
+						'role'  => 'prismleaf_site_metadata_title_role',
+						'light' => 'prismleaf_site_metadata_title_color',
+						'dark'  => 'prismleaf_site_metadata_title_color_dark',
+					),
 				)
 			)
 		);
@@ -755,6 +909,7 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 				array(
 					'section'  => $section_id,
 					'label'    => __( 'Tagline', 'prismleaf' ),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
 					'priority' => 5000,
 				)
 			)
@@ -778,6 +933,7 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 				'section'     => $section_id,
 				'label'       => __( 'Show tagline', 'prismleaf' ),
 				'description' => __( 'Controls whether the site tagline is displayed.', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
 				'priority'    => 5010,
 			)
 		);
@@ -800,6 +956,7 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 				'section'         => $section_id,
 				'label'           => __( 'Tagline position', 'prismleaf' ),
 				'description'     => __( 'Choose where the tagline appears relative to the title.', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
 				'priority'        => 5020,
 				'choices'         => array(
 					''       => __( 'Default (use theme)', 'prismleaf' ),
@@ -810,26 +967,24 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'prismleaf_site_metadata_tagline_color_light',
+			'prismleaf_site_metadata_tagline_role',
+			array(
+				'type'              => 'theme_mod',
+				'capability'        => 'edit_theme_options',
+				'default'           => '',
+				'sanitize_callback' => 'prismleaf_sanitize_palette_role_choice',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_setting(
+			'prismleaf_site_metadata_tagline_color',
 			array(
 				'type'              => 'theme_mod',
 				'capability'        => 'edit_theme_options',
 				'default'           => null,
 				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
 				'transport'         => 'refresh',
-			)
-		);
-
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				'prismleaf_site_metadata_tagline_color_light',
-				array(
-					'section'         => $section_id,
-					'label'           => __( 'Tagline color (Light palette)', 'prismleaf' ),
-					'description'     => __( 'Optional. Leave blank to use the theme default tagline color.', 'prismleaf' ),
-					'priority'        => 5030,
-				)
 			)
 		);
 
@@ -845,14 +1000,21 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 		);
 
 		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
+			new Prismleaf_Customize_Palette_Role_Control(
 				$wp_customize,
-				'prismleaf_site_metadata_tagline_color_dark',
+				'prismleaf_site_metadata_tagline_color_control',
 				array(
 					'section'         => $section_id,
-					'label'           => __( 'Tagline color (Dark palette)', 'prismleaf' ),
-					'description'     => __( 'Optional. Only available after a light tagline color is set.', 'prismleaf' ),
-					'priority'        => 5040,
+					'label'           => __( 'Tagline color', 'prismleaf' ),
+					'description'     => __( 'Optional. Leave blank to use the theme default tagline color.', 'prismleaf' ),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
+					'priority'        => 5030,
+					'choices'         => prismleaf_get_palette_role_choices(),
+					'settings'        => array(
+						'role'  => 'prismleaf_site_metadata_tagline_role',
+						'light' => 'prismleaf_site_metadata_tagline_color',
+						'dark'  => 'prismleaf_site_metadata_tagline_color_dark',
+					),
 				)
 			)
 		);
@@ -874,6 +1036,7 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 				array(
 					'section'  => $section_id,
 					'label'    => __( 'Theme Switcher', 'prismleaf' ),
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
 					'priority' => 6000,
 				)
 			)
@@ -881,42 +1044,6 @@ if ( ! function_exists( 'prismleaf_customize_register_site_metadata' ) ) {
 	}
 }
 add_action( 'customize_register', 'prismleaf_customize_register_site_metadata' );
-if ( ! function_exists( 'prismleaf_customize_save_site_metadata_palettes' ) ) {
-	/**
-	 * Enforce site metadata save rules (no dark override without light).
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Manager $manager Customizer manager instance.
-	 * @return void
-	 */
-	function prismleaf_customize_save_site_metadata_palettes( $manager ) {
-		if ( ! ( $manager instanceof WP_Customize_Manager ) ) {
-			return;
-		}
-
-		$pairs = array(
-			array(
-				'light' => 'prismleaf_site_metadata_title_color_light',
-				'dark'  => 'prismleaf_site_metadata_title_color_dark',
-			),
-			array(
-				'light' => 'prismleaf_site_metadata_tagline_color_light',
-				'dark'  => 'prismleaf_site_metadata_tagline_color_dark',
-			),
-		);
-
-		foreach ( $pairs as $pair ) {
-			$light_value = prismleaf_sanitize_optional_hex_color( get_theme_mod( $pair['light'], null ) );
-			$dark_value  = prismleaf_sanitize_optional_hex_color( get_theme_mod( $pair['dark'], null ) );
-
-			if ( null === $light_value && null !== $dark_value ) {
-				remove_theme_mod( $pair['dark'] );
-			}
-		}
-	}
-}
-add_action( 'customize_save_after', 'prismleaf_customize_save_site_metadata_palettes' );
 if ( ! function_exists( 'prismleaf_customize_register_header' ) ) {
 	/**
 	 * Register Header settings and controls.
@@ -966,6 +1093,7 @@ if ( ! function_exists( 'prismleaf_customize_register_header' ) ) {
 					'section'     => $section_id,
 					'label'       => $data['label'],
 					'description' => $data['description'],
+					'active_callback' => 'prismleaf_customize_callback_header_visible',
 					'priority'    => $data['priority'],
 				)
 			);
@@ -1010,6 +1138,7 @@ function prismleaf_customize_register_prismleaf_search( $wp_customize ) {
 			array(
 				'section'  => $section_id,
 				'label'    => __( 'Search', 'prismleaf' ),
+				'active_callback' => 'prismleaf_customize_callback_header_visible',
 				'priority' => 7000,
 			)
 		)
@@ -1033,6 +1162,7 @@ function prismleaf_customize_register_prismleaf_search( $wp_customize ) {
 			'section'     => $section_id,
 			'label'       => __( 'Show search', 'prismleaf' ),
 			'description' => __( 'Controls whether the search control appears in the header.', 'prismleaf' ),
+			'active_callback' => 'prismleaf_customize_callback_header_visible',
 			'priority'    => 7010,
 		)
 	);
@@ -1054,6 +1184,7 @@ function prismleaf_customize_register_prismleaf_search( $wp_customize ) {
 			'type'     => 'checkbox',
 			'section'  => $section_id,
 			'label'    => __( 'Enable flyout behavior', 'prismleaf' ),
+			'active_callback' => 'prismleaf_customize_callback_header_visible',
 			'priority' => 7020,
 		)
 	);
@@ -1076,6 +1207,7 @@ function prismleaf_customize_register_prismleaf_search( $wp_customize ) {
 			'section'     => $section_id,
 			'label'       => __( 'Placeholder text', 'prismleaf' ),
 			'description' => __( 'Text shown inside the search input.', 'prismleaf' ),
+			'active_callback' => 'prismleaf_customize_callback_header_visible',
 			'priority'    => 7030,
 		)
 	);
@@ -1247,6 +1379,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 					array(
 						'section'  => $section_id,
 						'label'    => $label,
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority' => $header_priority,
 					)
 				)
@@ -1271,6 +1404,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						'section'     => $section_id,
 						'label'       => __( 'Swap primary and secondary menu', 'prismleaf' ),
 						'description' => __( 'When enabled, the secondary menu appears above the header content area.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'    => $swap_priority,
 					)
 				);
@@ -1293,6 +1427,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						'section'     => $section_id,
 						'label'       => __( 'Show primary menu', 'prismleaf' ),
 						'description' => __( 'Controls whether the primary menu appears in the header.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'    => $show_priority,
 					)
 				);
@@ -1315,6 +1450,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						'section'     => $section_id,
 						'label'       => __( 'Show secondary menu', 'prismleaf' ),
 						'description' => __( 'Controls whether the secondary menu appears in the header.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'    => $show_priority,
 					)
 				);
@@ -1340,6 +1476,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						/* translators: %s is menu label. */
 						'label'       => sprintf( __( '%s color (Light palette)', 'prismleaf' ), $label ),
 						'description' => __( 'Optional. Leave blank to use the theme defaults.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'    => $light_priority,
 					)
 				)
@@ -1365,6 +1502,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						/* translators: %s is menu label. */
 						'label'           => sprintf( __( '%s color (Dark palette)', 'prismleaf' ), $label ),
 						'description'     => __( 'Optional. Only available after a light color is set.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'        => $dark_priority,
 					)
 				)
@@ -1389,6 +1527,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						'section'     => $section_id,
 						'label'       => __( 'Rounded mobile corners', 'prismleaf' ),
 						'description' => __( 'Applies rounded corners to the mobile menu panel.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'    => $rounded_priority,
 					)
 				);
@@ -1412,6 +1551,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						'section'     => $section_id,
 						'label'       => __( 'Primary buttons', 'prismleaf' ),
 						'description' => __( 'Shows primary menu items as buttons with mobile-style spacing.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'    => $buttons_priority,
 					)
 				);
@@ -1434,6 +1574,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						'section'         => $section_id,
 						'label'           => __( 'Primary stretch', 'prismleaf' ),
 						'description'     => __( 'Controls whether the primary menu bar uses the menu background color.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'        => $stretch_priority,
 					)
 				);
@@ -1456,6 +1597,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						'section'         => $section_id,
 						'label'           => __( 'Primary divider', 'prismleaf' ),
 						'description'     => __( 'Adds divider lines around and between primary menu items.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'        => $divider_priority,
 					)
 				);
@@ -1479,6 +1621,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						'section'     => $section_id,
 						'label'       => __( 'Secondary buttons', 'prismleaf' ),
 						'description' => __( 'Shows secondary menu items as buttons with mobile-style spacing.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'    => $buttons_priority,
 					)
 				);
@@ -1501,6 +1644,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						'section'         => $section_id,
 						'label'           => __( 'Secondary stretch', 'prismleaf' ),
 						'description'     => __( 'Controls whether the secondary menu bar uses the menu background color.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'        => $stretch_priority,
 					)
 				);
@@ -1523,6 +1667,7 @@ if ( ! function_exists( 'prismleaf_customize_register_menus' ) ) {
 						'section'         => $section_id,
 						'label'           => __( 'Secondary divider', 'prismleaf' ),
 						'description'     => __( 'Adds divider lines around and between secondary menu items.', 'prismleaf' ),
+						'active_callback' => 'prismleaf_customize_callback_header_visible',
 						'priority'        => $divider_priority,
 					)
 				);

@@ -182,6 +182,26 @@ if ( ! function_exists( 'prismleaf_setup_customizer' ) ) {
 }
 add_action( 'customize_register', 'prismleaf_setup_customizer' );
 
+if ( ! function_exists( 'prismleaf_enqueue_customizer_preview' ) ) {
+	/**
+	 * Enqueue Customizer preview scripts.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	function prismleaf_enqueue_customizer_preview() {
+		wp_enqueue_script(
+			'prismleaf-customizer-preview',
+			PRISMLEAF_URI . 'assets/scripts/customizer-preview.js',
+			array( 'customize-preview' ),
+			PRISMLEAF_VERSION,
+			true
+		);
+	}
+}
+add_action( 'customize_preview_init', 'prismleaf_enqueue_customizer_preview' );
+
 if ( ! function_exists( 'prismleaf_language_attributes_force_color_scheme' ) ) {
 	/**
 	 * Force a color scheme attribute on the root element when configured.
