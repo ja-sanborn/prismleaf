@@ -140,7 +140,7 @@ textarea:focus-visible {
 	outline: none;
 	box-shadow: none;
 	border-style: var(--prismleaf-border-style);
-	border-color: var(--prismleaf-color-primary);
+	border-color: var(--prismleaf-color-primary-1);
 }
 
 /* Normalize WebKit search inputs. */

@@ -142,17 +142,27 @@ if ( ! function_exists( 'prismleaf_register_palette_options_section' ) ) {
 			)
 		);
 
-		prismleaf_add_neutral_preview_control_with_defaults(
+		prismleaf_add_palette_preview_control_with_defaults(
 			$wp_customize,
 			array(
-				'light_setting_id'   => 'prismleaf_palette_neutral_light_base',
-				'dark_setting_id'    => 'prismleaf_palette_neutral_dark_base',
-				'neutral_setting_id' => 'prismleaf_palette_neutral_values',
+				'setting_id'         => 'prismleaf_palette_neutral_light_base',
+				'palette_setting_id' => 'prismleaf_palette_neutral_light_values',
 				'section'            => 'prismleaf_palette_options',
-				'label'              => __( 'Neutrals', 'prismleaf' ),
+				'label'              => __( 'Neutral Light', 'prismleaf' ),
 				'priority'           => 2070,
-				'default_light_key'  => 'palette_neutral_light_base',
-				'default_dark_key'   => 'palette_neutral_dark_base',
+				'default_key'        => 'palette_neutral_light_base',
+			)
+		);
+
+		prismleaf_add_palette_preview_control_with_defaults(
+			$wp_customize,
+			array(
+				'setting_id'         => 'prismleaf_palette_neutral_dark_base',
+				'palette_setting_id' => 'prismleaf_palette_neutral_dark_values',
+				'section'            => 'prismleaf_palette_options',
+				'label'              => __( 'Neutral Dark', 'prismleaf' ),
+				'priority'           => 2080,
+				'default_key'        => 'palette_neutral_dark_base',
 			)
 		);
 	}

@@ -7,37 +7,34 @@
  */
 
 :root {
-	/* Active palette: neutrals. */
-	--prismleaf-color-background: var(--prismleaf-color-light-background);
-	--prismleaf-color-on-background: var(--prismleaf-color-light-on-background);
-	--prismleaf-color-background-darker: var(--prismleaf-color-light-background-darker);
-	--prismleaf-color-background-darkest: var(--prismleaf-color-light-background-darkest);
-	--prismleaf-color-background-lighter: var(--prismleaf-color-light-background-lighter);
-	--prismleaf-color-background-lightest: var(--prismleaf-color-light-background-lightest);
-	--prismleaf-color-surface: var(--prismleaf-color-light-surface);
-	--prismleaf-color-on-surface: var(--prismleaf-color-light-on-surface);
-	--prismleaf-color-surface-darker: var(--prismleaf-color-light-surface-darker);
-	--prismleaf-color-surface-darkest: var(--prismleaf-color-light-surface-darkest);
-	--prismleaf-color-surface-lighter: var(--prismleaf-color-light-surface-lighter);
-	--prismleaf-color-surface-lightest: var(--prismleaf-color-light-surface-lightest);
-	--prismleaf-color-surface-variant: var(--prismleaf-color-light-surface-variant);
-	--prismleaf-color-on-surface-variant: var(--prismleaf-color-light-on-surface-variant);
-	--prismleaf-color-surface-variant-darker: var(--prismleaf-color-light-surface-variant-darker);
-	--prismleaf-color-surface-variant-darkest: var(--prismleaf-color-light-surface-variant-darkest);
-	--prismleaf-color-surface-variant-lighter: var(--prismleaf-color-light-surface-variant-lighter);
-	--prismleaf-color-surface-variant-lightest: var(--prismleaf-color-light-surface-variant-lightest);
-	--prismleaf-color-foreground: var(--prismleaf-color-light-foreground);
-	--prismleaf-color-on-foreground: var(--prismleaf-color-light-on-foreground);
-	--prismleaf-color-foreground-darker: var(--prismleaf-color-light-foreground-darker);
-	--prismleaf-color-foreground-darkest: var(--prismleaf-color-light-foreground-darkest);
-	--prismleaf-color-foreground-lighter: var(--prismleaf-color-light-foreground-lighter);
-	--prismleaf-color-foreground-lightest: var(--prismleaf-color-light-foreground-lightest);
+	/* Active palette: surfaces. */
+
+	--prismleaf-color-surface-on: var(--prismleaf-color-light-surface-on);
+	--prismleaf-color-surface-1: var(--prismleaf-color-light-surface-1);
+	--prismleaf-color-surface-2: var(--prismleaf-color-light-surface-2);
+	--prismleaf-color-surface-3: var(--prismleaf-color-light-surface-3);
+	--prismleaf-color-surface-4: var(--prismleaf-color-light-surface-4);
+	--prismleaf-color-surface-5: var(--prismleaf-color-light-surface-5);
+
+	--prismleaf-color-surface-container-on: var(--prismleaf-color-light-surface-container-on);
+	--prismleaf-color-surface-container-1: var(--prismleaf-color-light-surface-container-1);
+	--prismleaf-color-surface-container-2: var(--prismleaf-color-light-surface-container-2);
+	--prismleaf-color-surface-container-3: var(--prismleaf-color-light-surface-container-3);
+	--prismleaf-color-surface-container-4: var(--prismleaf-color-light-surface-container-4);
+	--prismleaf-color-surface-container-5: var(--prismleaf-color-light-surface-container-5);
+
 
 	/* Active palette: shadows and glow. */
 	--prismleaf-shadow-elevation-1: var(--prismleaf-shadow-light-elevation-1);
 	--prismleaf-shadow-elevation-2: var(--prismleaf-shadow-light-elevation-2);
 	--prismleaf-shadow-elevation-3: var(--prismleaf-shadow-light-elevation-3);
-	--prismleaf-glow-ring: var(--prismleaf-glow-light-ring);
+	--prismleaf-shadow-elevation-4: var(--prismleaf-shadow-light-elevation-4);
+	--prismleaf-shadow-elevation-5: var(--prismleaf-shadow-light-elevation-5);
+	--prismleaf-glow-ring-1: var(--prismleaf-glow-light-ring-1);
+	--prismleaf-glow-ring-2: var(--prismleaf-glow-light-ring-2);
+	--prismleaf-glow-ring-3: var(--prismleaf-glow-light-ring-3);
+	--prismleaf-glow-ring-4: var(--prismleaf-glow-light-ring-4);
+	--prismleaf-glow-ring-5: var(--prismleaf-glow-light-ring-5);
 
 	/* Active palette: opacity values. */
 	--prismleaf-color-outline: var(--prismleaf-color-light-outline);
@@ -57,37 +54,35 @@ html {
 /* System dark mode. */
 @media (prefers-color-scheme: dark) {
 	:root {
-		/* Active palette: neutrals. */
-		--prismleaf-color-background: var(--prismleaf-color-dark-background);
-		--prismleaf-color-on-background: var(--prismleaf-color-dark-on-background);
-		--prismleaf-color-background-darker: var(--prismleaf-color-dark-background-darker);
-		--prismleaf-color-background-darkest: var(--prismleaf-color-dark-background-darkest);
-		--prismleaf-color-background-lighter: var(--prismleaf-color-dark-background-lighter);
-		--prismleaf-color-background-lightest: var(--prismleaf-color-dark-background-lightest);
-		--prismleaf-color-surface: var(--prismleaf-color-dark-surface);
-		--prismleaf-color-on-surface: var(--prismleaf-color-dark-on-surface);
-		--prismleaf-color-surface-darker: var(--prismleaf-color-dark-surface-darker);
-		--prismleaf-color-surface-darkest: var(--prismleaf-color-dark-surface-darkest);
-		--prismleaf-color-surface-lighter: var(--prismleaf-color-dark-surface-lighter);
-		--prismleaf-color-surface-lightest: var(--prismleaf-color-dark-surface-lightest);
-		--prismleaf-color-surface-variant: var(--prismleaf-color-dark-surface-variant);
-		--prismleaf-color-on-surface-variant: var(--prismleaf-color-dark-on-surface-variant);
-		--prismleaf-color-surface-variant-darker: var(--prismleaf-color-dark-surface-variant-darker);
-		--prismleaf-color-surface-variant-darkest: var(--prismleaf-color-dark-surface-variant-darkest);
-		--prismleaf-color-surface-variant-lighter: var(--prismleaf-color-dark-surface-variant-lighter);
-		--prismleaf-color-surface-variant-lightest: var(--prismleaf-color-dark-surface-variant-lightest);
-		--prismleaf-color-foreground: var(--prismleaf-color-dark-foreground);
-		--prismleaf-color-on-foreground: var(--prismleaf-color-dark-on-foreground);
-		--prismleaf-color-foreground-darker: var(--prismleaf-color-dark-foreground-darker);
-		--prismleaf-color-foreground-darkest: var(--prismleaf-color-dark-foreground-darkest);
-		--prismleaf-color-foreground-lighter: var(--prismleaf-color-dark-foreground-lighter);
-		--prismleaf-color-foreground-lightest: var(--prismleaf-color-dark-foreground-lightest);
+		/* Background color */
+		--prismleaf-background: #000000;
+
+		/* Active palette: surfaces. */
+		--prismleaf-color-surface-on: var(--prismleaf-color-dark-surface-on);
+		--prismleaf-color-surface-1: var(--prismleaf-color-dark-surface-1);
+		--prismleaf-color-surface-2: var(--prismleaf-color-dark-surface-2);
+		--prismleaf-color-surface-3: var(--prismleaf-color-dark-surface-3);
+		--prismleaf-color-surface-4: var(--prismleaf-color-dark-surface-4);
+		--prismleaf-color-surface-5: var(--prismleaf-color-dark-surface-5);
+
+		--prismleaf-color-surface-container-on: var(--prismleaf-color-dark-surface-container-on);
+		--prismleaf-color-surface-container-1: var(--prismleaf-color-dark-surface-container-1);
+		--prismleaf-color-surface-container-2: var(--prismleaf-color-dark-surface-container-2);
+		--prismleaf-color-surface-container-3: var(--prismleaf-color-dark-surface-container-3);
+		--prismleaf-color-surface-container-4: var(--prismleaf-color-dark-surface-container-4);
+		--prismleaf-color-surface-container-5: var(--prismleaf-color-dark-surface-container-5);
 
 		/* Active palette: shadows and glow. */
 		--prismleaf-shadow-elevation-1: var(--prismleaf-shadow-dark-elevation-1);
 		--prismleaf-shadow-elevation-2: var(--prismleaf-shadow-dark-elevation-2);
 		--prismleaf-shadow-elevation-3: var(--prismleaf-shadow-dark-elevation-3);
-		--prismleaf-glow-ring: var(--prismleaf-glow-dark-ring);
+		--prismleaf-shadow-elevation-4: var(--prismleaf-shadow-dark-elevation-4);
+		--prismleaf-shadow-elevation-5: var(--prismleaf-shadow-dark-elevation-5);
+		--prismleaf-glow-ring-1: var(--prismleaf-glow-dark-ring-1);
+		--prismleaf-glow-ring-2: var(--prismleaf-glow-dark-ring-2);
+		--prismleaf-glow-ring-3: var(--prismleaf-glow-dark-ring-3);
+		--prismleaf-glow-ring-4: var(--prismleaf-glow-dark-ring-4);
+		--prismleaf-glow-ring-5: var(--prismleaf-glow-dark-ring-5);
 
 		/* Active palette: opacity values. */
 		--prismleaf-color-outline: var(--prismleaf-color-dark-outline);
@@ -107,37 +102,35 @@ html {
 
 /* User-selected light overrides. */
 :root[data-prismleaf-color-scheme="light"] {
-	/* Active palette: neutrals. */
-	--prismleaf-color-background: var(--prismleaf-color-light-background);
-	--prismleaf-color-on-background: var(--prismleaf-color-light-on-background);
-	--prismleaf-color-background-darker: var(--prismleaf-color-light-background-darker);
-	--prismleaf-color-background-darkest: var(--prismleaf-color-light-background-darkest);
-	--prismleaf-color-background-lighter: var(--prismleaf-color-light-background-lighter);
-	--prismleaf-color-background-lightest: var(--prismleaf-color-light-background-lightest);
-	--prismleaf-color-surface: var(--prismleaf-color-light-surface);
-	--prismleaf-color-on-surface: var(--prismleaf-color-light-on-surface);
-	--prismleaf-color-surface-darker: var(--prismleaf-color-light-surface-darker);
-	--prismleaf-color-surface-darkest: var(--prismleaf-color-light-surface-darkest);
-	--prismleaf-color-surface-lighter: var(--prismleaf-color-light-surface-lighter);
-	--prismleaf-color-surface-lightest: var(--prismleaf-color-light-surface-lightest);
-	--prismleaf-color-surface-variant: var(--prismleaf-color-light-surface-variant);
-	--prismleaf-color-on-surface-variant: var(--prismleaf-color-light-on-surface-variant);
-	--prismleaf-color-surface-variant-darker: var(--prismleaf-color-light-surface-variant-darker);
-	--prismleaf-color-surface-variant-darkest: var(--prismleaf-color-light-surface-variant-darkest);
-	--prismleaf-color-surface-variant-lighter: var(--prismleaf-color-light-surface-variant-lighter);
-	--prismleaf-color-surface-variant-lightest: var(--prismleaf-color-light-surface-variant-lightest);
-	--prismleaf-color-foreground: var(--prismleaf-color-light-foreground);
-	--prismleaf-color-on-foreground: var(--prismleaf-color-light-on-foreground);
-	--prismleaf-color-foreground-darker: var(--prismleaf-color-light-foreground-darker);
-	--prismleaf-color-foreground-darkest: var(--prismleaf-color-light-foreground-darkest);
-	--prismleaf-color-foreground-lighter: var(--prismleaf-color-light-foreground-lighter);
-	--prismleaf-color-foreground-lightest: var(--prismleaf-color-light-foreground-lightest);
+	/* Background color */
+	--prismleaf-background: #ffffff;
+
+	/* Active palette: surfaces. */
+	--prismleaf-color-surface-on: var(--prismleaf-color-light-surface-on);
+	--prismleaf-color-surface-1: var(--prismleaf-color-light-surface-1);
+	--prismleaf-color-surface-2: var(--prismleaf-color-light-surface-2);
+	--prismleaf-color-surface-3: var(--prismleaf-color-light-surface-3);
+	--prismleaf-color-surface-4: var(--prismleaf-color-light-surface-4);
+	--prismleaf-color-surface-5: var(--prismleaf-color-light-surface-5);
+
+	--prismleaf-color-surface-container-on: var(--prismleaf-color-light-surface-container-on);
+	--prismleaf-color-surface-container-1: var(--prismleaf-color-light-surface-container-1);
+	--prismleaf-color-surface-container-2: var(--prismleaf-color-light-surface-container-2);
+	--prismleaf-color-surface-container-3: var(--prismleaf-color-light-surface-container-3);
+	--prismleaf-color-surface-container-4: var(--prismleaf-color-light-surface-container-4);
+	--prismleaf-color-surface-container-5: var(--prismleaf-color-light-surface-container-5);
 
 	/* Active palette: shadows and glow. */
 	--prismleaf-shadow-elevation-1: var(--prismleaf-shadow-light-elevation-1);
 	--prismleaf-shadow-elevation-2: var(--prismleaf-shadow-light-elevation-2);
 	--prismleaf-shadow-elevation-3: var(--prismleaf-shadow-light-elevation-3);
-	--prismleaf-glow-ring: var(--prismleaf-glow-light-ring);
+	--prismleaf-shadow-elevation-4: var(--prismleaf-shadow-light-elevation-4);
+	--prismleaf-shadow-elevation-5: var(--prismleaf-shadow-light-elevation-5);
+	--prismleaf-glow-ring-1: var(--prismleaf-glow-light-ring-1);
+	--prismleaf-glow-ring-2: var(--prismleaf-glow-light-ring-2);
+	--prismleaf-glow-ring-3: var(--prismleaf-glow-light-ring-3);
+	--prismleaf-glow-ring-4: var(--prismleaf-glow-light-ring-4);
+	--prismleaf-glow-ring-5: var(--prismleaf-glow-light-ring-5);
 
 	/* Active palette: opacity values. */
 	--prismleaf-color-outline: var(--prismleaf-color-light-outline);
@@ -156,37 +149,35 @@ html[data-prismleaf-color-scheme="light"] {
 
 /* User-selected dark overrides. */
 :root[data-prismleaf-color-scheme="dark"] {
-	/* Active palette: neutrals. */
-	--prismleaf-color-background: var(--prismleaf-color-dark-background);
-	--prismleaf-color-on-background: var(--prismleaf-color-dark-on-background);
-	--prismleaf-color-background-darker: var(--prismleaf-color-dark-background-darker);
-	--prismleaf-color-background-darkest: var(--prismleaf-color-dark-background-darkest);
-	--prismleaf-color-background-lighter: var(--prismleaf-color-dark-background-lighter);
-	--prismleaf-color-background-lightest: var(--prismleaf-color-dark-background-lightest);
-	--prismleaf-color-surface: var(--prismleaf-color-dark-surface);
-	--prismleaf-color-on-surface: var(--prismleaf-color-dark-on-surface);
-	--prismleaf-color-surface-darker: var(--prismleaf-color-dark-surface-darker);
-	--prismleaf-color-surface-darkest: var(--prismleaf-color-dark-surface-darkest);
-	--prismleaf-color-surface-lighter: var(--prismleaf-color-dark-surface-lighter);
-	--prismleaf-color-surface-lightest: var(--prismleaf-color-dark-surface-lightest);
-	--prismleaf-color-surface-variant: var(--prismleaf-color-dark-surface-variant);
-	--prismleaf-color-on-surface-variant: var(--prismleaf-color-dark-on-surface-variant);
-	--prismleaf-color-surface-variant-darker: var(--prismleaf-color-dark-surface-variant-darker);
-	--prismleaf-color-surface-variant-darkest: var(--prismleaf-color-dark-surface-variant-darkest);
-	--prismleaf-color-surface-variant-lighter: var(--prismleaf-color-dark-surface-variant-lighter);
-	--prismleaf-color-surface-variant-lightest: var(--prismleaf-color-dark-surface-variant-lightest);
-	--prismleaf-color-foreground: var(--prismleaf-color-dark-foreground);
-	--prismleaf-color-on-foreground: var(--prismleaf-color-dark-on-foreground);
-	--prismleaf-color-foreground-darker: var(--prismleaf-color-dark-foreground-darker);
-	--prismleaf-color-foreground-darkest: var(--prismleaf-color-dark-foreground-darkest);
-	--prismleaf-color-foreground-lighter: var(--prismleaf-color-dark-foreground-lighter);
-	--prismleaf-color-foreground-lightest: var(--prismleaf-color-dark-foreground-lightest);
+	/* Background color */
+	--prismleaf-background: #000000;
+
+	/* Active palette: surfaces. */
+	--prismleaf-color-surface-on: var(--prismleaf-color-dark-surface-on);
+	--prismleaf-color-surface-1: var(--prismleaf-color-dark-surface-1);
+	--prismleaf-color-surface-2: var(--prismleaf-color-dark-surface-2);
+	--prismleaf-color-surface-3: var(--prismleaf-color-dark-surface-3);
+	--prismleaf-color-surface-4: var(--prismleaf-color-dark-surface-4);
+	--prismleaf-color-surface-5: var(--prismleaf-color-dark-surface-5);
+
+	--prismleaf-color-surface-container-on: var(--prismleaf-color-dark-surface-container-on);
+	--prismleaf-color-surface-container-1: var(--prismleaf-color-dark-surface-container-1);
+	--prismleaf-color-surface-container-2: var(--prismleaf-color-dark-surface-container-2);
+	--prismleaf-color-surface-container-3: var(--prismleaf-color-dark-surface-container-3);
+	--prismleaf-color-surface-container-4: var(--prismleaf-color-dark-surface-container-4);
+	--prismleaf-color-surface-container-5: var(--prismleaf-color-dark-surface-container-5);
 
 	/* Active palette: shadows and glow. */
 	--prismleaf-shadow-elevation-1: var(--prismleaf-shadow-dark-elevation-1);
 	--prismleaf-shadow-elevation-2: var(--prismleaf-shadow-dark-elevation-2);
 	--prismleaf-shadow-elevation-3: var(--prismleaf-shadow-dark-elevation-3);
-	--prismleaf-glow-ring: var(--prismleaf-glow-dark-ring);
+	--prismleaf-shadow-elevation-4: var(--prismleaf-shadow-dark-elevation-4);
+	--prismleaf-shadow-elevation-5: var(--prismleaf-shadow-dark-elevation-5);
+	--prismleaf-glow-ring-1: var(--prismleaf-glow-dark-ring-1);
+	--prismleaf-glow-ring-2: var(--prismleaf-glow-dark-ring-2);
+	--prismleaf-glow-ring-3: var(--prismleaf-glow-dark-ring-3);
+	--prismleaf-glow-ring-4: var(--prismleaf-glow-dark-ring-4);
+	--prismleaf-glow-ring-5: var(--prismleaf-glow-dark-ring-5);
 
 	/* Active palette: opacity values. */
 	--prismleaf-color-outline: var(--prismleaf-color-dark-outline);
@@ -206,42 +197,42 @@ html[data-prismleaf-color-scheme="dark"] {
 /* Derived semantic color tokens (if supported). */
 @supports (color: color-mix(in srgb, black 50%, transparent)) {
 	:root {
-		--prismleaf-color-outline: color-mix(in srgb, var(--prismleaf-color-on-surface) 30%, transparent);
-		--prismleaf-color-outline-variant: color-mix(in srgb, var(--prismleaf-color-on-surface) 18%, transparent);
-		--prismleaf-color-divider: color-mix(in srgb, var(--prismleaf-color-on-surface) 12%, transparent);
-		--prismleaf-color-on-surface-muted: color-mix(in srgb, var(--prismleaf-color-on-surface) 72%, transparent);
-		--prismleaf-color-disabled-foreground: color-mix(in srgb, var(--prismleaf-color-on-surface) 38%, transparent);
-		--prismleaf-color-disabled-surface: color-mix(in srgb, var(--prismleaf-color-on-surface) 12%, transparent);
+		--prismleaf-color-outline: color-mix(in srgb, var(--prismleaf-color-surface-on) 30%, transparent);
+		--prismleaf-color-outline-variant: color-mix(in srgb, var(--prismleaf-color-surface-on) 18%, transparent);
+		--prismleaf-color-divider: color-mix(in srgb, var(--prismleaf-color-surface-on) 12%, transparent);
+		--prismleaf-color-on-surface-muted: color-mix(in srgb, var(--prismleaf-color-surface-on) 72%, transparent);
+		--prismleaf-color-disabled-foreground: color-mix(in srgb, var(--prismleaf-color-surface-on) 38%, transparent);
+		--prismleaf-color-disabled-surface: color-mix(in srgb, var(--prismleaf-color-surface-on) 12%, transparent);
 	}
 }
 
 /* Derived colors. */
 :root {
 	/* Active palette: code defaults. */
-	--prismleaf-color-code-background: var(--prismleaf-color-surface-variant);
-	--prismleaf-color-code-foreground: var(--prismleaf-color-on-surface-variant);
+	--prismleaf-color-code-background: var(--prismleaf-color-surface-container-3);
+	--prismleaf-color-code-foreground: var(--prismleaf-color-surface-container-on);
 	
 	/* Active palette: hyperlink defaults. */
-	--prismleaf-color-link: var(--prismleaf-color-secondary);
-	--prismleaf-color-link-hover: var(--prismleaf-color-secondary-darker);
-	--prismleaf-color-link-active: var(--prismleaf-color-secondary-darkest);
-	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-darker);
-	--prismleaf-color-on-link: var(--prismleaf-color-on-secondary);
+	--prismleaf-color-link: var(--prismleaf-color-secondary-1);
+	--prismleaf-color-link-hover: var(--prismleaf-color-secondary-2);
+	--prismleaf-color-link-active: var(--prismleaf-color-secondary-3);
+	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-2);
+	--prismleaf-color-on-link: var(--prismleaf-color-secondary-on);
 
 	/* Active palette: selection. */
-	--prismleaf-color-selection-background: var(--prismleaf-color-secondary-container);
-	--prismleaf-color-selection-foreground: var(--prismleaf-color-on-secondary-container);
+	--prismleaf-color-selection-background: var(--prismleaf-color-secondary-container-3);
+	--prismleaf-color-selection-foreground: var(--prismleaf-color-secondary-container-on);
 }
 
 /* Document colors. */
 html {
-	accent-color: var(--prismleaf-color-primary);
-	color: var(--prismleaf-color-foreground);
+	accent-color: var(--prismleaf-color-primary-1);
+	color: var(--prismleaf-color-surface-on);
 }
 
 body {
-	background-color: var(--prismleaf-color-background);
-	color: var(--prismleaf-color-foreground);
+	background-color: var(--prismleaf-background);
+	color: var(--prismleaf-color-surface-on);
 }
 
 /* High-contrast text selection. */
@@ -278,7 +269,7 @@ button,
 input,
 select,
 textarea {
-	background-color: var(--prismleaf-color-surface);
+	background-color: var(--prismleaf-color-surface-4);
 	border-color: var(--prismleaf-color-outline);
 }
 
@@ -293,7 +284,7 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-	border-color: var(--prismleaf-color-primary);
+	border-color: var(--prismleaf-color-primary-1);
 }
 
 ::placeholder {
@@ -313,4 +304,3 @@ pre {
 	border-color: var(--prismleaf-color-outline);
 	color: var(--prismleaf-color-code-foreground);
 }
-

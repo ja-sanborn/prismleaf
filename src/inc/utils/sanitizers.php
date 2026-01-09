@@ -185,21 +185,6 @@ if ( ! function_exists( 'prismleaf_sanitize_palette_json' ) ) {
 	}
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_neutral_json' ) ) {
-	/**
-	 * Sanitize neutral JSON for the neutral preview control.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value Value to sanitize.
-	 * @return string
-	 */
-	function prismleaf_sanitize_neutral_json( $value ) {
-		$expected_keys = prismleaf_get_neutral_json_keys();
-		return prismleaf_sanitize_json( $value, $expected_keys );
-	}
-}
-
 if ( ! function_exists( 'prismleaf_sanitize_json' ) ) {
 	/**
 	 * Sanitize JSON with an expected key list.

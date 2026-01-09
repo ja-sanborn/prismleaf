@@ -70,18 +70,3 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_palette_json' ) ) {
 	}
 }
 
-if ( ! function_exists( 'prismleaf_get_theme_mod_neutral_json' ) ) {
-	/**
-	 * Get a neutral JSON theme mod value.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $setting_id    Theme mod ID.
-	 * @param string $default_value Default value.
-	 * @return string
-	 */
-	function prismleaf_get_theme_mod_neutral_json( $setting_id, $default_value = '' ) {
-		$value = prismleaf_sanitize_neutral_json( get_theme_mod( $setting_id, $default_value ) );
-		return is_string( $value ) ? $value : '';
-	}
-}

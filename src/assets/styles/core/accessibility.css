@@ -53,8 +53,8 @@
 	block-size: auto;
 	margin: 0;
 	padding: var(--prismleaf-space-1);
-	background: var(--prismleaf-color-surface);
-	color: var(--prismleaf-color-on-surface);
+	background: var(--prismleaf-color-surface-2);
+	color: var(--prismleaf-color-surface-on);
 	z-index: var(--prismleaf-z-dropdown);
 }
 
@@ -111,4 +111,5 @@
 		animation: none !important;
 	}
 }
+
 

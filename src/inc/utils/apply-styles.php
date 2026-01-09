@@ -44,7 +44,7 @@ if ( ! function_exists( 'prismleaf_get_customizer_css_vars' ) ) {
 	function prismleaf_get_customizer_css_vars() {
 		$css = '';
 		$css .= prismleaf_get_palette_override_css_vars();
-		$css .= prismleaf_get_neutral_override_css_vars();
+		$css .= prismleaf_get_neutral_palette_override_css_vars();
 		$css .= prismleaf_get_framed_layout_css_vars();
 
 		return $css;
@@ -141,14 +141,6 @@ if ( ! function_exists( 'prismleaf_get_customizer_css_mappings' ) ) {
 				'build'    => 'prismleaf_build_palette_css_vars',
 				'type'     => 'palette',
 			),
-			array(
-				'getter'   => 'prismleaf_get_theme_mod_neutral_json',
-				'setting'  => 'prismleaf_palette_neutral_values',
-				'keys'     => prismleaf_get_neutral_json_keys(),
-				'key_map'  => array(),
-				'build'    => 'prismleaf_build_neutral_css_vars',
-				'type'     => 'neutral',
-			),
 		);
 	}
 }
@@ -168,61 +160,22 @@ if ( ! function_exists( 'prismleaf_build_palette_css_key_map' ) ) {
 		}
 
 		return array(
-			"--prismleaf-color-{$slug}"                    => 'base',
-			"--prismleaf-color-on-{$slug}"                 => 'on_base',
-			"--prismleaf-color-{$slug}-darker"             => 'base_darker',
-			"--prismleaf-color-{$slug}-darkest"            => 'base_darkest',
-			"--prismleaf-color-{$slug}-lighter"            => 'base_lighter',
-			"--prismleaf-color-{$slug}-lightest"           => 'base_lightest',
-			"--prismleaf-color-{$slug}-container"          => 'container',
-			"--prismleaf-color-on-{$slug}-container"       => 'on_container',
-			"--prismleaf-color-{$slug}-container-darker"   => 'container_darker',
-			"--prismleaf-color-{$slug}-container-darkest"  => 'container_darkest',
-			"--prismleaf-color-{$slug}-container-lighter"  => 'container_lighter',
-			"--prismleaf-color-{$slug}-container-lightest" => 'container_lightest',
+			"--prismleaf-color-{$slug}-on"           => 'on',
+			"--prismleaf-color-{$slug}-1"            => '1',
+			"--prismleaf-color-{$slug}-2"            => '2',
+			"--prismleaf-color-{$slug}-3"            => '3',
+			"--prismleaf-color-{$slug}-4"            => '4',
+			"--prismleaf-color-{$slug}-5"            => '5',
+			"--prismleaf-color-{$slug}-container-on" => 'container_on',
+			"--prismleaf-color-{$slug}-container-1"  => 'container_1',
+			"--prismleaf-color-{$slug}-container-2"  => 'container_2',
+			"--prismleaf-color-{$slug}-container-3"  => 'container_3',
+			"--prismleaf-color-{$slug}-container-4"  => 'container_4',
+			"--prismleaf-color-{$slug}-container-5"  => 'container_5',
 		);
 	}
 }
 
-if ( ! function_exists( 'prismleaf_build_neutral_css_key_map' ) ) {
-	/**
-	 * Build a neutral CSS key map for neutral keys.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string[] $keys Neutral keys.
-	 * @return array<string,string>
-	 */
-	function prismleaf_build_neutral_css_key_map( $keys ) {
-		return prismleaf_build_prefixed_css_key_map( '--prismleaf-color-', $keys, true );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_build_prefixed_css_key_map' ) ) {
-	/**
-	 * Build a CSS key map with a prefix for each key.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string   $prefix Prefix for the CSS variable name.
-	 * @param string[] $keys   Keys to map.
-	 * @param bool     $dashify Whether to replace underscores with dashes.
-	 * @return array<string,string>
-	 */
-	function prismleaf_build_prefixed_css_key_map( $prefix, $keys, $dashify = false ) {
-		if ( ! is_string( $prefix ) || ! is_array( $keys ) || empty( $keys ) ) {
-			return array();
-		}
-
-		$key_map = array();
-		foreach ( $keys as $key ) {
-			$key_name = $dashify ? str_replace( '_', '-', $key ) : $key;
-			$key_map[ $prefix . $key_name ] = $key;
-		}
-
-		return $key_map;
-	}
-}
 if ( ! function_exists( 'prismleaf_build_palette_css_vars' ) ) {
 	/**
 	 * Build CSS variables for a specific palette override.
@@ -239,18 +192,18 @@ if ( ! function_exists( 'prismleaf_build_palette_css_vars' ) ) {
 		}
 
 		$expected_keys = array(
-			'base',
-			'on_base',
-			'base_darker',
-			'base_darkest',
-			'base_lighter',
-			'base_lightest',
-			'container',
-			'on_container',
-			'container_darker',
-			'container_darkest',
-			'container_lighter',
-			'container_lightest',
+			'1',
+			'2',
+			'3',
+			'4',
+			'5',
+			'on',
+			'container_1',
+			'container_2',
+			'container_3',
+			'container_4',
+			'container_5',
+			'container_on',
 		);
 
 		foreach ( $expected_keys as $key ) {
@@ -347,87 +300,96 @@ if ( ! function_exists( 'prismleaf_get_palette_override_css_vars' ) ) {
 	}
 }
 
-if ( ! function_exists( 'prismleaf_build_neutral_css_vars' ) ) {
+if ( ! function_exists( 'prismleaf_build_neutral_palette_css_vars' ) ) {
 	/**
-	 * Build CSS variables for neutral overrides.
+	 * Build CSS variables for a light/dark neutral palette override.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array<string,string> $neutral_values Neutral value map.
+	 * @param string               $scheme        Palette scheme ('light' or 'dark').
+	 * @param array<string,string> $palette_values Palette value map.
 	 * @return string
 	 */
-	function prismleaf_build_neutral_css_vars( $neutral_values ) {
-		if ( ! is_array( $neutral_values ) ) {
+	function prismleaf_build_neutral_palette_css_vars( $scheme, $palette_values ) {
+		if ( ! is_string( $scheme ) || ! is_array( $palette_values ) ) {
 			return '';
 		}
 
-		$expected_keys = prismleaf_get_neutral_json_keys();
+		$scheme = strtolower( trim( $scheme ) );
+		$scheme = ( 'dark' === $scheme ) ? 'dark' : 'light';
+
+		$expected_keys = prismleaf_get_palette_keys();
 		if ( empty( $expected_keys ) ) {
 			return '';
 		}
 
 		foreach ( $expected_keys as $key ) {
-			if ( ! array_key_exists( $key, $neutral_values ) || ! is_string( $neutral_values[ $key ] ) || '' === $neutral_values[ $key ] ) {
+			if ( ! array_key_exists( $key, $palette_values ) || ! is_string( $palette_values[ $key ] ) || '' === $palette_values[ $key ] ) {
 				return '';
 			}
 		}
 
-		$key_map = prismleaf_build_neutral_css_key_map( $expected_keys );
-		if ( empty( $key_map ) ) {
-			return '';
-		}
+		$key_map = array(
+			"--prismleaf-color-{$scheme}-surface-on"           => 'on',
+			"--prismleaf-color-{$scheme}-surface-1"            => '1',
+			"--prismleaf-color-{$scheme}-surface-2"            => '2',
+			"--prismleaf-color-{$scheme}-surface-3"            => '3',
+			"--prismleaf-color-{$scheme}-surface-4"            => '4',
+			"--prismleaf-color-{$scheme}-surface-5"            => '5',
+			"--prismleaf-color-{$scheme}-surface-container-on" => 'container_on',
+			"--prismleaf-color-{$scheme}-surface-container-1"  => 'container_1',
+			"--prismleaf-color-{$scheme}-surface-container-2"  => 'container_2',
+			"--prismleaf-color-{$scheme}-surface-container-3"  => 'container_3',
+			"--prismleaf-color-{$scheme}-surface-container-4"  => 'container_4',
+			"--prismleaf-color-{$scheme}-surface-container-5"  => 'container_5',
+		);
 
-		return prismleaf_build_css_vars_from_key_map( $neutral_values, $key_map );
+		return prismleaf_build_css_vars_from_key_map( $palette_values, $key_map );
 	}
 }
 
-if ( ! function_exists( 'prismleaf_get_neutral_override_css_vars' ) ) {
+if ( ! function_exists( 'prismleaf_get_neutral_palette_override_css_vars' ) ) {
 	/**
-	 * Build CSS variables for neutral overrides.
+	 * Build CSS variables for light/dark neutral palette overrides.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return string
 	 */
-	function prismleaf_get_neutral_override_css_vars() {
-		$light_base = prismleaf_get_theme_mod_string( 'prismleaf_palette_neutral_light_base', '' );
-		$dark_base  = prismleaf_get_theme_mod_string( 'prismleaf_palette_neutral_dark_base', '' );
+	function prismleaf_get_neutral_palette_override_css_vars() {
+		$neutral_map = array(
+			'light' => array(
+				'base_setting'   => 'prismleaf_palette_neutral_light_base',
+				'values_setting' => 'prismleaf_palette_neutral_light_values',
+			),
+			'dark' => array(
+				'base_setting'   => 'prismleaf_palette_neutral_dark_base',
+				'values_setting' => 'prismleaf_palette_neutral_dark_values',
+			),
+		);
 
-		if ( '' === $light_base && '' === $dark_base ) {
-			return '';
-		}
-
-		$mappings = prismleaf_get_customizer_css_mappings();
-
-		foreach ( $mappings as $mapping ) {
-			if ( 'neutral' !== $mapping['type'] ) {
+		$css = '';
+		foreach ( $neutral_map as $scheme => $settings ) {
+			$base_value = prismleaf_get_theme_mod_string( $settings['base_setting'], '' );
+			if ( '' === $base_value ) {
 				continue;
 			}
 
-			$getter = $mapping['getter'];
-			$setting = $mapping['setting'];
-			$keys = $mapping['keys'];
-
-			if ( ! is_string( $getter ) || ! function_exists( $getter ) || empty( $keys ) || ! is_string( $setting ) ) {
-				continue;
-			}
-
-			$neutral_values = prismleaf_decode_json_with_keys(
-				call_user_func( $getter, $setting, '' ),
-				$keys
+			$palette_values = prismleaf_decode_json_with_keys(
+				prismleaf_get_theme_mod_palette_json( $settings['values_setting'], '' ),
+				prismleaf_get_palette_keys()
 			);
 
-			if ( null === $neutral_values ) {
-				return '';
+			if ( null === $palette_values ) {
+				continue;
 			}
 
-			return prismleaf_build_neutral_css_vars( $neutral_values );
+			$css .= prismleaf_build_neutral_palette_css_vars( $scheme, $palette_values );
 		}
 
-		return '';
+		return $css;
 	}
 }
-
 
 if ( ! function_exists( 'prismleaf_get_framed_layout_css_vars' ) ) {
 	/**
@@ -452,11 +414,11 @@ if ( ! function_exists( 'prismleaf_get_framed_layout_css_vars' ) ) {
 			'view_height'     => $is_framed ? 'var(--prismleaf-max-view-height)' : 'auto',
 			'border_radius'   => $is_framed ? '0' : 'var(--prismleaf-radius-medium)',
 			'border_style'    => $is_framed ? 'none' : 'var(--prismleaf-border-style)',
-			'elevation'       => $is_framed ? 'none' : 'var(--prismleaf-glow-ring)',
+			'elevation'       => $is_framed ? 'none' : 'var(--prismleaf-shadow-elevation-1)',
 			'gap'             => $is_framed ? '0' : 'var(--prismleaf-space-2)',
 			'overflow'        => $is_framed ? 'hidden' : 'auto',
 			'stretch'         => $is_framed ? 'stretch' : 'start',
-			'surface'         => $is_framed ? 'transparent' : 'var(--prismleaf-color-surface-darker)',
+			'surface'         => $is_framed ? 'transparent' : 'var(--prismleaf-color-surface-1)',
 			'region_overflow' => $is_framed ? 'auto' : 'hidden',
 		);
 
@@ -466,14 +428,14 @@ if ( ! function_exists( 'prismleaf_get_framed_layout_css_vars' ) ) {
 				'border_style'  => 'none',
 				'elevation'     => 'none',
 				'margin'        => '0',
-				'surface'       => 'var(--prismleaf-color-surface)',
+				'surface'       => 'var(--prismleaf-color-surface-1)',
 			),
 			'default' => array(
 				'border_radius' => 'var(--prismleaf-radius-medium)',
 				'border_style'  => 'var(--prismleaf-border-style)',
-				'elevation'     => 'var(--prismleaf-shadow-elevation-1)',
+				'elevation'     => 'var(--prismleaf-shadow-elevation-2)',
 				'margin'        => 'var(--prismleaf-space-2)',
-				'surface'       => 'var(--prismleaf-color-surface-lighter)',
+				'surface'       => 'var(--prismleaf-color-surface-2)',
 			),
 		);
 
@@ -545,6 +507,11 @@ if ( ! function_exists( 'prismleaf_get_framed_layout_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-border-style', $regions['sidebar_right']['border_style'] );
 		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-elevation', $regions['sidebar_right']['elevation'] );
 		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-margin', $regions['sidebar_right']['margin'] );
+
+		if ($is_framed) {
+			$css .= prismleaf_build_css_var( '--prismleaf-content-background-color', 'var(--prismleaf-color-surface-1)' );
+			$css .= prismleaf_build_css_var( '--prismleaf-content-elevation', 'var(--prismleaf-shadow-elevation-1)' );
+		}
 
 		return $css;
 	}

@@ -219,86 +219,139 @@ if ( ! function_exists( 'prismleaf_contrast_ratio' ) ) {
 	}
 }
 
-if ( ! function_exists( 'prismleaf_pick_on_color' ) ) {
+if ( ! function_exists( 'prismleaf_min_contrast_ratio' ) ) {
 	/**
-	 * Pick an accessible on-color (black or white) for a background.
+	 * Calculate the minimum contrast ratio between a foreground and backgrounds.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $background_hex Background hex color.
-	 * @return string Hex color for foreground.
+	 * @param string   $foreground_hex Foreground hex color.
+	 * @param string[] $background_hexes Background hex colors.
+	 * @return float|null Minimum contrast ratio or null on failure.
 	 */
-	function prismleaf_pick_on_color( $background_hex ) {
-		$white = '#ffffff';
-		$black = '#000000';
-
-		$cw = prismleaf_contrast_ratio( $background_hex, $white );
-		$cb = prismleaf_contrast_ratio( $background_hex, $black );
-
-		if ( null === $cw || null === $cb ) {
-			return $black;
+	function prismleaf_min_contrast_ratio( $foreground_hex, $background_hexes ) {
+		$foreground_hex = sanitize_hex_color( $foreground_hex );
+		if ( ! $foreground_hex || ! is_array( $background_hexes ) || empty( $background_hexes ) ) {
+			return null;
 		}
 
-		return ( $cw >= $cb ) ? $white : $black;
+		$min_ratio = null;
+		foreach ( $background_hexes as $background_hex ) {
+			$background_hex = sanitize_hex_color( $background_hex );
+			if ( ! $background_hex ) {
+				continue;
+			}
+
+			$ratio = prismleaf_contrast_ratio( $foreground_hex, $background_hex );
+			if ( null === $ratio ) {
+				continue;
+			}
+
+			if ( null === $min_ratio || $ratio < $min_ratio ) {
+				$min_ratio = $ratio;
+			}
+		}
+
+		return $min_ratio;
 	}
 }
 
-if ( ! function_exists( 'prismleaf_pick_on_color_with_contrast' ) ) {
+if ( ! function_exists( 'prismleaf_shift_to_lightness' ) ) {
 	/**
-	 * Pick an on-color by shifting the background lightness until a contrast target is met.
+	 * Shift a color to a specific lightness while preserving hue/saturation.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $background_hex Background hex color.
-	 * @param float  $target_ratio   Minimum contrast ratio.
-	 * @return string Hex color for foreground.
+	 * @param string $hex      Hex color.
+	 * @param float  $target_l Target lightness (0..1).
+	 * @param float  $min_l    Minimum lightness.
+	 * @param float  $max_l    Maximum lightness.
+	 * @return string|null Adjusted hex color or null on failure.
 	 */
-	function prismleaf_pick_on_color_with_contrast( $background_hex, $target_ratio = 4.5 ) {
-		$background_hex = sanitize_hex_color( $background_hex );
+	function prismleaf_shift_to_lightness( $hex, $target_l, $min_l = 0.01, $max_l = 0.99 ) {
+		$hex = sanitize_hex_color( $hex );
 
-		if ( ! $background_hex ) {
-			return '#010101';
+		if ( ! $hex ) {
+			return null;
 		}
 
-		$rgb = prismleaf_hex_to_rgb( $background_hex );
+		$rgb = prismleaf_hex_to_rgb( $hex );
 		$hsl = $rgb ? prismleaf_rgb_to_hsl( $rgb ) : null;
-		$luminance = prismleaf_relative_luminance( $background_hex );
-		$direction = ( null !== $luminance && $luminance > 0.5 ) ? -1 : 1;
-		$step      = 0.02;
-		$delta     = 0.0;
-		$max_steps = 60;
-		$best_candidate = $background_hex;
-		$best_ratio     = 0.0;
 
-		for ( $i = 0; $i < $max_steps; $i++ ) {
-			$candidate = prismleaf_adjust_lightness_safe( $background_hex, $delta );
-			if ( ! $candidate ) {
-				break;
-			}
-
-			$ratio = prismleaf_contrast_ratio( $candidate, $background_hex );
-			if ( $ratio > $best_ratio ) {
-				$best_ratio     = $ratio;
-				$best_candidate = $candidate;
-			}
-
-			if ( $ratio >= $target_ratio ) {
-				return $candidate;
-			}
-
-			$delta += $step * $direction;
+		if ( ! $hsl || 3 !== count( $hsl ) ) {
+			return null;
 		}
 
-		if ( is_array( $hsl ) && 3 === count( $hsl ) ) {
-			$min_l = 0.01;
-			$max_l = 0.99;
-			$extreme_delta = ( $direction > 0 ) ? ( $max_l - $hsl[2] ) : ( $min_l - $hsl[2] );
-			$extreme = prismleaf_adjust_lightness_safe( $background_hex, $extreme_delta, $min_l, $max_l );
-			if ( $extreme ) {
-				$extreme_ratio = prismleaf_contrast_ratio( $extreme, $background_hex );
-				if ( $extreme_ratio > $best_ratio ) {
-					$best_candidate = $extreme;
+		$target_l = prismleaf_clamp_float( (float) $target_l, 0.0, 1.0 );
+		$min_l = prismleaf_clamp_float( (float) $min_l, 0.0, 1.0 );
+		$max_l = prismleaf_clamp_float( (float) $max_l, 0.0, 1.0 );
+
+		$delta = $target_l - (float) $hsl[2];
+		return prismleaf_adjust_lightness_safe( $hex, $delta, $min_l, $max_l );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_pick_on_color_from_tones' ) ) {
+	/**
+	 * Pick an on-color for a tone ramp, preferring a min contrast near 7.0.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string   $reference_hex Base tone used to preserve hue/saturation.
+	 * @param string[] $background_hexes Background tones to satisfy contrast.
+	 * @return string Hex color or empty string on failure.
+	 */
+	function prismleaf_pick_on_color_from_tones( $reference_hex, $background_hexes ) {
+		$reference_hex = sanitize_hex_color( $reference_hex );
+
+		if ( ! $reference_hex || ! is_array( $background_hexes ) || empty( $background_hexes ) ) {
+			return '';
+		}
+
+		$backgrounds = array();
+		foreach ( $background_hexes as $background_hex ) {
+			$background_hex = sanitize_hex_color( $background_hex );
+			if ( $background_hex ) {
+				$backgrounds[] = $background_hex;
+			}
+		}
+
+		if ( empty( $backgrounds ) ) {
+			return '';
+		}
+
+		$targets = array(
+			prismleaf_shift_to_lightness( $reference_hex, 0.90, 0.05, 0.95 ),
+			prismleaf_shift_to_lightness( $reference_hex, 0.10, 0.05, 0.95 ),
+		);
+
+		$best_candidate = '';
+		$best_ratio = 0.0;
+		$best_distance = null;
+
+		foreach ( $targets as $candidate ) {
+			if ( ! $candidate ) {
+				continue;
+			}
+
+			$min_ratio = prismleaf_min_contrast_ratio( $candidate, $backgrounds );
+			if ( null === $min_ratio ) {
+				continue;
+			}
+
+			$meets_min = ( $min_ratio >= 4.5 );
+			$distance = abs( 7.0 - $min_ratio );
+
+			if ( $meets_min ) {
+				if ( null === $best_distance || $distance < $best_distance ) {
+					$best_candidate = $candidate;
+					$best_ratio = $min_ratio;
+					$best_distance = $distance;
 				}
+			} elseif ( $best_ratio < 4.5 && $min_ratio > $best_ratio ) {
+				$best_candidate = $candidate;
+				$best_ratio = $min_ratio;
+				$best_distance = $distance;
 			}
 		}
 
@@ -348,178 +401,77 @@ if ( ! function_exists( 'prismleaf_adjust_lightness_safe' ) ) {
 	}
 }
 
-if ( ! function_exists( 'prismleaf_scale_lightness_deltas' ) ) {
-	/**
-	 * Scale lightness deltas to keep values within a safe range.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $hex    Hex color.
-	 * @param float[] $deltas Lightness deltas.
-	 * @param float  $min_l  Minimum lightness.
-	 * @param float  $max_l  Maximum lightness.
-	 * @return float[] Scaled deltas.
-	 */
-	function prismleaf_scale_lightness_deltas( $hex, $deltas, $min_l = 0.01, $max_l = 0.99 ) {
-		$rgb = prismleaf_hex_to_rgb( $hex );
-		if ( ! $rgb || ! is_array( $deltas ) ) {
-			return array();
-		}
-
-		$hsl = prismleaf_rgb_to_hsl( $rgb );
-		if ( ! $hsl ) {
-			return array();
-		}
-
-		$current_l = $hsl[2];
-		$min_l = (float) $min_l;
-		$max_l = (float) $max_l;
-
-		$positives = array_filter( $deltas, static function ( $delta ) {
-			return $delta > 0;
-		} );
-		$negatives = array_filter( $deltas, static function ( $delta ) {
-			return $delta < 0;
-		} );
-
-		$scale_pos = 1.0;
-		if ( ! empty( $positives ) ) {
-			$max_up = $max_l - $current_l;
-			$max_delta = max( $positives );
-			if ( $max_delta > 0 && $max_up < $max_delta ) {
-				$scale_pos = $max_up / $max_delta;
-			}
-		}
-
-		$scale_neg = 1.0;
-		if ( ! empty( $negatives ) ) {
-			$max_down = $current_l - $min_l;
-			$max_delta = min( $negatives );
-			if ( $max_delta < 0 && $max_down < abs( $max_delta ) ) {
-				$scale_neg = $max_down / abs( $max_delta );
-			}
-		}
-
-		$scaled = array();
-		foreach ( $deltas as $delta ) {
-			if ( $delta > 0 ) {
-				$scaled[] = $delta * $scale_pos;
-			} elseif ( $delta < 0 ) {
-				$scaled[] = $delta * $scale_neg;
-			} else {
-				$scaled[] = $delta;
-			}
-		}
-
-		return $scaled;
-	}
-}
-
-if ( ! function_exists( 'prismleaf_adjust_lightness' ) ) {
-	/**
-	 * Adjust a hex color lightness in HSL space.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $hex   Hex color.
-	 * @param float  $delta Lightness delta (-1..1).
-	 * @return string|null Adjusted hex color or null on failure.
-	 */
-	function prismleaf_adjust_lightness( $hex, $delta ) {
-		$rgb = prismleaf_hex_to_rgb( $hex );
-
-		if ( ! $rgb ) {
-			return null;
-		}
-
-		$hsl = prismleaf_rgb_to_hsl( $rgb );
-
-		if ( ! $hsl ) {
-			return null;
-		}
-
-		$hsl[2] = max( 0, min( 1, $hsl[2] + (float) $delta ) );
-
-		$new_rgb = prismleaf_hsl_to_rgb( $hsl );
-
-		return $new_rgb ? prismleaf_rgb_to_hex( $new_rgb ) : null;
-	}
-}
-
 if ( ! function_exists( 'prismleaf_generate_palette_from_base' ) ) {
 	/**
 	 * Generate a palette from a base color.
 	 *
+	 * Palette values are generated sequentially from the base color, moving
+	 * lighter or darker based on the base luminance.
+	 *
 	 * @since 1.0.0
 	 *
 	 * @param string $base_hex Base hex color.
-	 * @param string $scheme   Scheme: 'light' or 'dark'.
 	 * @return array<string,string> Palette values.
 	 */
-	function prismleaf_generate_palette_from_base( $base_hex, $scheme ) {
+	function prismleaf_generate_palette_from_base( $base_hex ) {
 		$base_hex = sanitize_hex_color( $base_hex );
 
 		if ( ! $base_hex ) {
 			return array();
 		}
 
-		$scheme = strtolower( (string) $scheme );
-		$scheme = in_array( $scheme, array( 'light', 'dark' ), true ) ? $scheme : 'light';
-
-		$base_darker_delta   = ( 'light' === $scheme ) ? -0.12 : -0.06;
-		$base_darkest_delta  = ( 'light' === $scheme ) ? -0.22 : -0.12;
-		$base_lighter_delta  = ( 'light' === $scheme ) ? 0.08 : 0.14;
-		$base_lightest_delta = ( 'light' === $scheme ) ? 0.16 : 0.22;
-
-		$container_delta          = ( 'light' === $scheme ) ? 0.36 : -0.30;
-		$container_darker_delta   = ( 'light' === $scheme ) ? -0.12 : -0.38;
-		$container_darkest_delta  = ( 'light' === $scheme ) ? -0.24 : -0.46;
-		$container_lighter_delta  = ( 'light' === $scheme ) ? 0.44 : 0.22;
-		$container_lightest_delta = ( 'light' === $scheme ) ? 0.52 : 0.14;
-
-		$container_hex = prismleaf_adjust_lightness_safe( $base_hex, $container_delta );
-
-		$base_darkest  = prismleaf_adjust_lightness_safe( $base_hex, $base_darkest_delta );
-		$base_lightest = prismleaf_adjust_lightness_safe( $base_hex, $base_lightest_delta );
-
-		if ( $container_hex ) {
-			$scaled_container_deltas = prismleaf_scale_lightness_deltas(
-				$container_hex,
-				array(
-					$container_darker_delta,
-					$container_darkest_delta,
-					$container_lighter_delta,
-					$container_lightest_delta,
-				)
-			);
-			$container_darker = prismleaf_adjust_lightness_safe( $container_hex, $scaled_container_deltas[0] );
-			$container_darkest = prismleaf_adjust_lightness_safe( $container_hex, $scaled_container_deltas[1] );
-			$container_lighter = prismleaf_adjust_lightness_safe( $container_hex, $scaled_container_deltas[2] );
-			$container_lightest = prismleaf_adjust_lightness_safe( $container_hex, $scaled_container_deltas[3] );
-		} else {
-			$container_darker = null;
-			$container_darkest = null;
-			$container_lighter = null;
-			$container_lightest = null;
+		$rgb = prismleaf_hex_to_rgb( $base_hex );
+		$hsl = $rgb ? prismleaf_rgb_to_hsl( $rgb ) : null;
+		if ( ! $hsl || 3 !== count( $hsl ) ) {
+			return array();
 		}
 
+		$base_l = prismleaf_clamp_float( (float) $hsl[2], 0.05, 0.95 );
+		if ( $base_l !== (float) $hsl[2] ) {
+			$shifted = prismleaf_shift_to_lightness( $base_hex, $base_l, 0.05, 0.95 );
+			if ( $shifted ) {
+				$base_hex = $shifted;
+			}
+		}
+		$light_target = 0.95;
+		$dark_target  = 0.05;
+		$dist_light   = abs( $light_target - $base_l );
+		$dist_dark    = abs( $base_l - $dark_target );
+
+		$target_l  = ( $dist_light >= $dist_dark ) ? $light_target : $dark_target;
+		$direction = ( $target_l >= $base_l ) ? 1 : -1;
+
+		$step = abs( $target_l - $base_l ) / 9;
+		$step = prismleaf_clamp_float( $step, 0.0, 0.06 );
+
+		$deltas = array_fill( 0, 9, $step * $direction );
+		$ramp = prismleaf_build_lightness_ramp( $base_hex, $deltas, 0.05, 0.95 );
+		if ( count( $ramp ) !== 10 ) {
+			return array();
+		}
+
+		$tones = array_slice( $ramp, 0, 5 );
+		$container_tones = array_slice( $ramp, 5, 5 );
+		$on_color = prismleaf_pick_on_color_from_tones( $ramp[0], $tones );
+		$container_on = prismleaf_pick_on_color_from_tones( $ramp[5], $container_tones );
+
 		$palette = array(
-			'base'               => $base_hex,
-			'on_base'            => prismleaf_pick_on_color_with_contrast( $base_hex ),
-			'base_darker'        => prismleaf_adjust_lightness_safe( $base_hex, $base_darker_delta ),
-			'base_darkest'       => $base_darkest,
-			'base_lighter'       => prismleaf_adjust_lightness_safe( $base_hex, $base_lighter_delta ),
-			'base_lightest'      => $base_lightest,
-			'container'          => $container_hex,
-			'on_container'       => $container_hex ? prismleaf_pick_on_color_with_contrast( $container_hex ) : null,
-			'container_darker'   => $container_darker,
-			'container_darkest'  => $container_darkest,
-			'container_lighter'  => $container_lighter,
-			'container_lightest' => $container_lightest,
+			'1'            => $ramp[0],
+			'2'            => $ramp[1],
+			'3'            => $ramp[2],
+			'4'            => $ramp[3],
+			'5'            => $ramp[4],
+			'on'           => $on_color,
+			'container_1'  => $ramp[9],
+			'container_2'  => $ramp[8],
+			'container_3'  => $ramp[7],
+			'container_4'  => $ramp[6],
+			'container_5'  => $ramp[5],
+			'container_on' => $container_on,
 		);
 
-		foreach ( $palette as $k => $v ) {
-			$palette[ $k ] = is_string( $v ) ? $v : '';
+		foreach ( $palette as $key => $value ) {
+			$palette[ $key ] = is_string( $value ) ? $value : '';
 		}
 
 		return $palette;
@@ -534,20 +486,25 @@ if ( ! function_exists( 'prismleaf_build_lightness_ramp' ) ) {
 	 *
 	 * @param string $start_hex Starting hex color.
 	 * @param float[] $deltas Lightness deltas to apply in order.
+	 * @param float   $min_l  Minimum lightness.
+	 * @param float   $max_l  Maximum lightness.
 	 * @return string[] Hex colors including the start color.
 	 */
-	function prismleaf_build_lightness_ramp( $start_hex, $deltas ) {
+	function prismleaf_build_lightness_ramp( $start_hex, $deltas, $min_l = 0.01, $max_l = 0.99 ) {
 		$start_hex = sanitize_hex_color( $start_hex );
 
 		if ( ! $start_hex || ! is_array( $deltas ) ) {
 			return array();
 		}
 
+		$min_l = prismleaf_clamp_float( (float) $min_l, 0.0, 1.0 );
+		$max_l = prismleaf_clamp_float( (float) $max_l, 0.0, 1.0 );
+
 		$ramp = array( $start_hex );
 		$current = $start_hex;
 
 		foreach ( $deltas as $delta ) {
-			$next = prismleaf_adjust_lightness( $current, (float) $delta );
+			$next = prismleaf_adjust_lightness_safe( $current, (float) $delta, $min_l, $max_l );
 			if ( ! $next ) {
 				return array();
 			}
@@ -570,617 +527,19 @@ if ( ! function_exists( 'prismleaf_get_palette_keys' ) ) {
 	 */
 	function prismleaf_get_palette_keys() {
 		return array(
-			'base',
-			'on_base',
-			'base_darker',
-			'base_darkest',
-			'base_lighter',
-			'base_lightest',
-			'container',
-			'on_container',
-			'container_darker',
-			'container_darkest',
-			'container_lighter',
-			'container_lightest',
+			'1',
+			'2',
+			'3',
+			'4',
+			'5',
+			'on',
+			'container_1',
+			'container_2',
+			'container_3',
+			'container_4',
+			'container_5',
+			'container_on',
 		);
-	}
-}
-
-if ( ! function_exists( 'prismleaf_generate_light_neutral_background_palette' ) ) {
-	/**
-	 * Generate the light neutral background palette from the lightest background.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $background_lightest_hex Lightest background hex color.
-	 * @return array<string,string> Neutral background palette values.
-	 */
-	function prismleaf_generate_light_neutral_background_palette( $background_lightest_hex ) {
-		$deltas = array(
-			-0.007843,
-			-0.007843,
-			-0.015686,
-			-0.017647,
-			-0.013725,
-			-0.043137,
-			-0.009804,
-			-0.017647,
-			-0.013725,
-			-0.019608,
-			-0.023529,
-			-0.029412,
-			-0.027451,
-			-0.001961,
-		);
-
-		$steps = array(
-			'background_lightest',
-			'background_lighter',
-			'background',
-			'background_darker',
-			'background_darkest',
-			'surface_lightest',
-			'surface_lighter',
-			'surface',
-			'surface_darker',
-			'surface_darkest',
-			'surface_variant_lightest',
-			'surface_variant_lighter',
-			'surface_variant',
-			'surface_variant_darker',
-			'surface_variant_darkest',
-		);
-
-		$ramp = prismleaf_build_lightness_ramp( $background_lightest_hex, $deltas );
-		if ( count( $ramp ) !== count( $steps ) ) {
-			return array();
-		}
-
-		return array_combine( $steps, $ramp );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_generate_dark_neutral_background_palette' ) ) {
-	/**
-	 * Generate the dark neutral background palette from the darkest background.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $background_darkest_hex Darkest background hex color.
-	 * @return array<string,string> Neutral background palette values.
-	 */
-	function prismleaf_generate_dark_neutral_background_palette( $background_darkest_hex ) {
-		$deltas = array(
-			0.023529,
-			0.023529,
-			0.023529,
-			0.023529,
-			0.023529,
-			0.023529,
-			0.023529,
-			0.019608,
-			0.023529,
-			0.023529,
-			0.023529,
-			0.023529,
-			0.023529,
-			0.023529,
-		);
-
-		$steps = array(
-			'background_darkest',
-			'background_darker',
-			'background',
-			'background_lighter',
-			'background_lightest',
-			'surface_darkest',
-			'surface_darker',
-			'surface',
-			'surface_lighter',
-			'surface_lightest',
-			'surface_variant_darkest',
-			'surface_variant_darker',
-			'surface_variant',
-			'surface_variant_lighter',
-			'surface_variant_lightest',
-		);
-
-		$ramp = prismleaf_build_lightness_ramp( $background_darkest_hex, $deltas );
-		if ( count( $ramp ) !== count( $steps ) ) {
-			return array();
-		}
-
-		return array_combine( $steps, $ramp );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_generate_light_neutral_foreground_palette' ) ) {
-	/**
-	 * Generate the light neutral foreground palette from the darkest foreground.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $foreground_darkest_hex Darkest foreground hex color.
-	 * @return array<string,string> Neutral foreground palette values.
-	 */
-	function prismleaf_generate_light_neutral_foreground_palette( $foreground_darkest_hex ) {
-		$deltas = array(
-			0.02549,
-			0.041176,
-			0.131373,
-			0.121569,
-		);
-
-		$steps = array(
-			'foreground_darkest',
-			'foreground_darker',
-			'foreground',
-			'foreground_lighter',
-			'foreground_lightest',
-		);
-
-		$ramp = prismleaf_build_lightness_ramp( $foreground_darkest_hex, $deltas );
-		if ( count( $ramp ) !== count( $steps ) ) {
-			return array();
-		}
-
-		return array_combine( $steps, $ramp );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_generate_dark_neutral_foreground_palette' ) ) {
-	/**
-	 * Generate the dark neutral foreground palette from the lightest foreground.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $foreground_lightest_hex Lightest foreground hex color.
-	 * @return array<string,string> Neutral foreground palette values.
-	 */
-	function prismleaf_generate_dark_neutral_foreground_palette( $foreground_lightest_hex ) {
-		$deltas = array(
-			-0.039216,
-			-0.039216,
-			-0.113725,
-			-0.109804,
-		);
-
-		$steps = array(
-			'foreground_lightest',
-			'foreground_lighter',
-			'foreground',
-			'foreground_darker',
-			'foreground_darkest',
-		);
-
-		$ramp = prismleaf_build_lightness_ramp( $foreground_lightest_hex, $deltas );
-		if ( count( $ramp ) !== count( $steps ) ) {
-			return array();
-		}
-
-		return array_combine( $steps, $ramp );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_generate_neutral_palette' ) ) {
-	/**
-	 * Generate a neutral palette from background and foreground seeds.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $background_hex Background seed hex color.
-	 * @param string $foreground_hex Foreground seed hex color.
-	 * @param string $scheme         Scheme: 'light' or 'dark'.
-	 * @return array<string,string> Neutral palette values.
-	 */
-	function prismleaf_generate_neutral_palette( $background_hex, $foreground_hex, $scheme ) {
-		$scheme = strtolower( (string) $scheme );
-		$scheme = in_array( $scheme, array( 'light', 'dark' ), true ) ? $scheme : 'light';
-
-		if ( 'dark' === $scheme ) {
-			$background = prismleaf_generate_dark_neutral_background_palette( $background_hex );
-			$foreground = prismleaf_generate_dark_neutral_foreground_palette( $foreground_hex );
-		} else {
-			$background = prismleaf_generate_light_neutral_background_palette( $background_hex );
-			$foreground = prismleaf_generate_light_neutral_foreground_palette( $foreground_hex );
-		}
-
-		if ( empty( $background ) || empty( $foreground ) ) {
-			return array();
-		}
-
-		$palette = array(
-			'background'                 => $background['background'],
-			'on_background'              => $foreground['foreground'],
-			'background_darker'          => $background['background_darker'],
-			'background_darkest'         => $background['background_darkest'],
-			'background_lighter'         => $background['background_lighter'],
-			'background_lightest'        => $background['background_lightest'],
-			'surface'                    => $background['surface'],
-			'on_surface'                 => $foreground['foreground'],
-			'surface_darker'             => $background['surface_darker'],
-			'surface_darkest'            => $background['surface_darkest'],
-			'surface_lighter'            => $background['surface_lighter'],
-			'surface_lightest'           => $background['surface_lightest'],
-			'surface_variant'            => $background['surface_variant'],
-			'on_surface_variant'         => ( 'dark' === $scheme )
-				? $foreground['foreground_darkest']
-				: $foreground['foreground_lightest'],
-			'surface_variant_darker'     => $background['surface_variant_darker'],
-			'surface_variant_darkest'    => $background['surface_variant_darkest'],
-			'surface_variant_lighter'    => $background['surface_variant_lighter'],
-			'surface_variant_lightest'   => $background['surface_variant_lightest'],
-			'foreground'                 => $foreground['foreground'],
-			'on_foreground'              => $background['background'],
-			'foreground_darker'          => $foreground['foreground_darker'],
-			'foreground_darkest'         => $foreground['foreground_darkest'],
-			'foreground_lighter'         => $foreground['foreground_lighter'],
-			'foreground_lightest'        => $foreground['foreground_lightest'],
-		);
-
-		foreach ( $palette as $k => $v ) {
-			$palette[ $k ] = is_string( $v ) ? $v : '';
-		}
-
-		return $palette;
-	}
-}
-
-if ( ! function_exists( 'prismleaf_get_neutral_palette_keys' ) ) {
-	/**
-	 * Get the neutral palette keys without a light/dark prefix.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string[]
-	 */
-	function prismleaf_get_neutral_palette_keys() {
-		return array(
-			'background',
-			'on_background',
-			'background_darker',
-			'background_darkest',
-			'background_lighter',
-			'background_lightest',
-			'surface',
-			'on_surface',
-			'surface_darker',
-			'surface_darkest',
-			'surface_lighter',
-			'surface_lightest',
-			'surface_variant',
-			'on_surface_variant',
-			'surface_variant_darker',
-			'surface_variant_darkest',
-			'surface_variant_lighter',
-			'surface_variant_lightest',
-			'foreground',
-			'on_foreground',
-			'foreground_darker',
-			'foreground_darkest',
-			'foreground_lighter',
-			'foreground_lightest',
-		);
-	}
-}
-
-if ( ! function_exists( 'prismleaf_get_neutral_json_keys' ) ) {
-	/**
-	 * Get neutral palette keys prefixed for light and dark sets.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string[]
-	 */
-	function prismleaf_get_neutral_json_keys() {
-		$base_keys = prismleaf_get_neutral_palette_keys();
-		if ( empty( $base_keys ) ) {
-			return array();
-		}
-
-		$prefixed = array();
-		foreach ( array( 'light', 'dark' ) as $prefix ) {
-			foreach ( $base_keys as $key ) {
-				$prefixed[] = $prefix . '_' . $key;
-			}
-		}
-
-		return $prefixed;
-	}
-}
-
-if ( ! function_exists( 'prismleaf_invert_lightness_hex' ) ) {
-	/**
-	 * Invert the lightness of a hex color while preserving hue and saturation.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $hex Hex color.
-	 * @return string Inverted hex color or empty string on failure.
-	 */
-	function prismleaf_invert_lightness_hex( $hex ) {
-		$hex = sanitize_hex_color( $hex );
-		if ( ! $hex ) {
-			return '';
-		}
-
-		$rgb = prismleaf_hex_to_rgb( $hex );
-		$hsl = $rgb ? prismleaf_rgb_to_hsl( $rgb ) : null;
-		if ( ! $hsl || 3 !== count( $hsl ) ) {
-			return '';
-		}
-
-		$hsl[2] = 1 - $hsl[2];
-		$new_rgb = prismleaf_hsl_to_rgb( $hsl );
-		$new_hex = $new_rgb ? prismleaf_rgb_to_hex( $new_rgb ) : null;
-
-		return $new_hex ? $new_hex : '';
-	}
-}
-
-if ( ! function_exists( 'prismleaf_shift_color_for_contrast' ) ) {
-	/**
-	 * Shift a candidate color to meet a target contrast ratio with a fixed color.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $fixed_hex     Fixed hex color.
-	 * @param string $candidate_hex Candidate hex color to shift.
-	 * @param float  $target_ratio  Target contrast ratio.
-	 * @return array<string,mixed> Shifted color, ratio, and whether target was met.
-	 */
-	function prismleaf_shift_color_for_contrast( $fixed_hex, $candidate_hex, $target_ratio = 4.5 ) {
-		$fixed_hex     = sanitize_hex_color( $fixed_hex );
-		$candidate_hex = sanitize_hex_color( $candidate_hex );
-
-		if ( ! $fixed_hex || ! $candidate_hex ) {
-			return array(
-				'color' => '',
-				'ratio' => 0.0,
-				'met'   => false,
-			);
-		}
-
-		$best_color = $candidate_hex;
-		$best_ratio = prismleaf_contrast_ratio( $fixed_hex, $candidate_hex );
-		if ( null === $best_ratio ) {
-			$best_ratio = 0.0;
-		}
-
-		if ( $best_ratio >= $target_ratio ) {
-			return array(
-				'color' => $candidate_hex,
-				'ratio' => $best_ratio,
-				'met'   => true,
-			);
-		}
-
-		$fixed_luminance = prismleaf_relative_luminance( $fixed_hex );
-		$candidate_luminance = prismleaf_relative_luminance( $candidate_hex );
-		$direction = ( null !== $fixed_luminance && null !== $candidate_luminance && $candidate_luminance >= $fixed_luminance ) ? 1 : -1;
-		$step = 0.02;
-		$delta = 0.0;
-		$max_steps = 60;
-
-		for ( $i = 0; $i < $max_steps; $i++ ) {
-			$delta += $step * $direction;
-			$shifted = prismleaf_adjust_lightness_safe( $candidate_hex, $delta );
-			if ( ! $shifted ) {
-				break;
-			}
-
-			$ratio = prismleaf_contrast_ratio( $fixed_hex, $shifted );
-			if ( null === $ratio ) {
-				continue;
-			}
-
-			if ( $ratio > $best_ratio ) {
-				$best_ratio = $ratio;
-				$best_color = $shifted;
-			}
-
-			if ( $ratio >= $target_ratio ) {
-				return array(
-					'color' => $shifted,
-					'ratio' => $ratio,
-					'met'   => true,
-				);
-			}
-		}
-
-		return array(
-			'color' => $best_color,
-			'ratio' => $best_ratio,
-			'met'   => false,
-		);
-	}
-}
-
-if ( ! function_exists( 'prismleaf_normalize_neutral_bases' ) ) {
-	/**
-	 * Normalize light/dark neutral base colors with contrast enforcement.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $light_hex Light base hex color.
-	 * @param string $dark_hex  Dark base hex color.
-	 * @param string $source    Source setting that changed ('light' or 'dark').
-	 * @return array<string,string> Normalized light/dark hex values.
-	 */
-	function prismleaf_normalize_neutral_bases( $light_hex, $dark_hex, $source = '' ) {
-		$light_hex = sanitize_hex_color( $light_hex ) ? sanitize_hex_color( $light_hex ) : '';
-		$dark_hex  = sanitize_hex_color( $dark_hex ) ? sanitize_hex_color( $dark_hex ) : '';
-
-		if ( '' === $light_hex && '' === $dark_hex ) {
-			return array(
-				'light' => '',
-				'dark'  => '',
-			);
-		}
-
-		if ( '' === $light_hex && '' !== $dark_hex ) {
-			$light_hex = prismleaf_invert_lightness_hex( $dark_hex );
-		} elseif ( '' === $dark_hex && '' !== $light_hex ) {
-			$dark_hex = prismleaf_invert_lightness_hex( $light_hex );
-		}
-
-		$light_lum = prismleaf_relative_luminance( $light_hex );
-		$dark_lum  = prismleaf_relative_luminance( $dark_hex );
-		if ( null !== $light_lum && null !== $dark_lum && $dark_lum > $light_lum ) {
-			$tmp = $light_hex;
-			$light_hex = $dark_hex;
-			$dark_hex = $tmp;
-		}
-
-		$target_ratio = 4.5;
-		$current_ratio = prismleaf_contrast_ratio( $light_hex, $dark_hex );
-		$current_ratio = null === $current_ratio ? 0.0 : $current_ratio;
-
-		if ( $current_ratio < $target_ratio ) {
-			if ( 'light' === $source ) {
-				$primary = 'dark';
-			} elseif ( 'dark' === $source ) {
-				$primary = 'light';
-			} else {
-				$primary = 'dark';
-			}
-
-			if ( 'dark' === $primary ) {
-				$shift = prismleaf_shift_color_for_contrast( $light_hex, $dark_hex, $target_ratio );
-				if ( $shift['color'] ) {
-					$dark_hex = $shift['color'];
-				}
-				$current_ratio = $shift['ratio'];
-			} else {
-				$shift = prismleaf_shift_color_for_contrast( $dark_hex, $light_hex, $target_ratio );
-				if ( $shift['color'] ) {
-					$light_hex = $shift['color'];
-				}
-				$current_ratio = $shift['ratio'];
-			}
-
-			if ( $current_ratio < $target_ratio ) {
-				if ( 'dark' === $primary ) {
-					$shift = prismleaf_shift_color_for_contrast( $dark_hex, $light_hex, $target_ratio );
-					if ( $shift['color'] ) {
-						$light_hex = $shift['color'];
-					}
-				} else {
-					$shift = prismleaf_shift_color_for_contrast( $light_hex, $dark_hex, $target_ratio );
-					if ( $shift['color'] ) {
-						$dark_hex = $shift['color'];
-					}
-				}
-			}
-		}
-
-		$light_lum = prismleaf_relative_luminance( $light_hex );
-		$dark_lum  = prismleaf_relative_luminance( $dark_hex );
-		if ( null !== $light_lum && null !== $dark_lum && $dark_lum > $light_lum ) {
-			$tmp = $light_hex;
-			$light_hex = $dark_hex;
-			$dark_hex = $tmp;
-		}
-
-		return array(
-			'light' => $light_hex,
-			'dark'  => $dark_hex,
-		);
-	}
-}
-
-if ( ! function_exists( 'prismleaf_build_neutral_json_from_bases' ) ) {
-	/**
-	 * Build neutral JSON from light/dark base colors.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $light_hex Light base hex color.
-	 * @param string $dark_hex  Dark base hex color.
-	 * @param string $source    Source setting that changed ('light' or 'dark').
-	 * @return array<string,string> Normalized light/dark colors and JSON payload.
-	 */
-	function prismleaf_build_neutral_json_from_bases( $light_hex, $dark_hex, $source = '' ) {
-		$normalized = prismleaf_normalize_neutral_bases( $light_hex, $dark_hex, $source );
-		if ( '' === $normalized['light'] || '' === $normalized['dark'] ) {
-			return array(
-				'light' => $normalized['light'],
-				'dark'  => $normalized['dark'],
-				'json'  => '',
-			);
-		}
-
-		$light_foreground = prismleaf_pick_on_color_with_contrast( $normalized['light'] );
-		$dark_foreground  = prismleaf_pick_on_color_with_contrast( $normalized['dark'] );
-
-		$light_palette = prismleaf_generate_neutral_palette( $normalized['light'], $light_foreground, 'light' );
-		$dark_palette  = prismleaf_generate_neutral_palette( $normalized['dark'], $dark_foreground, 'dark' );
-
-		if ( empty( $light_palette ) || empty( $dark_palette ) ) {
-			return array(
-				'light' => $normalized['light'],
-				'dark'  => $normalized['dark'],
-				'json'  => '',
-			);
-		}
-
-		$palette_keys = prismleaf_get_neutral_palette_keys();
-		if ( empty( $palette_keys ) ) {
-			return array(
-				'light' => $normalized['light'],
-				'dark'  => $normalized['dark'],
-				'json'  => '',
-			);
-		}
-
-		$values = array();
-		foreach ( $palette_keys as $key ) {
-			if ( empty( $light_palette[ $key ] ) || empty( $dark_palette[ $key ] ) ) {
-				return array(
-					'light' => $normalized['light'],
-					'dark'  => $normalized['dark'],
-					'json'  => '',
-				);
-			}
-
-			$light_value = sanitize_hex_color( $light_palette[ $key ] );
-			$dark_value  = sanitize_hex_color( $dark_palette[ $key ] );
-			if ( ! $light_value || ! $dark_value ) {
-				return array(
-					'light' => $normalized['light'],
-					'dark'  => $normalized['dark'],
-					'json'  => '',
-				);
-			}
-
-			$values[ 'light_' . $key ] = $light_value;
-			$values[ 'dark_' . $key ]  = $dark_value;
-		}
-
-		return array(
-			'light' => $normalized['light'],
-			'dark'  => $normalized['dark'],
-			'json'  => wp_json_encode( $values ),
-		);
-	}
-}
-
-if ( ! function_exists( 'prismleaf_build_neutral_preview_payload' ) ) {
-	/**
-	 * Build a normalized payload for the neutral preview control.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $light_hex Light base hex color.
-	 * @param string $dark_hex  Dark base hex color.
-	 * @param string $source    Source setting that changed ('light' or 'dark').
-	 * @return array<string,string> Payload containing light, dark, and json.
-	 */
-	function prismleaf_build_neutral_preview_payload( $light_hex, $dark_hex, $source = '' ) {
-		$source = strtolower( (string) $source );
-		$source = in_array( $source, array( 'light', 'dark' ), true ) ? $source : '';
-
-		return prismleaf_build_neutral_json_from_bases( $light_hex, $dark_hex, $source );
 	}
 }
 
@@ -1200,7 +559,7 @@ if ( ! function_exists( 'prismleaf_build_palette_json_from_base' ) ) {
 			return '';
 		}
 
-		$palette = prismleaf_generate_palette_from_base( $base_hex, 'light' );
+		$palette = prismleaf_generate_palette_from_base( $base_hex );
 		if ( empty( $palette ) ) {
 			return '';
 		}
@@ -1226,24 +585,3 @@ if ( ! function_exists( 'prismleaf_build_palette_json_from_base' ) ) {
 	}
 }
 
-if ( ! function_exists( 'prismleaf_derive_dark_base_from_light' ) ) {
-	/**
-	 * Derive a dark base color from a light base color.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $light_hex Light base hex color.
-	 * @return string Derived dark base hex color, or empty string on failure.
-	 */
-	function prismleaf_derive_dark_base_from_light( $light_hex ) {
-		$light_hex = sanitize_hex_color( $light_hex );
-
-		if ( ! $light_hex ) {
-			return '';
-		}
-
-		$derived = prismleaf_adjust_lightness( $light_hex, -0.30 );
-
-		return $derived ? $derived : '';
-	}
-}
