@@ -87,113 +87,113 @@
 
 	/* Primary palette. */
 	--prismleaf-color-primary: #c04b8d;
-	--prismleaf-color-on-primary: #ffffff;
-	--prismleaf-color-primary-darker: #a83b78;
-	--prismleaf-color-primary-darkest: #893062;
+	--prismleaf-color-on-primary: #fefbfd;
+	--prismleaf-color-primary-darker: #98356d;
+	--prismleaf-color-primary-darkest: #732852;
 	--prismleaf-color-primary-lighter: #cb69a0;
 	--prismleaf-color-primary-lightest: #d587b3;
-	--prismleaf-color-primary-container: #f2cbdf;
-	--prismleaf-color-on-primary-container: #2b0f1f;
-	--prismleaf-color-primary-container-darker: #eaabca;
-	--prismleaf-color-primary-container-darkest: #e28ab6;
-	--prismleaf-color-primary-container-lighter: #f6d8e7;
-	--prismleaf-color-primary-container-lightest: #fae6f0;
+	--prismleaf-color-primary-container: #f0d3e3;
+	--prismleaf-color-on-primary-container: #a13772;
+	--prismleaf-color-primary-container-darker: #e0a5c6;
+	--prismleaf-color-primary-container-darkest: #d178a9;
+	--prismleaf-color-primary-container-lighter: #fcf5f9;
+	--prismleaf-color-primary-container-lightest: #fefbfd;
 
 	/* Secondary palette. */
 	--prismleaf-color-secondary: #2e7d6f;
-	--prismleaf-color-on-secondary: #ffffff;
-	--prismleaf-color-secondary-darker: #235f55;
-	--prismleaf-color-secondary-darkest: #18413a;
+	--prismleaf-color-on-secondary: #eef9f7;
+	--prismleaf-color-secondary-darker: #1e5047;
+	--prismleaf-color-secondary-darkest: #102b26;
 	--prismleaf-color-secondary-lighter: #399b89;
 	--prismleaf-color-secondary-lightest: #44b9a4;
-	--prismleaf-color-secondary-container: #cfeee7;
-	--prismleaf-color-on-secondary-container: #06221d;
-	--prismleaf-color-secondary-container-darker: #aee3d8;
-	--prismleaf-color-secondary-container-darkest: #8fd6c9;
-	--prismleaf-color-secondary-container-lighter: #d9f2ec;
-	--prismleaf-color-secondary-container-lightest: #e6f7f3;
+	--prismleaf-color-secondary-container: #8dd5c8;
+	--prismleaf-color-on-secondary-container: #20574d;
+	--prismleaf-color-secondary-container-darker: #60c5b2;
+	--prismleaf-color-secondary-container-darkest: #3ea996;
+	--prismleaf-color-secondary-container-lighter: #eaf7f5;
+	--prismleaf-color-secondary-container-lightest: #fbfefd;
 
 	/* Tertiary palette. */
 	--prismleaf-color-tertiary: #3f6fd9;
-	--prismleaf-color-on-tertiary: #ffffff;
-	--prismleaf-color-tertiary-darker: #2859c8;
-	--prismleaf-color-tertiary-darkest: #214aa6;
+	--prismleaf-color-on-tertiary: #fafbfe;
+	--prismleaf-color-tertiary-darker: #2452b7;
+	--prismleaf-color-tertiary-darkest: #1c3f8c;
 	--prismleaf-color-tertiary-lighter: #6189e0;
 	--prismleaf-color-tertiary-lightest: #83a2e6;
-	--prismleaf-color-tertiary-container: #dce5ff;
-	--prismleaf-color-on-tertiary-container: #071a3a;
-	--prismleaf-color-tertiary-container-darker: #b3c7ff;
-	--prismleaf-color-tertiary-container-darkest: #8aa9ff;
-	--prismleaf-color-tertiary-container-lighter: #e7eeff;
-	--prismleaf-color-tertiary-container-lightest: #f1f5ff;
+	--prismleaf-color-tertiary-container: #d8e2f7;
+	--prismleaf-color-on-tertiary-container: #295bc6;
+	--prismleaf-color-tertiary-container-darker: #a5bced;
+	--prismleaf-color-tertiary-container-darkest: #7296e2;
+	--prismleaf-color-tertiary-container-lighter: #f5f8fd;
+	--prismleaf-color-tertiary-container-lightest: #fbfcfe;
 
 	/* Error palette. */
 	--prismleaf-color-error: #b3261e;
-	--prismleaf-color-on-error: #ffffff;
-	--prismleaf-color-error-darker: #8f1f19;
-	--prismleaf-color-error-darkest: #6e1713;
-	--prismleaf-color-error-lighter: #c73b33;
-	--prismleaf-color-error-lightest: #de6a64;
-	--prismleaf-color-error-container: #f9dedc;
-	--prismleaf-color-on-error-container: #410e0b;
-	--prismleaf-color-error-container-darker: #f4c7c4;
-	--prismleaf-color-error-container-darkest: #eeaca8;
-	--prismleaf-color-error-container-lighter: #fbe7e6;
-	--prismleaf-color-error-container-lightest: #fdf1f0;
+	--prismleaf-color-on-error: #f7d1cf;
+	--prismleaf-color-error-darker: #7f1b15;
+	--prismleaf-color-error-darkest: #53120e;
+	--prismleaf-color-error-lighter: #d62d24;
+	--prismleaf-color-error-lightest: #e04b43;
+	--prismleaf-color-error-container: #ee9f9a;
+	--prismleaf-color-on-error-container: #fefbfb;
+	--prismleaf-color-error-container-darker: #e56d66;
+	--prismleaf-color-error-container-darkest: #dc3b31;
+	--prismleaf-color-error-container-lighter: #fcedec;
+	--prismleaf-color-error-container-lightest: #fefbfb;
 
 	/* Warning palette. */
 	--prismleaf-color-warning: #b26a00;
-	--prismleaf-color-on-warning: #ffffff;
-	--prismleaf-color-warning-darker: #8f5400;
-	--prismleaf-color-warning-darkest: #6f4100;
-	--prismleaf-color-warning-lighter: #c57d0a;
-	--prismleaf-color-warning-lightest: #dea44a;
-	--prismleaf-color-warning-container: #ffdfb5;
-	--prismleaf-color-on-warning-container: #2a1a00;
-	--prismleaf-color-warning-container-darker: #ffd19a;
-	--prismleaf-color-warning-container-darkest: #ffc07a;
-	--prismleaf-color-warning-container-lighter: #ffe7c8;
-	--prismleaf-color-warning-container-lightest: #fff1dd;
+	--prismleaf-color-on-warning: #fffdfa;
+	--prismleaf-color-warning-darker: #754600;
+	--prismleaf-color-warning-darkest: #422700;
+	--prismleaf-color-warning-lighter: #db8200;
+	--prismleaf-color-warning-lightest: #ff9a05;
+	--prismleaf-color-warning-container: #ffc36b;
+	--prismleaf-color-on-warning-container: #7f4c00;
+	--prismleaf-color-warning-container-darker: #ffaa2e;
+	--prismleaf-color-warning-container-darkest: #f08e00;
+	--prismleaf-color-warning-container-lighter: #fff4e4;
+	--prismleaf-color-warning-container-lightest: #fffdfa;
 
 	/* Info palette. */
 	--prismleaf-color-info: #1a73e8;
-	--prismleaf-color-on-info: #ffffff;
-	--prismleaf-color-info-darker: #1558b3;
-	--prismleaf-color-info-darkest: #10438a;
-	--prismleaf-color-info-lighter: #4a90f2;
-	--prismleaf-color-info-lightest: #8bb8ff;
-	--prismleaf-color-info-container: #d7e7ff;
-	--prismleaf-color-on-info-container: #051a3a;
-	--prismleaf-color-info-container-darker: #bcd8ff;
-	--prismleaf-color-info-container-darkest: #9fc7ff;
-	--prismleaf-color-info-container-lighter: #e3efff;
-	--prismleaf-color-info-container-lightest: #f0f7ff;
+	--prismleaf-color-on-info: #fafcff;
+	--prismleaf-color-info-darker: #1257b3;
+	--prismleaf-color-info-darkest: #0d4184;
+	--prismleaf-color-info-lighter: #3f8aec;
+	--prismleaf-color-info-lightest: #64a0ef;
+	--prismleaf-color-info-container: #c1d9f9;
+	--prismleaf-color-on-info-container: #1157b4;
+	--prismleaf-color-info-container-darker: #89b7f4;
+	--prismleaf-color-info-container-darkest: #5195ee;
+	--prismleaf-color-info-container-lighter: #f2f7fe;
+	--prismleaf-color-info-container-lightest: #fafcff;
 
 	/* Light palette: neutrals. */
-	--prismleaf-color-light-background: #ffffff;
-	--prismleaf-color-light-on-background: #1b1b1f;
-	--prismleaf-color-light-background-darker: #ffffff;
-	--prismleaf-color-light-background-darkest: #ffffff;
-	--prismleaf-color-light-background-lighter: #ffffff;
+	--prismleaf-color-light-background: #fafafa;
+	--prismleaf-color-light-on-background: #101010;
+	--prismleaf-color-light-background-darker: #f6f6f6;
+	--prismleaf-color-light-background-darkest: #f2f2f2;
+	--prismleaf-color-light-background-lighter: #fcfcfc;
 	--prismleaf-color-light-background-lightest: #ffffff;
-	--prismleaf-color-light-surface: #fbfafc;
-	--prismleaf-color-light-on-surface: #1b1b1f;
-	--prismleaf-color-light-surface-darker: #efebf3;
-	--prismleaf-color-light-surface-darkest: #e4ddeb;
-	--prismleaf-color-light-surface-lighter: #fdfcfe;
-	--prismleaf-color-light-surface-lightest: #ffffff;
-	--prismleaf-color-light-surface-variant: #d9d0e3;
-	--prismleaf-color-light-on-surface-variant: #3a3a43;
-	--prismleaf-color-light-surface-variant-darker: #cec2db;
-	--prismleaf-color-light-surface-variant-darkest: #bfafd0;
-	--prismleaf-color-light-surface-variant-lighter: #ddd4e6;
-	--prismleaf-color-light-surface-variant-lightest: #e1dae9;
-	--prismleaf-color-light-foreground: #1b1b1f;
-	--prismleaf-color-light-on-foreground: #ffffff;
-	--prismleaf-color-light-foreground-darker: #111114;
-	--prismleaf-color-light-foreground-darkest: #0b0b0d;
-	--prismleaf-color-light-foreground-lighter: #3a3a43;
-	--prismleaf-color-light-foreground-lightest: #575764;
+	--prismleaf-color-light-surface: #e1e1e1;
+	--prismleaf-color-light-on-surface: #101010;
+	--prismleaf-color-light-surface-darker: #dddddd;
+	--prismleaf-color-light-surface-darkest: #dadada;
+	--prismleaf-color-light-surface-lighter: #e4e4e4;
+	--prismleaf-color-light-surface-lightest: #efefef;
+	--prismleaf-color-light-surface-variant: #c7c7c7;
+	--prismleaf-color-light-on-surface-variant: #515151;
+	--prismleaf-color-light-surface-variant-darker: #c0c0c0;
+	--prismleaf-color-light-surface-variant-darkest: #bfbfbf;
+	--prismleaf-color-light-surface-variant-lighter: #cfcfcf;
+	--prismleaf-color-light-surface-variant-lightest: #d5d5d5;
+	--prismleaf-color-light-foreground: #101010;
+	--prismleaf-color-light-on-foreground: #fafafa;
+	--prismleaf-color-light-foreground-darker: #060606;
+	--prismleaf-color-light-foreground-darkest: #000000;
+	--prismleaf-color-light-foreground-lighter: #323232;
+	--prismleaf-color-light-foreground-lightest: #515151;
 
 	/* Light palette: shadows and glow. */
 	--prismleaf-shadow-light-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.08), 0 1px 1px rgba(0, 0, 0, 0.06);
@@ -211,26 +211,26 @@
 	--prismleaf-color-light-scrim: rgba(0, 0, 0, 0.32);
 
 	/* Dark palette: neutrals. */
-	--prismleaf-color-dark-background: #0d0d0d;
+	--prismleaf-color-dark-background: #0c0c0c;
 	--prismleaf-color-dark-on-background: #ebebeb;
-	--prismleaf-color-dark-background-darker: #090909;
-	--prismleaf-color-dark-background-darkest: #040404;
-	--prismleaf-color-dark-background-lighter: #161616;
-	--prismleaf-color-dark-background-lightest: #202020;
-	--prismleaf-color-dark-surface: #171717;
+	--prismleaf-color-dark-background-darker: #060606;
+	--prismleaf-color-dark-background-darkest: #000000;
+	--prismleaf-color-dark-background-lighter: #121212;
+	--prismleaf-color-dark-background-lightest: #181818;
+	--prismleaf-color-dark-surface: #2a2a2a;
 	--prismleaf-color-dark-on-surface: #ebebeb;
-	--prismleaf-color-dark-surface-darker: #121212;
-	--prismleaf-color-dark-surface-darkest: #0d0d0d;
-	--prismleaf-color-dark-surface-lighter: #1f1f1f;
-	--prismleaf-color-dark-surface-lightest: #2c2c2c;
-	--prismleaf-color-dark-surface-variant: #3c3c3c;
-	--prismleaf-color-dark-on-surface-variant: #ebebeb;
-	--prismleaf-color-dark-surface-variant-darker: #353535;
-	--prismleaf-color-dark-surface-variant-darkest: #2f2f2f;
-	--prismleaf-color-dark-surface-variant-lighter: #484848;
+	--prismleaf-color-dark-surface-darker: #242424;
+	--prismleaf-color-dark-surface-darkest: #1e1e1e;
+	--prismleaf-color-dark-surface-lighter: #2f2f2f;
+	--prismleaf-color-dark-surface-lightest: #353535;
+	--prismleaf-color-dark-surface-variant: #474747;
+	--prismleaf-color-dark-on-surface-variant: #b2b2b2;
+	--prismleaf-color-dark-surface-variant-darker: #414141;
+	--prismleaf-color-dark-surface-variant-darkest: #3b3b3b;
+	--prismleaf-color-dark-surface-variant-lighter: #4d4d4d;
 	--prismleaf-color-dark-surface-variant-lightest: #535353;
 	--prismleaf-color-dark-foreground: #ebebeb;
-	--prismleaf-color-dark-on-foreground: #0a0a0a;
+	--prismleaf-color-dark-on-foreground: #0c0c0c;
 	--prismleaf-color-dark-foreground-darker: #cecece;
 	--prismleaf-color-dark-foreground-darkest: #b2b2b2;
 	--prismleaf-color-dark-foreground-lighter: #f5f5f5;
@@ -251,6 +251,3 @@
 	--prismleaf-color-dark-disabled-surface: rgba(255, 255, 255, 0.12);
 	--prismleaf-color-dark-scrim: rgba(0, 0, 0, 0.48);
 }
-
-
-

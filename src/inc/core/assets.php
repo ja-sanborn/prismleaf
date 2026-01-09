@@ -158,6 +158,35 @@ if ( ! function_exists( 'prismleaf_enqueue_customizer_components' ) ) {
 			array(),
 			PRISMLEAF_VERSION
 		);
+		wp_enqueue_script(
+			'prismleaf-customizer-preview-grid',
+			PRISMLEAF_URI . 'assets/scripts/customizer-preview-grid.js',
+			array( 'customize-controls' ),
+			PRISMLEAF_VERSION,
+			true
+		);
+		wp_enqueue_script(
+			'prismleaf-customizer-palette-control',
+			PRISMLEAF_URI . 'assets/scripts/customizer-palette-control.js',
+			array( 'customize-controls', 'wp-color-picker', 'prismleaf-customizer-preview-grid' ),
+			PRISMLEAF_VERSION,
+			true
+		);
+		wp_enqueue_script(
+			'prismleaf-customizer-neutral-control',
+			PRISMLEAF_URI . 'assets/scripts/customizer-neutral-control.js',
+			array( 'customize-controls', 'wp-color-picker', 'jquery', 'prismleaf-customizer-preview-grid' ),
+			PRISMLEAF_VERSION,
+			true
+		);
+		wp_localize_script(
+			'prismleaf-customizer-neutral-control',
+			'prismleafNeutralControl',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'prismleaf-neutral-preview' ),
+			)
+		);
 	}
 }
 add_action( 'customize_controls_enqueue_scripts', 'prismleaf_enqueue_customizer_components' );

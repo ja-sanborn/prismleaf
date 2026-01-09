@@ -41,7 +41,7 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Prismleaf_Custom
 			echo '<hr class="prismleaf-customize-divider" />';
 
 			if ( '' !== $label ) {
-				echo '<span class="customize-control-title" style="font-size:15px;line-height:1.4;display:block;">' . esc_html( $label ) . '</span>';
+				echo '<span class="customize-control-title">' . esc_html( $label ) . '</span>';
 			}
 
 			if ( '' !== $description ) {

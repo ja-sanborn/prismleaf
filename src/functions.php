@@ -16,13 +16,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 require_once __DIR__ . '/inc/core/constants.php';
 require_once PRISMLEAF_DIR . 'inc/core/defaults.php';
+require_once PRISMLEAF_DIR . 'inc/utils/data-helpers.php';
 require_once PRISMLEAF_DIR . 'inc/utils/sanitizers.php';
 require_once PRISMLEAF_DIR . 'inc/utils/color-helpers.php';
 require_once PRISMLEAF_DIR . 'inc/utils/theme-mods.php';
 require_once PRISMLEAF_DIR . 'inc/utils/apply-styles.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-section-header-control.php';
-require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-palette-role-control.php';
+require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-preview-control-base.php';
+require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-palette-preview-control.php';
+require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-neutral-preview-control.php';
+require_once PRISMLEAF_DIR . 'inc/customizer/helpers/labels.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/helpers/customizer.php';
+require_once PRISMLEAF_DIR . 'inc/customizer/helpers/ajax.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/helpers/active-callbacks.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/palette-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/global-options.php';

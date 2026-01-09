@@ -6,35 +6,6 @@
  * @package prismleaf
  */
 
-/* Custom palette role control. */
-.prismleaf-palette-role-control {
-	margin-top: 8px;
-}
-
-.prismleaf-palette-role-select {
-	width: 100%;
-}
-
-.prismleaf-palette-role-custom {
-	margin-top: 8px;
-	border-top: 1px solid #ddd;
-	padding-top: 8px;
-}
-
-.prismleaf-palette-role-custom-row + .prismleaf-palette-role-custom-row {
-	margin-top: 8px;
-}
-
-.prismleaf-palette-role-custom-row label {
-	display: block;
-	margin-bottom: 4px;
-	font-weight: 600;
-}
-
-.prismleaf-palette-role-custom-input {
-	width: 100%;
-}
-
 /* Custom customizer section header control. */
 .prismleaf-customize-section-header {
 	margin: 12px 0 8px;
@@ -43,6 +14,72 @@
 .prismleaf-customize-divider {
 	margin: 10px 0;
 	border: 0;
-	border-top: 1px solid #ddd;
+	border-top: 1px solid #dddddd;
 }
 
+.prismleaf-customize-section-header .customize-control-title {
+	display: block;
+	font-size: 15px;
+	line-height: 1.4;
+}
+
+.prismleaf-customize-section-header .customize-control-description {
+	display: block;
+	margin-top: 6px;
+}
+
+/* Palette preview control. */
+.prismleaf-palette-preview-control .customize-control-title {
+	display: block;
+}
+
+.prismleaf-preview-grid {
+	margin-top: 10px;
+	display: grid;
+	gap: 6px;
+}
+
+.prismleaf-preview-row {
+	display: grid;
+	grid-template-columns: 24px 1fr;
+	align-items: center;
+	column-gap: 8px;
+}
+
+.prismleaf-preview-swatch {
+	width: 24px;
+	height: 24px;
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+}
+
+.prismleaf-preview-label {
+	font-size: 13px;
+	line-height: 1.3;
+}
+
+.prismleaf-palette-preview-input {
+	width: 100%;
+	margin-top: 8px;
+}
+
+
+/* Neutral preview control. */
+.prismleaf-neutral-preview-control .customize-control-title {
+	display: block;
+}
+
+.prismleaf-neutral-preview-inputs {
+	margin-top: 8px;
+	display: grid;
+	row-gap: 6px;
+}
+
+.prismleaf-neutral-preview-label {
+	font-size: 13px;
+	line-height: 1.3;
+}
+
+.prismleaf-neutral-preview-input {
+	width: 100%;
+}

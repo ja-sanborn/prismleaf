@@ -20,6 +20,15 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 	function prismleaf_get_default_options() {
 		$defaults = array(
 			'global_framed_layout'        => false,
+			'palette_theme_mode'          => 'system',
+			'palette_primary_base'        => '',
+			'palette_secondary_base'      => '',
+			'palette_tertiary_base'       => '',
+			'palette_error_base'          => '',
+			'palette_warning_base'        => '',
+			'palette_info_base'           => '',
+			'palette_neutral_light_base'  => '',
+			'palette_neutral_dark_base'   => '',
 			'header_show'                 => true,
 			'header_contained'            => true,
 			'header_floating'             => true,
