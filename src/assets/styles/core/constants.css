@@ -1,0 +1,256 @@
+/**
+ * Prismleaf Constants
+ *
+ * Hardcoded design tokens shared across the theme.
+ *
+ * @package prismleaf
+ */
+
+:root {
+	/* Font families. */
+	--prismleaf-font-serif: ui-serif, georgia, cambria, "Times New Roman", times, serif;
+	--prismleaf-font-sans: system-ui, -apple-system, "Segoe UI", roboto, helvetica, arial, "Apple Color Emoji", "Segoe UI Emoji";
+	--prismleaf-font-mono: ui-monospace, sfmono-regular, menlo, monaco, consolas, "Liberation Mono", "Courier New", monospace;
+
+	/* Type scale. */
+	--prismleaf-font-size-base: 16px;
+	--prismleaf-font-size-xs: 0.8rem;
+	--prismleaf-font-size-sm: 0.875rem;
+	--prismleaf-font-size-md: 1rem;
+	--prismleaf-font-size-lg: 1.25rem;
+	--prismleaf-font-size-xl: 1.563rem;
+	--prismleaf-font-size-2xl: 1.953rem;
+	--prismleaf-font-size-3xl: 2.441rem;
+
+	/* Font weights. */
+	--prismleaf-font-weight-regular: 400;
+	--prismleaf-font-weight-medium: 500;
+	--prismleaf-font-weight-semibold: 600;
+	--prismleaf-font-weight-bold: 700;
+
+	/* Line heights. */
+	--prismleaf-line-height-tight: 1.2;
+	--prismleaf-line-height-snug: 1.35;
+	--prismleaf-line-height-base: 1.6;
+	--prismleaf-line-height-loose: 1.75;
+
+	/* Letter spacing. */
+	--prismleaf-letter-spacing-tight: -0.01em;
+	--prismleaf-letter-spacing-normal: 0;
+	--prismleaf-letter-spacing-wide: 0.05em;
+	--prismleaf-letter-spacing-wider: 0.1em;
+
+	/* Spacing scale. */
+	--prismleaf-space-0: 0;
+	--prismleaf-space-1: 4px;
+	--prismleaf-space-2: 8px;
+	--prismleaf-space-3: 16px;
+	--prismleaf-space-4: 24px;
+	--prismleaf-space-5: 32px;
+	--prismleaf-space-6: 48px;
+	--prismleaf-space-7: 52px;
+	--prismleaf-space-8: 64px;
+
+	/* Border radius. */
+	--prismleaf-radius-small: 8px;
+	--prismleaf-radius-medium: 16px;
+	--prismleaf-radius-large: 24px;
+	--prismleaf-radius-pill: 9999px;
+
+	/* Borders. */
+	--prismleaf-border-style: solid;
+	--prismleaf-border-width-thin: 1px;
+	--prismleaf-border-width-thick: 2px;
+
+	/* Z-index layers. */
+	--prismleaf-z-base: 0;
+	--prismleaf-z-dropdown: 100;
+	--prismleaf-z-sticky: 200;
+	--prismleaf-z-modal: 300;
+	--prismleaf-z-toast: 400;
+
+	/* Sizing. */
+	--prismleaf-admin-bar-offset: 0;
+	--prismleaf-header-height: auto;
+	--prismleaf-footer-height: auto;
+	--prismleaf-sidebar-left-width: 260px;
+	--prismleaf-sidebar-right-width: 200px;
+	--prismleaf-content-max: 1480px;
+
+	/* Opacity for subtle dividers and states. */
+	--prismleaf-stroke-opacity: 0.12;
+	--prismleaf-state-hover-opacity: 0.08;
+	--prismleaf-state-focus-opacity: 0.12;
+	--prismleaf-state-pressed-opacity: 0.12;
+	--prismleaf-state-dragged-opacity: 0.16;
+	--prismleaf-state-disabled-opacity: 0.38;
+
+	/* Primary palette. */
+	--prismleaf-color-primary: #c04b8d;
+	--prismleaf-color-on-primary: #ffffff;
+	--prismleaf-color-primary-darker: #a83b78;
+	--prismleaf-color-primary-darkest: #893062;
+	--prismleaf-color-primary-lighter: #cb69a0;
+	--prismleaf-color-primary-lightest: #d587b3;
+	--prismleaf-color-primary-container: #f2cbdf;
+	--prismleaf-color-on-primary-container: #2b0f1f;
+	--prismleaf-color-primary-container-darker: #eaabca;
+	--prismleaf-color-primary-container-darkest: #e28ab6;
+	--prismleaf-color-primary-container-lighter: #f6d8e7;
+	--prismleaf-color-primary-container-lightest: #fae6f0;
+
+	/* Secondary palette. */
+	--prismleaf-color-secondary: #2e7d6f;
+	--prismleaf-color-on-secondary: #ffffff;
+	--prismleaf-color-secondary-darker: #235f55;
+	--prismleaf-color-secondary-darkest: #18413a;
+	--prismleaf-color-secondary-lighter: #399b89;
+	--prismleaf-color-secondary-lightest: #44b9a4;
+	--prismleaf-color-secondary-container: #cfeee7;
+	--prismleaf-color-on-secondary-container: #06221d;
+	--prismleaf-color-secondary-container-darker: #aee3d8;
+	--prismleaf-color-secondary-container-darkest: #8fd6c9;
+	--prismleaf-color-secondary-container-lighter: #d9f2ec;
+	--prismleaf-color-secondary-container-lightest: #e6f7f3;
+
+	/* Tertiary palette. */
+	--prismleaf-color-tertiary: #3f6fd9;
+	--prismleaf-color-on-tertiary: #ffffff;
+	--prismleaf-color-tertiary-darker: #2859c8;
+	--prismleaf-color-tertiary-darkest: #214aa6;
+	--prismleaf-color-tertiary-lighter: #6189e0;
+	--prismleaf-color-tertiary-lightest: #83a2e6;
+	--prismleaf-color-tertiary-container: #dce5ff;
+	--prismleaf-color-on-tertiary-container: #071a3a;
+	--prismleaf-color-tertiary-container-darker: #b3c7ff;
+	--prismleaf-color-tertiary-container-darkest: #8aa9ff;
+	--prismleaf-color-tertiary-container-lighter: #e7eeff;
+	--prismleaf-color-tertiary-container-lightest: #f1f5ff;
+
+	/* Error palette. */
+	--prismleaf-color-error: #b3261e;
+	--prismleaf-color-on-error: #ffffff;
+	--prismleaf-color-error-darker: #8f1f19;
+	--prismleaf-color-error-darkest: #6e1713;
+	--prismleaf-color-error-lighter: #c73b33;
+	--prismleaf-color-error-lightest: #de6a64;
+	--prismleaf-color-error-container: #f9dedc;
+	--prismleaf-color-on-error-container: #410e0b;
+	--prismleaf-color-error-container-darker: #f4c7c4;
+	--prismleaf-color-error-container-darkest: #eeaca8;
+	--prismleaf-color-error-container-lighter: #fbe7e6;
+	--prismleaf-color-error-container-lightest: #fdf1f0;
+
+	/* Warning palette. */
+	--prismleaf-color-warning: #b26a00;
+	--prismleaf-color-on-warning: #ffffff;
+	--prismleaf-color-warning-darker: #8f5400;
+	--prismleaf-color-warning-darkest: #6f4100;
+	--prismleaf-color-warning-lighter: #c57d0a;
+	--prismleaf-color-warning-lightest: #dea44a;
+	--prismleaf-color-warning-container: #ffdfb5;
+	--prismleaf-color-on-warning-container: #2a1a00;
+	--prismleaf-color-warning-container-darker: #ffd19a;
+	--prismleaf-color-warning-container-darkest: #ffc07a;
+	--prismleaf-color-warning-container-lighter: #ffe7c8;
+	--prismleaf-color-warning-container-lightest: #fff1dd;
+
+	/* Info palette. */
+	--prismleaf-color-info: #1a73e8;
+	--prismleaf-color-on-info: #ffffff;
+	--prismleaf-color-info-darker: #1558b3;
+	--prismleaf-color-info-darkest: #10438a;
+	--prismleaf-color-info-lighter: #4a90f2;
+	--prismleaf-color-info-lightest: #8bb8ff;
+	--prismleaf-color-info-container: #d7e7ff;
+	--prismleaf-color-on-info-container: #051a3a;
+	--prismleaf-color-info-container-darker: #bcd8ff;
+	--prismleaf-color-info-container-darkest: #9fc7ff;
+	--prismleaf-color-info-container-lighter: #e3efff;
+	--prismleaf-color-info-container-lightest: #f0f7ff;
+
+	/* Light palette: neutrals. */
+	--prismleaf-color-light-background: #ffffff;
+	--prismleaf-color-light-on-background: #1b1b1f;
+	--prismleaf-color-light-background-darker: #ffffff;
+	--prismleaf-color-light-background-darkest: #ffffff;
+	--prismleaf-color-light-background-lighter: #ffffff;
+	--prismleaf-color-light-background-lightest: #ffffff;
+	--prismleaf-color-light-surface: #fbfafc;
+	--prismleaf-color-light-on-surface: #1b1b1f;
+	--prismleaf-color-light-surface-darker: #efebf3;
+	--prismleaf-color-light-surface-darkest: #e4ddeb;
+	--prismleaf-color-light-surface-lighter: #fdfcfe;
+	--prismleaf-color-light-surface-lightest: #ffffff;
+	--prismleaf-color-light-surface-variant: #d9d0e3;
+	--prismleaf-color-light-on-surface-variant: #3a3a43;
+	--prismleaf-color-light-surface-variant-darker: #cec2db;
+	--prismleaf-color-light-surface-variant-darkest: #bfafd0;
+	--prismleaf-color-light-surface-variant-lighter: #ddd4e6;
+	--prismleaf-color-light-surface-variant-lightest: #e1dae9;
+	--prismleaf-color-light-foreground: #1b1b1f;
+	--prismleaf-color-light-on-foreground: #ffffff;
+	--prismleaf-color-light-foreground-darker: #111114;
+	--prismleaf-color-light-foreground-darkest: #0b0b0d;
+	--prismleaf-color-light-foreground-lighter: #3a3a43;
+	--prismleaf-color-light-foreground-lightest: #575764;
+
+	/* Light palette: shadows and glow. */
+	--prismleaf-shadow-light-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.08), 0 1px 1px rgba(0, 0, 0, 0.06);
+	--prismleaf-shadow-light-elevation-2: 0 2px 6px rgba(0, 0, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.08);
+	--prismleaf-shadow-light-elevation-3: 0 6px 16px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.10);
+	--prismleaf-glow-light-ring: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 0 12px rgba(0, 0, 0, 0.10);
+
+	/* Light palette: opacity values. */
+	--prismleaf-color-light-outline: rgba(0, 0, 0, 0.30);
+	--prismleaf-color-light-outline-variant: rgba(0, 0, 0, 0.18);
+	--prismleaf-color-light-divider: rgba(0, 0, 0, 0.12);
+	--prismleaf-color-light-on-surface-muted: rgba(0, 0, 0, 0.72);
+	--prismleaf-color-light-disabled-foreground: rgba(0, 0, 0, 0.38);
+	--prismleaf-color-light-disabled-surface: rgba(0, 0, 0, 0.12);
+	--prismleaf-color-light-scrim: rgba(0, 0, 0, 0.32);
+
+	/* Dark palette: neutrals. */
+	--prismleaf-color-dark-background: #0d0d0d;
+	--prismleaf-color-dark-on-background: #ebebeb;
+	--prismleaf-color-dark-background-darker: #090909;
+	--prismleaf-color-dark-background-darkest: #040404;
+	--prismleaf-color-dark-background-lighter: #161616;
+	--prismleaf-color-dark-background-lightest: #202020;
+	--prismleaf-color-dark-surface: #171717;
+	--prismleaf-color-dark-on-surface: #ebebeb;
+	--prismleaf-color-dark-surface-darker: #121212;
+	--prismleaf-color-dark-surface-darkest: #0d0d0d;
+	--prismleaf-color-dark-surface-lighter: #1f1f1f;
+	--prismleaf-color-dark-surface-lightest: #2c2c2c;
+	--prismleaf-color-dark-surface-variant: #3c3c3c;
+	--prismleaf-color-dark-on-surface-variant: #ebebeb;
+	--prismleaf-color-dark-surface-variant-darker: #353535;
+	--prismleaf-color-dark-surface-variant-darkest: #2f2f2f;
+	--prismleaf-color-dark-surface-variant-lighter: #484848;
+	--prismleaf-color-dark-surface-variant-lightest: #535353;
+	--prismleaf-color-dark-foreground: #ebebeb;
+	--prismleaf-color-dark-on-foreground: #0a0a0a;
+	--prismleaf-color-dark-foreground-darker: #cecece;
+	--prismleaf-color-dark-foreground-darkest: #b2b2b2;
+	--prismleaf-color-dark-foreground-lighter: #f5f5f5;
+	--prismleaf-color-dark-foreground-lightest: #ffffff;
+
+	/* Dark palette: shadows and glow. */
+	--prismleaf-shadow-dark-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.45), 0 1px 1px rgba(0, 0, 0, 0.35);
+	--prismleaf-shadow-dark-elevation-2: 0 2px 8px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.40);
+	--prismleaf-shadow-dark-elevation-3: 0 8px 20px rgba(0, 0, 0, 0.65), 0 2px 6px rgba(0, 0, 0, 0.45);
+	--prismleaf-glow-dark-ring: 0 0 0 1px rgba(255, 255, 255, 0.30), 0 0 12px rgba(255, 255, 255, 0.14);
+
+	/* Dark palette: opacity values. */
+	--prismleaf-color-dark-outline: rgba(255, 255, 255, 0.30);
+	--prismleaf-color-dark-outline-variant: rgba(255, 255, 255, 0.18);
+	--prismleaf-color-dark-divider: rgba(255, 255, 255, 0.12);
+	--prismleaf-color-dark-on-surface-muted: rgba(255, 255, 255, 0.72);
+	--prismleaf-color-dark-disabled-foreground: rgba(255, 255, 255, 0.38);
+	--prismleaf-color-dark-disabled-surface: rgba(255, 255, 255, 0.12);
+	--prismleaf-color-dark-scrim: rgba(0, 0, 0, 0.48);
+}
+
+
+

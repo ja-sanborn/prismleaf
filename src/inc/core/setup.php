@@ -73,16 +73,81 @@ if ( ! function_exists( 'prismleaf_setup' ) ) {
 }
 add_action( 'after_setup_theme', 'prismleaf_setup' );
 
-if ( ! function_exists( 'prismleaf_setup_customizer' ) ) {
+if ( ! function_exists( 'prismleaf_widgets_init' ) ) {
 	/**
-	 * Register Theme Options in Customizer settings.
+	 * Register widget areas.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	function prismleaf_widgets_init() {
+		$widget_areas = array(
+			array(
+				/* translators: Footer widget area name. */
+				'name'        => __( 'Footer 1', 'prismleaf' ),
+				'id'          => 'footer-1',
+				'description' => __( 'First footer widget area.', 'prismleaf' ),
+			),
+			array(
+				/* translators: Footer widget area name. */
+				'name'        => __( 'Footer 2', 'prismleaf' ),
+				'id'          => 'footer-2',
+				'description' => __( 'Second footer widget area.', 'prismleaf' ),
+			),
+			array(
+				/* translators: Footer widget area name. */
+				'name'        => __( 'Footer 3', 'prismleaf' ),
+				'id'          => 'footer-3',
+				'description' => __( 'Third footer widget area.', 'prismleaf' ),
+			),
+			array(
+				/* translators: Footer widget area name. */
+				'name'        => __( 'Footer 4', 'prismleaf' ),
+				'id'          => 'footer-4',
+				'description' => __( 'Fourth footer widget area.', 'prismleaf' ),
+			),
+			array(
+				/* translators: Sidebar area name. */
+				'name'        => __( 'Primary Sidebar', 'prismleaf' ),
+				'id'          => 'sidebar-primary',
+				'description' => __( 'Widgets in the primary sidebar.', 'prismleaf' ),
+			),
+			array(
+				/* translators: Sidebar area name. */
+				'name'        => __( 'Secondary Sidebar', 'prismleaf' ),
+				'id'          => 'sidebar-secondary',
+				'description' => __( 'Widgets in the secondary sidebar.', 'prismleaf' ),
+			),
+		);
+
+		foreach ( $widget_areas as $widget_area ) {
+			register_sidebar(
+				array(
+					'name'          => $widget_area['name'],
+					'id'            => $widget_area['id'],
+					'description'   => $widget_area['description'],
+					'before_widget' => '<section id="%1$s" class="widget %2$s">',
+					'after_widget'  => '</section>',
+					'before_title'  => '<h2 class="widget-title">',
+					'after_title'   => '</h2>',
+				)
+			);
+		}
+	}
+}
+add_action( 'widgets_init', 'prismleaf_widgets_init' );
+
+if ( ! function_exists( 'prismleaf_register_theme_options_panel' ) ) {
+	/**
+	 * Register the Theme Options panel in the Customizer.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
 	 * @return void
 	 */
-	function prismleaf_setup_customizer( $wp_customize ) {
+	function prismleaf_register_theme_options_panel( $wp_customize ) {
 		if ( ! $wp_customize->get_panel( 'prismleaf_theme_options' ) ) {
 			$wp_customize->add_panel(
 				'prismleaf_theme_options',
@@ -93,31 +158,6 @@ if ( ! function_exists( 'prismleaf_setup_customizer' ) ) {
 				)
 			);
 		}
-
-		// Ensure shared Customizer scripts are available globally.
-		add_action( 'customize_controls_enqueue_scripts', 'prismleaf_enqueue_customizer_components' );
 	}
 }
-add_action( 'customize_register', 'prismleaf_setup_customizer' );
-
-if ( ! function_exists( 'prismleaf_language_attributes_force_color_scheme' ) ) {
-	/**
-	 * Force a color scheme attribute on the root element when configured.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $output Existing language attributes string.
-	 * @return string
-	 */
-	function prismleaf_language_attributes_force_color_scheme( $output ) {
-		$force_light = prismleaf_get_theme_mod_bool( 'prismleaf_brand_force_light', false );
-
-		if ( $force_light ) {
-			$output  = trim( $output );
-			$output .= ' data-prismleaf-color-scheme="light"';
-		}
-
-		return trim( $output );
-	}
-}
-add_filter( 'language_attributes', 'prismleaf_language_attributes_force_color_scheme' );
+add_action( 'customize_register', 'prismleaf_register_theme_options_panel' );

@@ -38,7 +38,7 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Prismleaf_Custom
 			}
 
 			echo '<div class="prismleaf-customize-section-header">';
-			echo '<hr class="prismleaf-customize-divider" style="border:0;border-top:1px solid rgba(0,0,0,0.15);margin:10px 0;" />';
+			echo '<hr class="prismleaf-customize-divider" />';
 
 			if ( '' !== $label ) {
 				echo '<span class="customize-control-title" style="font-size:15px;line-height:1.4;display:block;">' . esc_html( $label ) . '</span>';

@@ -1,0 +1,48 @@
+/**
+ * Prismleaf Customizer
+ *
+ * Customizer control styles.
+ *
+ * @package prismleaf
+ */
+
+/* Custom palette role control. */
+.prismleaf-palette-role-control {
+	margin-top: 8px;
+}
+
+.prismleaf-palette-role-select {
+	width: 100%;
+}
+
+.prismleaf-palette-role-custom {
+	margin-top: 8px;
+	border-top: 1px solid #ddd;
+	padding-top: 8px;
+}
+
+.prismleaf-palette-role-custom-row + .prismleaf-palette-role-custom-row {
+	margin-top: 8px;
+}
+
+.prismleaf-palette-role-custom-row label {
+	display: block;
+	margin-bottom: 4px;
+	font-weight: 600;
+}
+
+.prismleaf-palette-role-custom-input {
+	width: 100%;
+}
+
+/* Custom customizer section header control. */
+.prismleaf-customize-section-header {
+	margin: 12px 0 8px;
+}
+
+.prismleaf-customize-divider {
+	margin: 10px 0;
+	border: 0;
+	border-top: 1px solid #ddd;
+}
+

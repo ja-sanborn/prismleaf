@@ -1,0 +1,152 @@
+/**
+ * Prismleaf Typography
+ *
+ * Typography scale and text defaults.
+ *
+ * @package prismleaf
+ */
+
+/* Document typography defaults and UA adjustments. */
+html {
+	font-size: var(--prismleaf-font-size-base);
+	line-height: var(--prismleaf-line-height-base);
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+/* Body typography defaults. */
+body {
+	font-family: var(--prismleaf-font-sans);
+	text-rendering: optimizelegibility;
+}
+
+/* Paragraph typography. */
+.prismleaf-font-paragraph,
+p {
+	font-family: var(--prismleaf-font-sans);
+}
+
+/* Heading typography. */
+.prismleaf-font-title,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--prismleaf-font-serif);
+	font-weight: var(--prismleaf-font-weight-semibold);
+	line-height: var(--prismleaf-line-height-tight);
+	letter-spacing: var(--prismleaf-letter-spacing-normal);
+}
+
+.prismleaf-font-3xl,
+h1 {
+	font-size: var(--prismleaf-font-size-3xl);
+}
+
+.prismleaf-font-2xl,
+h2 {
+	font-size: var(--prismleaf-font-size-2xl);
+}
+
+.prismleaf-font-xl,
+h3 {
+	font-size: var(--prismleaf-font-size-xl);
+}
+
+.prismleaf-font-lg,
+h4 {
+	font-size: var(--prismleaf-font-size-lg);
+}
+
+.prismleaf-font-md,
+h5 {
+	font-size: var(--prismleaf-font-size-md);
+}
+
+.prismleaf-font-sm,
+h6 {
+	font-size: var(--prismleaf-font-size-sm);
+}
+
+.prismleaf-font-xs {
+	font-size: var(--prismleaf-font-size-xs);
+}
+
+/* Monospace typography. */
+.prismleaf-font-monospace,
+code,
+kbd,
+samp,
+pre {
+	font-family: var(--prismleaf-font-mono);
+	font-size: 0.9375em;
+}
+
+/* Address typography. */
+address {
+	font-style: normal;
+}
+
+/* Abbreviation typography. */
+abbr[title] {
+	text-decoration: underline dotted;
+	text-decoration-thickness: from-font;
+	text-underline-offset: 0.12em;
+}
+
+/* Small typography. */
+small {
+	font-size: 0.875em;
+}
+
+/* Strong typography. */
+strong,
+b {
+	font-weight: var(--prismleaf-font-weight-bold);
+}
+
+/* Italic typography. */
+em,
+i {
+	font-style: italic;
+}
+
+/* Underline typography. */
+u {
+	text-decoration: underline;
+	text-underline-offset: 0.18em;
+}
+
+/* Subscript and superscript typography. */
+sub,
+sup {
+	font-size: 0.75em;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+/* Link typography. */
+a {
+	text-decoration: none;
+	text-underline-offset: 0.18em;
+}
+
+a:focus-visible {
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+

@@ -1,8 +1,8 @@
 <?php
 /**
- * Prismleaf Customizer: Header
+ * Prismleaf Customizer: Header Options
  *
- * Registers Customizer settings for the header layout controls.
+ * Registers the Header Options section.
  *
  * @package prismleaf
  */
@@ -11,84 +11,76 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'prismleaf_customize_register_header' ) ) {
+if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 	/**
-	 * Register Header settings and controls.
+	 * Register the Header Options section in the Customizer.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
 	 * @return void
 	 */
-	function prismleaf_customize_register_header( $wp_customize ) {
-		if ( ! ( $wp_customize instanceof WP_Customize_Manager ) ) {
-			return;
-		}
-
-		if ( ! $wp_customize->get_panel( 'prismleaf_theme_options' ) ) {
-			return;
-		}
-
-		$wp_customize->add_section(
-			'prismleaf_header',
+	function prismleaf_register_header_options_section( $wp_customize ) {
+		prismleaf_register_options_section(
+			$wp_customize,
 			array(
+				'id'          => 'prismleaf_header_options',
 				'title'       => __( 'Header', 'prismleaf' ),
-				'description' => __( 'Configure the header layout components.', 'prismleaf' ),
-				'panel'       => 'prismleaf_theme_options',
-				'priority'    => 90,
+				'description' => __( 'Configure header layout and styling.', 'prismleaf' ),
+				'priority'    => 30,
 			)
 		);
 
-		$settings = array(
-			'prismleaf_header_show_theme_switch'   => array(
-				'default'     => true,
-				'label'       => __( 'Show theme switch', 'prismleaf' ),
-				'description' => __( 'Controls whether the theme switch appears in the header.', 'prismleaf' ),
-			),
-			'prismleaf_header_show_search'         => array(
-				'default'     => true,
-				'label'       => __( 'Show search', 'prismleaf' ),
-				'description' => __( 'Controls whether the search control appears in the header.', 'prismleaf' ),
-			),
-			'prismleaf_header_show_primary_menu'   => array(
-				'default'     => true,
-				'label'       => __( 'Show primary menu', 'prismleaf' ),
-				'description' => __( 'Controls whether the primary menu appears in the header.', 'prismleaf' ),
-			),
-			'prismleaf_header_show_secondary_menu' => array(
-				'default'     => true,
-				'label'       => __( 'Show secondary menu', 'prismleaf' ),
-				'description' => __( 'Controls whether the secondary menu appears in the header.', 'prismleaf' ),
-			),
-			'prismleaf_header_swap_menus'          => array(
-				'default'     => false,
-				'label'       => __( 'Swap primary and secondary menu', 'prismleaf' ),
-				'description' => __( 'When enabled, the secondary menu appears above the header content area.', 'prismleaf' ),
-			),
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_header_heading_layout',
+				'label'      => __( 'Layout', 'prismleaf' ),
+				'section'    => 'prismleaf_header_options',
+				'priority'   => 1000,
+			)
 		);
 
-		foreach ( $settings as $setting_id => $data ) {
-			$wp_customize->add_setting(
-				$setting_id,
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => $data['default'],
-					'sanitize_callback' => 'prismleaf_sanitize_checkbox',
-					'transport'         => 'refresh',
-				)
-			);
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_header_show',
+				'section'          => 'prismleaf_header_options',
+				'label'            => __( 'Show header', 'prismleaf' ),
+				'description'      => __( 'Controls whether the header is displayed.', 'prismleaf' ),
+				'priority'         => 1010,
+				'default_key'      => 'header_show',
+				'default_fallback' => true,
+			)
+		);
 
-			$wp_customize->add_control(
-				$setting_id,
-				array(
-					'type'        => 'checkbox',
-					'section'     => 'prismleaf_header',
-					'label'       => $data['label'],
-					'description' => $data['description'],
-				)
-			);
-		}
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_header_contained',
+				'section'          => 'prismleaf_header_options',
+				'label'            => __( 'Contain header', 'prismleaf' ),
+				'description'      => __( 'When enabled, the header is rendered inside the inner frame.', 'prismleaf' ),
+				'priority'         => 1020,
+				'default_key'      => 'header_contained',
+				'default_fallback' => true,
+				'active_callback'  => 'prismleaf_is_header_layout_control_active',
+			)
+		);
+
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_header_floating',
+				'section'          => 'prismleaf_header_options',
+				'label'            => __( 'Floating header', 'prismleaf' ),
+				'description'      => __( 'When disabled, the header stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
+				'priority'         => 1030,
+				'default_key'      => 'header_floating',
+				'default_fallback' => true,
+				'active_callback'  => 'prismleaf_is_header_layout_control_active',
+			)
+		);
 	}
 }
-add_action( 'customize_register', 'prismleaf_customize_register_header' );
+add_action( 'customize_register', 'prismleaf_register_header_options_section' );
