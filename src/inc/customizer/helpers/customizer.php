@@ -273,6 +273,56 @@ if ( ! function_exists( 'prismleaf_customize_sanitize_optional_hex_color_empty_o
 	}
 }
 
+if ( ! function_exists( 'prismleaf_get_palette_role_choices' ) ) {
+	/**
+	 * Get palette role choices for composite color controls.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array<string,string>
+	 */
+	function prismleaf_get_palette_role_choices() {
+		return array(
+			''                   => __( 'Default (use theme)', 'prismleaf' ),
+			'primary'            => __( 'Primary', 'prismleaf' ),
+			'primary-container'  => __( 'Primary Container', 'prismleaf' ),
+			'secondary'          => __( 'Secondary', 'prismleaf' ),
+			'secondary-container' => __( 'Secondary Container', 'prismleaf' ),
+			'tertiary'           => __( 'Tertiary', 'prismleaf' ),
+			'tertiary-container' => __( 'Tertiary Container', 'prismleaf' ),
+			'surface'            => __( 'Surface', 'prismleaf' ),
+			'surface-variant'    => __( 'Surface Variant', 'prismleaf' ),
+			'foreground'         => __( 'Foreground', 'prismleaf' ),
+			'custom'             => __( 'Custom', 'prismleaf' ),
+		);
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_palette_role_choice' ) ) {
+	/**
+	 * Sanitize palette role selection value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Raw value.
+	 * @return string
+	 */
+	function prismleaf_sanitize_palette_role_choice( $value ) {
+		if ( null === $value ) {
+			return '';
+		}
+
+		$value   = (string) $value;
+		$allowed = array_keys( prismleaf_get_palette_role_choices() );
+
+		if ( in_array( $value, $allowed, true ) ) {
+			return $value;
+		}
+
+		return '';
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_elevation_0_3' ) ) {
 	/**
 	 * Sanitize an elevation value in the range 0–3 (inclusive).
@@ -718,3 +768,61 @@ if ( ! function_exists( 'prismleaf_sanitize_border_style' ) ) {
 		return 'solid';
 	}
 }
+
+if ( ! function_exists( 'prismleaf_register_theme_option_section' ) ) {
+	/**
+	 * Ensure a theme options section exists.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param string               $section_id  Section ID.
+	 * @return void
+	 */
+	function prismleaf_register_theme_option_section( $wp_customize, $section_id ) {
+		if ( ! ( $wp_customize instanceof WP_Customize_Manager ) ) {
+			return;
+		}
+
+		$sections = array(
+			'prismleaf_global_options' => array(
+				'title'       => __( 'Global', 'prismleaf' ),
+				'description' => __( 'Global theme options such as layout mode and palette overrides.', 'prismleaf' ),
+				'priority'    => 10,
+			),
+			'prismleaf_header_options' => array(
+				'title'       => __( 'Header', 'prismleaf' ),
+				'description' => __( 'Configure header layout, styling, and components.', 'prismleaf' ),
+				'priority'    => 20,
+			),
+			'prismleaf_footer_options' => array(
+				'title'       => __( 'Footer', 'prismleaf' ),
+				'description' => __( 'Configure footer layout, styling, and content.', 'prismleaf' ),
+				'priority'    => 30,
+			),
+			'prismleaf_sidebar_options' => array(
+				'title'       => __( 'Sidebars', 'prismleaf' ),
+				'description' => __( 'Configure left and right sidebar layout and styling.', 'prismleaf' ),
+				'priority'    => 40,
+			),
+			'prismleaf_content_options' => array(
+				'title'       => __( 'Content', 'prismleaf' ),
+				'description' => __( 'Configure the content region styling.', 'prismleaf' ),
+				'priority'    => 50,
+			),
+		);
+
+		if ( ! isset( $sections[ $section_id ] ) ) {
+			return;
+		}
+
+		if ( $wp_customize->get_section( $section_id ) ) {
+			return;
+		}
+
+		$args = $sections[ $section_id ];
+		$args['panel'] = 'prismleaf_theme_options';
+		$wp_customize->add_section( $section_id, $args );
+	}
+}
+

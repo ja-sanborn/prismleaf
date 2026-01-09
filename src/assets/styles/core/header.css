@@ -1,0 +1,274 @@
+/*!
+ * Prismleaf Header Region
+ *
+ * Layout and surface styling for the header region.
+ *
+ * @package prismleaf
+ */
+
+/* Region visibility toggle. */
+.prismleaf-header-hidden .prismleaf-region-header {
+	display: none;
+}
+
+.prismleaf-region-header.prismleaf-header-has-background {
+	background-image: var(--prismleaf-header-background-image, none);
+	background-position: center center;
+	background-repeat: var(--prismleaf-header-background-repeat, no-repeat);
+	background-size: var(--prismleaf-header-background-size, auto);
+	--prismleaf-header-backplate-bg: color-mix(in srgb, var(--prismleaf-region-header-background) 85%, transparent);
+	--prismleaf-header-backplate-border: color-mix(in srgb, var(--prismleaf-region-header-foreground) 25%, transparent);
+	--prismleaf-header-backplate-shadow: var(--prismleaf-shadow);
+	--prismleaf-header-background-repeat: no-repeat;
+	--prismleaf-header-background-size: auto;
+}
+
+.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:tiled"] {
+	--prismleaf-header-background-repeat: repeat;
+	--prismleaf-header-background-size: auto;
+}
+
+.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:stretch"] {
+	--prismleaf-header-background-repeat: no-repeat;
+	--prismleaf-header-background-size: cover;
+}
+
+.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:fill"] {
+	--prismleaf-header-background-repeat: no-repeat;
+	--prismleaf-header-background-size: 100% 100%;
+}
+
+.prismleaf-region-header.prismleaf-header-has-background[style*="--prismleaf-header-background-display:auto"] {
+	--prismleaf-header-background-repeat: no-repeat;
+	--prismleaf-header-background-size: auto;
+}
+
+/* Header region surface. */
+.prismleaf-region-header {
+	background-color: var(--prismleaf-region-header-background);
+	color: var(--prismleaf-region-header-foreground);
+
+	border-width: var(--prismleaf-border-width-thin);
+	border-style: var(--prismleaf-region-header-border-style);
+	border-color: var(--prismleaf-region-header-border-color);
+	border-radius: var(--prismleaf-region-header-radius);
+
+	box-shadow: var(--prismleaf-region-header-shadow);
+	padding: var(--prismleaf-space-2);
+}
+
+/* Header layout container and row structure. */
+.prismleaf-header {
+	display: flex;
+	flex-direction: column;
+	gap: var(--prismleaf-space-1);
+}
+
+.prismleaf-header-row {
+	width: 100%;
+}
+
+.prismleaf-header-row-content {
+	padding: var(--prismleaf-space-2);
+}
+
+.prismleaf-header-content {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-areas: "branding tools";
+	align-items: center;
+	gap: var(--prismleaf-space-2);
+	width: 100%;
+}
+
+.prismleaf-header-branding {
+	grid-area: branding;
+	min-width: 0;
+}
+
+.prismleaf-header-tools {
+	grid-area: tools;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--prismleaf-space-1);
+	flex-wrap: nowrap;
+	white-space: nowrap;
+}
+
+.prismleaf-header-mobile-toggle {
+	display: none;
+}
+
+.prismleaf-header-no-tools .prismleaf-header-content {
+	grid-template-columns: 1fr;
+	grid-template-areas: "branding";
+}
+
+/* Shared menu base. */
+.prismleaf-menu {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.prismleaf-menu-list {
+	list-style: none;
+	margin: 0;
+	padding: var(--prismleaf-space-1) 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: var(--prismleaf-space-1);
+}
+
+.prismleaf-menu-list > li {
+	margin: 0;
+}
+
+.prismleaf-menu-list a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	border: 0;
+	padding: var(--prismleaf-space-1);
+	border-radius: var(--prismleaf-radius-small);
+	line-height: var(--prismleaf-line-height-snug);
+	transition:
+		color calc(var(--prismleaf-duration-fast) * var(--prismleaf-motion-multiplier)) var(--prismleaf-ease-standard),
+		background-color calc(var(--prismleaf-duration-fast) * var(--prismleaf-motion-multiplier)) var(--prismleaf-ease-standard);
+}
+
+.prismleaf-menu-list a:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.prismleaf-menu-with-dividers .prismleaf-menu-list {
+	border-left: var(--prismleaf-border-width-thick) solid var(--prismleaf-menu-divider-color, currentColor);
+	border-right: var(--prismleaf-border-width-thick) solid var(--prismleaf-menu-divider-color, currentColor);
+}
+
+.prismleaf-menu-with-dividers .prismleaf-menu-list > li + li {
+	border-left: var(--prismleaf-border-width-thick) solid var(--prismleaf-menu-divider-color, currentColor);
+}
+
+/* Framed header is square, borderless, and flat. */
+.prismleaf-layout-framed .prismleaf-region-header {
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* Not-contained, not-floating header is square. */
+.prismleaf-layout-not-framed.prismleaf-header-not-contained.prismleaf-header-not-floating .prismleaf-region-header {
+	border-radius: 0;
+}
+
+/* Desktop layout (>= 770px). */
+@media (min-width: 769px) {
+
+	.prismleaf-layout-framed .prismleaf-region-header {
+		grid-row: 1;
+		grid-column: 1 / -1;
+		overflow: hidden;
+	}
+
+	.prismleaf-layout-not-framed .prismleaf-region-header {
+		grid-area: header;
+		min-height: var(--prismleaf-header-height);
+		overflow-y: hidden;
+	}
+
+	/* Non-floating headers hug the viewport edge on desktop layouts. */
+	.prismleaf-layout-not-framed.prismleaf-header-not-contained.prismleaf-header-not-floating .prismleaf-region-header {
+		margin-top: calc(-1 * var(--prismleaf-page-padding-y));
+		margin-inline: calc(50% - 50svw);
+		width: 100svw;
+		padding: var(--prismleaf-space-2);
+	}
+
+	@supports (width: 100dvw) {
+
+		.prismleaf-layout-not-framed.prismleaf-header-not-contained.prismleaf-header-not-floating .prismleaf-region-header {
+			margin-inline: calc(50% - 50dvw);
+			width: 100dvw;
+		}
+	}
+
+	.prismleaf-layout-not-framed.prismleaf-header-contained .prismleaf-region-content > .prismleaf-region-header {
+		margin-top: calc(-1 * var(--prismleaf-space-2));
+		margin-inline: calc(-1 * var(--prismleaf-space-2));
+		width: calc(100% + (2 * var(--prismleaf-space-2)));
+		border-top-left-radius: var(--prismleaf-region-content-radius);
+		border-top-right-radius: var(--prismleaf-region-content-radius);
+	}
+}
+
+/* Mobile / stacked layout (<= 769px). */
+@media (max-width: 768px) {
+
+	.prismleaf-region-header {
+		padding: var(--prismleaf-space-2);
+		overflow-x: hidden;
+	}
+
+	.prismleaf-layout-not-framed .prismleaf-region-header {
+		border-radius: var(--prismleaf-radius-medium);
+		background-color: var(--prismleaf-region-header-background);
+		color: var(--prismleaf-region-header-foreground);
+		box-shadow: var(--prismleaf-region-header-shadow);
+		border-width: var(--prismleaf-border-width-thin);
+		border-style: var(--prismleaf-region-header-border-style);
+		border-color: var(--prismleaf-region-header-border-color);
+	}
+
+	.prismleaf-header-row-primary,
+	.prismleaf-header-row-secondary {
+		display: none;
+	}
+
+	.prismleaf-header-row-content {
+		position: relative;
+		z-index: 301;
+	}
+
+	.prismleaf-header-content {
+		grid-template-columns: 1fr auto;
+		grid-template-areas:
+			"toggle tools"
+			"branding branding";
+		row-gap: var(--prismleaf-space-1);
+	}
+
+	.prismleaf-header-mobile-toggle {
+		grid-area: toggle;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.prismleaf-header-no-tools .prismleaf-header-content {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			"toggle"
+			"branding";
+	}
+}
+
+@media (min-width: 769px) {
+
+	.prismleaf-header-mobile-toggle {
+		display: none;
+	}
+}
+
+/* Contained headers should still honor header surface tokens. */
+.prismleaf-layout-not-framed.prismleaf-header-contained .prismleaf-region-content .prismleaf-region-header {
+	background-color: var(--prismleaf-region-header-background);
+	color: var(--prismleaf-region-header-foreground);
+	box-shadow: var(--prismleaf-region-header-shadow);
+	border-width: var(--prismleaf-border-width-thin);
+	border-style: var(--prismleaf-region-header-border-style);
+	border-color: var(--prismleaf-region-header-border-color);
+	border-radius: var(--prismleaf-region-header-radius);
+}

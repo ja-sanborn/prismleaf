@@ -7,21 +7,21 @@
 	*/
 
 :root {
-	--prismleaf-menu-secondary-bg-light-default: var(--prismleaf-color-light-primary);
-	--prismleaf-menu-secondary-bg-hover-light-default: var(--prismleaf-color-light-primary-darker);
-	--prismleaf-menu-secondary-bg-active-light-default: var(--prismleaf-color-light-primary-darkest);
-	--prismleaf-menu-secondary-link-light-default: var(--prismleaf-color-light-on-primary);
-	--prismleaf-menu-secondary-link-hover-light-default: var(--prismleaf-color-light-on-primary);
-	--prismleaf-menu-secondary-link-active-light-default: var(--prismleaf-color-light-on-primary);
-	--prismleaf-menu-secondary-link-visited-light-default: var(--prismleaf-color-light-on-primary);
+	--prismleaf-menu-secondary-bg-light-default: var(--prismleaf-color-primary);
+	--prismleaf-menu-secondary-bg-hover-light-default: var(--prismleaf-color-primary-darker);
+	--prismleaf-menu-secondary-bg-active-light-default: var(--prismleaf-color-primary-darkest);
+	--prismleaf-menu-secondary-link-light-default: var(--prismleaf-color-on-primary);
+	--prismleaf-menu-secondary-link-hover-light-default: var(--prismleaf-color-on-primary);
+	--prismleaf-menu-secondary-link-active-light-default: var(--prismleaf-color-on-primary);
+	--prismleaf-menu-secondary-link-visited-light-default: var(--prismleaf-color-on-primary);
 
-	--prismleaf-menu-secondary-bg-dark-default: var(--prismleaf-color-dark-primary);
-	--prismleaf-menu-secondary-bg-hover-dark-default: var(--prismleaf-color-dark-primary-darker);
-	--prismleaf-menu-secondary-bg-active-dark-default: var(--prismleaf-color-dark-primary-darkest);
-	--prismleaf-menu-secondary-link-dark-default: var(--prismleaf-color-dark-on-primary);
-	--prismleaf-menu-secondary-link-hover-dark-default: var(--prismleaf-color-dark-on-primary);
-	--prismleaf-menu-secondary-link-active-dark-default: var(--prismleaf-color-dark-on-primary);
-	--prismleaf-menu-secondary-link-visited-dark-default: var(--prismleaf-color-dark-on-primary);
+	--prismleaf-menu-secondary-bg-dark-default: var(--prismleaf-color-primary);
+	--prismleaf-menu-secondary-bg-hover-dark-default: var(--prismleaf-color-primary-darker);
+	--prismleaf-menu-secondary-bg-active-dark-default: var(--prismleaf-color-primary-darkest);
+	--prismleaf-menu-secondary-link-dark-default: var(--prismleaf-color-on-primary);
+	--prismleaf-menu-secondary-link-hover-dark-default: var(--prismleaf-color-on-primary);
+	--prismleaf-menu-secondary-link-active-dark-default: var(--prismleaf-color-on-primary);
+	--prismleaf-menu-secondary-link-visited-dark-default: var(--prismleaf-color-on-primary);
 
 	--prismleaf-menu-secondary-bg-light: var(--prismleaf-menu-secondary-bg-light-override, var(--prismleaf-menu-secondary-bg-light-default));
 	--prismleaf-menu-secondary-bg-hover-light: var(--prismleaf-menu-secondary-bg-hover-light-override, var(--prismleaf-menu-secondary-bg-hover-light-default));

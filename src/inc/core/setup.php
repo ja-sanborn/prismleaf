@@ -73,6 +73,88 @@ if ( ! function_exists( 'prismleaf_setup' ) ) {
 }
 add_action( 'after_setup_theme', 'prismleaf_setup' );
 
+if ( ! function_exists( 'prismleaf_widgets_init' ) ) {
+	/**
+	 * Register widget areas.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	function prismleaf_widgets_init() {
+		$footers = array(
+			array(
+				/* translators: Footer widget area name. */
+				'name'        => __( 'Footer 1', 'prismleaf' ),
+				'id'          => 'footer-1',
+				'description' => __( 'First footer widget area.', 'prismleaf' ),
+			),
+			array(
+				/* translators: Footer widget area name. */
+				'name'        => __( 'Footer 2', 'prismleaf' ),
+				'id'          => 'footer-2',
+				'description' => __( 'Second footer widget area.', 'prismleaf' ),
+			),
+			array(
+				/* translators: Footer widget area name. */
+				'name'        => __( 'Footer 3', 'prismleaf' ),
+				'id'          => 'footer-3',
+				'description' => __( 'Third footer widget area.', 'prismleaf' ),
+			),
+			array(
+				/* translators: Footer widget area name. */
+				'name'        => __( 'Footer 4', 'prismleaf' ),
+				'id'          => 'footer-4',
+				'description' => __( 'Fourth footer widget area.', 'prismleaf' ),
+			),
+		);
+
+		foreach ( $footers as $footer ) {
+			register_sidebar(
+				array(
+					'name'          => $footer['name'],
+					'id'            => $footer['id'],
+					'description'   => $footer['description'],
+					'before_widget' => '<section id="%1$s" class="widget %2$s">',
+					'after_widget'  => '</section>',
+					'before_title'  => '<h2 class="widget-title">',
+					'after_title'   => '</h2>',
+				)
+			);
+		}
+
+		$sidebars = array(
+			array(
+				/* translators: Sidebar area name. */
+				'name'        => __( 'Left Sidebar', 'prismleaf' ),
+				'id'          => 'sidebar-left',
+				'description' => __( 'Widgets in the left sidebar.', 'prismleaf' ),
+			),
+			array(
+				/* translators: Sidebar area name. */
+				'name'        => __( 'Right Sidebar', 'prismleaf' ),
+				'id'          => 'sidebar-right',
+				'description' => __( 'Widgets in the right sidebar.', 'prismleaf' ),
+			),
+		);
+
+		foreach ( $sidebars as $sidebar ) {
+			register_sidebar(
+				array(
+					'name'          => $sidebar['name'],
+					'id'            => $sidebar['id'],
+					'description'   => $sidebar['description'],
+					'before_widget' => '<section id="%1$s" class="widget %2$s">',
+					'after_widget'  => '</section>',
+					'before_title'  => '<h2 class="widget-title">',
+					'after_title'   => '</h2>',
+				)
+			);
+		}
+	}
+}
+add_action( 'widgets_init', 'prismleaf_widgets_init' );
+
 if ( ! function_exists( 'prismleaf_setup_customizer' ) ) {
 	/**
 	 * Register Theme Options in Customizer settings.
@@ -99,6 +181,26 @@ if ( ! function_exists( 'prismleaf_setup_customizer' ) ) {
 	}
 }
 add_action( 'customize_register', 'prismleaf_setup_customizer' );
+
+if ( ! function_exists( 'prismleaf_enqueue_customizer_preview' ) ) {
+	/**
+	 * Enqueue Customizer preview scripts.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	function prismleaf_enqueue_customizer_preview() {
+		wp_enqueue_script(
+			'prismleaf-customizer-preview',
+			PRISMLEAF_URI . 'assets/scripts/customizer-preview.js',
+			array( 'customize-preview' ),
+			PRISMLEAF_VERSION,
+			true
+		);
+	}
+}
+add_action( 'customize_preview_init', 'prismleaf_enqueue_customizer_preview' );
 
 if ( ! function_exists( 'prismleaf_language_attributes_force_color_scheme' ) ) {
 	/**

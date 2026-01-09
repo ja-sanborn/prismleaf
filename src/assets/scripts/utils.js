@@ -194,12 +194,11 @@
 	};
 
 	/**
-	 * Derive dark base from a light base hex.
-	 * Matches prismleaf_derive_dark_base_from_light PHP.
+	 * Use the light base for dark when no override is provided.
 	 * @param {string} lightHex Light hex string.
-	 * @return {string|null} Derived dark hex or null on failure.
+	 * @return {string|null} Normalized hex or null on failure.
 	 */
-	const deriveDarkFromLight = (lightHex) => adjustLightness(lightHex, -0.3);
+	const deriveDarkFromLight = (lightHex) => normalizeHex(lightHex);
 
 	/**
 	 * Bind a light/dark setting pair for auto-derivation and clearing.
@@ -267,6 +266,85 @@
 		});
 	};
 
+	/**
+	 * Initialize palette role controls.
+	 * @param {HTMLElement} container Control container.
+	 */
+	const initPaletteRoleControl = (container) => {
+		if (!container || 'true' === container.dataset.prismleafInit) {
+			return;
+		}
+
+		container.dataset.prismleafInit = 'true';
+
+		const select = container.querySelector('.prismleaf-palette-role-select');
+		const customWrap = container.querySelector('.prismleaf-palette-role-custom');
+
+		if (!select || !customWrap) {
+			return;
+		}
+
+		const updateVisibility = (value) => {
+			const isCustom = 'custom' === value;
+			customWrap.style.display = isCustom ? '' : 'none';
+		};
+
+		const updateFromSelect = () => updateVisibility(select.value);
+		select.addEventListener('change', updateFromSelect);
+
+		const settingId = select.getAttribute('data-customize-setting-link');
+		if (settingId && api.has(settingId)) {
+			api(settingId).bind(updateVisibility);
+		}
+
+		updateFromSelect();
+
+		const inputs = container.querySelectorAll('.prismleaf-palette-role-custom-input');
+		if (window.jQuery && window.jQuery.fn && window.jQuery.fn.wpColorPicker) {
+			window.jQuery(inputs).each((index, input) => {
+				if ('true' === input.dataset.prismleafColorPicker) {
+					return;
+				}
+
+				const settingId = input.getAttribute('data-customize-setting-link');
+				const setting = settingId && api.has(settingId) ? api(settingId) : null;
+				let isInternal = false;
+
+				const setSettingValue = (value) => {
+					if (!setting || isInternal) {
+						return;
+					}
+
+					isInternal = true;
+					setting.set(value);
+					isInternal = false;
+				};
+
+				window.jQuery(input).wpColorPicker({
+					change: function (event, ui) {
+						if (ui && ui.color) {
+							setSettingValue(ui.color.toString());
+						}
+					},
+					clear: function () {
+						setSettingValue('');
+					},
+				});
+
+				input.dataset.prismleafColorPicker = 'true';
+			});
+		}
+	};
+
+	/**
+	 * Initialize all palette role controls.
+	 */
+	const initPaletteRoleControls = () => {
+		document
+			.querySelectorAll('.prismleaf-palette-role-control')
+			.forEach(initPaletteRoleControl);
+	};
+
 	api.bind('ready', () => {
 		// Brand roles.
 		const roles = [
@@ -284,14 +362,6 @@
 			);
 		});
 
-		// Site metadata title/tagline.
-		bindLightDarkPair(
-			'prismleaf_site_metadata_title_color_light',
-			'prismleaf_site_metadata_title_color_dark'
-		);
-		bindLightDarkPair(
-			'prismleaf_site_metadata_tagline_color_light',
-			'prismleaf_site_metadata_tagline_color_dark'
-		);
+		initPaletteRoleControls();
 	});
 })(window.wp && window.wp.customize);

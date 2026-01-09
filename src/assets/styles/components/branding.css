@@ -17,10 +17,10 @@
 	--prismleaf-color-light-site-description: var(--prismleaf-color-on-surface-muted);
 
 	/* Dark palette: hyperlink titles. */
-	--prismleaf-color-dark-title-link: var(--prismleaf-color-dark-primary);
-	--prismleaf-color-dark-title-link-hover: var(--prismleaf-color-dark-primary-darker);
-	--prismleaf-color-dark-title-link-active: var(--prismleaf-color-dark-primary-darkest);
-	--prismleaf-color-dark-title-link-visited: var(--prismleaf-color-dark-primary-darker);
+	--prismleaf-color-dark-title-link: var(--prismleaf-color-primary);
+	--prismleaf-color-dark-title-link-hover: var(--prismleaf-color-primary-darker);
+	--prismleaf-color-dark-title-link-active: var(--prismleaf-color-primary-darkest);
+	--prismleaf-color-dark-title-link-visited: var(--prismleaf-color-primary-darker);
 	--prismleaf-color-dark-site-description: var(--prismleaf-color-dark-on-surface-muted);
 
 	/* Active palette: hyperlink titles. */
@@ -126,6 +126,7 @@
 
 .prismleaf-site-title a:hover {
 	color: var(--prismleaf-color-title-link-hover);
+	text-decoration: none;
 }
 
 .prismleaf-site-title a:active {

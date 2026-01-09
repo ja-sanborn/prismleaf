@@ -113,25 +113,49 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		wp_style_add_data( 'prismleaf-base', 'rtl', 'replace' );
 
 		prismleaf_enqueue_style(
-			'prismleaf-layout',
-			'assets/styles/core/layout.css',
+			'prismleaf-frame',
+			'assets/styles/core/frame.css',
 			array( 'prismleaf-base' ),
 			PRISMLEAF_VERSION
 		);
-		wp_style_add_data( 'prismleaf-layout', 'rtl', 'replace' );
+		wp_style_add_data( 'prismleaf-frame', 'rtl', 'replace' );
 
 		prismleaf_enqueue_style(
-			'prismleaf-regions',
-			'assets/styles/core/regions.css',
-			array( 'prismleaf-layout' ),
+			'prismleaf-header',
+			'assets/styles/core/header.css',
+			array( 'prismleaf-frame' ),
 			PRISMLEAF_VERSION
 		);
-		wp_style_add_data( 'prismleaf-regions', 'rtl', 'replace' );
+		wp_style_add_data( 'prismleaf-header', 'rtl', 'replace' );
+
+		prismleaf_enqueue_style(
+			'prismleaf-footer',
+			'assets/styles/core/footer.css',
+			array( 'prismleaf-frame' ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-footer', 'rtl', 'replace' );
+
+		prismleaf_enqueue_style(
+			'prismleaf-sidebar-left',
+			'assets/styles/core/sidebar-left.css',
+			array( 'prismleaf-frame' ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-sidebar-left', 'rtl', 'replace' );
+
+		prismleaf_enqueue_style(
+			'prismleaf-sidebar-right',
+			'assets/styles/core/sidebar-right.css',
+			array( 'prismleaf-frame' ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-sidebar-right', 'rtl', 'replace' );
 
 		prismleaf_enqueue_style(
 			'prismleaf-branding',
 			'assets/styles/components/branding.css',
-			array( 'prismleaf-regions' ),
+			array( 'prismleaf-header' ),
 			PRISMLEAF_VERSION
 		);
 		wp_style_add_data( 'prismleaf-branding', 'rtl', 'replace' );
@@ -139,18 +163,10 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		prismleaf_enqueue_style(
 			'prismleaf-site-icon',
 			'assets/styles/components/site-icon.css',
-			array( 'prismleaf-regions' ),
+			array( 'prismleaf-header' ),
 			PRISMLEAF_VERSION
 		);
 		wp_style_add_data( 'prismleaf-site-icon', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-header',
-			'assets/styles/components/header.css',
-			array( 'prismleaf-regions' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-header', 'rtl', 'replace' );
 
 		prismleaf_enqueue_style(
 			'prismleaf-primary-menu',
@@ -179,7 +195,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		prismleaf_enqueue_style(
 			'prismleaf-theme-switch',
 			'assets/styles/components/theme-switch.css',
-			array( 'prismleaf-regions' ),
+			array( 'prismleaf-header' ),
 			PRISMLEAF_VERSION
 		);
 		wp_style_add_data( 'prismleaf-theme-switch', 'rtl', 'replace' );
@@ -187,7 +203,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		prismleaf_enqueue_style(
 			'prismleaf-search',
 			'assets/styles/components/search.css',
-			array( 'prismleaf-regions' ),
+			array( 'prismleaf-header' ),
 			PRISMLEAF_VERSION
 		);
 		wp_style_add_data( 'prismleaf-search', 'rtl', 'replace' );
@@ -242,6 +258,16 @@ if ( ! function_exists( 'prismleaf_enqueue_scripts' ) ) {
 			PRISMLEAF_VERSION,
 			true
 		);
+
+		if ( is_customize_preview() ) {
+			wp_enqueue_script(
+				'prismleaf-customizer-preview',
+				PRISMLEAF_URI . 'assets/scripts/customizer-preview.js',
+				array( 'customize-preview' ),
+				PRISMLEAF_VERSION,
+				true
+			);
+		}
 
 		$force_light = prismleaf_get_theme_mod_bool( 'prismleaf_brand_force_light', false );
 

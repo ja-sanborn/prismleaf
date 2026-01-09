@@ -218,6 +218,7 @@ a:visited {
 /* Provide a hover state that does not rely on underline alone. */
 a:hover {
 	color: var(--prismleaf-color-link-hover);
+	text-decoration: underline;
 }
 
 /* Provide an active state for pointer/touch interactions. */
