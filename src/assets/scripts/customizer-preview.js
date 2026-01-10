@@ -24,4 +24,3 @@
 
 	api.bind('ready', initBindings);
 })(window.wp && window.wp.customize);
-

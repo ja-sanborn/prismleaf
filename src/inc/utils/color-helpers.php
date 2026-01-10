@@ -584,4 +584,3 @@ if ( ! function_exists( 'prismleaf_build_palette_json_from_base' ) ) {
 		return wp_json_encode( $clean );
 	}
 }
-

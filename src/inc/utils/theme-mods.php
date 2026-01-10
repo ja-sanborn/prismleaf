@@ -69,4 +69,3 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_palette_json' ) ) {
 		return is_string( $value ) ? $value : '';
 	}
 }
-

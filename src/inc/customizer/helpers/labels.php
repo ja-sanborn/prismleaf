@@ -59,18 +59,18 @@ if ( ! function_exists( 'prismleaf_get_palette_label_map' ) ) {
 	 */
 	function prismleaf_get_palette_label_map() {
 		return array(
-			'on'           => __( 'On', 'prismleaf' ),
-			'1'            => __( 'Tone 1', 'prismleaf' ),
-			'2'            => __( 'Tone 2', 'prismleaf' ),
-			'3'            => __( 'Tone 3', 'prismleaf' ),
-			'4'            => __( 'Tone 4', 'prismleaf' ),
-			'5'            => __( 'Tone 5', 'prismleaf' ),
-			'container_on' => __( 'On Container', 'prismleaf' ),
-			'container_1'  => __( 'Container 1', 'prismleaf' ),
-			'container_2'  => __( 'Container 2', 'prismleaf' ),
-			'container_3'  => __( 'Container 3', 'prismleaf' ),
-			'container_4'  => __( 'Container 4', 'prismleaf' ),
-			'container_5'  => __( 'Container 5', 'prismleaf' ),
+			'1'            => __( 'Shade 1', 'prismleaf' ),
+			'2'            => __( 'Shade 2', 'prismleaf' ),
+			'3'            => __( 'Shade 3', 'prismleaf' ),
+			'4'            => __( 'Shade 4', 'prismleaf' ),
+			'5'            => __( 'Shade 5', 'prismleaf' ),
+			'on'           => __( 'Shade Text', 'prismleaf' ),
+			'container_1'  => __( 'Variant 1', 'prismleaf' ),
+			'container_2'  => __( 'Variant 2', 'prismleaf' ),
+			'container_3'  => __( 'Variant 3', 'prismleaf' ),
+			'container_4'  => __( 'Variant 4', 'prismleaf' ),
+			'container_5'  => __( 'Variant 5', 'prismleaf' ),
+			'container_on' => __( 'Variant Text', 'prismleaf' ),
 		);
 	}
 }
@@ -89,4 +89,3 @@ if ( ! function_exists( 'prismleaf_get_palette_preview_labels' ) ) {
 		return prismleaf_build_preview_labels( $keys, prismleaf_get_palette_label_map() );
 	}
 }
-

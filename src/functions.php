@@ -27,7 +27,7 @@ require_once PRISMLEAF_DIR . 'inc/customizer/helpers/labels.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/helpers/customizer.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/helpers/active-callbacks.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/palette-options.php';
-require_once PRISMLEAF_DIR . 'inc/customizer/sections/global-options.php';
+require_once PRISMLEAF_DIR . 'inc/customizer/sections/frame-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/header-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/footer-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/sidebar-options.php';
