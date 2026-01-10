@@ -185,6 +185,57 @@ if ( ! function_exists( 'prismleaf_sanitize_palette_json' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_sanitize_palette_json_from_base' ) ) {
+	/**
+	 * Sanitize palette JSON, falling back to a computed palette from the base color.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed                $value   Palette JSON value to sanitize.
+	 * @param WP_Customize_Setting $setting Setting context.
+	 * @return string
+	 */
+	function prismleaf_sanitize_palette_json_from_base( $value, $setting ) {
+		if ( ! ( $setting instanceof WP_Customize_Setting ) ) {
+			return '';
+		}
+
+		$setting_id = (string) $setting->id;
+		if ( '' === $setting_id || ! function_exists( 'prismleaf_build_palette_json_from_base' ) ) {
+			return '';
+		}
+
+		$suffix = '_values';
+		if ( strlen( $setting_id ) <= strlen( $suffix ) || substr( $setting_id, -strlen( $suffix ) ) !== $suffix ) {
+			return '';
+		}
+
+		$base_id = substr( $setting_id, 0, -strlen( $suffix ) ) . '_base';
+		if ( ! $setting->manager ) {
+			return '';
+		}
+
+		$base_setting = $setting->manager->get_setting( $base_id );
+		if ( ! $base_setting ) {
+			return '';
+		}
+
+		$base_value = $base_setting->post_value();
+		if ( null === $base_value ) {
+			$base_value = $base_setting->value();
+		}
+
+		$base_hex = sanitize_hex_color( $base_value );
+		if ( $base_hex ) {
+			$computed = prismleaf_build_palette_json_from_base( $base_hex );
+			return is_string( $computed ) ? $computed : '';
+		}
+
+		$clean = prismleaf_sanitize_palette_json( $value );
+		return $clean;
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_json' ) ) {
 	/**
 	 * Sanitize JSON with an expected key list.

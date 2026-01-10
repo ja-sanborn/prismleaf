@@ -35,7 +35,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 			$wp_customize,
 			array(
 				'setting_id' => 'prismleaf_sidebar_heading_layout',
-				'label'      => __( 'Layout', 'prismleaf' ),
+				'label'      => __( 'Sidebar Layout', 'prismleaf' ),
 				'section'    => 'prismleaf_sidebar_options',
 				'priority'   => 1000,
 			)
@@ -54,6 +54,16 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 			)
 		);
 
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_sidebar_heading_primary_layout',
+				'label'      => __( 'Primary Layout', 'prismleaf' ),
+				'section'    => 'prismleaf_sidebar_options',
+				'priority'   => 2000,
+			)
+		);
+
 		prismleaf_add_checkbox_control(
 			$wp_customize,
 			array(
@@ -61,7 +71,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'          => 'prismleaf_sidebar_options',
 				'label'            => __( 'Show primary sidebar', 'prismleaf' ),
 				'description'      => __( 'Controls whether the primary sidebar is displayed.', 'prismleaf' ),
-				'priority'         => 1020,
+				'priority'         => 2010,
 				'default_key'      => 'sidebar_primary_show',
 				'default_fallback' => true,
 			)
@@ -74,16 +84,10 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'          => 'prismleaf_sidebar_options',
 				'label'            => __( 'Contain primary sidebar', 'prismleaf' ),
 				'description'      => __( 'When enabled, the primary sidebar is rendered inside the inner frame.', 'prismleaf' ),
-				'priority'         => 1030,
+				'priority'         => 2020,
 				'default_key'      => 'sidebar_primary_contained',
 				'default_fallback' => true,
-				'active_callback'  => function () {
-					if ( ! prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_primary_show', true ) ) {
-						return false;
-					}
-
-					return ! prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
-				},
+				'active_callback'  => 'prismleaf_is_sidebar_primary_layout_control_active',
 			)
 		);
 
@@ -94,20 +98,20 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'          => 'prismleaf_sidebar_options',
 				'label'            => __( 'Floating primary sidebar', 'prismleaf' ),
 				'description'      => __( 'When disabled, the primary sidebar stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
-				'priority'         => 1040,
+				'priority'         => 2030,
 				'default_key'      => 'sidebar_primary_floating',
 				'default_fallback' => true,
-				'active_callback'  => function () {
-					if ( ! prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_primary_show', true ) ) {
-						return false;
-					}
+				'active_callback'  => 'prismleaf_is_sidebar_primary_layout_control_active',
+			)
+		);
 
-					if ( prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false ) ) {
-						return false;
-					}
-
-					return ! prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_primary_contained', true );
-				},
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_sidebar_heading_secondary_layout',
+				'label'      => __( 'Secondary Layout', 'prismleaf' ),
+				'section'    => 'prismleaf_sidebar_options',
+				'priority'   => 3000,
 			)
 		);
 
@@ -118,7 +122,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'          => 'prismleaf_sidebar_options',
 				'label'            => __( 'Show secondary sidebar', 'prismleaf' ),
 				'description'      => __( 'Controls whether the secondary sidebar is displayed.', 'prismleaf' ),
-				'priority'         => 1050,
+				'priority'         => 3010,
 				'default_key'      => 'sidebar_secondary_show',
 				'default_fallback' => true,
 			)
@@ -131,16 +135,10 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'          => 'prismleaf_sidebar_options',
 				'label'            => __( 'Contain secondary sidebar', 'prismleaf' ),
 				'description'      => __( 'When enabled, the secondary sidebar is rendered inside the inner frame.', 'prismleaf' ),
-				'priority'         => 1060,
+				'priority'         => 3020,
 				'default_key'      => 'sidebar_secondary_contained',
 				'default_fallback' => true,
-				'active_callback'  => function () {
-					if ( ! prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_show', true ) ) {
-						return false;
-					}
-
-					return ! prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
-				},
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_layout_control_active',
 			)
 		);
 
@@ -151,20 +149,10 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'          => 'prismleaf_sidebar_options',
 				'label'            => __( 'Floating secondary sidebar', 'prismleaf' ),
 				'description'      => __( 'When disabled, the secondary sidebar stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
-				'priority'         => 1070,
+				'priority'         => 3030,
 				'default_key'      => 'sidebar_secondary_floating',
 				'default_fallback' => true,
-				'active_callback'  => function () {
-					if ( ! prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_show', true ) ) {
-						return false;
-					}
-
-					if ( prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false ) ) {
-						return false;
-					}
-
-					return ! prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_contained', true );
-				},
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_layout_control_active',
 			)
 		);
 	}

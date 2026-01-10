@@ -9,6 +9,35 @@
 		return;
 	}
 
+	const $ = window.jQuery;
+
+
+	const initColorPicker = (input, onChange) => {
+		if (!input || !$ || !$.fn || !$.fn.wpColorPicker) {
+			return;
+		}
+
+		const $input = $(input);
+		if ($input.data('prismleafColorPicker')) {
+			return;
+		}
+
+		$input.wpColorPicker({
+			change: (event, ui) => {
+				if (typeof onChange === 'function') {
+					const color = ui && ui.color ? ui.color.toString() : '';
+					onChange(color);
+				}
+			},
+			clear: () => {
+				if (typeof onChange === 'function') {
+					onChange('');
+				}
+			},
+		});
+		$input.data('prismleafColorPicker', true);
+	};
+
 	const parseJson = (raw) => {
 		if (!raw) {
 			return null;
@@ -92,6 +121,19 @@
 		renderGrid(container, values, labels, classes);
 	};
 
+	const renderGridFromValues = (container, values, labels, classes) => {
+		if (!container || !values) {
+			if (container) {
+				container.hidden = true;
+				container.innerHTML = '';
+			}
+			return;
+		}
+
+		container.hidden = false;
+		renderGrid(container, values, labels, classes);
+	};
+
 	const createGridUpdater = (options) => {
 		if (!options) {
 			return () => {};
@@ -138,9 +180,21 @@
 	};
 
 	const initControl = (control) => {
+		const helpers = window.PrismleafCustomizerHelpers || {};
+		if (typeof helpers.buildPaletteJsonFromBase !== 'function') {
+			return;
+		}
+
+		const baseSetting = (control.settings && control.settings.default) ? control.settings.default : control.setting;
+		const paletteSetting = (control.settings && control.settings.palette) ? control.settings.palette : null;
+		if (!baseSetting) {
+			return;
+		}
+
 		const grid = control.container.find('.prismleaf-preview-grid')[0];
+		const input = control.container.find('.prismleaf-palette-preview-input')[0];
 		const labels = control.params.paletteLabels || {};
-		const paletteSettingId = control.params.paletteSetting;
+		const paletteSettingId = paletteSetting ? paletteSetting.id : control.params.paletteSetting;
 
 		const updateGrid = initGridControl({
 			settingId: paletteSettingId,
@@ -151,15 +205,59 @@
 				swatchClass: 'prismleaf-preview-swatch',
 				labelClass: 'prismleaf-preview-label',
 			},
-			isActive: () => !!control.setting.get(),
+			isActive: () => !!baseSetting.get(),
 			bindings: [
 				{ id: paletteSettingId },
 			],
 		});
 
-		control.setting.bind(updateGrid);
+		const updatePaletteSetting = () => {
+			const baseValue = baseSetting.get();
+			const paletteJson = helpers.buildPaletteJsonFromBase(baseValue);
 
-		updateGrid();
+			if (paletteSetting) {
+				paletteSetting.set(paletteJson);
+			}
+
+			return paletteJson;
+		};
+
+		const updateFromPicker = (valueOverride) => {
+			if (!input) {
+				updatePaletteAndGrid();
+				return;
+			}
+
+			const value = (valueOverride || input.value || '').trim();
+			baseSetting.set(value);
+			updatePaletteAndGrid();
+		};
+
+		const updatePaletteAndGrid = () => {
+			const paletteJson = updatePaletteSetting();
+			const paletteValues = paletteJson ? parseJson(paletteJson) : null;
+
+			if (!paletteValues) {
+				renderGridFromValues(grid, null, labels, {
+					rowClass: 'prismleaf-preview-row',
+					swatchClass: 'prismleaf-preview-swatch',
+					labelClass: 'prismleaf-preview-label',
+				});
+				return;
+			}
+
+			renderGridFromValues(grid, paletteValues, labels, {
+				rowClass: 'prismleaf-preview-row',
+				swatchClass: 'prismleaf-preview-swatch',
+				labelClass: 'prismleaf-preview-label',
+			});
+		};
+
+		baseSetting.bind(updatePaletteAndGrid);
+
+		initColorPicker(input, updateFromPicker);
+
+		updatePaletteAndGrid();
 	};
 
 	api.bind('ready', () => {

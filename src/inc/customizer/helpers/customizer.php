@@ -293,7 +293,7 @@ if ( ! function_exists( 'prismleaf_add_palette_preview_control' ) ) {
 			$args['palette_setting_id'],
 			array(
 				'default'           => $args['palette_default'],
-				'sanitize_callback' => 'prismleaf_sanitize_palette_json',
+				'sanitize_callback' => 'prismleaf_sanitize_palette_json_from_base',
 				'transport'         => $args['transport'],
 			)
 		);

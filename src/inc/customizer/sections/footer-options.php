@@ -64,13 +64,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'priority'         => 1020,
 				'default_key'      => 'footer_contained',
 				'default_fallback' => true,
-				'active_callback'  => function () {
-					if ( ! prismleaf_get_theme_mod_bool( 'prismleaf_footer_show', true ) ) {
-						return false;
-					}
-
-					return ! prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
-				},
+				'active_callback'  => 'prismleaf_is_footer_layout_control_active',
 			)
 		);
 
@@ -84,17 +78,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'priority'         => 1030,
 				'default_key'      => 'footer_floating',
 				'default_fallback' => true,
-				'active_callback'  => function () {
-					if ( ! prismleaf_get_theme_mod_bool( 'prismleaf_footer_show', true ) ) {
-						return false;
-					}
-
-					if ( prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false ) ) {
-						return false;
-					}
-
-					return ! prismleaf_get_theme_mod_bool( 'prismleaf_footer_contained', true );
-				},
+				'active_callback'  => 'prismleaf_is_footer_layout_control_active',
 			)
 		);
 	}

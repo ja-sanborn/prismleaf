@@ -239,7 +239,7 @@
 @media (max-width: 768px) {
 	/* Ensures the frame is responsive for mobile. */
 	.prismleaf-frame {
-		margin-bottom: var(--prismleaf-space-1);
+		padding: var(--prismleaf-space-2);
 		height: auto;
 		min-height: 0;
 		max-height: none;
@@ -247,6 +247,9 @@
 
 	.prismleaf-frame,
 	.prismleaf-frame-inner {
+		box-sizing: border-box;
+		inline-size: auto;
+		max-inline-size: 100%;
 		grid-template-areas:
 			"header"
 			"content"
@@ -267,16 +270,17 @@
 		max-width: none;
 	}
 
-	/* Full-width regions with adjusted spacing for mobile. */
-	.prismleaf-region-sidebar-left,
-	.prismleaf-region-sidebar-right {
-		inline-size: 100%;
+	.prismleaf-frame-main {
+		margin: 0;
 	}
+
+	/* Full-width regions with adjusted spacing for mobile. */
 	.prismleaf-region {
-		inline-size: calc(100% - (var(--prismleaf-space-1) * 2));
-		margin-left: var(--prismleaf-space-1);
-		margin-right: var(--prismleaf-space-1);
-		margin-top: var(--prismleaf-space-1);
+		box-sizing: border-box;
+		inline-size: 100%;
+		max-inline-size: 100%;
+		margin: 0;
+		margin-top: var(--prismleaf-space-2);
 		padding: var(--prismleaf-space-1);
 		border-radius: var(--prismleaf-radius-small);
 		border-width: var(--prismleaf-border-width-thin);
