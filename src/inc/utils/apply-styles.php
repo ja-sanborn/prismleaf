@@ -46,6 +46,11 @@ if ( ! function_exists( 'prismleaf_get_customizer_css_vars' ) ) {
 		$css .= prismleaf_get_palette_override_css_vars();
 		$css .= prismleaf_get_neutral_palette_override_css_vars();
 		$css .= prismleaf_get_framed_css_vars();
+		$css .= prismleaf_get_header_css_vars();
+		$css .= prismleaf_get_footer_css_vars();
+		$css .= prismleaf_get_sidebar_primary_css_vars();
+		$css .= prismleaf_get_sidebar_secondary_css_vars();
+		$css .= prismleaf_get_content_css_vars();
 
 		return $css;
 	}
@@ -67,6 +72,10 @@ if ( ! function_exists( 'prismleaf_build_css_var' ) ) {
 
 		if ( '' === $name || '' === $value ) {
 			return '';
+		}
+
+		if ( 0 === strpos( $value, '--' ) ) {
+			$value = 'var(' . $value . ')';
 		}
 
 		return $name . ':' . $value . ';';
@@ -400,180 +409,200 @@ if ( ! function_exists( 'prismleaf_get_framed_css_vars' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_framed_css_vars() {
-		$is_framed                   = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
-		$frame_max_width             = prismleaf_get_theme_mod_string( 'prismleaf_frame_max_width', prismleaf_get_default_option( 'frame_max_width', '1480' ) );
-		$frame_show_background        = prismleaf_get_theme_mod_bool( 'prismleaf_frame_show_background', true );
-		$frame_elevation             = prismleaf_get_theme_mod_string( 'prismleaf_frame_elevation', prismleaf_get_default_option( 'frame_elevation', 'elevation-1' ) );
-		$frame_border_corners        = prismleaf_get_theme_mod_string( 'prismleaf_frame_border_corners', prismleaf_get_default_option( 'frame_border_corners', 'Round' ) );
-		$frame_border_style          = prismleaf_get_theme_mod_string( 'prismleaf_frame_border_style', prismleaf_get_default_option( 'frame_border_style', 'solid' ) );
-		$header_floating             = prismleaf_get_theme_mod_bool( 'prismleaf_header_floating', true );
-		$header_contained            = prismleaf_get_theme_mod_bool( 'prismleaf_header_contained', true );
-		$footer_floating             = prismleaf_get_theme_mod_bool( 'prismleaf_footer_floating', true );
-		$footer_contained            = prismleaf_get_theme_mod_bool( 'prismleaf_footer_contained', true );
-		$sidebar_primary_floating    = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_primary_floating', true );
-		$sidebar_primary_contained   = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_primary_contained', true );
-		$sidebar_secondary_floating  = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_floating', true );
-		$sidebar_secondary_contained = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_contained', true );
+		$is_framed       = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		$max_width       = prismleaf_get_theme_mod_size_value( 'prismleaf_frame_max_width', 'frame_max_width', '1480' );
+		$show_background = prismleaf_get_theme_mod_bool( 'prismleaf_frame_show_background', true );
+		$surface         = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_frame_background_color_palette', '1', '--prismleaf-color-surface-1' );
+		$border_color    = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_frame_border_color_palette', 'outline', '--prismleaf-color-outline' );
+		$border_radius   = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_frame_border_corners', 'frame_border_corners', 'Round' );
+		$border_style    = prismleaf_get_theme_mod_border_style_value( 'prismleaf_frame_border_style', 'frame_border_style', 'solid' );
+		$elevation       = prismleaf_get_theme_mod_elevation_value( 'prismleaf_frame_elevation', 'frame_elevation', 'elevation-1' );
 
-		$frame_values = array(
-			'view_height'     => $is_framed ? 'var(--prismleaf-max-view-height)' : 'auto',
-			'border_radius'   => $is_framed ? '0' : 'var(--prismleaf-radius-medium)',
-			'border_style'    => $is_framed ? 'none' : 'var(--prismleaf-border-style)',
-			'elevation'       => $is_framed ? 'none' : 'var(--prismleaf-shadow-elevation-1)',
-			'gap'             => $is_framed ? '0' : 'var(--prismleaf-space-2)',
-			'overflow'        => $is_framed ? 'hidden' : 'auto',
-			'stretch'         => $is_framed ? 'stretch' : 'start',
-			'surface'         => $is_framed ? 'transparent' : 'var(--prismleaf-color-surface-1)',
-			'border_color'    => 'var(--prismleaf-color-outline)',
-			'region_overflow' => $is_framed ? 'auto' : 'hidden',
-		);
+		$view_height     = $is_framed ? '--prismleaf-max-view-height' : 'auto';
+		$gap             = $is_framed ? '0' : '--prismleaf-space-2';
+		$overflow        = $is_framed ? 'hidden' : 'auto';
+		$stretch         = $is_framed ? 'stretch' : 'start';
+		$region_overflow = $is_framed ? 'auto' : 'hidden';
 
-		$resolve_palette_value = static function ( $value ) {
-			if ( ! is_string( $value ) || '' === $value ) {
-				return '';
-			}
-
-			return ( 0 === strpos( $value, '--prismleaf-color-' ) ) ? 'var(' . $value . ')' : $value;
-		};
-
-		$resolve_elevation = static function ( $value ) {
-			if ( ! is_string( $value ) ) {
-				return 'var(--prismleaf-shadow-elevation-1)';
-			}
-
-			$value = strtolower( trim( $value ) );
-			if ( '' === $value || 'none' === $value ) {
-				return 'none';
-			}
-
-			if ( preg_match( '/^elevation-([1-5])$/', $value, $matches ) ) {
-				return 'var(--prismleaf-shadow-elevation-' . $matches[1] . ')';
-			}
-
-			return 'var(--prismleaf-shadow-elevation-1)';
-		};
-
-		$region_presets = array(
-			'framed' => array(
-				'border_radius' => '0',
-				'border_style'  => 'none',
-				'elevation'     => 'none',
-				'margin'        => '0',
-				'surface'       => 'var(--prismleaf-color-surface-1)',
-			),
-			'default' => array(
-				'border_radius' => 'var(--prismleaf-radius-medium)',
-				'border_style'  => 'var(--prismleaf-border-style)',
-				'elevation'     => 'var(--prismleaf-shadow-elevation-2)',
-				'margin'        => 'var(--prismleaf-space-2)',
-				'surface'       => 'var(--prismleaf-color-surface-2)',
-			),
-		);
-
-		$region_conditions = array(
-			'header' => array(
-				'contained'  => $header_contained,
-				'floating'   => $header_floating,
-				'use_framed' => $is_framed || ( ! $header_contained && ! $header_floating ),
-			),
-			'footer' => array(
-				'contained'  => $footer_contained,
-				'floating'   => $footer_floating,
-				'use_framed' => $is_framed || ( ! $footer_contained && ! $footer_floating ),
-			),
-			'sidebar_left' => array(
-				'contained'  => $sidebar_primary_contained,
-				'floating'   => $sidebar_primary_floating,
-				'use_framed' => $is_framed || ( ! $sidebar_primary_contained && ! $sidebar_primary_floating ),
-			),
-			'sidebar_right' => array(
-				'contained'  => $sidebar_secondary_contained,
-				'floating'   => $sidebar_secondary_floating,
-				'use_framed' => $is_framed || ( ! $sidebar_secondary_contained && ! $sidebar_secondary_floating ),
-			),
-		);
-
-		$regions = array();
-		foreach ( $region_conditions as $region_id => $conditions ) {
-			$preset                = $conditions['use_framed'] ? 'framed' : 'default';
-			$regions[ $region_id ] = $region_presets[ $preset ];
-
-			if ( ! $is_framed && ! $conditions['use_framed'] && $conditions['contained'] ) {
-				$regions[ $region_id ]['margin'] = $conditions['floating'] ? 'var(--prismleaf-space-2)' : '0';
-			}
+		if ( $is_framed || ! $show_background ) {
+			$surface = 'transparent';
+			$border_radius = '0';
+			$border_style = 'none';
+			$elevation = 'none';
+			$border_color = 'transparent';
 		}
 
 		$css = '';
-		if ( '' !== $frame_max_width && is_numeric( $frame_max_width ) ) {
-			$css .= prismleaf_build_css_var( '--prismleaf-content-max', (string) (int) $frame_max_width . 'px' );
+		$css .= prismleaf_build_css_var( '--prismleaf-content-max', $max_width );
+		$css .= prismleaf_build_css_var( '--prismleaf-view-height', $view_height );
+		$css .= prismleaf_build_css_var( '--prismleaf-region-overflow', $region_overflow );
+		$css .= prismleaf_build_css_var( '--prismleaf-frame-gap', $gap );
+		$css .= prismleaf_build_css_var( '--prismleaf-frame-overflow', $overflow );
+		$css .= prismleaf_build_css_var( '--prismleaf-frame-stretch', $stretch );
+
+		$css .= prismleaf_build_css_var( '--prismleaf-frame-background-color', $surface );
+		$css .= prismleaf_build_css_var( '--prismleaf-frame-border-color', $border_color );
+		$css .= prismleaf_build_css_var( '--prismleaf-frame-border-radius', $border_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-frame-border-style', $border_style );
+		$css .= prismleaf_build_css_var( '--prismleaf-frame-elevation', $elevation );
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_header_css_vars' ) ) {
+	/**
+	 * Build CSS variables for header layout settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_header_css_vars() {
+		$is_framed        = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		$header_floating  = prismleaf_get_theme_mod_bool( 'prismleaf_header_floating', true );
+		$header_contained = prismleaf_get_theme_mod_bool( 'prismleaf_header_contained', true );
+		$use_framed       = $is_framed || ( ! $header_contained && ! $header_floating );
+		$surface          = $use_framed ? '--prismleaf-color-surface-1' : '--prismleaf-color-surface-2';
+		$border_radius    = $use_framed ? '0' : '--prismleaf-radius-medium';
+		$border_style     = $use_framed ? 'none' : '--prismleaf-border-style';
+		$elevation        = $use_framed ? 'none' : '--prismleaf-shadow-elevation-2';
+		$margin           = $use_framed ? '0' : '--prismleaf-space-2';
+
+		if ( ! $use_framed && $header_contained ) {
+			$margin = $header_floating ? '--prismleaf-space-2' : '0';
 		}
 
-		if ( ! $is_framed && ! $frame_show_background ) {
-			$frame_values['surface'] = 'transparent';
-			$frame_values['border_radius'] = '0';
-			$frame_values['border_style'] = 'none';
-			$frame_values['elevation'] = 'none';
-			$frame_values['border_color'] = 'transparent';
-		} elseif ( ! $is_framed && $frame_show_background ) {
-			$frame_values['border_radius'] = ( 'Square' === $frame_border_corners ) ? '0' : 'var(--prismleaf-radius-medium)';
-			$frame_values['border_style'] = $frame_border_style ? $frame_border_style : 'solid';
-			$frame_values['elevation'] = $resolve_elevation( $frame_elevation );
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-header-background-color', $surface );
+		$css .= prismleaf_build_css_var( '--prismleaf-header-border-radius', $border_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-header-border-style', $border_style );
+		$css .= prismleaf_build_css_var( '--prismleaf-header-elevation', $elevation );
+		$css .= prismleaf_build_css_var( '--prismleaf-header-margin', $margin );
 
-			$background_palette = get_theme_mod( 'prismleaf_frame_background_color_palette', '' );
-			$background_palette = prismleaf_sanitize_palette_source_json( $background_palette );
-			$background_values = prismleaf_decode_json_with_keys( $background_palette, prismleaf_get_palette_keys() );
-			$background_value = ( is_array( $background_values ) && isset( $background_values['1'] ) ) ? $background_values['1'] : '';
-			$background_value = $resolve_palette_value( $background_value );
-			$frame_values['surface'] = $background_value ? $background_value : 'var(--prismleaf-color-surface-1)';
+		return $css;
+	}
+}
 
-			$border_palette = get_theme_mod( 'prismleaf_frame_border_color_palette', '' );
-			$border_palette = prismleaf_sanitize_palette_source_json( $border_palette );
-			$border_values = prismleaf_decode_json_with_keys( $border_palette, prismleaf_get_palette_keys() );
-			$outline_value = ( is_array( $border_values ) && isset( $border_values['outline'] ) ) ? $border_values['outline'] : '';
-			$outline_value = $resolve_palette_value( $outline_value );
-			$frame_values['border_color'] = $outline_value ? $outline_value : $frame_values['border_color'];
+if ( ! function_exists( 'prismleaf_get_footer_css_vars' ) ) {
+	/**
+	 * Build CSS variables for footer layout settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_footer_css_vars() {
+		$is_framed        = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		$footer_floating  = prismleaf_get_theme_mod_bool( 'prismleaf_footer_floating', true );
+		$footer_contained = prismleaf_get_theme_mod_bool( 'prismleaf_footer_contained', true );
+		$use_framed       = $is_framed || ( ! $footer_contained && ! $footer_floating );
+		$surface          = $use_framed ? '--prismleaf-color-surface-1' : '--prismleaf-color-surface-2';
+		$border_radius    = $use_framed ? '0' : '--prismleaf-radius-medium';
+		$border_style     = $use_framed ? 'none' : '--prismleaf-border-style';
+		$elevation        = $use_framed ? 'none' : '--prismleaf-shadow-elevation-2';
+		$margin           = $use_framed ? '0' : '--prismleaf-space-2';
+
+		if ( ! $use_framed && $footer_contained ) {
+			$margin = $footer_floating ? '--prismleaf-space-2' : '0';
 		}
 
-		$css .= prismleaf_build_css_var( '--prismleaf-view-height', $frame_values['view_height'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-region-overflow', $frame_values['region_overflow'] );
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-footer-background-color', $surface );
+		$css .= prismleaf_build_css_var( '--prismleaf-footer-border-radius', $border_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-footer-border-style', $border_style );
+		$css .= prismleaf_build_css_var( '--prismleaf-footer-elevation', $elevation );
+		$css .= prismleaf_build_css_var( '--prismleaf-footer-margin', $margin );
 
-		$css .= prismleaf_build_css_var( '--prismleaf-frame-background-color', $frame_values['surface'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-frame-border-color', $frame_values['border_color'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-frame-border-radius', $frame_values['border_radius'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-frame-border-style', $frame_values['border_style'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-frame-elevation', $frame_values['elevation'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-frame-gap', $frame_values['gap'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-frame-overflow', $frame_values['overflow'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-frame-stretch', $frame_values['stretch'] );
+		return $css;
+	}
+}
 
-		$css .= prismleaf_build_css_var( '--prismleaf-footer-background-color', $regions['footer']['surface'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-footer-border-radius', $regions['footer']['border_radius'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-footer-border-style', $regions['footer']['border_style'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-footer-elevation', $regions['footer']['elevation'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-footer-margin', $regions['footer']['margin'] );
+if ( ! function_exists( 'prismleaf_get_sidebar_primary_css_vars' ) ) {
+	/**
+	 * Build CSS variables for the primary sidebar layout settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_sidebar_primary_css_vars() {
+		$is_framed                = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		$sidebar_primary_floating = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_primary_floating', true );
+		$sidebar_primary_contained = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_primary_contained', true );
+		$use_framed               = $is_framed || ( ! $sidebar_primary_contained && ! $sidebar_primary_floating );
+		$surface                  = $use_framed ? '--prismleaf-color-surface-1' : '--prismleaf-color-surface-2';
+		$border_radius            = $use_framed ? '0' : '--prismleaf-radius-medium';
+		$border_style             = $use_framed ? 'none' : '--prismleaf-border-style';
+		$elevation                = $use_framed ? 'none' : '--prismleaf-shadow-elevation-2';
+		$margin                   = $use_framed ? '0' : '--prismleaf-space-2';
 
-		$css .= prismleaf_build_css_var( '--prismleaf-header-background-color', $regions['header']['surface'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-header-border-radius', $regions['header']['border_radius'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-header-border-style', $regions['header']['border_style'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-header-elevation', $regions['header']['elevation'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-header-margin', $regions['header']['margin'] );
-
-		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-left-background-color', $regions['sidebar_left']['surface'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-left-border-radius', $regions['sidebar_left']['border_radius'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-left-border-style', $regions['sidebar_left']['border_style'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-left-elevation', $regions['sidebar_left']['elevation'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-left-margin', $regions['sidebar_left']['margin'] );
-
-		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-background-color', $regions['sidebar_right']['surface'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-border-radius', $regions['sidebar_right']['border_radius'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-border-style', $regions['sidebar_right']['border_style'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-elevation', $regions['sidebar_right']['elevation'] );
-		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-margin', $regions['sidebar_right']['margin'] );
-
-		if ($is_framed) {
-			$css .= prismleaf_build_css_var( '--prismleaf-content-background-color', 'var(--prismleaf-color-surface-1)' );
-			$css .= prismleaf_build_css_var( '--prismleaf-content-elevation', 'var(--prismleaf-shadow-elevation-1)' );
+		if ( ! $use_framed && $sidebar_primary_contained ) {
+			$margin = $sidebar_primary_floating ? '--prismleaf-space-2' : '0';
 		}
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-left-background-color', $surface );
+		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-left-border-radius', $border_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-left-border-style', $border_style );
+		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-left-elevation', $elevation );
+		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-left-margin', $margin );
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_sidebar_secondary_css_vars' ) ) {
+	/**
+	 * Build CSS variables for the secondary sidebar layout settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_sidebar_secondary_css_vars() {
+		$is_framed                  = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		$sidebar_secondary_floating = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_floating', true );
+		$sidebar_secondary_contained = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_contained', true );
+		$use_framed                 = $is_framed || ( ! $sidebar_secondary_contained && ! $sidebar_secondary_floating );
+		$surface                    = $use_framed ? '--prismleaf-color-surface-1' : '--prismleaf-color-surface-2';
+		$border_radius              = $use_framed ? '0' : '--prismleaf-radius-medium';
+		$border_style               = $use_framed ? 'none' : '--prismleaf-border-style';
+		$elevation                  = $use_framed ? 'none' : '--prismleaf-shadow-elevation-2';
+		$margin                     = $use_framed ? '0' : '--prismleaf-space-2';
+
+		if ( ! $use_framed && $sidebar_secondary_contained ) {
+			$margin = $sidebar_secondary_floating ? '--prismleaf-space-2' : '0';
+		}
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-background-color', $surface );
+		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-border-radius', $border_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-border-style', $border_style );
+		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-elevation', $elevation );
+		$css .= prismleaf_build_css_var( '--prismleaf-sidebar-right-margin', $margin );
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_content_css_vars' ) ) {
+	/**
+	 * Build CSS variables for the content layout settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_content_css_vars() {
+		$is_framed = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		if ( ! $is_framed ) {
+			return '';
+		}
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-content-background-color', '--prismleaf-color-surface-1' );
+		$css .= prismleaf_build_css_var( '--prismleaf-content-elevation', '--prismleaf-shadow-elevation-1' );
 
 		return $css;
 	}

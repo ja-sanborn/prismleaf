@@ -482,6 +482,136 @@ if ( ! function_exists( 'prismleaf_sanitize_frame_border_style' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_sanitize_size_value' ) ) {
+	/**
+	 * Sanitize a size value with px or numeric fallback.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value   Value to sanitize.
+	 * @param mixed $default Default value to use when value fails.
+	 * @return string
+	 */
+	function prismleaf_sanitize_size_value( $value, $default ) {
+		$pick_value = static function ( $candidate ) {
+			if ( is_string( $candidate ) ) {
+				$trimmed = trim( $candidate );
+				$lower = strtolower( $trimmed );
+				if ( strlen( $lower ) > 2 && 'px' === substr( $lower, -2 ) ) {
+					$number = trim( substr( $lower, 0, -2 ) );
+					if ( '' !== $number && is_numeric( $number ) ) {
+						return $trimmed;
+					}
+				}
+			}
+
+			if ( is_numeric( $candidate ) ) {
+				return (string) $candidate;
+			}
+
+			return '';
+		};
+
+		$selected = $pick_value( $value );
+		if ( '' === $selected ) {
+			$selected = $pick_value( $default );
+		}
+
+		if ( '' === $selected ) {
+			return '';
+		}
+
+		$lower = strtolower( $selected );
+		if ( strlen( $lower ) > 2 && 'px' === substr( $lower, -2 ) ) {
+			return $selected;
+		}
+
+		return rtrim( $selected, ' ' ) . 'px';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_palette_value' ) ) {
+	/**
+	 * Sanitize a palette value, supporting CSS var names and color strings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value   Value to sanitize.
+	 * @param mixed $default Default value when value is invalid.
+	 * @return string
+	 */
+	function prismleaf_sanitize_palette_value( $value, $default = '' ) {
+		$sanitize_value = static function ( $candidate ) {
+			if ( ! is_string( $candidate ) ) {
+				return '';
+			}
+
+			$trimmed = trim( $candidate );
+			if ( '' === $trimmed ) {
+				return '';
+			}
+
+			if ( 0 === strpos( $trimmed, '--prismleaf-color-' ) ) {
+				return $trimmed;
+			}
+
+			if ( function_exists( 'prismleaf_is_rgba_color' ) && prismleaf_is_rgba_color( $trimmed ) ) {
+				return $trimmed;
+			}
+
+			$hex = sanitize_hex_color( $trimmed );
+			return $hex ? $hex : '';
+		};
+
+		$sanitized = $sanitize_value( $value );
+		if ( '' !== $sanitized ) {
+			return $sanitized;
+		}
+
+		return $sanitize_value( $default );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_elevation_value' ) ) {
+	/**
+	 * Sanitize an elevation token into a CSS value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @param mixed $default Default value when value is invalid.
+	 * @return string
+	 */
+	function prismleaf_sanitize_elevation_value( $value, $default ) {
+		$pick_value = static function ( $candidate ) {
+			if ( ! is_string( $candidate ) ) {
+				return '';
+			}
+
+			$clean = strtolower( trim( $candidate ) );
+			if ( '' === $clean ) {
+				return '';
+			}
+			if ( 'none' === $clean ) {
+				return 'none';
+			}
+
+			if ( preg_match( '/^elevation-([1-5])$/', $clean, $matches ) ) {
+				return '--prismleaf-shadow-elevation-' . $matches[1];
+			}
+
+			return '';
+		};
+
+		$selected = $pick_value( $value );
+		if ( '' === $selected ) {
+			$selected = $pick_value( $default );
+		}
+
+		return '' !== $selected ? $selected : 'none';
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_frame_elevation' ) ) {
 	/**
 	 * Sanitize frame elevation.
@@ -502,7 +632,7 @@ if ( ! function_exists( 'prismleaf_sanitize_frame_elevation' ) ) {
 			'elevation-5',
 		);
 
-		return in_array( $value, $allowed, true ) ? $value : 'elevation-1';
+		return in_array( $value, $allowed, true ) ? $value : 'none';
 	}
 }
 
