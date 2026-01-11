@@ -170,6 +170,70 @@ if ( ! function_exists( 'prismleaf_sanitize_customizer_id' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_is_rgba_color' ) ) {
+	/**
+	 * Check whether a value is a valid rgba() color string.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to check.
+	 * @return bool
+	 */
+	function prismleaf_is_rgba_color( $value ) {
+		if ( ! is_string( $value ) ) {
+			return false;
+		}
+
+		$value = trim( $value );
+		if ( '' === $value ) {
+			return false;
+		}
+
+		if ( ! preg_match( '/^rgba\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(0|1|0?\\.\\d+)\\s*\\)$/', $value, $matches ) ) {
+			return false;
+		}
+
+		$r = (int) $matches[1];
+		$g = (int) $matches[2];
+		$b = (int) $matches[3];
+		$a = (float) $matches[4];
+
+		if ( $r < 0 || $r > 255 || $g < 0 || $g > 255 || $b < 0 || $b > 255 ) {
+			return false;
+		}
+
+		return ( $a >= 0.0 && $a <= 1.0 );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_is_palette_opacity_key' ) ) {
+	/**
+	 * Check if a palette key is an opacity-derived value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $key Key to check.
+	 * @return bool
+	 */
+	function prismleaf_is_palette_opacity_key( $key ) {
+		if ( ! is_string( $key ) || '' === $key ) {
+			return false;
+		}
+
+		return in_array(
+			$key,
+			array(
+				'outline',
+				'outline_variant',
+				'on_surface_muted',
+				'disabled_foreground',
+				'disabled_surface',
+			),
+			true
+		);
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_palette_json' ) ) {
 	/**
 	 * Sanitize palette JSON for the palette preview control.
@@ -181,7 +245,35 @@ if ( ! function_exists( 'prismleaf_sanitize_palette_json' ) ) {
 	 */
 	function prismleaf_sanitize_palette_json( $value ) {
 		$expected_keys = prismleaf_get_palette_keys();
-		return prismleaf_sanitize_json( $value, $expected_keys );
+		if ( ! is_array( $expected_keys ) || empty( $expected_keys ) ) {
+			return '';
+		}
+
+		$decoded = prismleaf_decode_json_with_keys( $value, $expected_keys );
+		if ( null === $decoded ) {
+			return '';
+		}
+
+		$clean = array();
+		foreach ( $expected_keys as $key ) {
+			$item = $decoded[ $key ];
+			if ( prismleaf_is_palette_opacity_key( $key ) ) {
+				if ( ! prismleaf_is_rgba_color( $item ) ) {
+					return '';
+				}
+				$clean[ $key ] = $item;
+				continue;
+			}
+
+			$hex = sanitize_hex_color( $item );
+			if ( ! $hex ) {
+				return '';
+			}
+
+			$clean[ $key ] = $hex;
+		}
+
+		return wp_json_encode( $clean );
 	}
 }
 
@@ -233,6 +325,160 @@ if ( ! function_exists( 'prismleaf_sanitize_palette_json_from_base' ) ) {
 
 		$clean = prismleaf_sanitize_palette_json( $value );
 		return $clean;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_palette_source' ) ) {
+	/**
+	 * Sanitize a palette source selection.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_palette_source( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array(
+			'default',
+			'primary',
+			'secondary',
+			'tertiary',
+			'error',
+			'warning',
+			'info',
+			'neutral_light',
+			'neutral_dark',
+			'custom',
+		);
+
+		return in_array( $value, $allowed, true ) ? $value : 'default';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_is_css_var_name' ) ) {
+	/**
+	 * Check if a string looks like a Prismleaf CSS variable name.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to check.
+	 * @return bool
+	 */
+	function prismleaf_is_css_var_name( $value ) {
+		if ( ! is_string( $value ) || '' === $value ) {
+			return false;
+		}
+
+		return 1 === preg_match( '/^--prismleaf-color-[a-z0-9_-]+$/', $value );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_palette_source_json' ) ) {
+	/**
+	 * Sanitize palette JSON that can contain hex values or CSS var names.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_palette_source_json( $value ) {
+		$expected_keys = prismleaf_get_palette_keys();
+		if ( ! is_array( $expected_keys ) || empty( $expected_keys ) ) {
+			return '';
+		}
+
+		$decoded = prismleaf_decode_json_with_keys( $value, $expected_keys );
+		if ( null === $decoded ) {
+			return '';
+		}
+
+		$clean = array();
+		foreach ( $expected_keys as $key ) {
+			$item = $decoded[ $key ];
+			if ( prismleaf_is_css_var_name( $item ) ) {
+				$clean[ $key ] = $item;
+				continue;
+			}
+
+			if ( prismleaf_is_palette_opacity_key( $key ) ) {
+				if ( ! prismleaf_is_rgba_color( $item ) ) {
+					return '';
+				}
+				$clean[ $key ] = $item;
+				continue;
+			}
+
+			$hex = sanitize_hex_color( $item );
+			if ( ! $hex ) {
+				return '';
+			}
+
+			$clean[ $key ] = $hex;
+		}
+
+		return wp_json_encode( $clean );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_frame_max_width' ) ) {
+	/**
+	 * Sanitize frame max width (1000-2000).
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_frame_max_width( $value ) {
+		if ( ! is_numeric( $value ) ) {
+			return '1480';
+		}
+
+		$value = (int) $value;
+		if ( $value < 1000 ) {
+			$value = 1000;
+		}
+		if ( $value > 2000 ) {
+			$value = 2000;
+		}
+
+		return (string) $value;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_frame_border_corners' ) ) {
+	/**
+	 * Sanitize frame border corners.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_frame_border_corners( $value ) {
+		$value = trim( (string) $value );
+		$allowed = array( 'Square', 'Round' );
+
+		return in_array( $value, $allowed, true ) ? $value : 'Round';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_frame_border_style' ) ) {
+	/**
+	 * Sanitize frame border style.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_frame_border_style( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'none', 'solid', 'dotted', 'dashed' );
+
+		return in_array( $value, $allowed, true ) ? $value : 'solid';
 	}
 }
 

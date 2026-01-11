@@ -39,6 +39,27 @@ if ( ! function_exists( 'prismleaf_hex_to_rgb' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_rgba_from_hex' ) ) {
+	/**
+	 * Convert a hex color to an rgba() string.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $hex   Hex color.
+	 * @param float  $alpha Alpha channel (0..1).
+	 * @return string Empty string on failure.
+	 */
+	function prismleaf_rgba_from_hex( $hex, $alpha ) {
+		$rgb = prismleaf_hex_to_rgb( $hex );
+		if ( ! $rgb ) {
+			return '';
+		}
+
+		$alpha = prismleaf_clamp_float( (float) $alpha, 0.0, 1.0 );
+		return sprintf( 'rgba(%d, %d, %d, %.2f)', $rgb[0], $rgb[1], $rgb[2], $alpha );
+	}
+}
+
 if ( ! function_exists( 'prismleaf_rgb_to_hex' ) ) {
 	/**
 	 * Convert RGB to a hex color.
@@ -455,19 +476,25 @@ if ( ! function_exists( 'prismleaf_generate_palette_from_base' ) ) {
 		$on_color = prismleaf_pick_on_color_from_tones( $ramp[0], $tones );
 		$container_on = prismleaf_pick_on_color_from_tones( $ramp[5], $container_tones );
 
+		$opacity_base = $ramp[0];
 		$palette = array(
-			'1'            => $ramp[0],
-			'2'            => $ramp[1],
-			'3'            => $ramp[2],
-			'4'            => $ramp[3],
-			'5'            => $ramp[4],
-			'on'           => $on_color,
-			'container_1'  => $ramp[9],
-			'container_2'  => $ramp[8],
-			'container_3'  => $ramp[7],
-			'container_4'  => $ramp[6],
-			'container_5'  => $ramp[5],
-			'container_on' => $container_on,
+			'1'                   => $ramp[0],
+			'2'                   => $ramp[1],
+			'3'                   => $ramp[2],
+			'4'                   => $ramp[3],
+			'5'                   => $ramp[4],
+			'on'                  => $on_color,
+			'outline'             => prismleaf_rgba_from_hex( $opacity_base, 0.30 ),
+			'outline_variant'     => prismleaf_rgba_from_hex( $opacity_base, 0.18 ),
+			'on_surface_muted'    => prismleaf_rgba_from_hex( $opacity_base, 0.72 ),
+			'disabled_foreground' => prismleaf_rgba_from_hex( $opacity_base, 0.38 ),
+			'disabled_surface'    => prismleaf_rgba_from_hex( $opacity_base, 0.12 ),
+			'container_1'         => $ramp[9],
+			'container_2'         => $ramp[8],
+			'container_3'         => $ramp[7],
+			'container_4'         => $ramp[6],
+			'container_5'         => $ramp[5],
+			'container_on'        => $container_on,
 		);
 
 		foreach ( $palette as $key => $value ) {
@@ -533,6 +560,11 @@ if ( ! function_exists( 'prismleaf_get_palette_keys' ) ) {
 			'4',
 			'5',
 			'on',
+			'outline',
+			'outline_variant',
+			'on_surface_muted',
+			'disabled_foreground',
+			'disabled_surface',
 			'container_1',
 			'container_2',
 			'container_3',
@@ -574,6 +606,14 @@ if ( ! function_exists( 'prismleaf_build_palette_json_from_base' ) ) {
 			if ( empty( $palette[ $key ] ) ) {
 				return '';
 			}
+			if ( function_exists( 'prismleaf_is_palette_opacity_key' ) && prismleaf_is_palette_opacity_key( $key ) ) {
+				if ( ! function_exists( 'prismleaf_is_rgba_color' ) || ! prismleaf_is_rgba_color( $palette[ $key ] ) ) {
+					return '';
+				}
+				$clean[ $key ] = $palette[ $key ];
+				continue;
+			}
+
 			$clean_value = sanitize_hex_color( $palette[ $key ] );
 			if ( ! $clean_value ) {
 				return '';

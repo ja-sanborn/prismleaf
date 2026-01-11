@@ -185,8 +185,11 @@
 			return;
 		}
 
-		const baseSetting = (control.settings && control.settings.default) ? control.settings.default : control.setting;
+		const baseSetting = (control.settings && control.settings.base)
+			? control.settings.base
+			: (control.settings && control.settings.default) ? control.settings.default : control.setting;
 		const paletteSetting = (control.settings && control.settings.palette) ? control.settings.palette : null;
+		const sourceSetting = (control.settings && control.settings.source) ? control.settings.source : null;
 		if (!baseSetting) {
 			return;
 		}
@@ -212,6 +215,10 @@
 		});
 
 		const updatePaletteSetting = () => {
+			if (sourceSetting && sourceSetting.get() !== 'custom') {
+				return '';
+			}
+
 			const baseValue = baseSetting.get();
 			const paletteJson = helpers.buildPaletteJsonFromBase(baseValue);
 
@@ -262,7 +269,7 @@
 
 	api.bind('ready', () => {
 		api.control.each((control) => {
-			if ('prismleaf_palette_preview' === control.params.type) {
+			if ('prismleaf_palette_preview' === control.params.type || 'prismleaf_palette_source' === control.params.type) {
 				initControl(control);
 			}
 		});

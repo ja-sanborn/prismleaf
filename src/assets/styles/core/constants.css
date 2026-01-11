@@ -95,12 +95,21 @@
 	--prismleaf-color-primary-3: #9e3771;
 	--prismleaf-color-primary-4: #8a3063;
 	--prismleaf-color-primary-5: #762955;
+
 	--prismleaf-color-primary-container-on: #f2d9e7;
 	--prismleaf-color-primary-container-1: #13070e;
 	--prismleaf-color-primary-container-2: #260d1c;
 	--prismleaf-color-primary-container-3: #3a142a;
 	--prismleaf-color-primary-container-4: #4e1b39;
 	--prismleaf-color-primary-container-5: #622247;
+
+	/* Primary palette: opacity values. */
+	--prismleaf-color-primary-outline: rgba(192, 75, 141, 0.30);
+	--prismleaf-color-primary-outline-variant: rgba(192, 75, 141, 0.18);
+	--prismleaf-color-primary-divider: rgba(192, 75, 141, 0.12);
+	--prismleaf-color-primary-on-surface-muted: rgba(192, 75, 141, 0.72);
+	--prismleaf-color-primary-disabled-foreground: rgba(192, 75, 141, 0.38);
+	--prismleaf-color-primary-disabled-surface: rgba(192, 75, 141, 0.12);
 
 	/* Secondary palette. */
 	--prismleaf-color-secondary-on: #0e2521;
@@ -109,12 +118,21 @@
 	--prismleaf-color-secondary-3: #3ea997;
 	--prismleaf-color-secondary-4: #49bca9;
 	--prismleaf-color-secondary-5: #5fc4b4;
+
 	--prismleaf-color-secondary-container-on: #0e2521;
 	--prismleaf-color-secondary-container-1: #cdece8;
 	--prismleaf-color-secondary-container-2: #b7e4dd;
 	--prismleaf-color-secondary-container-3: #a1dcd3;
 	--prismleaf-color-secondary-container-4: #8bd4c9;
 	--prismleaf-color-secondary-container-5: #75ccbe;
+
+	/* Secondary palette: opacity values. */
+	--prismleaf-color-secondary-outline: rgba(46, 125, 111, 0.30);
+	--prismleaf-color-secondary-outline-variant: rgba(46, 125, 111, 0.18);
+	--prismleaf-color-secondary-divider: rgba(46, 125, 111, 0.12);
+	--prismleaf-color-secondary-on-surface-muted: rgba(46, 125, 111, 0.72);
+	--prismleaf-color-secondary-disabled-foreground: rgba(46, 125, 111, 0.38);
+	--prismleaf-color-secondary-disabled-surface: rgba(46, 125, 111, 0.12);
 
 	/* Tertiary palette. */
 	--prismleaf-color-tertiary-on: #d4dff7;
@@ -123,12 +141,21 @@
 	--prismleaf-color-tertiary-3: #2553ba;
 	--prismleaf-color-tertiary-4: #2048a2;
 	--prismleaf-color-tertiary-5: #1b3e8a;
+
 	--prismleaf-color-tertiary-container-on: #d4dff7;
 	--prismleaf-color-tertiary-container-1: #040a15;
 	--prismleaf-color-tertiary-container-2: #08132a;
 	--prismleaf-color-tertiary-container-3: #0d1d42;
 	--prismleaf-color-tertiary-container-4: #11285a;
 	--prismleaf-color-tertiary-container-5: #163372;
+
+	/* Tertiary palette: opacity values. */
+	--prismleaf-color-tertiary-outline: rgba(63, 111, 217, 0.30);
+	--prismleaf-color-tertiary-outline-variant: rgba(63, 111, 217, 0.18);
+	--prismleaf-color-tertiary-divider: rgba(63, 111, 217, 0.12);
+	--prismleaf-color-tertiary-on-surface-muted: rgba(63, 111, 217, 0.72);
+	--prismleaf-color-tertiary-disabled-foreground: rgba(63, 111, 217, 0.38);
+	--prismleaf-color-tertiary-disabled-surface: rgba(63, 111, 217, 0.12);
 
 	/* Error palette. */
 	--prismleaf-color-error-on: #2c0907;
@@ -137,12 +164,21 @@
 	--prismleaf-color-error-3: #dd3b31;
 	--prismleaf-color-error-4: #e1544b;
 	--prismleaf-color-error-5: #e56d65;
+
 	--prismleaf-color-error-container-on: #2c0a07;
 	--prismleaf-color-error-container-1: #fbe8e7;
 	--prismleaf-color-error-container-2: #f6d0cd;
 	--prismleaf-color-error-container-3: #f2b7b3;
 	--prismleaf-color-error-container-4: #ed9f99;
 	--prismleaf-color-error-container-5: #e9867f;
+
+	/* Error palette: opacity values. */
+	--prismleaf-color-error-outline: rgba(179, 38, 30, 0.30);
+	--prismleaf-color-error-outline-variant: rgba(179, 38, 30, 0.18);
+	--prismleaf-color-error-divider: rgba(179, 38, 30, 0.12);
+	--prismleaf-color-error-on-surface-muted: rgba(179, 38, 30, 0.72);
+	--prismleaf-color-error-disabled-foreground: rgba(179, 38, 30, 0.38);
+	--prismleaf-color-error-disabled-surface: rgba(179, 38, 30, 0.12);
 
 	/* Warning palette. */
 	--prismleaf-color-warning-on: #331e00;
@@ -151,12 +187,21 @@
 	--prismleaf-color-warning-3: #f08e00;
 	--prismleaf-color-warning-4: #ff9d10;
 	--prismleaf-color-warning-5: #ffaa2f;
+
 	--prismleaf-color-warning-container-on: #331e00;
 	--prismleaf-color-warning-container-1: #ffe9ca;
 	--prismleaf-color-warning-container-2: #ffddab;
 	--prismleaf-color-warning-container-3: #ffd08c;
 	--prismleaf-color-warning-container-4: #ffc36d;
 	--prismleaf-color-warning-container-5: #ffb74e;
+
+	/* Warning palette: opacity values. */
+	--prismleaf-color-warning-outline: rgba(178, 106, 0, 0.30);
+	--prismleaf-color-warning-outline-variant: rgba(178, 106, 0, 0.18);
+	--prismleaf-color-warning-divider: rgba(178, 106, 0, 0.12);
+	--prismleaf-color-warning-on-surface-muted: rgba(178, 106, 0, 0.72);
+	--prismleaf-color-warning-disabled-foreground: rgba(178, 106, 0, 0.38);
+	--prismleaf-color-warning-disabled-surface: rgba(178, 106, 0, 0.12);
 
 	/* Info palette. */
 	--prismleaf-color-info-on: #d1e3fa;
@@ -165,12 +210,21 @@
 	--prismleaf-color-info-3: #135cbc;
 	--prismleaf-color-info-4: #1151a5;
 	--prismleaf-color-info-5: #0f468e;
+
 	--prismleaf-color-info-container-on: #d1e2fa;
 	--prismleaf-color-info-container-1: #030d1b;
 	--prismleaf-color-info-container-2: #051932;
 	--prismleaf-color-info-container-3: #082449;
 	--prismleaf-color-info-container-4: #0a2f60;
 	--prismleaf-color-info-container-5: #0d3a77;
+
+	/* Info palette: opacity values. */
+	--prismleaf-color-info-outline: rgba(26, 115, 232, 0.30);
+	--prismleaf-color-info-outline-variant: rgba(26, 115, 232, 0.18);
+	--prismleaf-color-info-divider: rgba(26, 115, 232, 0.12);
+	--prismleaf-color-info-on-surface-muted: rgba(26, 115, 232, 0.72);
+	--prismleaf-color-info-disabled-foreground: rgba(26, 115, 232, 0.38);
+	--prismleaf-color-info-disabled-surface: rgba(26, 115, 232, 0.12);
 
 	/* Light palette: surfaces. */
 	--prismleaf-color-light-surface-on: #191919;
@@ -179,6 +233,7 @@
 	--prismleaf-color-light-surface-3: #d4d4d4;
 	--prismleaf-color-light-surface-4: #c5c5c5;
 	--prismleaf-color-light-surface-5: #b6b6b6;
+
 	--prismleaf-color-light-surface-container-on: #191919;
 	--prismleaf-color-light-surface-container-1: #6b6b6b;
 	--prismleaf-color-light-surface-container-2: #7a7a7a;
@@ -186,26 +241,14 @@
 	--prismleaf-color-light-surface-container-4: #989898;
 	--prismleaf-color-light-surface-container-5: #a7a7a7;
 
-	/* Light palette: shadows and glow. */
-	--prismleaf-shadow-light-elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
-	--prismleaf-shadow-light-elevation-2: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
-	--prismleaf-shadow-light-elevation-3: 0 1px 3px 0 rgba(0, 0, 0, 0.30), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
-	--prismleaf-shadow-light-elevation-4: 0 2px 3px 0 rgba(0, 0, 0, 0.30), 0 6px 10px 4px rgba(0, 0, 0, 0.15);
-	--prismleaf-shadow-light-elevation-5: 0 4px 4px 0 rgba(0, 0, 0, 0.30), 0 8px 12px 6px rgba(0, 0, 0, 0.15);
-	--prismleaf-glow-light-ring-1: 0 0 0 1px rgba(0, 0, 0, 0.30), 0 0 3px 1px rgba(0, 0, 0, 0.15);
-	--prismleaf-glow-light-ring-2: 0 0 0 1px rgba(0, 0, 0, 0.30), 0 0 6px 2px rgba(0, 0, 0, 0.15);
-	--prismleaf-glow-light-ring-3: 0 0 0 1px rgba(0, 0, 0, 0.30), 0 0 8px 3px rgba(0, 0, 0, 0.15);
-	--prismleaf-glow-light-ring-4: 0 0 0 1px rgba(0, 0, 0, 0.30), 0 0 10px 4px rgba(0, 0, 0, 0.15);
-	--prismleaf-glow-light-ring-5: 0 0 0 1px rgba(0, 0, 0, 0.30), 0 0 12px 6px rgba(0, 0, 0, 0.15);
-
 	/* Light palette: opacity values. */
-	--prismleaf-color-light-outline: rgba(0, 0, 0, 0.30);
-	--prismleaf-color-light-outline-variant: rgba(0, 0, 0, 0.18);
-	--prismleaf-color-light-divider: rgba(0, 0, 0, 0.12);
-	--prismleaf-color-light-on-surface-muted: rgba(0, 0, 0, 0.72);
-	--prismleaf-color-light-disabled-foreground: rgba(0, 0, 0, 0.38);
-	--prismleaf-color-light-disabled-surface: rgba(0, 0, 0, 0.12);
-	--prismleaf-color-light-scrim: rgba(0, 0, 0, 0.32);
+	--prismleaf-color-light-outline: rgba(242, 242, 242, 0.30);
+	--prismleaf-color-light-outline-variant: rgba(242, 242, 242, 0.18);
+	--prismleaf-color-light-divider: rgba(242, 242, 242, 0.12);
+	--prismleaf-color-light-on-surface-muted: rgba(242, 242, 242, 0.72);
+	--prismleaf-color-light-disabled-foreground: rgba(242, 242, 242, 0.38);
+	--prismleaf-color-light-disabled-surface: rgba(242, 242, 242, 0.12);
+	--prismleaf-color-light-scrim: rgba(242, 242, 242, 0.32);
 
 	/* Dark palette: surfaces. */
 	--prismleaf-color-dark-surface-on: #e6e6e6;
@@ -214,31 +257,46 @@
 	--prismleaf-color-dark-surface-3: #303030;
 	--prismleaf-color-dark-surface-4: #3f3f3f;
 	--prismleaf-color-dark-surface-5: #4e4e4e;
+
 	--prismleaf-color-dark-surface-container-on: #1a1a1a;
 	--prismleaf-color-dark-surface-container-1: #999999;
 	--prismleaf-color-dark-surface-container-2: #8a8a8a;
 	--prismleaf-color-dark-surface-container-3: #7b7b7b;
 	--prismleaf-color-dark-surface-container-4: #6c6c6c;
 	--prismleaf-color-dark-surface-container-5: #5d5d5d;
-	
+
+	/* Dark palette: opacity values. */
+	--prismleaf-color-dark-outline: rgba(18, 18, 18, 0.30);
+	--prismleaf-color-dark-outline-variant: rgba(18, 18, 18, 0.18);
+	--prismleaf-color-dark-divider: rgba(18, 18, 18, 0.12);
+	--prismleaf-color-dark-on-surface-muted: rgba(18, 18, 18, 0.72);
+	--prismleaf-color-dark-disabled-foreground: rgba(18, 18, 18, 0.38);
+	--prismleaf-color-dark-disabled-surface: rgba(18, 18, 18, 0.12);
+	--prismleaf-color-dark-scrim: rgba(18, 18, 18, 0.32);
+
+	/* Light palette: shadows and glow. */
+	--prismleaf-shadow-light-elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+	--prismleaf-shadow-light-elevation-2: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+	--prismleaf-shadow-light-elevation-3: 0 1px 3px 0 rgba(0, 0, 0, 0.30), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+	--prismleaf-shadow-light-elevation-4: 0 2px 3px 0 rgba(0, 0, 0, 0.30), 0 6px 10px 4px rgba(0, 0, 0, 0.15);
+	--prismleaf-shadow-light-elevation-5: 0 4px 4px 0 rgba(0, 0, 0, 0.30), 0 8px 12px 6px rgba(0, 0, 0, 0.15);
+
+	--prismleaf-glow-light-ring-1: 0 0 0 1px rgba(0, 0, 0, 0.30), 0 0 3px 1px rgba(0, 0, 0, 0.15);
+	--prismleaf-glow-light-ring-2: 0 0 0 1px rgba(0, 0, 0, 0.30), 0 0 6px 2px rgba(0, 0, 0, 0.15);
+	--prismleaf-glow-light-ring-3: 0 0 0 1px rgba(0, 0, 0, 0.30), 0 0 8px 3px rgba(0, 0, 0, 0.15);
+	--prismleaf-glow-light-ring-4: 0 0 0 1px rgba(0, 0, 0, 0.30), 0 0 10px 4px rgba(0, 0, 0, 0.15);
+	--prismleaf-glow-light-ring-5: 0 0 0 1px rgba(0, 0, 0, 0.30), 0 0 12px 6px rgba(0, 0, 0, 0.15);
+
 	/* Dark palette: shadows and glow. */
-	--prismleaf-shadow-dark-elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
-	--prismleaf-shadow-dark-elevation-2: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
-	--prismleaf-shadow-dark-elevation-3: 0 1px 3px 0 rgba(0, 0, 0, 0.30), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
-	--prismleaf-shadow-dark-elevation-4: 0 2px 3px 0 rgba(0, 0, 0, 0.30), 0 6px 10px 4px rgba(0, 0, 0, 0.15);
-	--prismleaf-shadow-dark-elevation-5: 0 4px 4px 0 rgba(0, 0, 0, 0.30), 0 8px 12px 6px rgba(0, 0, 0, 0.15);
+	--prismleaf-shadow-dark-elevation-1: 0 1px 2px 0 rgba(255, 255, 255, 0.30), 0 1px 3px 1px rgba(255, 255, 255, 0.15);
+	--prismleaf-shadow-dark-elevation-2: 0 1px 2px 0 rgba(255, 255, 255, 0.30), 0 2px 6px 2px rgba(255, 255, 255, 0.15);
+	--prismleaf-shadow-dark-elevation-3: 0 1px 3px 0 rgba(255, 255, 255, 0.30), 0 4px 8px 3px rgba(255, 255, 255, 0.15);
+	--prismleaf-shadow-dark-elevation-4: 0 2px 3px 0 rgba(255, 255, 255, 0.30), 0 6px 10px 4px rgba(255, 255, 255, 0.15);
+	--prismleaf-shadow-dark-elevation-5: 0 4px 4px 0 rgba(255, 255, 255, 0.30), 0 8px 12px 6px rgba(255, 255, 255, 0.15);
+
 	--prismleaf-glow-dark-ring-1: 0 0 0 1px rgba(255, 255, 255, 0.30), 0 0 3px 1px rgba(255, 255, 255, 0.15);
 	--prismleaf-glow-dark-ring-2: 0 0 0 1px rgba(255, 255, 255, 0.30), 0 0 6px 2px rgba(255, 255, 255, 0.15);
 	--prismleaf-glow-dark-ring-3: 0 0 0 1px rgba(255, 255, 255, 0.30), 0 0 8px 3px rgba(255, 255, 255, 0.15);
 	--prismleaf-glow-dark-ring-4: 0 0 0 1px rgba(255, 255, 255, 0.30), 0 0 10px 4px rgba(255, 255, 255, 0.15);
 	--prismleaf-glow-dark-ring-5: 0 0 0 1px rgba(255, 255, 255, 0.30), 0 0 12px 6px rgba(255, 255, 255, 0.15);
-
-	/* Dark palette: opacity values. */
-	--prismleaf-color-dark-outline: rgba(255, 255, 255, 0.30);
-	--prismleaf-color-dark-outline-variant: rgba(255, 255, 255, 0.18);
-	--prismleaf-color-dark-divider: rgba(255, 255, 255, 0.12);
-	--prismleaf-color-dark-on-surface-muted: rgba(255, 255, 255, 0.72);
-	--prismleaf-color-dark-disabled-foreground: rgba(255, 255, 255, 0.38);
-	--prismleaf-color-dark-disabled-surface: rgba(255, 255, 255, 0.12);
-	--prismleaf-color-dark-scrim: rgba(0, 0, 0, 0.48);
 }

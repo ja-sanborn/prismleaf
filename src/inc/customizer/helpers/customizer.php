@@ -241,6 +241,74 @@ if ( ! function_exists( 'prismleaf_add_select_control' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_add_number_control' ) ) {
+	/**
+	 * Add a number control with defaults.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
+	 */
+	function prismleaf_add_number_control( $wp_customize, $args ) {
+		$defaults = array(
+			'setting_id'       => '',
+			'section'          => '',
+			'label'            => '',
+			'description'      => '',
+			'priority'         => 0,
+			'default_key'      => '',
+			'default_fallback' => '',
+			'sanitize_callback'=> '',
+			'transport'        => 'refresh',
+			'active_callback'  => null,
+			'input_attrs'      => array(),
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$args['setting_id']  = prismleaf_sanitize_customizer_id( $args['setting_id'] );
+		$args['section']     = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['label']       = prismleaf_sanitize_text( $args['label'] );
+		$args['description'] = prismleaf_sanitize_text( $args['description'] );
+		$args['priority']    = prismleaf_sanitize_int( $args['priority'] );
+		$args['default_key'] = prismleaf_sanitize_text( $args['default_key'] );
+		$args['transport']   = prismleaf_sanitize_transport( $args['transport'] );
+
+		if ( '' === $args['setting_id'] || '' === $args['section'] || '' === $args['label'] || '' === $args['default_key'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
+		}
+
+		if ( empty( $args['sanitize_callback'] ) || ! is_string( $args['sanitize_callback'] ) ) {
+			return;
+		}
+
+		$wp_customize->add_setting(
+			$args['setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['default_key'], $args['default_fallback'] ),
+				'sanitize_callback' => $args['sanitize_callback'],
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$control_args = array(
+			'type'        => 'number',
+			'section'     => $args['section'],
+			'label'       => $args['label'],
+			'description' => $args['description'],
+			'priority'    => $args['priority'],
+			'input_attrs' => is_array( $args['input_attrs'] ) ? $args['input_attrs'] : array(),
+		);
+
+		if ( $args['active_callback'] ) {
+			$control_args['active_callback'] = $args['active_callback'];
+		}
+
+		$wp_customize->add_control( $args['setting_id'], $control_args );
+	}
+}
+
 if ( ! function_exists( 'prismleaf_add_palette_preview_control' ) ) {
 	/**
 	 * Add a palette preview control with computed palette JSON storage.
@@ -253,17 +321,17 @@ if ( ! function_exists( 'prismleaf_add_palette_preview_control' ) ) {
 	 */
 	function prismleaf_add_palette_preview_control( $wp_customize, $args ) {
 		$defaults = array(
-			'setting_id'       => '',
+			'setting_id'         => '',
 			'palette_setting_id' => '',
-			'section'          => '',
-			'label'            => '',
-			'description'      => '',
-			'priority'         => 0,
-			'default_key'      => '',
-			'default_fallback' => '',
-			'palette_default'  => '',
-			'transport'        => 'refresh',
-			'active_callback'  => null,
+			'section'            => '',
+			'label'              => '',
+			'description'        => '',
+			'priority'           => 0,
+			'default_key'        => '',
+			'default_fallback'   => '',
+			'palette_default'    => '',
+			'transport'          => 'refresh',
+			'active_callback'    => null,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -346,6 +414,130 @@ if ( ! function_exists( 'prismleaf_add_palette_preview_control_with_defaults' ) 
 	}
 }
 
+if ( ! function_exists( 'prismleaf_get_palette_source_choices' ) ) {
+	/**
+	 * Get palette source choices for a dropdown control.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array<string,string>
+	 */
+	function prismleaf_get_palette_source_choices() {
+		return array(
+			'default'       => __( 'Default (Use CSS)', 'prismleaf' ),
+			'primary'       => __( 'Primary', 'prismleaf' ),
+			'secondary'     => __( 'Secondary', 'prismleaf' ),
+			'tertiary'      => __( 'Tertiary', 'prismleaf' ),
+			'error'         => __( 'Error', 'prismleaf' ),
+			'warning'       => __( 'Warning', 'prismleaf' ),
+			'info'          => __( 'Info', 'prismleaf' ),
+			'neutral_light' => __( 'Neutral Light', 'prismleaf' ),
+			'neutral_dark'  => __( 'Neutral Dark', 'prismleaf' ),
+			'custom'        => __( 'Custom', 'prismleaf' ),
+		);
+	}
+}
+
+if ( ! function_exists( 'prismleaf_add_palette_source_control' ) ) {
+	/**
+	 * Add a palette source control using existing settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
+	 */
+	function prismleaf_add_palette_source_control( $wp_customize, $args ) {
+		$defaults = array(
+			'source_setting_id'        => '',
+			'base_setting_id'          => '',
+			'palette_setting_id'       => '',
+			'section'                  => '',
+			'label'                    => '',
+			'description'              => '',
+			'priority'                 => 0,
+			'active_callback'          => null,
+			'source_default_key'       => '',
+			'source_default_fallback'  => '',
+			'base_default_key'         => '',
+			'base_default_fallback'    => '',
+			'palette_default_key'      => '',
+			'palette_default_fallback' => '',
+			'transport'                => 'refresh',
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$args['source_setting_id']   = prismleaf_sanitize_customizer_id( $args['source_setting_id'] );
+		$args['base_setting_id']     = prismleaf_sanitize_customizer_id( $args['base_setting_id'] );
+		$args['palette_setting_id']  = prismleaf_sanitize_customizer_id( $args['palette_setting_id'] );
+		$args['section']             = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['label']               = prismleaf_sanitize_text( $args['label'] );
+		$args['description']         = prismleaf_sanitize_text( $args['description'] );
+		$args['priority']            = prismleaf_sanitize_int( $args['priority'] );
+		$args['source_default_key']  = prismleaf_sanitize_text( $args['source_default_key'] );
+		$args['base_default_key']    = prismleaf_sanitize_text( $args['base_default_key'] );
+		$args['palette_default_key'] = prismleaf_sanitize_text( $args['palette_default_key'] );
+		$args['transport']           = prismleaf_sanitize_transport( $args['transport'] );
+
+		if ( '' === $args['source_setting_id'] || '' === $args['base_setting_id'] || '' === $args['palette_setting_id'] || '' === $args['section'] || '' === $args['label'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
+		}
+
+		$wp_customize->add_setting(
+			$args['source_setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['source_default_key'], $args['source_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_palette_source',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$args['base_setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['base_default_key'], $args['base_default_fallback'] ),
+				'sanitize_callback' => 'sanitize_hex_color',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$args['palette_setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['palette_default_key'], $args['palette_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_palette_source_json',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$control_args = array(
+			'label'       => $args['label'],
+			'description' => $args['description'],
+			'section'     => $args['section'],
+			'priority'    => $args['priority'],
+			'choices'     => prismleaf_get_palette_source_choices(),
+			'settings'    => array(
+				'source'  => $args['source_setting_id'],
+				'base'    => $args['base_setting_id'],
+				'palette' => $args['palette_setting_id'],
+			),
+			'palette_labels' => prismleaf_get_palette_preview_labels( prismleaf_get_palette_keys() ),
+		);
+
+		if ( $args['active_callback'] ) {
+			$control_args['active_callback'] = $args['active_callback'];
+		}
+
+		$wp_customize->add_control(
+			new Prismleaf_Customize_Palette_Source_Control(
+				$wp_customize,
+				$args['source_setting_id'],
+				$control_args
+			)
+		);
+	}
+}
 if ( ! function_exists( 'prismleaf_filter_language_attributes' ) ) {
 	/**
 	 * Append theme mode overrides to the HTML language attributes.

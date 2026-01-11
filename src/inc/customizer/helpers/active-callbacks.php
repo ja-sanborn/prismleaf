@@ -64,3 +64,30 @@ if ( ! function_exists( 'prismleaf_is_sidebar_secondary_layout_control_active' )
 			&& prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_show', true );
 	}
 }
+
+if ( ! function_exists( 'prismleaf_is_frame_layout_control_active' ) ) {
+	/**
+	 * Check if frame layout controls should be visible.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_frame_layout_control_active() {
+		return ! prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_is_frame_background_control_active' ) ) {
+	/**
+	 * Check if frame background controls should be visible.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_frame_background_control_active() {
+		return ! prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false )
+			&& prismleaf_get_theme_mod_bool( 'prismleaf_frame_show_background', true );
+	}
+}

@@ -53,6 +53,130 @@ if ( ! function_exists( 'prismleaf_register_frame_options_section' ) ) {
 				'default_fallback' => false,
 			)
 		);
+
+		prismleaf_add_number_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_frame_max_width',
+				'section'          => 'prismleaf_frame_options',
+				'label'            => __( 'Max width', 'prismleaf' ),
+				'description'      => __( 'Sets the maximum content width for the frame.', 'prismleaf' ),
+				'priority'         => 1020,
+				'default_key'      => 'frame_max_width',
+				'default_fallback' => '1480',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_max_width',
+				'input_attrs'      => array(
+					'min'  => 1000,
+					'max'  => 2000,
+					'step' => 1,
+				),
+			)
+		);
+
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_frame_heading_style',
+				'label'      => __( 'Style', 'prismleaf' ),
+				'section'    => 'prismleaf_frame_options',
+				'priority'   => 2000,
+				'active_callback' => 'prismleaf_is_frame_layout_control_active',
+			)
+		);
+
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_frame_show_background',
+				'section'          => 'prismleaf_frame_options',
+				'label'            => __( 'Show background', 'prismleaf' ),
+				'description'      => __( 'When enabled, the frame surface is visible behind the layout regions.', 'prismleaf' ),
+				'priority'         => 2010,
+				'default_key'      => 'frame_show_background',
+				'default_fallback' => true,
+				'active_callback'  => 'prismleaf_is_frame_layout_control_active',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_frame_border_corners',
+				'section'          => 'prismleaf_frame_options',
+				'label'            => __( 'Border corners', 'prismleaf' ),
+				'description'      => __( 'Controls the roundness of the frame corners.', 'prismleaf' ),
+				'priority'         => 2020,
+				'default_key'      => 'frame_border_corners',
+				'default_fallback' => 'Round',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
+				'choices'          => array(
+					'Square' => __( 'Square', 'prismleaf' ),
+					'Round'  => __( 'Round', 'prismleaf' ),
+				),
+				'active_callback'  => 'prismleaf_is_frame_background_control_active',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_frame_border_style',
+				'section'          => 'prismleaf_frame_options',
+				'label'            => __( 'Border style', 'prismleaf' ),
+				'description'      => __( 'Sets the frame border line style.', 'prismleaf' ),
+				'priority'         => 2030,
+				'default_key'      => 'frame_border_style',
+				'default_fallback' => 'solid',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
+				'choices'          => array(
+					'none'   => __( 'None', 'prismleaf' ),
+					'solid'  => __( 'Solid', 'prismleaf' ),
+					'dotted' => __( 'Dotted', 'prismleaf' ),
+					'dashed' => __( 'Dashed', 'prismleaf' ),
+				),
+				'active_callback'  => 'prismleaf_is_frame_background_control_active',
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_frame_border_color_source',
+				'base_setting_id'          => 'prismleaf_frame_border_color_base',
+				'palette_setting_id'       => 'prismleaf_frame_border_color_palette',
+				'section'                  => 'prismleaf_frame_options',
+				'label'                    => __( 'Border color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 2040,
+				'active_callback'          => 'prismleaf_is_frame_background_control_active',
+				'source_default_key'       => 'frame_border_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'frame_border_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'frame_border_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_frame_background_color_source',
+				'base_setting_id'          => 'prismleaf_frame_background_color_base',
+				'palette_setting_id'       => 'prismleaf_frame_background_color_palette',
+				'section'                  => 'prismleaf_frame_options',
+				'label'                    => __( 'Background color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 2050,
+				'active_callback'          => 'prismleaf_is_frame_background_control_active',
+				'source_default_key'       => 'frame_background_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'frame_background_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'frame_background_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
 	}
 }
 add_action( 'customize_register', 'prismleaf_register_frame_options_section' );

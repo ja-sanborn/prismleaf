@@ -172,6 +172,13 @@ if ( ! function_exists( 'prismleaf_enqueue_customizer_components' ) ) {
 			PRISMLEAF_VERSION,
 			true
 		);
+		wp_enqueue_script(
+			'prismleaf-customizer-palette-source-control',
+			PRISMLEAF_URI . 'assets/scripts/customizer-palette-source-control.js',
+			array( 'customize-controls', 'wp-color-picker', 'prismleaf-customizer-helpers', 'prismleaf-customizer-palette-control' ),
+			PRISMLEAF_VERSION,
+			true
+		);
 	}
 }
 add_action( 'customize_controls_enqueue_scripts', 'prismleaf_enqueue_customizer_components' );

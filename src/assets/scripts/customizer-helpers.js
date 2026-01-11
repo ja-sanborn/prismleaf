@@ -56,6 +56,48 @@
 		return [r, g, b];
 	};
 
+	const rgbaFromHex = (hex, alpha) => {
+		const rgb = hexToRgb(hex);
+		if (!rgb) {
+			return '';
+		}
+
+		const clamped = clampFloat(alpha, 0, 1);
+		const normalized = Number.isFinite(clamped) ? clamped : 0;
+		return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${normalized.toFixed(2)})`;
+	};
+
+	const isRgbaColor = (value) => {
+		if (typeof value !== 'string') {
+			return false;
+		}
+
+		const match = value.trim().match(/^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0?\.\d+)\s*\)$/);
+		if (!match) {
+			return false;
+		}
+
+		const r = Number(match[1]);
+		const g = Number(match[2]);
+		const b = Number(match[3]);
+		const a = Number(match[4]);
+
+		if (!Number.isFinite(r) || r < 0 || r > 255) {
+			return false;
+		}
+		if (!Number.isFinite(g) || g < 0 || g > 255) {
+			return false;
+		}
+		if (!Number.isFinite(b) || b < 0 || b > 255) {
+			return false;
+		}
+		if (!Number.isFinite(a) || a < 0 || a > 1) {
+			return false;
+		}
+
+		return true;
+	};
+
 	const rgbToHex = (rgb) => {
 		if (!Array.isArray(rgb) || rgb.length !== 3) {
 			return null;
@@ -351,6 +393,8 @@
 		const onColor = pickOnColorFromTones(ramp[0], tones);
 		const containerOn = pickOnColorFromTones(ramp[5], containerTones);
 
+		const opacityBase = ramp[0];
+
 		return {
 			'1': ramp[0],
 			'2': ramp[1],
@@ -358,6 +402,11 @@
 			'4': ramp[3],
 			'5': ramp[4],
 			on: onColor,
+			outline: rgbaFromHex(opacityBase, 0.30),
+			outline_variant: rgbaFromHex(opacityBase, 0.18),
+			on_surface_muted: rgbaFromHex(opacityBase, 0.72),
+			disabled_foreground: rgbaFromHex(opacityBase, 0.38),
+			disabled_surface: rgbaFromHex(opacityBase, 0.12),
 			container_1: ramp[9],
 			container_2: ramp[8],
 			container_3: ramp[7],
@@ -380,6 +429,11 @@
 			'4',
 			'5',
 			'on',
+			'outline',
+			'outline_variant',
+			'on_surface_muted',
+			'disabled_foreground',
+			'disabled_surface',
 			'container_1',
 			'container_2',
 			'container_3',
@@ -391,7 +445,108 @@
 		const clean = {};
 		for (let i = 0; i < keys.length; i += 1) {
 			const key = keys[i];
+			if (key === 'outline'
+				|| key === 'outline_variant'
+				|| key === 'on_surface_muted'
+				|| key === 'disabled_foreground'
+				|| key === 'disabled_surface') {
+				if (!isRgbaColor(palette[key])) {
+					return '';
+				}
+				clean[key] = palette[key];
+				continue;
+			}
+
 			const value = sanitizeHexColor(palette[key]);
+			if (!value) {
+				return '';
+			}
+			clean[key] = value;
+		}
+
+		return JSON.stringify(clean);
+	};
+
+	const buildPaletteJsonFromVariables = (source) => {
+		if (typeof source !== 'string') {
+			return '';
+		}
+
+		const slug = source.trim().toLowerCase();
+		if (!slug || slug === 'default' || slug === 'custom') {
+			return '';
+		}
+
+		const expectedKeys = [
+			'1',
+			'2',
+			'3',
+			'4',
+			'5',
+			'on',
+			'outline',
+			'outline_variant',
+			'on_surface_muted',
+			'disabled_foreground',
+			'disabled_surface',
+			'container_1',
+			'container_2',
+			'container_3',
+			'container_4',
+			'container_5',
+			'container_on',
+		];
+
+		const palette = {};
+		const setOpacityValues = (prefix) => {
+			palette.outline = `${prefix}-outline`;
+			palette.outline_variant = `${prefix}-outline-variant`;
+			palette.on_surface_muted = `${prefix}-on-surface-muted`;
+			palette.disabled_foreground = `${prefix}-disabled-foreground`;
+			palette.disabled_surface = `${prefix}-disabled-surface`;
+		};
+
+		const setValues = (prefix, containerPrefix) => {
+			palette.on = `${prefix}-on`;
+			palette['1'] = `${prefix}-1`;
+			palette['2'] = `${prefix}-2`;
+			palette['3'] = `${prefix}-3`;
+			palette['4'] = `${prefix}-4`;
+			palette['5'] = `${prefix}-5`;
+			palette.container_on = `${containerPrefix}-on`;
+			palette.container_1 = `${containerPrefix}-1`;
+			palette.container_2 = `${containerPrefix}-2`;
+			palette.container_3 = `${containerPrefix}-3`;
+			palette.container_4 = `${containerPrefix}-4`;
+			palette.container_5 = `${containerPrefix}-5`;
+		};
+
+		switch (slug) {
+			case 'primary':
+			case 'secondary':
+			case 'tertiary':
+			case 'error':
+			case 'warning':
+			case 'info':
+				setValues(`--prismleaf-color-${slug}`, `--prismleaf-color-${slug}-container`);
+				setOpacityValues(`--prismleaf-color-${slug}`);
+				break;
+			case 'neutral_light':
+				setValues('--prismleaf-color-light-surface', '--prismleaf-color-light-surface-container');
+				setOpacityValues('--prismleaf-color-light');
+				break;
+			case 'neutral_dark':
+				setValues('--prismleaf-color-dark-surface', '--prismleaf-color-dark-surface-container');
+				setOpacityValues('--prismleaf-color-dark');
+				break;
+			default:
+				return '';
+		}
+
+		const clean = {};
+		for (let i = 0; i < expectedKeys.length; i += 1) {
+			const key = expectedKeys[i];
+			const value = palette[key];
 			if (!value) {
 				return '';
 			}
@@ -418,5 +573,6 @@
 		pickOnColorFromTones,
 		generatePaletteFromBase,
 		buildPaletteJsonFromBase,
+		buildPaletteJsonFromVariables,
 	};
 })(window);
