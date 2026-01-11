@@ -81,6 +81,120 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'active_callback'  => 'prismleaf_is_footer_layout_control_active',
 			)
 		);
+
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id'      => 'prismleaf_footer_heading_style',
+				'label'           => __( 'Style', 'prismleaf' ),
+				'section'         => 'prismleaf_footer_options',
+				'priority'        => 2000,
+				'active_callback' => 'prismleaf_is_footer_style_control_active',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_footer_border_corners',
+				'section'          => 'prismleaf_footer_options',
+				'label'            => __( 'Border corners', 'prismleaf' ),
+				'description'      => __( 'Controls the roundness of the footer corners.', 'prismleaf' ),
+				'priority'         => 2010,
+				'default_key'      => 'footer_border_corners',
+				'default_fallback' => 'Round',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
+				'choices'          => array(
+					'Square' => __( 'Square', 'prismleaf' ),
+					'Round'  => __( 'Round', 'prismleaf' ),
+				),
+				'active_callback'  => 'prismleaf_is_footer_style_control_active',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_footer_border_style',
+				'section'          => 'prismleaf_footer_options',
+				'label'            => __( 'Border style', 'prismleaf' ),
+				'description'      => __( 'Sets the footer border line style.', 'prismleaf' ),
+				'priority'         => 2020,
+				'default_key'      => 'footer_border_style',
+				'default_fallback' => 'solid',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
+				'choices'          => array(
+					'none'   => __( 'None', 'prismleaf' ),
+					'solid'  => __( 'Solid', 'prismleaf' ),
+					'dotted' => __( 'Dotted', 'prismleaf' ),
+					'dashed' => __( 'Dashed', 'prismleaf' ),
+				),
+				'active_callback'  => 'prismleaf_is_footer_style_control_active',
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_footer_border_color_source',
+				'base_setting_id'          => 'prismleaf_footer_border_color_base',
+				'palette_setting_id'       => 'prismleaf_footer_border_color_palette',
+				'section'                  => 'prismleaf_footer_options',
+				'label'                    => __( 'Border color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 2030,
+				'active_callback'          => 'prismleaf_is_footer_style_control_active',
+				'source_default_key'       => 'footer_border_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'footer_border_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'footer_border_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_footer_background_color_source',
+				'base_setting_id'          => 'prismleaf_footer_background_color_base',
+				'palette_setting_id'       => 'prismleaf_footer_background_color_palette',
+				'section'                  => 'prismleaf_footer_options',
+				'label'                    => __( 'Background color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 2040,
+				'active_callback'          => 'prismleaf_is_footer_background_control_active',
+				'source_default_key'       => 'footer_background_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'footer_background_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'footer_background_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_footer_elevation',
+				'section'          => 'prismleaf_footer_options',
+				'label'            => __( 'Elevation', 'prismleaf' ),
+				'description'      => __( 'Sets the elevation level for the footer.', 'prismleaf' ),
+				'priority'         => 2050,
+				'default_key'      => 'footer_elevation',
+				'default_fallback' => 'elevation-2',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
+				'choices'          => array(
+					'none'        => __( 'None', 'prismleaf' ),
+					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
+					'elevation-2' => __( 'Elevation 2', 'prismleaf' ),
+					'elevation-3' => __( 'Elevation 3', 'prismleaf' ),
+					'elevation-4' => __( 'Elevation 4', 'prismleaf' ),
+					'elevation-5' => __( 'Elevation 5', 'prismleaf' ),
+				),
+				'active_callback'  => 'prismleaf_is_footer_style_control_active',
+			)
+		);
 	}
 }
 add_action( 'customize_register', 'prismleaf_register_footer_options_section' );
