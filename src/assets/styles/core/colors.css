@@ -29,12 +29,6 @@
 	--prismleaf-shadow-elevation-4: var(--prismleaf-shadow-light-elevation-4);
 	--prismleaf-shadow-elevation-5: var(--prismleaf-shadow-light-elevation-5);
 
-	--prismleaf-glow-ring-1: var(--prismleaf-glow-light-ring-1);
-	--prismleaf-glow-ring-2: var(--prismleaf-glow-light-ring-2);
-	--prismleaf-glow-ring-3: var(--prismleaf-glow-light-ring-3);
-	--prismleaf-glow-ring-4: var(--prismleaf-glow-light-ring-4);
-	--prismleaf-glow-ring-5: var(--prismleaf-glow-light-ring-5);
-
 	/* Active palette: opacity values. */
 	--prismleaf-color-outline: var(--prismleaf-color-light-outline);
 	--prismleaf-color-outline-variant: var(--prismleaf-color-light-outline-variant);
@@ -77,12 +71,6 @@ html {
 		--prismleaf-shadow-elevation-3: var(--prismleaf-shadow-dark-elevation-3);
 		--prismleaf-shadow-elevation-4: var(--prismleaf-shadow-dark-elevation-4);
 		--prismleaf-shadow-elevation-5: var(--prismleaf-shadow-dark-elevation-5);
-
-		--prismleaf-glow-ring-1: var(--prismleaf-glow-dark-ring-1);
-		--prismleaf-glow-ring-2: var(--prismleaf-glow-dark-ring-2);
-		--prismleaf-glow-ring-3: var(--prismleaf-glow-dark-ring-3);
-		--prismleaf-glow-ring-4: var(--prismleaf-glow-dark-ring-4);
-		--prismleaf-glow-ring-5: var(--prismleaf-glow-dark-ring-5);
 
 		/* Active palette: opacity values. */
 		--prismleaf-color-outline: var(--prismleaf-color-dark-outline);
@@ -127,12 +115,6 @@ html {
 	--prismleaf-shadow-elevation-4: var(--prismleaf-shadow-light-elevation-4);
 	--prismleaf-shadow-elevation-5: var(--prismleaf-shadow-light-elevation-5);
 
-	--prismleaf-glow-ring-1: var(--prismleaf-glow-light-ring-1);
-	--prismleaf-glow-ring-2: var(--prismleaf-glow-light-ring-2);
-	--prismleaf-glow-ring-3: var(--prismleaf-glow-light-ring-3);
-	--prismleaf-glow-ring-4: var(--prismleaf-glow-light-ring-4);
-	--prismleaf-glow-ring-5: var(--prismleaf-glow-light-ring-5);
-
 	/* Active palette: opacity values. */
 	--prismleaf-color-outline: var(--prismleaf-color-light-outline);
 	--prismleaf-color-outline-variant: var(--prismleaf-color-light-outline-variant);
@@ -174,12 +156,6 @@ html[data-prismleaf-color-scheme="light"] {
 	--prismleaf-shadow-elevation-3: var(--prismleaf-shadow-dark-elevation-3);
 	--prismleaf-shadow-elevation-4: var(--prismleaf-shadow-dark-elevation-4);
 	--prismleaf-shadow-elevation-5: var(--prismleaf-shadow-dark-elevation-5);
-
-	--prismleaf-glow-ring-1: var(--prismleaf-glow-dark-ring-1);
-	--prismleaf-glow-ring-2: var(--prismleaf-glow-dark-ring-2);
-	--prismleaf-glow-ring-3: var(--prismleaf-glow-dark-ring-3);
-	--prismleaf-glow-ring-4: var(--prismleaf-glow-dark-ring-4);
-	--prismleaf-glow-ring-5: var(--prismleaf-glow-dark-ring-5);
 
 	/* Active palette: opacity values. */
 	--prismleaf-color-outline: var(--prismleaf-color-dark-outline);

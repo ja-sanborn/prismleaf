@@ -22,6 +22,7 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 			'global_framed_layout'           => false,
 			'frame_max_width'                => '1480',
 			'frame_show_background'          => true,
+			'frame_elevation'               => 'elevation-1',
 			'frame_border_corners'           => 'Round',
 			'frame_border_style'             => 'solid',
 			'frame_border_color_source'      => '',

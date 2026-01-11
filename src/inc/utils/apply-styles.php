@@ -403,6 +403,7 @@ if ( ! function_exists( 'prismleaf_get_framed_css_vars' ) ) {
 		$is_framed                   = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
 		$frame_max_width             = prismleaf_get_theme_mod_string( 'prismleaf_frame_max_width', prismleaf_get_default_option( 'frame_max_width', '1480' ) );
 		$frame_show_background        = prismleaf_get_theme_mod_bool( 'prismleaf_frame_show_background', true );
+		$frame_elevation             = prismleaf_get_theme_mod_string( 'prismleaf_frame_elevation', prismleaf_get_default_option( 'frame_elevation', 'elevation-1' ) );
 		$frame_border_corners        = prismleaf_get_theme_mod_string( 'prismleaf_frame_border_corners', prismleaf_get_default_option( 'frame_border_corners', 'Round' ) );
 		$frame_border_style          = prismleaf_get_theme_mod_string( 'prismleaf_frame_border_style', prismleaf_get_default_option( 'frame_border_style', 'solid' ) );
 		$header_floating             = prismleaf_get_theme_mod_bool( 'prismleaf_header_floating', true );
@@ -433,6 +434,23 @@ if ( ! function_exists( 'prismleaf_get_framed_css_vars' ) ) {
 			}
 
 			return ( 0 === strpos( $value, '--prismleaf-color-' ) ) ? 'var(' . $value . ')' : $value;
+		};
+
+		$resolve_elevation = static function ( $value ) {
+			if ( ! is_string( $value ) ) {
+				return 'var(--prismleaf-shadow-elevation-1)';
+			}
+
+			$value = strtolower( trim( $value ) );
+			if ( '' === $value || 'none' === $value ) {
+				return 'none';
+			}
+
+			if ( preg_match( '/^elevation-([1-5])$/', $value, $matches ) ) {
+				return 'var(--prismleaf-shadow-elevation-' . $matches[1] . ')';
+			}
+
+			return 'var(--prismleaf-shadow-elevation-1)';
 		};
 
 		$region_presets = array(
@@ -499,6 +517,7 @@ if ( ! function_exists( 'prismleaf_get_framed_css_vars' ) ) {
 		} elseif ( ! $is_framed && $frame_show_background ) {
 			$frame_values['border_radius'] = ( 'Square' === $frame_border_corners ) ? '0' : 'var(--prismleaf-radius-medium)';
 			$frame_values['border_style'] = $frame_border_style ? $frame_border_style : 'solid';
+			$frame_values['elevation'] = $resolve_elevation( $frame_elevation );
 
 			$background_palette = get_theme_mod( 'prismleaf_frame_background_color_palette', '' );
 			$background_palette = prismleaf_sanitize_palette_source_json( $background_palette );

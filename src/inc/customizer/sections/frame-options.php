@@ -177,6 +177,29 @@ if ( ! function_exists( 'prismleaf_register_frame_options_section' ) ) {
 				'palette_default_fallback' => '',
 			)
 		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_frame_elevation',
+				'section'          => 'prismleaf_frame_options',
+				'label'            => __( 'Elevation', 'prismleaf' ),
+				'description'      => __( 'Sets the elevation level for the frame background.', 'prismleaf' ),
+				'priority'         => 2060,
+				'default_key'      => 'frame_elevation',
+				'default_fallback' => 'elevation-1',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
+				'choices'          => array(
+					'none'        => __( 'None', 'prismleaf' ),
+					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
+					'elevation-2' => __( 'Elevation 2', 'prismleaf' ),
+					'elevation-3' => __( 'Elevation 3', 'prismleaf' ),
+					'elevation-4' => __( 'Elevation 4', 'prismleaf' ),
+					'elevation-5' => __( 'Elevation 5', 'prismleaf' ),
+				),
+				'active_callback'  => 'prismleaf_is_frame_background_control_active',
+			)
+		);
 	}
 }
 add_action( 'customize_register', 'prismleaf_register_frame_options_section' );

@@ -482,6 +482,30 @@ if ( ! function_exists( 'prismleaf_sanitize_frame_border_style' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_sanitize_frame_elevation' ) ) {
+	/**
+	 * Sanitize frame elevation.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_frame_elevation( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array(
+			'none',
+			'elevation-1',
+			'elevation-2',
+			'elevation-3',
+			'elevation-4',
+			'elevation-5',
+		);
+
+		return in_array( $value, $allowed, true ) ? $value : 'elevation-1';
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_json' ) ) {
 	/**
 	 * Sanitize JSON with an expected key list.

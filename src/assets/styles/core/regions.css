@@ -132,7 +132,7 @@
 	grid-area: content;
 	min-width: 0;
 	inline-size: 100%;
-	margin: var(--prismleaf-frame-gap);
+	padding: var(--prismleaf-frame-gap);
 }
 
 /* Frame surface styling. */
