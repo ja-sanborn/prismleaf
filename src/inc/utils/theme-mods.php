@@ -258,6 +258,137 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_dimension_value' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_get_theme_mod_background_image_id' ) ) {
+	function prismleaf_get_theme_mod_background_image_id( $setting_id, $default_key, $default_fallback = '' ) {
+		$setting_id   = prismleaf_sanitize_text( $setting_id );
+		$default_key  = prismleaf_sanitize_text( $default_key );
+		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_background_image( $default_value );
+		}
+
+		$raw = get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_background_image( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_background_image_url' ) ) {
+	function prismleaf_get_theme_mod_background_image_url( $setting_id, $default_key, $default_fallback = '' ) {
+		$id = prismleaf_get_theme_mod_background_image_id( $setting_id, $default_key, $default_fallback );
+
+		if ( ! $id ) {
+			return 'none';
+		}
+
+		$url = wp_get_attachment_image_url( $id, 'full' );
+		if ( ! $url ) {
+			return 'none';
+		}
+
+		return "url('" . esc_url_raw( $url ) . "')";
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_background_repeat' ) ) {
+	function prismleaf_get_theme_mod_background_repeat( $setting_id, $default_key, $default_fallback = 'repeat' ) {
+		$setting_id   = prismleaf_sanitize_text( $setting_id );
+		$default_key  = prismleaf_sanitize_text( $default_key );
+		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_background_repeat( $default_value );
+		}
+
+		$raw = get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_background_repeat( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_background_position_x' ) ) {
+	function prismleaf_get_theme_mod_background_position_x( $setting_id, $default_key, $default_fallback = 'center' ) {
+		$setting_id   = prismleaf_sanitize_text( $setting_id );
+		$default_key  = prismleaf_sanitize_text( $default_key );
+		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_background_position_x( $default_value );
+		}
+
+		$raw = get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_background_position_x( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_background_position_y' ) ) {
+	function prismleaf_get_theme_mod_background_position_y( $setting_id, $default_key, $default_fallback = 'center' ) {
+		$setting_id   = prismleaf_sanitize_text( $setting_id );
+		$default_key  = prismleaf_sanitize_text( $default_key );
+		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_background_position_y( $default_value );
+		}
+
+		$raw = get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_background_position_y( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_background_position' ) ) {
+function prismleaf_get_theme_mod_background_position( $setting_id_x, $default_key_x, $setting_id_y, $default_key_y ) {
+		$x = prismleaf_get_theme_mod_background_position_x( $setting_id_x, $default_key_x );
+		$y = prismleaf_get_theme_mod_background_position_y( $setting_id_y, $default_key_y );
+
+		return $x . ' ' . $y;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_background_preset' ) ) {
+	function prismleaf_get_theme_mod_background_preset( $setting_id, $default_key, $default_fallback = 'default' ) {
+		$setting_id   = prismleaf_sanitize_text( $setting_id );
+		$default_key  = prismleaf_sanitize_text( $default_key );
+		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_background_preset( $default_value );
+		}
+
+		$raw = get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_background_preset( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_background_size' ) ) {
+	function prismleaf_get_theme_mod_background_size( $setting_id, $default_key, $default_fallback = 'auto' ) {
+		$setting_id   = prismleaf_sanitize_text( $setting_id );
+		$default_key  = prismleaf_sanitize_text( $default_key );
+		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_background_size( $default_value );
+		}
+
+		$raw = get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_background_size( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_background_attachment' ) ) {
+	function prismleaf_get_theme_mod_background_attachment( $setting_id, $default_key, $default_fallback = 'scroll' ) {
+		$setting_id   = prismleaf_sanitize_text( $setting_id );
+		$default_key  = prismleaf_sanitize_text( $default_key );
+		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_background_attachment( $default_value );
+		}
+
+		$raw = get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_background_attachment( $raw );
+	}
+}
+
 if ( ! function_exists( 'prismleaf_get_theme_mod_header_height' ) ) {
 	/**
 	 * Get the header height CSS value from theme mods.

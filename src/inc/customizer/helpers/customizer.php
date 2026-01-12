@@ -402,7 +402,7 @@ if ( ! function_exists( 'prismleaf_add_palette_preview_control_with_defaults' ) 
 	 * @param array<string,mixed>  $args Control arguments.
 	 * @return void
 	 */
-	function prismleaf_add_palette_preview_control_with_defaults( $wp_customize, $args ) {
+function prismleaf_add_palette_preview_control_with_defaults( $wp_customize, $args ) {
 		$defaults = array(
 			'description'     => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
 			'default_fallback'=> '',
@@ -411,6 +411,155 @@ if ( ! function_exists( 'prismleaf_add_palette_preview_control_with_defaults' ) 
 
 		$args = wp_parse_args( $args, $defaults );
 		prismleaf_add_palette_preview_control( $wp_customize, $args );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_add_background_image_control' ) ) {
+	/**
+	 * Add a background image control with supporting settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
+	 */
+	function prismleaf_add_background_image_control( $wp_customize, $args ) {
+		$defaults = array(
+			'section'                    => '',
+			'label'                      => '',
+			'description'                => '',
+			'priority'                   => 0,
+			'setting_base'               => '',
+			'active_callback'            => null,
+			'transport'                  => 'refresh',
+			'image_default_key'          => '',
+			'image_default_fallback'     => '',
+			'repeat_default_key'         => '',
+			'repeat_default_fallback'    => 'repeat',
+			'position_x_default_key'     => '',
+			'position_x_default_fallback'=> 'center',
+			'position_y_default_key'     => '',
+			'position_y_default_fallback'=> 'center',
+			'size_default_key'           => '',
+			'size_default_fallback'      => 'auto',
+			'attachment_default_key'     => '',
+			'attachment_default_fallback'=> 'scroll',
+			'preset_default_key'         => '',
+			'preset_default_fallback'    => 'default',
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$args['section']               = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['label']                 = prismleaf_sanitize_text( $args['label'] );
+		$args['description']           = prismleaf_sanitize_text( $args['description'] );
+		$args['priority']              = prismleaf_sanitize_int( $args['priority'] );
+		$args['setting_base']          = prismleaf_sanitize_customizer_id( $args['setting_base'] );
+		$args['transport']             = prismleaf_sanitize_transport( $args['transport'] );
+		$args['image_default_key']     = prismleaf_sanitize_text( $args['image_default_key'] );
+		$args['repeat_default_key']    = prismleaf_sanitize_text( $args['repeat_default_key'] );
+		$args['position_x_default_key']= prismleaf_sanitize_text( $args['position_x_default_key'] );
+		$args['position_y_default_key']= prismleaf_sanitize_text( $args['position_y_default_key'] );
+		$args['size_default_key']      = prismleaf_sanitize_text( $args['size_default_key'] );
+		$args['attachment_default_key']= prismleaf_sanitize_text( $args['attachment_default_key'] );
+		$args['preset_default_key']    = prismleaf_sanitize_text( $args['preset_default_key'] );
+
+		if ( '' === $args['setting_base'] || '' === $args['section'] || '' === $args['label'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
+		}
+
+		$ids = array(
+			'image'      => $args['setting_base'] . '_image',
+			'repeat'     => $args['setting_base'] . '_repeat',
+			'position_x' => $args['setting_base'] . '_position_x',
+			'position_y' => $args['setting_base'] . '_position_y',
+			'size'       => $args['setting_base'] . '_size',
+			'attachment' => $args['setting_base'] . '_attachment',
+			'preset'     => $args['setting_base'] . '_preset',
+		);
+
+		$wp_customize->add_setting(
+			$ids['image'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['image_default_key'], $args['image_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_image',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['repeat'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['repeat_default_key'], $args['repeat_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_repeat',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['position_x'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['position_x_default_key'], $args['position_x_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_position_x',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['position_y'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['position_y_default_key'], $args['position_y_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_position_y',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['size'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['size_default_key'], $args['size_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_size',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['attachment'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['attachment_default_key'], $args['attachment_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_attachment',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['preset'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['preset_default_key'], $args['preset_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_preset',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$control_args = array(
+			'label'    => $args['label'],
+			'description' => $args['description'],
+			'section'  => $args['section'],
+			'priority' => $args['priority'],
+			'settings' => $ids,
+		);
+
+		if ( $args['active_callback'] ) {
+			$control_args['active_callback'] = $args['active_callback'];
+		}
+
+		$wp_customize->add_control(
+			new Prismleaf_Customize_Background_Image_Control(
+				$wp_customize,
+				$ids['image'],
+				$control_args
+			)
+		);
 	}
 }
 

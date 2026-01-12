@@ -216,6 +216,35 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 			)
 		);
 
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id'      => 'prismleaf_footer_heading_background_image',
+				'label'           => __( 'Background Image', 'prismleaf' ),
+				'section'         => 'prismleaf_footer_options',
+				'priority'        => 3000,
+				'active_callback' => 'prismleaf_is_footer_control_active',
+			)
+		);
+
+		prismleaf_add_background_image_control(
+			$wp_customize,
+			array(
+				'section'                    => 'prismleaf_footer_options',
+				'label'                      => __( 'Optional background for the footer area.', 'prismleaf' ),
+				'priority'                   => 3010,
+				'setting_base'               => 'prismleaf_footer_background',
+				'active_callback'            => 'prismleaf_is_footer_control_active',
+				'image_default_key'          => 'footer_background_image',
+				'repeat_default_key'         => 'footer_background_image_repeat',
+				'position_x_default_key'     => 'footer_background_image_position_x',
+				'position_y_default_key'     => 'footer_background_image_position_y',
+				'size_default_key'           => 'footer_background_image_size',
+				'attachment_default_key'     => 'footer_background_image_attachment',
+				'preset_default_key'         => 'footer_background_image_preset',
+			)
+		);
+
 	}
 }
 add_action( 'customize_register', 'prismleaf_register_footer_options_section' );

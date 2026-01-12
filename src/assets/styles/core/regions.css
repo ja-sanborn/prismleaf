@@ -20,6 +20,11 @@
 
 	/* Footer region tokens. */
 	--prismleaf-footer-background-color: var(--prismleaf-color-surface-2);
+	--prismleaf-footer-background-image: none;
+	--prismleaf-footer-background-repeat: repeat;
+	--prismleaf-footer-background-position: center;
+	--prismleaf-footer-background-size: auto;
+	--prismleaf-footer-background-attachment: scroll;
 	--prismleaf-footer-border-color: var(--prismleaf-color-outline);
 	--prismleaf-footer-border-radius: var(--prismleaf-radius-medium);
 	--prismleaf-footer-border-style: var(--prismleaf-border-style);
@@ -44,6 +49,11 @@
 
 	/* Header region tokens. */
 	--prismleaf-header-background-color: var(--prismleaf-color-surface-2);
+	--prismleaf-header-background-image: none;
+	--prismleaf-header-background-repeat: repeat;
+	--prismleaf-header-background-position: center;
+	--prismleaf-header-background-size: auto;
+	--prismleaf-header-background-attachment: scroll;
 	--prismleaf-header-border-color: var(--prismleaf-color-outline);
 	--prismleaf-header-border-radius: var(--prismleaf-radius-medium);
 	--prismleaf-header-border-style: var(--prismleaf-border-style);
@@ -174,6 +184,11 @@
 .prismleaf-region-footer {
 	grid-area: footer;
 	background-color: var(--prismleaf-footer-background-color);
+	background-image: var(--prismleaf-footer-background-image);
+	background-repeat: var(--prismleaf-footer-background-repeat);
+	background-size: var(--prismleaf-footer-background-size);
+	background-position: var(--prismleaf-footer-background-position);
+	background-attachment: var(--prismleaf-footer-background-attachment);
 	border-color: var(--prismleaf-footer-border-color);
 	border-radius: var(--prismleaf-footer-border-radius);
 	border-style: var(--prismleaf-footer-border-style);
@@ -190,6 +205,11 @@
 .prismleaf-region-header {
 	grid-area: header;
 	background-color: var(--prismleaf-header-background-color);
+	background-image: var(--prismleaf-header-background-image);
+	background-repeat: var(--prismleaf-header-background-repeat);
+	background-size: var(--prismleaf-header-background-size);
+	background-position: var(--prismleaf-header-background-position);
+	background-attachment: var(--prismleaf-header-background-attachment);
 	border-color: var(--prismleaf-header-border-color);
 	border-radius: var(--prismleaf-header-border-radius);
 	border-style: var(--prismleaf-header-border-style);

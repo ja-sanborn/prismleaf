@@ -24,6 +24,7 @@ require_once PRISMLEAF_DIR . 'inc/utils/apply-styles.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-section-header-control.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-palette-preview-control.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-palette-source-control.php';
+require_once PRISMLEAF_DIR . 'inc/customizer/controls/class-prismleaf-customize-background-image-control.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/helpers/labels.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/helpers/customizer.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/helpers/active-callbacks.php';

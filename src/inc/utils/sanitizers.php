@@ -741,10 +741,10 @@ if ( ! function_exists( 'prismleaf_sanitize_frame_elevation' ) ) {
 	 * @param mixed $value Value to sanitize.
 	 * @return string
 	 */
-	function prismleaf_sanitize_frame_elevation( $value ) {
-		$value = strtolower( trim( (string) $value ) );
-		$allowed = array(
-			'none',
+function prismleaf_sanitize_frame_elevation( $value ) {
+	$value = strtolower( trim( (string) $value ) );
+	$allowed = array(
+		'none',
 			'elevation-1',
 			'elevation-2',
 			'elevation-3',
@@ -754,6 +754,61 @@ if ( ! function_exists( 'prismleaf_sanitize_frame_elevation' ) ) {
 
 	return in_array( $value, $allowed, true ) ? $value : 'none';
 }
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_background_image' ) ) {
+	function prismleaf_sanitize_background_image( $value ) {
+		$id = absint( $value );
+		return $id > 0 ? $id : '';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_background_repeat' ) ) {
+	function prismleaf_sanitize_background_repeat( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'repeat', 'repeat-x', 'repeat-y', 'no-repeat' );
+		return in_array( $value, $allowed, true ) ? $value : 'repeat';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_background_position_x' ) ) {
+	function prismleaf_sanitize_background_position_x( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'left', 'center', 'right' );
+		return in_array( $value, $allowed, true ) ? $value : 'center';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_background_position_y' ) ) {
+	function prismleaf_sanitize_background_position_y( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'top', 'center', 'bottom' );
+		return in_array( $value, $allowed, true ) ? $value : 'center';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_background_size' ) ) {
+	function prismleaf_sanitize_background_size( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'auto', 'cover', 'contain', 'stretch' );
+		return in_array( $value, $allowed, true ) ? $value : 'auto';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_background_attachment' ) ) {
+	function prismleaf_sanitize_background_attachment( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'scroll', 'fixed' );
+		return in_array( $value, $allowed, true ) ? $value : 'scroll';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_background_preset' ) ) {
+	function prismleaf_sanitize_background_preset( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'default', 'fill', 'fit', 'stretch', 'center' );
+		return in_array( $value, $allowed, true ) ? $value : 'default';
+	}
 }
 
 if ( ! function_exists( 'prismleaf_sanitize_json' ) ) {
