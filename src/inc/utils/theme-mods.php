@@ -227,3 +227,126 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_size_value' ) ) {
 		return prismleaf_sanitize_size_value( $raw, $default_value );
 	}
 }
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_dimension_value' ) ) {
+	/**
+	 * Get a dimension (height/width) CSS value from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param mixed  $default_fallback Default fallback value.
+	 * @param int    $min Minimum allowed.
+	 * @param int    $max Maximum allowed.
+	 * @param bool   $allow_auto Whether 'auto' is permitted.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_dimension_value( $setting_id, $default_key, $default_fallback, $min, $max, $allow_auto = false ) {
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
+		$default_value = ( '' !== $default_key )
+			? prismleaf_get_default_option( $default_key, $default_fallback )
+			: $default_fallback;
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_dimension_value( '', $min, $max, $default_value, $allow_auto );
+		}
+
+		$raw = get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_dimension_value( $raw, $min, $max, $default_value, $allow_auto );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_header_height' ) ) {
+	/**
+	 * Get the header height CSS value from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_header_height( $setting_id, $default_key, $default_fallback = '' ) {
+		$default_value = '' !== $default_fallback ? $default_fallback : 'auto';
+		return prismleaf_get_theme_mod_dimension_value( $setting_id, $default_key, $default_value, 32, 300, true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_footer_height' ) ) {
+	/**
+	 * Get the footer height CSS value from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_footer_height( $setting_id, $default_key, $default_fallback = '' ) {
+		$default_value = '' !== $default_fallback ? $default_fallback : 'auto';
+		return prismleaf_get_theme_mod_dimension_value( $setting_id, $default_key, $default_value, 32, 600, true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_sidebar_width_value' ) ) {
+	/**
+	 * Get a sidebar width CSS value from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @param int    $min Minimum value.
+	 * @param int    $max Maximum value.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_sidebar_width_value( $setting_id, $default_key, $default_fallback = '', $min = 150, $max = 300 ) {
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
+		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_dimension_value( '', $min, $max, $default_value, false );
+		}
+
+		$raw = get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_dimension_value( $raw, $min, $max, $default_value, false );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_primary_sidebar_width' ) ) {
+	/**
+	 * Get the primary sidebar width CSS value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_primary_sidebar_width( $setting_id, $default_key, $default_fallback = '260' ) {
+		return prismleaf_get_theme_mod_sidebar_width_value( $setting_id, $default_key, $default_fallback, 150, 300 );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_secondary_sidebar_width' ) ) {
+	/**
+	 * Get the secondary sidebar width CSS value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_secondary_sidebar_width( $setting_id, $default_key, $default_fallback = '200' ) {
+		return prismleaf_get_theme_mod_sidebar_width_value( $setting_id, $default_key, $default_fallback, 150, 300 );
+	}
+}

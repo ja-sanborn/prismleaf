@@ -87,7 +87,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'priority'         => 2020,
 				'default_key'      => 'sidebar_primary_contained',
 				'default_fallback' => true,
-				'active_callback'  => 'prismleaf_is_sidebar_primary_layout_control_active',
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
 			)
 		);
 
@@ -101,7 +101,27 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'priority'         => 2030,
 				'default_key'      => 'sidebar_primary_floating',
 				'default_fallback' => true,
-				'active_callback'  => 'prismleaf_is_sidebar_primary_layout_control_active',
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
+			)
+		);
+
+		prismleaf_add_number_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_primary_width',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Sidebar width', 'prismleaf' ),
+				'description'      => __( 'Adjust the primary sidebar width in pixels.', 'prismleaf' ),
+				'priority'         => 2040,
+				'default_key'      => 'sidebar_primary_width',
+				'default_fallback' => '260',
+				'sanitize_callback'=> 'prismleaf_sanitize_sidebar_width_control',
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
+				'input_attrs'      => array(
+					'min' => 150,
+					'max' => 300,
+					'step'=> 1,
+				),
 			)
 		);
 
@@ -112,7 +132,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'label'           => __( 'Primary Style', 'prismleaf' ),
 				'section'         => 'prismleaf_sidebar_options',
 				'priority'        => 3000,
-				'active_callback' => 'prismleaf_is_sidebar_primary_style_control_active',
+				'active_callback' => 'prismleaf_is_sidebar_primary_control_active',
 			)
 		);
 
@@ -127,11 +147,11 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'default_key'      => 'sidebar_primary_border_corners',
 				'default_fallback' => 'Round',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
 				'choices'          => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_sidebar_primary_style_control_active',
 			)
 		);
 
@@ -146,13 +166,13 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'default_key'      => 'sidebar_primary_border_style',
 				'default_fallback' => 'solid',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
 				'choices'          => array(
 					'none'   => __( 'None', 'prismleaf' ),
 					'solid'  => __( 'Solid', 'prismleaf' ),
 					'dotted' => __( 'Dotted', 'prismleaf' ),
 					'dashed' => __( 'Dashed', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_sidebar_primary_style_control_active',
 			)
 		);
 
@@ -166,7 +186,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'label'                    => __( 'Border color', 'prismleaf' ),
 				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
 				'priority'                 => 3030,
-				'active_callback'          => 'prismleaf_is_sidebar_primary_style_control_active',
+				'active_callback'          => 'prismleaf_is_sidebar_primary_control_active',
 				'source_default_key'       => 'sidebar_primary_border_color_source',
 				'source_default_fallback'  => '',
 				'base_default_key'         => 'sidebar_primary_border_color_base',
@@ -207,6 +227,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'default_key'      => 'sidebar_primary_elevation',
 				'default_fallback' => 'elevation-2',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
 				'choices'          => array(
 					'none'        => __( 'None', 'prismleaf' ),
 					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
@@ -215,7 +236,6 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 					'elevation-4' => __( 'Elevation 4', 'prismleaf' ),
 					'elevation-5' => __( 'Elevation 5', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_sidebar_primary_style_control_active',
 			)
 		);
 
@@ -252,7 +272,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'priority'         => 4020,
 				'default_key'      => 'sidebar_secondary_contained',
 				'default_fallback' => true,
-				'active_callback'  => 'prismleaf_is_sidebar_secondary_layout_control_active',
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
 			)
 		);
 
@@ -266,7 +286,27 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'priority'         => 4030,
 				'default_key'      => 'sidebar_secondary_floating',
 				'default_fallback' => true,
-				'active_callback'  => 'prismleaf_is_sidebar_secondary_layout_control_active',
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
+			)
+		);
+
+		prismleaf_add_number_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_secondary_width',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Sidebar width', 'prismleaf' ),
+				'description'      => __( 'Adjust the secondary sidebar width in pixels.', 'prismleaf' ),
+				'priority'         => 4040,
+				'default_key'      => 'sidebar_secondary_width',
+				'default_fallback' => '200',
+				'sanitize_callback'=> 'prismleaf_sanitize_sidebar_width_control',
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
+				'input_attrs'      => array(
+					'min' => 150,
+					'max' => 300,
+					'step'=> 1,
+				),
 			)
 		);
 
@@ -277,7 +317,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'label'           => __( 'Secondary Style', 'prismleaf' ),
 				'section'         => 'prismleaf_sidebar_options',
 				'priority'        => 5000,
-				'active_callback' => 'prismleaf_is_sidebar_secondary_style_control_active',
+				'active_callback' => 'prismleaf_is_sidebar_secondary_control_active',
 			)
 		);
 
@@ -292,11 +332,11 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'default_key'      => 'sidebar_secondary_border_corners',
 				'default_fallback' => 'Round',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
 				'choices'          => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_sidebar_secondary_style_control_active',
 			)
 		);
 
@@ -311,13 +351,13 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'default_key'      => 'sidebar_secondary_border_style',
 				'default_fallback' => 'solid',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
 				'choices'          => array(
 					'none'   => __( 'None', 'prismleaf' ),
 					'solid'  => __( 'Solid', 'prismleaf' ),
 					'dotted' => __( 'Dotted', 'prismleaf' ),
 					'dashed' => __( 'Dashed', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_sidebar_secondary_style_control_active',
 			)
 		);
 
@@ -331,7 +371,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'label'                    => __( 'Border color', 'prismleaf' ),
 				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
 				'priority'                 => 5030,
-				'active_callback'          => 'prismleaf_is_sidebar_secondary_style_control_active',
+				'active_callback'          => 'prismleaf_is_sidebar_secondary_control_active',
 				'source_default_key'       => 'sidebar_secondary_border_color_source',
 				'source_default_fallback'  => '',
 				'base_default_key'         => 'sidebar_secondary_border_color_base',
@@ -372,6 +412,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'default_key'      => 'sidebar_secondary_elevation',
 				'default_fallback' => 'elevation-2',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
 				'choices'          => array(
 					'none'        => __( 'None', 'prismleaf' ),
 					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
@@ -380,7 +421,6 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 					'elevation-4' => __( 'Elevation 4', 'prismleaf' ),
 					'elevation-5' => __( 'Elevation 5', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_sidebar_secondary_style_control_active',
 			)
 		);
 	}

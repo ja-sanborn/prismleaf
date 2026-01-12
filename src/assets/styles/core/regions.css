@@ -44,10 +44,6 @@
 
 	/* Header region tokens. */
 	--prismleaf-header-background-color: var(--prismleaf-color-surface-2);
-	--prismleaf-header-background-image: none;
-	--prismleaf-header-background-position: center;
-	--prismleaf-header-background-repeat: no-repeat;
-	--prismleaf-header-background-size: cover;
 	--prismleaf-header-border-color: var(--prismleaf-color-outline);
 	--prismleaf-header-border-radius: var(--prismleaf-radius-medium);
 	--prismleaf-header-border-style: var(--prismleaf-border-style);
@@ -186,16 +182,14 @@
 	color: var(--prismleaf-footer-foreground-color);
 	margin: var(--prismleaf-footer-margin);
 	padding: var(--prismleaf-footer-padding);
+	min-height: var(--prismleaf-footer-min-height);
+	height: var(--prismleaf-footer-height);
 }
 
 /* Header region styling. */
 .prismleaf-region-header {
 	grid-area: header;
 	background-color: var(--prismleaf-header-background-color);
-	background-image: var(--prismleaf-header-background-image);
-	background-repeat: var(--prismleaf-header-background-repeat);
-	background-size: var(--prismleaf-header-background-size);
-	background-position: var(--prismleaf-header-background-position);
 	border-color: var(--prismleaf-header-border-color);
 	border-radius: var(--prismleaf-header-border-radius);
 	border-style: var(--prismleaf-header-border-style);
@@ -204,6 +198,8 @@
 	color: var(--prismleaf-header-foreground-color);
 	margin: var(--prismleaf-header-margin);
 	padding: var(--prismleaf-header-padding);
+	min-height: var(--prismleaf-header-min-height);
+	height: var(--prismleaf-header-height);
 }
 
 /* Left sidebar styling. */

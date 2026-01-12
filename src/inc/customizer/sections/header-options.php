@@ -64,7 +64,7 @@ if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 				'priority'         => 1020,
 				'default_key'      => 'header_contained',
 				'default_fallback' => true,
-				'active_callback'  => 'prismleaf_is_header_layout_control_active',
+				'active_callback'  => 'prismleaf_is_header_control_active',
 			)
 		);
 
@@ -78,7 +78,27 @@ if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 				'priority'         => 1030,
 				'default_key'      => 'header_floating',
 				'default_fallback' => true,
-				'active_callback'  => 'prismleaf_is_header_layout_control_active',
+				'active_callback'  => 'prismleaf_is_header_control_active',
+			)
+		);
+
+		prismleaf_add_number_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_header_height',
+				'section'          => 'prismleaf_header_options',
+				'label'            => __( 'Header height', 'prismleaf' ),
+				'description'      => __( 'Specify a fixed height in pixels. Leave blank for automatic height.', 'prismleaf' ),
+				'priority'         => 1040,
+				'default_key'      => 'header_height',
+				'default_fallback' => '',
+				'sanitize_callback'=> 'prismleaf_sanitize_header_height',
+				'active_callback'  => 'prismleaf_is_header_control_active',
+				'input_attrs'      => array(
+					'min' => 32,
+					'max' => 300,
+					'step'=> 1,
+				),
 			)
 		);
 
@@ -89,7 +109,7 @@ if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 				'label'           => __( 'Style', 'prismleaf' ),
 				'section'         => 'prismleaf_header_options',
 				'priority'        => 2000,
-				'active_callback' => 'prismleaf_is_header_style_control_active',
+				'active_callback' => 'prismleaf_is_header_control_active',
 			)
 		);
 
@@ -104,11 +124,11 @@ if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 				'default_key'      => 'header_border_corners',
 				'default_fallback' => 'Round',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
+				'active_callback'  => 'prismleaf_is_header_control_active',
 				'choices'          => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_header_style_control_active',
 			)
 		);
 
@@ -123,13 +143,13 @@ if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 				'default_key'      => 'header_border_style',
 				'default_fallback' => 'solid',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
+				'active_callback'  => 'prismleaf_is_header_control_active',
 				'choices'          => array(
 					'none'   => __( 'None', 'prismleaf' ),
 					'solid'  => __( 'Solid', 'prismleaf' ),
 					'dotted' => __( 'Dotted', 'prismleaf' ),
 					'dashed' => __( 'Dashed', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_header_style_control_active',
 			)
 		);
 
@@ -143,7 +163,7 @@ if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 				'label'                    => __( 'Border color', 'prismleaf' ),
 				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
 				'priority'                 => 2030,
-				'active_callback'          => 'prismleaf_is_header_style_control_active',
+				'active_callback'          => 'prismleaf_is_header_control_active',
 				'source_default_key'       => 'header_border_color_source',
 				'source_default_fallback'  => '',
 				'base_default_key'         => 'header_border_color_base',
@@ -184,6 +204,7 @@ if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 				'default_key'      => 'header_elevation',
 				'default_fallback' => 'elevation-2',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
+				'active_callback'  => 'prismleaf_is_header_control_active',
 				'choices'          => array(
 					'none'        => __( 'None', 'prismleaf' ),
 					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
@@ -192,9 +213,9 @@ if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 					'elevation-4' => __( 'Elevation 4', 'prismleaf' ),
 					'elevation-5' => __( 'Elevation 5', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_header_style_control_active',
 			)
 		);
+
 	}
 }
 add_action( 'customize_register', 'prismleaf_register_header_options_section' );

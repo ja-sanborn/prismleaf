@@ -251,7 +251,7 @@ if ( ! function_exists( 'prismleaf_add_number_control' ) ) {
 	 * @param array<string,mixed>  $args Control arguments.
 	 * @return void
 	 */
-	function prismleaf_add_number_control( $wp_customize, $args ) {
+function prismleaf_add_number_control( $wp_customize, $args ) {
 		$defaults = array(
 			'setting_id'       => '',
 			'section'          => '',

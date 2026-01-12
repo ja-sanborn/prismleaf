@@ -526,7 +526,127 @@ if ( ! function_exists( 'prismleaf_sanitize_size_value' ) ) {
 			return $selected;
 		}
 
-		return rtrim( $selected, ' ' ) . 'px';
+	return rtrim( $selected, ' ' ) . 'px';
+}
+}
+
+if ( ! function_exists( 'prismleaf_parse_dimension_number' ) ) {
+	/**
+	 * Parse a numeric dimension within bounds.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to parse.
+	 * @param int   $min   Minimum allowed value.
+	 * @param int   $max   Maximum allowed value.
+	 * @return int|null
+	 */
+	function prismleaf_parse_dimension_number( $value, $min, $max ) {
+		if ( ! is_numeric( $value ) ) {
+			return null;
+		}
+
+		$number = (int) $value;
+		$min    = (int) $min;
+		$max    = (int) $max;
+
+		if ( $number < $min ) {
+			$number = $min;
+		}
+
+		if ( $number > $max ) {
+			$number = $max;
+		}
+
+		return $number;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_dimension_value' ) ) {
+	/**
+	 * Sanitize a dimension (height/width) value that may default to px or auto.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value      Value to sanitize.
+	 * @param int   $min        Minimum allowed.
+	 * @param int   $max        Maximum allowed.
+	 * @param mixed $default    Default fallback value.
+	 * @param bool  $allow_auto Whether 'auto' is permitted.
+	 * @return string
+	 */
+	function prismleaf_sanitize_dimension_value( $value, $min, $max, $default = '', $allow_auto = false ) {
+		$select = static function ( $candidate ) use ( $min, $max, $allow_auto ) {
+			if ( is_null( $candidate ) ) {
+				return '';
+			}
+
+			$trimmed = trim( (string) $candidate );
+			if ( $allow_auto && '' !== $trimmed && 'auto' === strtolower( $trimmed ) ) {
+				return 'auto';
+			}
+
+			$number = prismleaf_parse_dimension_number( $trimmed, $min, $max );
+			if ( null === $number ) {
+				return '';
+			}
+
+			return $number . 'px';
+		};
+
+		$selected = $select( $value );
+		if ( '' === $selected ) {
+			$selected = $select( $default );
+		}
+
+		return $selected;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_header_height' ) ) {
+	/**
+	 * Sanitize the header height range.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_header_height( $value ) {
+		return prismleaf_sanitize_dimension_value( $value, 32, 300, 'auto', true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_footer_height' ) ) {
+	/**
+	 * Sanitize the footer height range.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_footer_height( $value ) {
+		return prismleaf_sanitize_dimension_value( $value, 32, 600, 'auto', true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_sidebar_width_control' ) ) {
+	/**
+	 * Sanitize a sidebar width for the control storage.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_sidebar_width_control( $value ) {
+		$sanitized = prismleaf_sanitize_dimension_value( $value, 150, 300, '', false );
+		if ( '' === $sanitized ) {
+			return '';
+		}
+
+		return rtrim( $sanitized, 'px' );
 	}
 }
 
@@ -632,8 +752,8 @@ if ( ! function_exists( 'prismleaf_sanitize_frame_elevation' ) ) {
 			'elevation-5',
 		);
 
-		return in_array( $value, $allowed, true ) ? $value : 'none';
-	}
+	return in_array( $value, $allowed, true ) ? $value : 'none';
+}
 }
 
 if ( ! function_exists( 'prismleaf_sanitize_json' ) ) {
