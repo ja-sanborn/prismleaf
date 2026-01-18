@@ -462,6 +462,7 @@ if ( ! function_exists( 'prismleaf_get_header_css_vars' ) ) {
 		$is_framed   = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
 		$is_floating = prismleaf_get_theme_mod_bool( 'prismleaf_header_floating', true );
 		$height      = prismleaf_get_theme_mod_header_height( 'prismleaf_header_height', 'header_height' );
+		$max_height  = ( $is_framed || ! $is_floating ) ? '150px' : 'none';
 		$margin      = '--prismleaf-space-2';
 
 		$surface          = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_header_background_color_palette', '1', '--prismleaf-color-surface-2' );
@@ -499,12 +500,14 @@ if ( ! function_exists( 'prismleaf_get_header_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-header-background-attachment', $background_attachment );
 		$css .= prismleaf_build_css_var( '--prismleaf-header-border-color', $border_color );
 		$css .= prismleaf_build_css_var( '--prismleaf-header-border-radius', $border_radius );
-		$css .= prismleaf_build_css_var( '--prismleaf-header-border-style-top', $border_style_alt );
+		$css .= prismleaf_build_css_var( '--prismleaf-header-border-style-bottom', $border_style );
 		$css .= prismleaf_build_css_var( '--prismleaf-header-border-style-left', $border_style_alt );
 		$css .= prismleaf_build_css_var( '--prismleaf-header-border-style-right', $border_style_alt );
+		$css .= prismleaf_build_css_var( '--prismleaf-header-border-style-top', $border_style_alt );
 		$css .= prismleaf_build_css_var( '--prismleaf-header-elevation', $elevation );
 		$css .= prismleaf_build_css_var( '--prismleaf-header-height', $height );
 		$css .= prismleaf_build_css_var( '--prismleaf-header-margin', $margin );
+		$css .= prismleaf_build_css_var( '--prismleaf-header-max-height', $max_height );
 
 		return $css;
 	}
@@ -522,6 +525,7 @@ if ( ! function_exists( 'prismleaf_get_footer_css_vars' ) ) {
 		$is_framed   = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
 		$is_floating = prismleaf_get_theme_mod_bool( 'prismleaf_footer_floating', true );
 		$height      = prismleaf_get_theme_mod_footer_height( 'prismleaf_footer_height', 'footer_height' );
+		$max_height  = ( $is_framed || ! $is_floating ) ? '150px' : 'none';
 		$margin      = '--prismleaf-space-2';
 
 		$surface          = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_footer_background_color_palette', '1', '--prismleaf-color-surface-2' );
@@ -565,7 +569,7 @@ if ( ! function_exists( 'prismleaf_get_footer_css_vars' ) ) {
 		);
 
 		$justify = isset( $justify_map[ $alignment ] ) ? $justify_map[ $alignment ] : 'center';
-		$container_width = 'stretch' === $alignment ? '100%' : '--prismleaf-footer-widget-column-width';
+		$container_width = '100%';
 
 		$css  = '';
 		$css .= prismleaf_build_css_var( '--prismleaf-footer-background-color', $surface );
@@ -584,6 +588,7 @@ if ( ! function_exists( 'prismleaf_get_footer_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-footer-elevation', $elevation );
 		$css .= prismleaf_build_css_var( '--prismleaf-footer-height', $height );
 		$css .= prismleaf_build_css_var( '--prismleaf-footer-margin', $margin );
+		$css .= prismleaf_build_css_var( '--prismleaf-footer-max-height', $max_height );
 		$css .= prismleaf_build_css_var( '--prismleaf-footer-widget-row-justify', $justify );
 		$css .= prismleaf_build_css_var( '--prismleaf-footer-widget-row-width', $container_width );
 

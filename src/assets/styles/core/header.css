@@ -25,6 +25,7 @@
 	--prismleaf-header-foreground-color: var(--prismleaf-color-surface-on);
 	--prismleaf-header-padding: var(--prismleaf-space-2);
 	--prismleaf-header-margin: var(--prismleaf-space-2);
+	--prismleaf-header-max-height: none;
 }
 
 /* Header region styling. */
@@ -49,5 +50,7 @@
 	padding: var(--prismleaf-header-padding);
 	min-height: var(--prismleaf-header-min-height);
 	height: var(--prismleaf-header-height);
-    overflow: hidden;
+	max-height: var(--prismleaf-header-max-height);
+    overflow-x: hidden;
+	overflow-y: var(--prismleaf-region-overflow);
 }
