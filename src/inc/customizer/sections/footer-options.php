@@ -245,6 +245,53 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 			)
 		);
 
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_footer_heading_content',
+				'label'      => __( 'Content', 'prismleaf' ),
+				'section'    => 'prismleaf_footer_options',
+				'priority'   => 4000,
+				'active_callback' => 'prismleaf_is_footer_control_active',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_footer_widget_alignment',
+				'section'          => 'prismleaf_footer_options',
+				'label'            => __( 'Widget alignment', 'prismleaf' ),
+				'description'      => __( 'Controls alignment of the footer widget row. Stretch fills the available width.', 'prismleaf' ),
+				'priority'         => 4010,
+				'default_key'      => 'footer_widget_alignment',
+				'default_fallback' => 'center',
+				'sanitize_callback'=> 'prismleaf_sanitize_footer_widget_alignment',
+				'active_callback'  => 'prismleaf_is_footer_control_active',
+				'choices'          => array(
+					'left'    => __( 'Left', 'prismleaf' ),
+					'center'  => __( 'Center', 'prismleaf' ),
+					'right'   => __( 'Right', 'prismleaf' ),
+					'stretch' => __( 'Stretch', 'prismleaf' ),
+				),
+			)
+		);
+
+		prismleaf_add_text_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_footer_copyright_text',
+				'section'          => 'prismleaf_footer_options',
+				'label'            => __( 'Copyright text', 'prismleaf' ),
+				'description'      => __( 'Optional. Leave blank to use the site name and current year.', 'prismleaf' ),
+				'priority'         => 4020,
+				'default_key'      => 'footer_copyright_text',
+				'default_fallback' => '',
+				'control_type'     => 'textarea',
+				'active_callback'  => 'prismleaf_is_footer_control_active',
+			)
+		);
+
 	}
 }
 add_action( 'customize_register', 'prismleaf_register_footer_options_section' );

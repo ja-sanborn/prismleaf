@@ -89,7 +89,34 @@ if ( ! function_exists( 'prismleaf_sanitize_text' ) ) {
 	 * @return string
 	 */
 	function prismleaf_sanitize_text( $value ) {
-		return (string) sanitize_text_field( $value );
+		return trim( (string) sanitize_text_field( $value ) );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_css_value' ) ) {
+	/**
+	 * Sanitize a CSS value while preserving var()/url()/rgba() syntax.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_css_value( $value ) {
+		$value = (string) $value;
+		$value = trim( $value );
+
+		if ( '' === $value ) {
+			return '';
+		}
+
+		// Strip unbalanced quotes/tags and control characters.
+		$value = wp_strip_all_tags( $value );
+		$value = preg_replace( '/[\\r\\n\\t]+/', ' ', $value );
+
+		// Allow characters used in CSS functions, units, URLs, and color tokens.
+		$value = preg_replace( "/[^a-zA-Z0-9_\\-\\.\\,%\\(\\)#:'\"\\s\\/\\?=]/", '', $value );
+		return trim( $value );
 	}
 }
 
@@ -465,6 +492,23 @@ if ( ! function_exists( 'prismleaf_sanitize_frame_border_corners' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_sanitize_footer_widget_alignment' ) ) {
+	/**
+	 * Sanitize the footer widget alignment value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_footer_widget_alignment( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'left', 'center', 'right', 'stretch' );
+
+		return in_array( $value, $allowed, true ) ? $value : 'center';
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_frame_border_style' ) ) {
 	/**
 	 * Sanitize frame border style.
@@ -526,8 +570,8 @@ if ( ! function_exists( 'prismleaf_sanitize_size_value' ) ) {
 			return $selected;
 		}
 
-	return rtrim( $selected, ' ' ) . 'px';
-}
+		return rtrim( $selected, ' ' ) . 'px';
+	}
 }
 
 if ( ! function_exists( 'prismleaf_parse_dimension_number' ) ) {
@@ -542,11 +586,24 @@ if ( ! function_exists( 'prismleaf_parse_dimension_number' ) ) {
 	 * @return int|null
 	 */
 	function prismleaf_parse_dimension_number( $value, $min, $max ) {
-		if ( ! is_numeric( $value ) ) {
+		$raw = trim( (string) $value );
+		if ( '' === $raw ) {
 			return null;
 		}
 
-		$number = (int) $value;
+		$lower = strtolower( $raw );
+		if ( strlen( $lower ) > 2 && 'px' === substr( $lower, -2 ) ) {
+			$raw = trim( substr( $raw, 0, -2 ) );
+			if ( '' === $raw ) {
+				return null;
+			}
+		}
+
+		if ( ! is_numeric( $raw ) ) {
+			return null;
+		}
+
+		$number = (int) $raw;
 		$min    = (int) $min;
 		$max    = (int) $max;
 
@@ -741,22 +798,30 @@ if ( ! function_exists( 'prismleaf_sanitize_frame_elevation' ) ) {
 	 * @param mixed $value Value to sanitize.
 	 * @return string
 	 */
-function prismleaf_sanitize_frame_elevation( $value ) {
-	$value = strtolower( trim( (string) $value ) );
-	$allowed = array(
-		'none',
-			'elevation-1',
-			'elevation-2',
-			'elevation-3',
-			'elevation-4',
-			'elevation-5',
-		);
+	function prismleaf_sanitize_frame_elevation( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array(
+			'none',
+				'elevation-1',
+				'elevation-2',
+				'elevation-3',
+				'elevation-4',
+				'elevation-5',
+			);
 
-	return in_array( $value, $allowed, true ) ? $value : 'none';
-}
+		return in_array( $value, $allowed, true ) ? $value : 'none';
+	}
 }
 
 if ( ! function_exists( 'prismleaf_sanitize_background_image' ) ) {
+	/**
+	 * Sanitize the background image ID.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
 	function prismleaf_sanitize_background_image( $value ) {
 		$id = absint( $value );
 		return $id > 0 ? $id : '';
@@ -764,6 +829,14 @@ if ( ! function_exists( 'prismleaf_sanitize_background_image' ) ) {
 }
 
 if ( ! function_exists( 'prismleaf_sanitize_background_repeat' ) ) {
+	/**
+	 * Sanitize the background-repeat keyword.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
 	function prismleaf_sanitize_background_repeat( $value ) {
 		$value = strtolower( trim( (string) $value ) );
 		$allowed = array( 'repeat', 'repeat-x', 'repeat-y', 'no-repeat' );
@@ -772,6 +845,14 @@ if ( ! function_exists( 'prismleaf_sanitize_background_repeat' ) ) {
 }
 
 if ( ! function_exists( 'prismleaf_sanitize_background_position_x' ) ) {
+	/**
+	 * Sanitize the horizontal background position keyword.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
 	function prismleaf_sanitize_background_position_x( $value ) {
 		$value = strtolower( trim( (string) $value ) );
 		$allowed = array( 'left', 'center', 'right' );
@@ -780,6 +861,14 @@ if ( ! function_exists( 'prismleaf_sanitize_background_position_x' ) ) {
 }
 
 if ( ! function_exists( 'prismleaf_sanitize_background_position_y' ) ) {
+	/**
+	 * Sanitize the vertical background position keyword.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
 	function prismleaf_sanitize_background_position_y( $value ) {
 		$value = strtolower( trim( (string) $value ) );
 		$allowed = array( 'top', 'center', 'bottom' );
@@ -788,6 +877,14 @@ if ( ! function_exists( 'prismleaf_sanitize_background_position_y' ) ) {
 }
 
 if ( ! function_exists( 'prismleaf_sanitize_background_size' ) ) {
+	/**
+	 * Sanitize the background-size keyword.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
 	function prismleaf_sanitize_background_size( $value ) {
 		$value = strtolower( trim( (string) $value ) );
 		$allowed = array( 'auto', 'cover', 'contain', 'stretch' );
@@ -796,6 +893,14 @@ if ( ! function_exists( 'prismleaf_sanitize_background_size' ) ) {
 }
 
 if ( ! function_exists( 'prismleaf_sanitize_background_attachment' ) ) {
+	/**
+	 * Sanitize the background-attachment keyword.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
 	function prismleaf_sanitize_background_attachment( $value ) {
 		$value = strtolower( trim( (string) $value ) );
 		$allowed = array( 'scroll', 'fixed' );
@@ -804,6 +909,14 @@ if ( ! function_exists( 'prismleaf_sanitize_background_attachment' ) ) {
 }
 
 if ( ! function_exists( 'prismleaf_sanitize_background_preset' ) ) {
+	/**
+	 * Sanitize the background preset control value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
 	function prismleaf_sanitize_background_preset( $value ) {
 		$value = strtolower( trim( (string) $value ) );
 		$allowed = array( 'default', 'fill', 'fit', 'stretch', 'center' );

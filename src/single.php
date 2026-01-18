@@ -27,10 +27,12 @@ get_header();
 	 */
 	?>
 	<section>
-		<h1>Prismleaf Index Template</h1>
+		<h1>Prismleaf Single Post Template</h1>
 		<p>
-			Index.php is the ultimate fallback for every WordPress query, so keep
-			it to supply base markup whenever no other template exists.
+			This single.php template renders individual posts and serves as the
+			fallback for any post type without a dedicated template; removing it
+			causes WordPress to use index.php, so keep it to layer in post meta and
+			comments.
 		</p>
 
 		<p>

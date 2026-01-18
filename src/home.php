@@ -27,10 +27,11 @@ get_header();
 	 */
 	?>
 	<section>
-		<h1>Prismleaf Index Template</h1>
+		<h1>Prismleaf Home Page Template</h1>
 		<p>
-			Index.php is the ultimate fallback for every WordPress query, so keep
-			it to supply base markup whenever no other template exists.
+			This home template renders the blog index when you set a static
+			front page; delete it and WordPress falls back to index.php, so keep
+			it to shape the posts listing.
 		</p>
 
 		<p>

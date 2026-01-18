@@ -9,6 +9,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'prismleaf_get_theme_mod' ) ) {
+	/**
+	 * Wrap get_theme_mod so blank strings fall back to the default.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod identifier.
+	 * @param mixed  $default_value Default value when the stored value is empty.
+	 * @return mixed
+	 */
+	function prismleaf_get_theme_mod( $setting_id, $default_value = '' ) {
+		$value = get_theme_mod( $setting_id, $default_value );
+
+		if ( is_string( $value ) ) {
+			$trimmed = trim( $value );
+			if ( '' === $trimmed ) {
+				return $default_value;
+			}
+
+			return $trimmed;
+		}
+
+		return $value;
+	}
+}
+
 if ( ! function_exists( 'prismleaf_get_theme_mod_bool' ) ) {
 	/**
 	 * Get a boolean theme mod value.
@@ -20,7 +46,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_bool' ) ) {
 	 * @return bool
 	 */
 	function prismleaf_get_theme_mod_bool( $setting_id, $default_value = false ) {
-		return prismleaf_sanitize_boolean( get_theme_mod( $setting_id, $default_value ) );
+		return prismleaf_sanitize_boolean( prismleaf_get_theme_mod( $setting_id, $default_value ) );
 	}
 }
 
@@ -35,7 +61,29 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_string' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_string( $setting_id, $default_value = '' ) {
-		return prismleaf_sanitize_text( get_theme_mod( $setting_id, $default_value ) );
+		return prismleaf_sanitize_text( prismleaf_get_theme_mod( $setting_id, $default_value ) );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_alignment' ) ) {
+	/**
+	 * Get a validated alignment string from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_value Default value.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_alignment( $setting_id, $default_value = 'center' ) {
+		$setting_id = prismleaf_sanitize_text( $setting_id );
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_footer_widget_alignment( $default_value );
+		}
+
+		$value = prismleaf_get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_footer_widget_alignment( $value );
 	}
 }
 
@@ -50,7 +98,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_theme_mode' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_theme_mode( $setting_id, $default_value = 'system' ) {
-		return prismleaf_sanitize_theme_mode( get_theme_mod( $setting_id, $default_value ) );
+		return prismleaf_sanitize_theme_mode( prismleaf_get_theme_mod( $setting_id, $default_value ) );
 	}
 }
 
@@ -65,7 +113,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_palette_json' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_palette_json( $setting_id, $default_value = '' ) {
-		$value = prismleaf_sanitize_palette_json( get_theme_mod( $setting_id, $default_value ) );
+		$value = prismleaf_sanitize_palette_json( prismleaf_get_theme_mod( $setting_id, $default_value ) );
 		return is_string( $value ) ? $value : '';
 	}
 }
@@ -94,7 +142,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_palette_source_value' ) ) {
 			return prismleaf_sanitize_palette_value( $default_value );
 		}
 
-		$palette = prismleaf_sanitize_palette_source_json( get_theme_mod( $setting_id, '' ) );
+		$palette = prismleaf_sanitize_palette_source_json( prismleaf_get_theme_mod( $setting_id, '' ) );
 		$values = prismleaf_decode_json_with_keys( $palette, $expected_keys );
 		$value = ( is_array( $values ) && isset( $values[ $key ] ) ) ? $values[ $key ] : '';
 
@@ -124,7 +172,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_elevation_value' ) ) {
 			return prismleaf_sanitize_elevation_value( '', $default_value );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		$token = prismleaf_sanitize_frame_elevation( $raw );
 
 		return prismleaf_sanitize_elevation_value( $token, $default_value );
@@ -158,7 +206,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_border_radius_value' ) ) {
 				: '--prismleaf-radius-medium';
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		if ( '' === $raw && '' === $default_value ) {
 			return '0';
 		}
@@ -191,7 +239,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_border_style_value' ) ) {
 			return '' !== $default_value ? prismleaf_sanitize_frame_border_style( $default_value ) : 'none';
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		if ( '' === $raw && '' === $default_value ) {
 			return 'none';
 		}
@@ -222,7 +270,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_size_value' ) ) {
 			return prismleaf_sanitize_size_value( '', $default_value );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 
 		return prismleaf_sanitize_size_value( $raw, $default_value );
 	}
@@ -253,44 +301,77 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_dimension_value' ) ) {
 			return prismleaf_sanitize_dimension_value( '', $min, $max, $default_value, $allow_auto );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		return prismleaf_sanitize_dimension_value( $raw, $min, $max, $default_value, $allow_auto );
 	}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_background_image_id' ) ) {
+	/**
+	 * Get a sanitized background image ID from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_fallback Default fallback ID.
+	 * @return string
+	 */
 	function prismleaf_get_theme_mod_background_image_id( $setting_id, $default_key, $default_fallback = '' ) {
-		$setting_id   = prismleaf_sanitize_text( $setting_id );
-		$default_key  = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
 
 		if ( '' === $setting_id ) {
 			return prismleaf_sanitize_background_image( $default_value );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		return prismleaf_sanitize_background_image( $raw );
 	}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_background_image_url' ) ) {
+	/**
+	 * Get the background image CSS url from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_fallback Default fallback.
+	 * @return string
+	 */
 	function prismleaf_get_theme_mod_background_image_url( $setting_id, $default_key, $default_fallback = '' ) {
-		$id = prismleaf_get_theme_mod_background_image_id( $setting_id, $default_key, $default_fallback );
+		$id = prismleaf_get_theme_mod_background_image_id( $setting_id, $default_key, '' );
 
-		if ( ! $id ) {
-			return 'none';
+		if ( '' !== $id) {
+			$url = wp_get_attachment_image_url( $id, 'full' );
+			if ( '' === $url ) {
+				$url = wp_get_attachment_url( $id );
+			}
 		}
 
-		$url = wp_get_attachment_image_url( $id, 'full' );
-		if ( ! $url ) {
-			return 'none';
+		if ( '' === $url ) {
+			$url = $default_fallback;
 		}
 
-		return "url('" . esc_url_raw( $url ) . "')";
+		$url = prismleaf_sanitize_text( $url );
+		return '' === $url ? 'none' : "url('" . esc_url_raw( $url ) . "')";
 	}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_background_repeat' ) ) {
+	/**
+	 * Get the background-repeat value from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
 	function prismleaf_get_theme_mod_background_repeat( $setting_id, $default_key, $default_fallback = 'repeat' ) {
 		$setting_id   = prismleaf_sanitize_text( $setting_id );
 		$default_key  = prismleaf_sanitize_text( $default_key );
@@ -300,12 +381,22 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_repeat' ) ) {
 			return prismleaf_sanitize_background_repeat( $default_value );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		return prismleaf_sanitize_background_repeat( $raw );
 	}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_background_position_x' ) ) {
+	/**
+	 * Get horizontal background position from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
 	function prismleaf_get_theme_mod_background_position_x( $setting_id, $default_key, $default_fallback = 'center' ) {
 		$setting_id   = prismleaf_sanitize_text( $setting_id );
 		$default_key  = prismleaf_sanitize_text( $default_key );
@@ -315,12 +406,22 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_position_x' ) ) {
 			return prismleaf_sanitize_background_position_x( $default_value );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		return prismleaf_sanitize_background_position_x( $raw );
 	}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_background_position_y' ) ) {
+	/**
+	 * Get vertical background position from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
 	function prismleaf_get_theme_mod_background_position_y( $setting_id, $default_key, $default_fallback = 'center' ) {
 		$setting_id   = prismleaf_sanitize_text( $setting_id );
 		$default_key  = prismleaf_sanitize_text( $default_key );
@@ -330,13 +431,24 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_position_y' ) ) {
 			return prismleaf_sanitize_background_position_y( $default_value );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		return prismleaf_sanitize_background_position_y( $raw );
 	}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_background_position' ) ) {
-function prismleaf_get_theme_mod_background_position( $setting_id_x, $default_key_x, $setting_id_y, $default_key_y ) {
+	/**
+	 * Combine horizontal and vertical background positions.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id_x Theme mod ID for X axis.
+	 * @param string $default_key_x Default key for X axis.
+	 * @param string $setting_id_y Theme mod ID for Y axis.
+	 * @param string $default_key_y Default key for Y axis.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_background_position( $setting_id_x, $default_key_x, $setting_id_y, $default_key_y ) {
 		$x = prismleaf_get_theme_mod_background_position_x( $setting_id_x, $default_key_x );
 		$y = prismleaf_get_theme_mod_background_position_y( $setting_id_y, $default_key_y );
 
@@ -345,6 +457,16 @@ function prismleaf_get_theme_mod_background_position( $setting_id_x, $default_ke
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_background_preset' ) ) {
+	/**
+	 * Get the background preset selection from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
 	function prismleaf_get_theme_mod_background_preset( $setting_id, $default_key, $default_fallback = 'default' ) {
 		$setting_id   = prismleaf_sanitize_text( $setting_id );
 		$default_key  = prismleaf_sanitize_text( $default_key );
@@ -354,12 +476,22 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_preset' ) ) {
 			return prismleaf_sanitize_background_preset( $default_value );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		return prismleaf_sanitize_background_preset( $raw );
 	}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_background_size' ) ) {
+	/**
+	 * Get the background size keyword from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
 	function prismleaf_get_theme_mod_background_size( $setting_id, $default_key, $default_fallback = 'auto' ) {
 		$setting_id   = prismleaf_sanitize_text( $setting_id );
 		$default_key  = prismleaf_sanitize_text( $default_key );
@@ -369,12 +501,22 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_size' ) ) {
 			return prismleaf_sanitize_background_size( $default_value );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		return prismleaf_sanitize_background_size( $raw );
 	}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_background_attachment' ) ) {
+	/**
+	 * Get the background attachment keyword from theme mods.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
 	function prismleaf_get_theme_mod_background_attachment( $setting_id, $default_key, $default_fallback = 'scroll' ) {
 		$setting_id   = prismleaf_sanitize_text( $setting_id );
 		$default_key  = prismleaf_sanitize_text( $default_key );
@@ -384,7 +526,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_attachment' ) ) {
 			return prismleaf_sanitize_background_attachment( $default_value );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		return prismleaf_sanitize_background_attachment( $raw );
 	}
 }
@@ -445,39 +587,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_sidebar_width_value' ) ) {
 			return prismleaf_sanitize_dimension_value( '', $min, $max, $default_value, false );
 		}
 
-		$raw = get_theme_mod( $setting_id, $default_value );
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		return prismleaf_sanitize_dimension_value( $raw, $min, $max, $default_value, false );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_get_theme_mod_primary_sidebar_width' ) ) {
-	/**
-	 * Get the primary sidebar width CSS value.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $setting_id Theme mod ID.
-	 * @param string $default_key Default option key.
-	 * @param string $default_fallback Default fallback value.
-	 * @return string
-	 */
-	function prismleaf_get_theme_mod_primary_sidebar_width( $setting_id, $default_key, $default_fallback = '260' ) {
-		return prismleaf_get_theme_mod_sidebar_width_value( $setting_id, $default_key, $default_fallback, 150, 300 );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_get_theme_mod_secondary_sidebar_width' ) ) {
-	/**
-	 * Get the secondary sidebar width CSS value.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $setting_id Theme mod ID.
-	 * @param string $default_key Default option key.
-	 * @param string $default_fallback Default fallback value.
-	 * @return string
-	 */
-	function prismleaf_get_theme_mod_secondary_sidebar_width( $setting_id, $default_key, $default_fallback = '200' ) {
-		return prismleaf_get_theme_mod_sidebar_width_value( $setting_id, $default_key, $default_fallback, 150, 300 );
 	}
 }

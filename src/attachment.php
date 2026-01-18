@@ -27,10 +27,11 @@ get_header();
 	 */
 	?>
 	<section>
-		<h1>Prismleaf Index Template</h1>
+		<h1>Prismleaf Attachment Template</h1>
 		<p>
-			Index.php is the ultimate fallback for every WordPress query, so keep
-			it to supply base markup whenever no other template exists.
+			This template renders media attachment pages; removing it makes
+			WordPress fall back to single.php and then to index.php, so keep it
+			when you want custom attachment layouts.
 		</p>
 
 		<p>

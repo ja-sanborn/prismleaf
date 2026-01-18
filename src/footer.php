@@ -26,21 +26,20 @@ $secondary_has_widgets = is_active_sidebar( 'sidebar-secondary' );
 $outer_footer = $footer_show && ( $is_framed || ! $footer_contained );
 $inner_footer = $footer_show && ! $outer_footer;
 
-$outer_left_sidebar  = false;
-$outer_right_sidebar = false;
-$inner_left_sidebar  = false;
-$inner_right_sidebar = false;
+$outer_left_sidebar  = $primary_show && $primary_has_widgets && ( $is_framed || ! $primary_contained );
+$outer_right_sidebar = $secondary_show && $secondary_has_widgets && ( $is_framed || ! $secondary_contained );
+$inner_left_sidebar  = $primary_show && $primary_has_widgets && ! $outer_left_sidebar;
+$inner_right_sidebar = $secondary_show && $secondary_has_widgets && ! $outer_right_sidebar;
+$left_sidebar        = array( 'sidebar' => 'primary' );
+$right_sidebar       = array( 'sidebar' => 'secondary' );
 
 if ( $swap_sidebars ) {
 	$outer_left_sidebar  = $secondary_show && $secondary_has_widgets && ( $is_framed || ! $secondary_contained );
 	$outer_right_sidebar = $primary_show && $primary_has_widgets && ( $is_framed || ! $primary_contained );
 	$inner_left_sidebar  = $secondary_show && $secondary_has_widgets && ! $outer_left_sidebar;
 	$inner_right_sidebar = $primary_show && $primary_has_widgets && ! $outer_right_sidebar;
-} else {
-	$outer_left_sidebar  = $primary_show && $primary_has_widgets && ( $is_framed || ! $primary_contained );
-	$outer_right_sidebar = $secondary_show && $secondary_has_widgets && ( $is_framed || ! $secondary_contained );
-	$inner_left_sidebar  = $primary_show && $primary_has_widgets && ! $outer_left_sidebar;
-	$inner_right_sidebar = $secondary_show && $secondary_has_widgets && ! $outer_right_sidebar;
+	$left_sidebar		 = array( 'sidebar' => 'secondary' );
+	$right_sidebar		 = array( 'sidebar' => 'primary' );
 }
 
 if ( ( $outer_left_sidebar || $outer_right_sidebar ) && $inner_footer ) {
@@ -51,13 +50,13 @@ if ( ( $outer_left_sidebar || $outer_right_sidebar ) && $inner_footer ) {
 			</main><!-- .prismleaf-region-content -->
 			<?php if ( $inner_left_sidebar ) : ?>
 				<aside class="prismleaf-region-sidebar-left prismleaf-region">
-					<?php get_template_part( 'template-parts/regions/sidebar-content', null, array( 'position' => 'left' ) ); ?>
+					<?php get_template_part( 'template-parts/regions/sidebar-content', null, $left_sidebar ); ?>
 				</aside>
 			<?php endif; ?>
 
 			<?php if ( $inner_right_sidebar ) : ?>
 				<aside class="prismleaf-region-sidebar-right prismleaf-region">
-					<?php get_template_part( 'template-parts/regions/sidebar-content', null, array( 'position' => 'right' ) ); ?>
+					<?php get_template_part( 'template-parts/regions/sidebar-content', null, $right_sidebar ); ?>
 				</aside>
 			<?php endif; ?>
 
@@ -71,13 +70,13 @@ if ( ( $outer_left_sidebar || $outer_right_sidebar ) && $inner_footer ) {
 
 	<?php if ( $outer_left_sidebar ) : ?>
 		<aside class="prismleaf-region-sidebar-left prismleaf-region">
-			<?php get_template_part( 'template-parts/regions/sidebar-content', null, array( 'position' => 'left' ) ); ?>
+			<?php get_template_part( 'template-parts/regions/sidebar-content', null, $left_sidebar ); ?>
 		</aside>
 	<?php endif; ?>
 
 	<?php if ( $outer_right_sidebar ) : ?>
 		<aside class="prismleaf-region-sidebar-right prismleaf-region">
-			<?php get_template_part( 'template-parts/regions/sidebar-content', null, array( 'position' => 'right' ) ); ?>
+			<?php get_template_part( 'template-parts/regions/sidebar-content', null, $right_sidebar ); ?>
 		</aside>
 	<?php endif; ?>
 

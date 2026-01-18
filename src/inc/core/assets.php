@@ -95,13 +95,49 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		$last_handle = 'prismleaf-layout';
 
 		prismleaf_enqueue_style(
-			'prismleaf-regions',
-			'assets/styles/core/regions.css',
+			'prismleaf-frames',
+			'assets/styles/core/frames.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
-		wp_style_add_data( 'prismleaf-regions', 'rtl', 'replace' );
-		$last_handle = 'prismleaf-regions';
+		wp_style_add_data( 'prismleaf-frames', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-frames';
+
+		prismleaf_enqueue_style(
+			'prismleaf-header',
+			'assets/styles/core/header.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-header', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-header';
+
+		prismleaf_enqueue_style(
+			'prismleaf-footer',
+			'assets/styles/core/footer.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-footer', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-footer';
+
+		prismleaf_enqueue_style(
+			'prismleaf-sidebars',
+			'assets/styles/core/sidebars.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-sidebars', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-sidebars';
+
+		prismleaf_enqueue_style(
+			'prismleaf-content',
+			'assets/styles/core/content.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-content', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-content';
 
 		prismleaf_enqueue_style(
 			'prismleaf-accessibility',
@@ -120,11 +156,10 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 				wp_get_theme()->get( 'Version' )
 			);
 			wp_style_add_data( 'prismleaf-child-style', 'rtl', 'replace' );
+			$last_handle = 'prismleaf-child-style';
 		}
 
-		if ( function_exists( 'prismleaf_output_customizer_styles' ) ) {
-			prismleaf_output_customizer_styles();
-		}
+		prismleaf_output_customizer_styles( $last_handle );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'prismleaf_enqueue_styles' );

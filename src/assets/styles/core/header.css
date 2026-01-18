@@ -1,0 +1,53 @@
+/*!
+ * Prismleaf Header Region
+ *
+ * Layout and surface styling for the header region.
+ *
+ * @package prismleaf
+ */
+
+/* Header region tokens. */
+:root{
+    --prismleaf-header-background-color: var(--prismleaf-color-surface-2);
+	--prismleaf-header-background-image: none;
+	--prismleaf-header-background-repeat: repeat;
+	--prismleaf-header-background-position: center;
+	--prismleaf-header-background-size: auto;
+	--prismleaf-header-background-attachment: scroll;
+	--prismleaf-header-border-color: var(--prismleaf-color-outline);
+	--prismleaf-header-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-header-border-style-bottom: var(--prismleaf-border-style);
+	--prismleaf-header-border-style-left: var(--prismleaf-border-style);
+	--prismleaf-header-border-style-right: var(--prismleaf-border-style);
+	--prismleaf-header-border-style-top: var(--prismleaf-border-style);
+	--prismleaf-header-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-header-elevation: var(--prismleaf-shadow-elevation-2);
+	--prismleaf-header-foreground-color: var(--prismleaf-color-surface-on);
+	--prismleaf-header-padding: var(--prismleaf-space-2);
+	--prismleaf-header-margin: var(--prismleaf-space-2);
+}
+
+/* Header region styling. */
+.prismleaf-region-header {
+	grid-area: header;
+	background-color: var(--prismleaf-header-background-color);
+	background-image: var(--prismleaf-header-background-image);
+	background-repeat: var(--prismleaf-header-background-repeat);
+	background-size: var(--prismleaf-header-background-size);
+	background-position: var(--prismleaf-header-background-position);
+	background-attachment: var(--prismleaf-header-background-attachment);
+	border-block-start-style: var(--prismleaf-header-border-style-top);
+	border-block-end-style: var(--prismleaf-header-border-style-bottom);
+	border-color: var(--prismleaf-header-border-color);
+	border-inline-start-style: var(--prismleaf-header-border-style-left);
+	border-inline-end-style: var(--prismleaf-header-border-style-right);
+	border-radius: var(--prismleaf-header-border-radius);
+	border-width: var(--prismleaf-header-border-width);
+	box-shadow: var(--prismleaf-header-elevation);
+	color: var(--prismleaf-header-foreground-color);
+	margin: var(--prismleaf-header-margin);
+	padding: var(--prismleaf-header-padding);
+	min-height: var(--prismleaf-header-min-height);
+	height: var(--prismleaf-header-height);
+    overflow: hidden;
+}

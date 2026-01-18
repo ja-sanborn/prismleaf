@@ -27,10 +27,10 @@ get_header();
 	 */
 	?>
 	<section>
-		<h1>Prismleaf Index Template</h1>
+		<h1>Prismleaf 404 Template</h1>
 		<p>
-			Index.php is the ultimate fallback for every WordPress query, so keep
-			it to supply base markup whenever no other template exists.
+			This template handles WordPress not-found pages; without it the system
+			falls back to index.php, so keep it to explain missing content clearly.
 		</p>
 
 		<p>

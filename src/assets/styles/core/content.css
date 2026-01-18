@@ -1,0 +1,35 @@
+/*!
+ * Prismleaf Content Region
+ *
+ * Layout and surface styling for the content region.
+ *
+ * @package prismleaf
+ */
+
+/* Content region tokens. */
+:root{
+	--prismleaf-content-background-color: var(--prismleaf-color-surface-2);
+	--prismleaf-content-border-color: var(--prismleaf-color-outline);
+	--prismleaf-content-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-content-border-style: var(--prismleaf-border-style);
+	--prismleaf-content-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-content-elevation: var(--prismleaf-shadow-elevation-2);
+	--prismleaf-content-foreground-color: var(--prismleaf-color-surface-on);
+	--prismleaf-content-padding: var(--prismleaf-space-2);
+	--prismleaf-content-margin: var(--prismleaf-space-2);
+}
+
+/* Content region styling. */
+.prismleaf-region-content {
+	grid-area: content;
+	background-color: var(--prismleaf-content-background-color);
+	border-color: var(--prismleaf-content-border-color);
+	border-radius: var(--prismleaf-content-border-radius);
+	border-style: var(--prismleaf-content-border-style);
+	border-width: var(--prismleaf-content-border-width);
+	box-shadow: var(--prismleaf-content-elevation);
+	color: var(--prismleaf-content-foreground-color);
+	margin: var(--prismleaf-content-margin);
+	padding: var(--prismleaf-content-padding);
+    overflow: hidden;
+}

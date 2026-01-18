@@ -27,10 +27,11 @@ get_header();
 	 */
 	?>
 	<section>
-		<h1>Prismleaf Index Template</h1>
+		<h1>Prismleaf Page Template</h1>
 		<p>
-			Index.php is the ultimate fallback for every WordPress query, so keep
-			it to supply base markup whenever no other template exists.
+			This page.php template defines how static pages render and acts as
+			the fallback for custom page templates; without it WordPress uses
+			index.php, so keep it to control page-level layout.
 		</p>
 
 		<p>

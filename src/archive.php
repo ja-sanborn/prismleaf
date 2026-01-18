@@ -27,10 +27,11 @@ get_header();
 	 */
 	?>
 	<section>
-		<h1>Prismleaf Index Template</h1>
+		<h1>Prismleaf Archive Template</h1>
 		<p>
-			Index.php is the ultimate fallback for every WordPress query, so keep
-			it to supply base markup whenever no other template exists.
+			This archive template renders general listings (date, tag, category,
+			and taxonomy views) and serves as their fallback; deleting it falls
+			back to index.php, so keep it to centralize archive layout control.
 		</p>
 
 		<p>

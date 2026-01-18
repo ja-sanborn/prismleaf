@@ -1,0 +1,157 @@
+/**
+ * Prismleaf Frames
+ *
+ * Frame and global region layout hooks.
+ *
+ * @package prismleaf
+ */
+
+:root {
+	/* Frame tokens. */
+	--prismleaf-frame-background-color: var(--prismleaf-color-surface-1);
+	--prismleaf-frame-border-color: var(--prismleaf-color-outline);
+	--prismleaf-frame-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-frame-border-style: var(--prismleaf-border-style);
+	--prismleaf-frame-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-frame-elevation: var(--prismleaf-shadow-elevation-1);
+	--prismleaf-frame-foreground-color: var(--prismleaf-color-surface-on);
+	--prismleaf-frame-gap: var(--prismleaf-space-2);
+	--prismleaf-frame-overflow: auto;
+	--prismleaf-frame-stretch: start;
+	--prismleaf-region-overflow: hidden;
+
+	/* Viewport size tokens. */
+	--prismleaf-max-view-height: 100svh;
+	--prismleaf-max-view-width: 100svw;
+	--prismleaf-view-height: auto;
+}
+
+/* Fallback for browsers that do not support dynamic viewport units. */
+@supports (height: 100dvh) {
+	:root {
+		--prismleaf-max-view-height: 100dvh;
+		--prismleaf-max-view-width: 100dvw;
+	}
+}
+
+/* Reset margins and padding for frame and regions. */
+.prismleaf-frame,
+.prismleaf-frame-main,
+.prismleaf-frame-inner,
+.prismleaf-region {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+/* Frame wrapper sizing. */
+.prismleaf-frame {
+	height: var(--prismleaf-view-height);
+	inline-size: 100%;
+	max-inline-size: 100%;
+}
+
+/* Frame grid layout for outer and inner containers. */
+.prismleaf-frame,
+.prismleaf-frame-inner {
+	align-items: var(--prismleaf-frame-stretch);
+	display: grid;
+	grid-template-areas:
+		"header header header"
+		"sidebar-left content sidebar-right"
+		"footer footer footer";
+	grid-template-columns: auto minmax(0, 1fr) auto;
+	grid-template-rows: auto 1fr auto;
+	overflow: hidden;
+}
+
+/* Text overflow. */
+.prismleaf-frame,
+.prismleaf-frame-main {
+	overflow-x: hidden;
+	overflow-y: var(--prismleaf-region-overflow);
+}
+
+/* Main frame container layout. */
+.prismleaf-frame-main {
+	grid-area: content;
+	inline-size: 100%;
+	min-width: 0;
+	padding: var(--prismleaf-frame-gap);
+}
+
+/* Frame surface styling. */
+.prismleaf-frame-inner {
+	background-color: var(--prismleaf-frame-background-color);
+	border-color: var(--prismleaf-frame-border-color);
+	border-radius: var(--prismleaf-frame-border-radius);
+	border-style: var(--prismleaf-frame-border-style);
+	border-width: var(--prismleaf-frame-border-width);
+	box-shadow: var(--prismleaf-frame-elevation);
+	color: var(--prismleaf-frame-foreground-color);
+	inline-size: 100%;
+	margin-inline: auto;
+	max-width: var(--prismleaf-content-max);
+}
+
+/* Region Gap */
+.prismleaf-region {
+	gap: var(--prismleaf-space-2);
+}
+
+@media (max-width: 768px) {
+	/* Ensures the frame is responsive for mobile. */
+	.prismleaf-frame {
+		height: auto;
+		max-height: none;
+		min-height: 0;
+		padding: var(--prismleaf-space-2);
+	}
+
+	.prismleaf-frame,
+	.prismleaf-frame-inner {
+		box-sizing: border-box;
+		grid-template-areas:
+			"header"
+			"content"
+			"sidebar-left"
+			"sidebar-right"
+			"footer";
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		inline-size: auto;
+		max-inline-size: 100%;
+	}
+
+	.prismleaf-frame-inner {
+		background-color: transparent;
+		border-color: transparent;
+		border-radius: 0;
+		border-style: none;
+		border-width: 0;
+		box-shadow: none;
+		max-width: none;
+	}
+
+	.prismleaf-frame-main {
+		margin: 0;
+	}
+
+	/* Full-width regions with adjusted spacing for mobile. */
+	.prismleaf-region {
+		background-color: var(--prismleaf-color-surface-1);
+		border-color: var(--prismleaf-color-outline);
+		border-radius: var(--prismleaf-radius-small);
+		border-style: var(--prismleaf-border-style);
+		border-width: var(--prismleaf-border-width-thin);
+		box-shadow: none;
+		box-sizing: border-box;
+		color: var(--prismleaf-color-surface-on);
+		gap: var(--prismleaf-space-1);
+		inline-size: 100%;
+		margin: 0;
+		margin-top: var(--prismleaf-space-2);
+		max-inline-size: 100%;
+		padding: var(--prismleaf-space-1);
+	}
+}

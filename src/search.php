@@ -27,10 +27,11 @@ get_header();
 	 */
 	?>
 	<section>
-		<h1>Prismleaf Index Template</h1>
+		<h1>Prismleaf Search Template</h1>
 		<p>
-			Index.php is the ultimate fallback for every WordPress query, so keep
-			it to supply base markup whenever no other template exists.
+			This search.php template handles search results and should guide users
+			through terms or filters; deleting it makes WordPress fall back to
+			index.php, so keep it to describe the custom results layout.
 		</p>
 
 		<p>

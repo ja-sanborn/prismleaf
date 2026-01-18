@@ -27,10 +27,11 @@ get_header();
 	 */
 	?>
 	<section>
-		<h1>Prismleaf Index Template</h1>
+		<h1>Prismleaf Author Template</h1>
 		<p>
-			Index.php is the ultimate fallback for every WordPress query, so keep
-			it to supply base markup whenever no other template exists.
+			This author template lists posts by a specific user; without it
+			WordPress falls back to archive.php (and eventually index.php), so
+			keep it to provide author-specific layouts.
 		</p>
 
 		<p>
