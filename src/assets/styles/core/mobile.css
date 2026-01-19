@@ -1,0 +1,96 @@
+/*!
+ * Prismleaf Mobile Overrides
+ *
+ * Media queries targeting screen widths at or below 767px.
+ *
+ * @package prismleaf
+ */
+
+@media (max-width: 767px) {
+	/* Ensures the frame is responsive for mobile breakpoints. */
+	html,
+	body,
+	.prismleaf-frame,
+	.prismleaf-frame-main,
+	.prismleaf-frame-inner {
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+	.prismleaf-frame,
+	.prismleaf-frame-main,
+	.prismleaf-frame-inner {
+		height: auto;
+		max-height: none;
+		min-height: 0;
+		inline-size: 100%;
+		max-inline-size: 100%;
+		min-inline-size: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	.prismleaf-frame,
+	.prismleaf-frame-inner {
+		grid-template-areas:
+			"header"
+			"content"
+			"sidebar-left"
+			"sidebar-right"
+			"footer";
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+	}
+
+	.prismleaf-frame-inner {
+		background-color: transparent;
+		border-color: transparent;
+		border-radius: 0;
+		border-style: none;
+		border-width: 0;
+		box-shadow: none;
+	}
+
+	/* Full-width regions with adjusted spacing for mobile. */
+	.prismleaf-region,
+	.widget {
+		background-color: var(--prismleaf-color-surface-1);
+		border-color: var(--prismleaf-color-outline);
+		border-radius: var(--prismleaf-radius-small);
+		border-style: var(--prismleaf-border-style);
+		border-width: var(--prismleaf-border-width-thin);
+		box-shadow: none;
+		box-sizing: border-box;
+		color: var(--prismleaf-color-surface-on);
+		gap: var(--prismleaf-space-2);
+		margin: var(--prismleaf-space-2);
+		padding: var(--prismleaf-space-2);
+		inline-size: calc(100% - (var(--prismleaf-space-2) * 2));
+	}
+
+	/* Footer layout changes for mobile. */
+	.prismleaf-footer-widgets {
+		flex-direction: column;
+		width: 100%;
+		max-width: 100%;
+		align-items: center;
+	}
+
+	.prismleaf-footer-widget {
+		flex: 0 1 var(--prismleaf-footer-widget-column-width);
+		width: var(--prismleaf-footer-widget-column-width);
+		inline-size: var(--prismleaf-footer-widget-column-width);
+		max-width: 100%;
+		max-inline-size: 100%;
+		min-width: 0;
+		min-inline-size: 0;
+	}
+
+	.prismleaf-footer-copyright-group {
+		flex-direction: column;
+		text-align: center;
+		align-items: center;
+	}
+}

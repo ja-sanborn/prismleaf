@@ -157,29 +157,3 @@
 .prismleaf-footer-powered-by {
 	display: block;
 }
-
-/* Responsive footer layout. */
-@media (max-width: 767px) {
-	.prismleaf-footer-widgets {
-		flex-direction: column;
-		width: 100%;
-		max-width: 100%;
-		align-items: center;
-	}
-
-	.prismleaf-footer-widget {
-		flex: 0 1 var(--prismleaf-footer-widget-column-width);
-		width: var(--prismleaf-footer-widget-column-width);
-		inline-size: var(--prismleaf-footer-widget-column-width);
-		max-width: 100%;
-		max-inline-size: 100%;
-		min-width: 0;
-		min-inline-size: 0;
-	}
-
-	.prismleaf-footer-copyright-group {
-		flex-direction: column;
-		text-align: center;
-		align-items: center;
-	}
-}

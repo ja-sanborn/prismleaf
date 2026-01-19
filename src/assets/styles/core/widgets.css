@@ -130,24 +130,3 @@
 	color: var(--prismleaf-color-link-hover);
 	background-color: currentColor;
 }
-
-/* Responsive widget styling for mobile devices. */
-@media (max-width: 767px) {
-	.widget {
-		background-color: var(--prismleaf-color-surface-1);
-		border-color: var(--prismleaf-color-outline);
-		border-radius: var(--prismleaf-radius-small);
-		border-style: var(--prismleaf-border-style);
-		border-width: var(--prismleaf-border-width-thin);
-		box-shadow: none;
-		box-sizing: border-box;
-		color: var(--prismleaf-color-surface-on);
-		gap: var(--prismleaf-space-1);
-		inline-size: 100%;
-		max-inline-size: 100%;
-		min-inline-size: 100%;
-		margin: 0;
-		margin-top: var(--prismleaf-space-1);
-		padding: var(--prismleaf-space-1);
-	}
-}

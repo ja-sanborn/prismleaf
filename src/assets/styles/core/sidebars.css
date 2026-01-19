@@ -72,17 +72,3 @@
 	overflow-x: hidden;
 	overflow-y: var(--prismleaf-region-overflow);
 }
-
-@media (max-width: 767px) {
-	.prismleaf-region-sidebar-left,
-	.prismleaf-region-sidebar-right {
-		margin: 0;
-		padding: 0;
-		background-color: transparent;
-		border-color: transparent;
-		border-radius: 0;
-		border-style: none;
-		border-width: 0;
-		box-shadow: none;
-	}
-}
