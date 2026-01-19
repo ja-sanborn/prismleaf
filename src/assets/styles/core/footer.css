@@ -33,6 +33,7 @@
 	--prismleaf-footer-widget-row-width: 100%;
 }
 
+/* Responsive footer widget column widths. */
 @media (min-width: 800px) {
 	:root {
 		--prismleaf-footer-widget-column-width: 175px;
@@ -69,6 +70,12 @@
 	}
 }
 
+@media (min-width: 1400px) {
+	:root {
+		--prismleaf-footer-widget-column-width: 325px;
+	}
+}
+
 /* Footer region styling. */
 .prismleaf-region-footer {
 	grid-area: footer;
@@ -96,24 +103,23 @@
 	overflow-y: var(--prismleaf-region-overflow);
 }
 
-.prismleaf-region-footer a {
-  color: var(--prismleaf-footer-foreground-color);
-  text-decoration: underline;
-}
-
-.prismleaf-region-footer a:hover,
-.prismleaf-region-footer a:focus-visible {
-  color: var(--prismleaf-color-secondary);
-}
-
-
 .prismleaf-footer-row {
 	display: flex;
 	flex-direction: column;
 	gap: var(--prismleaf-space-1);
 	width: 100%;
 }
+/* Footer region link styling. */
+.prismleaf-region-footer a {
+  color: var(--prismleaf-footer-foreground-color);
+  text-decoration: underline;
+}
 
+.prismleaf-region-footer a:hover {
+  color: var(--prismleaf-color-secondary);
+}
+
+/* Footer widget row styling. */
 .prismleaf-footer-row-widgets {
 	align-items: center;
 }
@@ -122,7 +128,6 @@
 	display: flex;
 	justify-content: var(--prismleaf-footer-widget-row-justify, center);
 	flex-wrap: wrap;
-	/* gap: var(--prismleaf-footer-widget-row-gap); */
 	gap: 0;
 	width: var(--prismleaf-footer-widget-row-width, 100%);
 	inline-size: var(--prismleaf-footer-widget-row-width, 100%);
@@ -139,6 +144,7 @@
 	min-inline-size: var(--prismleaf-footer-widget-column-width);
 }
 
+/* Footer copyright row styling. */
 .prismleaf-footer-copyright-group {
 	display: flex;
 	justify-content: space-between;
@@ -152,6 +158,7 @@
 	display: block;
 }
 
+/* Responsive footer layout. */
 @media (max-width: 767px) {
 	.prismleaf-footer-widgets {
 		flex-direction: column;

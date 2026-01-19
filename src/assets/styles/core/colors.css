@@ -193,8 +193,8 @@ html[data-prismleaf-color-scheme="dark"] {
 	/* Active palette: hyperlink defaults. */
 	--prismleaf-color-link: var(--prismleaf-color-secondary-1);
 	--prismleaf-color-link-hover: var(--prismleaf-color-secondary-5);
-	--prismleaf-color-link-active: var(--prismleaf-color-secondary-3);
-	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-5);
+	--prismleaf-color-link-active: var(--prismleaf-color-secondary-5);
+	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-1);
 
 	/* Active palette: selection. */
 	--prismleaf-color-selection-background: var(--prismleaf-color-tertiary-1);

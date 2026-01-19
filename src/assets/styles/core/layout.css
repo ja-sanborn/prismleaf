@@ -153,10 +153,12 @@ textarea:focus-visible {
 /* Normalize WebKit search inputs. */
 input[type="search"] {
 	-webkit-appearance: textfield;
+	appearance: textfield;
 }
 
 input[type="search"]::-webkit-search-decoration {
 	-webkit-appearance: none;
+	appearance: none;
 }
 
 /* Pointer cursor for summary. */

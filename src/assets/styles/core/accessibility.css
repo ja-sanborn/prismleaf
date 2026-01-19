@@ -60,14 +60,6 @@
 
 /* Allow OS-managed colors in forced-colors mode. */
 @media (forced-colors: active) {
-
-	/* Ensure the theme does not prevent the system from enforcing contrast. */
-	*,
-	*::before,
-	*::after {
-		forced-color-adjust: auto;
-	}
-
 	/* Underline links to provide a non-color cue. */
 	a {
 		text-decoration: underline;
