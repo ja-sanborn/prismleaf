@@ -145,7 +145,7 @@ if ( ! function_exists( 'prismleaf_register_widget_options_section' ) ) {
 			$wp_customize,
 			array(
 				'setting_id' => 'prismleaf_widget_heading_custom',
-				'label'      => __( 'Custom Header', 'prismleaf' ),
+				'label'      => __( 'Title Style', 'prismleaf' ),
 				'section'    => 'prismleaf_widget_options',
 				'priority'   => 2000,
 			)

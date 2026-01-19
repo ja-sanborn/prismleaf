@@ -125,6 +125,7 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 			'footer_contained'                          => true,
 			'footer_floating'                           => true,
 			'sidebar_swap'                              => false,
+			'sidebar_hide_on_front'                     => false,
 			'sidebar_primary_show'                      => true,
 			'sidebar_primary_contained'                 => true,
 			'sidebar_primary_floating'                  => true,
