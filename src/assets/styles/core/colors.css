@@ -191,19 +191,19 @@ html[data-prismleaf-color-scheme="dark"] {
 	--prismleaf-color-code-foreground: var(--prismleaf-color-container-on);
 
 	/* Active palette: hyperlink defaults. */
-	--prismleaf-color-link: var(--prismleaf-color-secondary-1);
-	--prismleaf-color-link-hover: var(--prismleaf-color-secondary-5);
-	--prismleaf-color-link-active: var(--prismleaf-color-secondary-5);
-	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-1);
+	--prismleaf-color-link: var(--prismleaf-color-secondary-surface-1);
+	--prismleaf-color-link-hover: var(--prismleaf-color-secondary-surface-5);
+	--prismleaf-color-link-active: var(--prismleaf-color-secondary-surface-5);
+	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-surface-1);
 
 	/* Active palette: selection. */
-	--prismleaf-color-selection-background: var(--prismleaf-color-tertiary-1);
-	--prismleaf-color-selection-foreground: var(--prismleaf-color-tertiary-on);
+	--prismleaf-color-selection-background: var(--prismleaf-color-tertiary-surface-1);
+	--prismleaf-color-selection-foreground: var(--prismleaf-color-tertiary-surface-on);
 }
 
 /* Document colors. */
 body {
-	accent-color: var(--prismleaf-color-primary-1);
+	accent-color: var(--prismleaf-color-primary-surface-1);
 	background-color: var(--prismleaf-background);
 	color: var(--prismleaf-color-surface-on);
 }
@@ -250,7 +250,7 @@ button:disabled,
 input:disabled,
 select:disabled,
 textarea:disabled {
-	opacity: var(--prismleaf-state-disabled-opacity);
+	opacity: var(--prismleaf-state-disabled-surface);
 }
 
 button:focus-visible,
