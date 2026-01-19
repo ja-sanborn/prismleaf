@@ -25,7 +25,7 @@ if ( ! function_exists( 'prismleaf_register_content_options_section' ) ) {
 			$wp_customize->add_section(
 				'prismleaf_content_options',
 				array(
-					'title'       => __( 'Content', 'prismleaf' ),
+					'title'       => __( 'Content Styling', 'prismleaf' ),
 					'description' => __( 'Configure the content layout and styling.', 'prismleaf' ),
 					'panel'       => 'prismleaf_theme_options',
 					'priority'    => 60,

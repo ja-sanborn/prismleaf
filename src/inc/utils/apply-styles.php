@@ -28,6 +28,7 @@ if ( ! function_exists( 'prismleaf_get_customizer_css_vars' ) ) {
 		$css .= prismleaf_get_footer_css_vars();
 		$css .= prismleaf_get_sidebar_css_vars();
 		$css .= prismleaf_get_content_css_vars();
+		$css .= prismleaf_get_widget_css_vars();
 
 		return $css;
 	}
@@ -706,6 +707,36 @@ if ( ! function_exists( 'prismleaf_get_content_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-content-border-radius', $border_radius );
 		$css .= prismleaf_build_css_var( '--prismleaf-content-border-style', $border_style );
 		$css .= prismleaf_build_css_var( '--prismleaf-content-elevation', $elevation );
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_widget_css_vars' ) ) {
+	/**
+	 * Build CSS variables for widget styling settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_widget_css_vars() {
+		$surface         = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_widget_background_color_palette', '1', '--prismleaf-color-surface-3' );
+		$border_color    = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_widget_border_color_palette', 'outline', '--prismleaf-color-outline' );
+		$border_radius   = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_widget_border_corners', 'widget_border_corners', 'Round' );
+		$border_style    = prismleaf_get_theme_mod_border_style_value( 'prismleaf_widget_border_style', 'widget_border_style', 'solid' );
+		$elevation       = prismleaf_get_theme_mod_elevation_value( 'prismleaf_widget_elevation', 'widget_elevation', 'elevation-3' );
+		$title_color     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_widget_title_color_palette', '1', '--prismleaf-color-primary-3' );
+		$title_alignment = prismleaf_get_theme_mod_widget_title_alignment( 'prismleaf_widget_title_alignment', 'left' );
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-widget-background-color', $surface );
+		$css .= prismleaf_build_css_var( '--prismleaf-widget-border-color', $border_color );
+		$css .= prismleaf_build_css_var( '--prismleaf-widget-border-radius', $border_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-widget-border-style', $border_style );
+		$css .= prismleaf_build_css_var( '--prismleaf-widget-elevation', $elevation );
+		$css .= prismleaf_build_css_var( '--prismleaf-widget-title-color', $title_color );
+		$css .= prismleaf_build_css_var( '--prismleaf-widget-title-alignment', $title_alignment );
 
 		return $css;
 	}

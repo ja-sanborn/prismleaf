@@ -19,7 +19,6 @@
 	--prismleaf-sidebar-left-border-width: var(--prismleaf-border-width-thin);
 	--prismleaf-sidebar-left-elevation: var(--prismleaf-shadow-elevation-2);
 	--prismleaf-sidebar-left-foreground-color: var(--prismleaf-color-surface-on);
-	--prismleaf-sidebar-left-padding: var(--prismleaf-space-2);
 	--prismleaf-sidebar-left-margin: var(--prismleaf-space-2);
 
 	/* Right sidebar tokens. */
@@ -33,7 +32,6 @@
 	--prismleaf-sidebar-right-border-width: var(--prismleaf-border-width-thin);
 	--prismleaf-sidebar-right-elevation: var(--prismleaf-shadow-elevation-2);
 	--prismleaf-sidebar-right-foreground-color: var(--prismleaf-color-surface-on);
-	--prismleaf-sidebar-right-padding: var(--prismleaf-space-2);
 	--prismleaf-sidebar-right-margin: var(--prismleaf-space-2);
 }
 
@@ -52,7 +50,6 @@
 	box-shadow: var(--prismleaf-sidebar-left-elevation);
 	color: var(--prismleaf-sidebar-left-foreground-color);
 	margin: var(--prismleaf-sidebar-left-margin);
-	padding: var(--prismleaf-sidebar-left-padding);
     overflow-x: hidden;
 	overflow-y: var(--prismleaf-region-overflow);
 }
@@ -72,7 +69,6 @@
 	box-shadow: var(--prismleaf-sidebar-right-elevation);
 	color: var(--prismleaf-sidebar-right-foreground-color);
 	margin: var(--prismleaf-sidebar-right-margin);
-	padding: var(--prismleaf-sidebar-right-padding);
     overflow-x: hidden;
 	overflow-y: var(--prismleaf-region-overflow);
 }

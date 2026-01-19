@@ -1,0 +1,42 @@
+/*!
+ * Prismleaf Widget Styling
+ *
+ * Layout and surface defaults for classic widgets.
+ *
+ * @package prismleaf
+ */
+
+/* Widget styling tokens. */
+:root {
+	--prismleaf-widget-background-color: var(--prismleaf-color-surface-3);
+	--prismleaf-widget-border-color: var(--prismleaf-color-outline);
+	--prismleaf-widget-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-widget-border-style: var(--prismleaf-border-style);
+	--prismleaf-widget-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-widget-elevation: var(--prismleaf-shadow-elevation-3);
+	--prismleaf-widget-foreground-color: var(--prismleaf-color-surface-on);
+	--prismleaf-widget-padding: var(--prismleaf-space-2);
+	--prismleaf-widget-margin: var(--prismleaf-space-2);
+	--prismleaf-widget-title-alignment: left;
+	--prismleaf-widget-title-color: var(--prismleaf-color-primary-3);
+}
+
+.widget {
+	display: block;
+	background-color: var(--prismleaf-widget-background-color);
+	border-color: var(--prismleaf-widget-border-color);
+	border-radius: var(--prismleaf-widget-border-radius);
+	border-style: var(--prismleaf-widget-border-style);
+	border-width: var(--prismleaf-widget-border-width);
+	box-shadow: var(--prismleaf-widget-elevation);
+	color: var(--prismleaf-widget-foreground-color);
+	margin: var(--prismleaf-widget-margin);
+	padding: var(--prismleaf-widget-padding);
+	overflow: hidden;
+}
+
+.widget-title {
+	font-size: var(--prismleaf-font-size-xl);
+	color: var(--prismleaf-widget-title-color);
+	text-align: var(--prismleaf-widget-title-alignment);
+}

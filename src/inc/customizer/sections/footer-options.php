@@ -25,7 +25,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 			$wp_customize,
 			array(
 				'id'          => 'prismleaf_footer_options',
-				'title'       => __( 'Footer', 'prismleaf' ),
+				'title'       => __( 'Footer Styling', 'prismleaf' ),
 				'description' => __( 'Configure footer layout and styling.', 'prismleaf' ),
 				'priority'    => 40,
 			)

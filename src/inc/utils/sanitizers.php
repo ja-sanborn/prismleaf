@@ -505,7 +505,24 @@ if ( ! function_exists( 'prismleaf_sanitize_footer_widget_alignment' ) ) {
 		$value = strtolower( trim( (string) $value ) );
 		$allowed = array( 'left', 'center', 'right', 'stretch' );
 
-		return in_array( $value, $allowed, true ) ? $value : 'center';
+	return in_array( $value, $allowed, true ) ? $value : 'center';
+}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_widget_title_alignment' ) ) {
+	/**
+	 * Sanitize the widget title alignment value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_widget_title_alignment( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'left', 'center', 'right' );
+
+		return in_array( $value, $allowed, true ) ? $value : 'left';
 	}
 }
 

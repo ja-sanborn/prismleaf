@@ -25,7 +25,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 			$wp_customize,
 			array(
 				'id'          => 'prismleaf_sidebar_options',
-				'title'       => __( 'Sidebar', 'prismleaf' ),
+				'title'       => __( 'Sidebar Styling', 'prismleaf' ),
 				'description' => __( 'Configure left and right sidebar layout and styling.', 'prismleaf' ),
 				'priority'    => 50,
 			)

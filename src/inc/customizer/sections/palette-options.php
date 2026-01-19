@@ -25,7 +25,7 @@ if ( ! function_exists( 'prismleaf_register_palette_options_section' ) ) {
 			$wp_customize,
 			array(
 				'id'          => 'prismleaf_palette_options',
-				'title'       => __( 'Palette', 'prismleaf' ),
+				'title'       => __( 'Palette Colors', 'prismleaf' ),
 				'description' => __( 'Configure the theme color palette.', 'prismleaf' ),
 				'priority'    => 10,
 			)

@@ -140,6 +140,15 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		$last_handle = 'prismleaf-content';
 
 		prismleaf_enqueue_style(
+			'prismleaf-widgets',
+			'assets/styles/core/widgets.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-widgets', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-widgets';
+
+		prismleaf_enqueue_style(
 			'prismleaf-accessibility',
 			'assets/styles/core/accessibility.css',
 			array( $last_handle ),

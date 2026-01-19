@@ -87,6 +87,21 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_alignment' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_get_theme_mod_widget_title_alignment' ) ) {
+	/**
+	 * Get a validated widget title alignment string.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_value Default value.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_widget_title_alignment( $setting_id, $default_value = 'left' ) {
+		return prismleaf_sanitize_widget_title_alignment( prismleaf_get_theme_mod( $setting_id, $default_value ) );
+	}
+}
+
 if ( ! function_exists( 'prismleaf_get_theme_mod_theme_mode' ) ) {
 	/**
 	 * Get the theme mode override value.

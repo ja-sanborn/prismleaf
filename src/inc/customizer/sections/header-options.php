@@ -25,7 +25,7 @@ if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 			$wp_customize,
 			array(
 				'id'          => 'prismleaf_header_options',
-				'title'       => __( 'Header', 'prismleaf' ),
+				'title'       => __( 'Header Styling', 'prismleaf' ),
 				'description' => __( 'Configure header layout and styling.', 'prismleaf' ),
 				'priority'    => 30,
 			)

@@ -25,7 +25,7 @@ if ( ! function_exists( 'prismleaf_register_frame_options_section' ) ) {
 			$wp_customize,
 			array(
 				'id'          => 'prismleaf_frame_options',
-				'title'       => __( 'Frame', 'prismleaf' ),
+				'title'       => __( 'Frame Styling', 'prismleaf' ),
 				'description' => __( 'Frame layout and styling.', 'prismleaf' ),
 				'priority'    => 20,
 			)
