@@ -15,12 +15,12 @@
 	--prismleaf-color-surface-4: var(--prismleaf-color-light-surface-4);
 	--prismleaf-color-surface-5: var(--prismleaf-color-light-surface-5);
 
-	--prismleaf-color-surface-container-on: var(--prismleaf-color-light-surface-container-on);
-	--prismleaf-color-surface-container-1: var(--prismleaf-color-light-surface-container-1);
-	--prismleaf-color-surface-container-2: var(--prismleaf-color-light-surface-container-2);
-	--prismleaf-color-surface-container-3: var(--prismleaf-color-light-surface-container-3);
-	--prismleaf-color-surface-container-4: var(--prismleaf-color-light-surface-container-4);
-	--prismleaf-color-surface-container-5: var(--prismleaf-color-light-surface-container-5);
+	--prismleaf-color-container-on: var(--prismleaf-color-light-container-on);
+	--prismleaf-color-container-1: var(--prismleaf-color-light-container-1);
+	--prismleaf-color-container-2: var(--prismleaf-color-light-container-2);
+	--prismleaf-color-container-3: var(--prismleaf-color-light-container-3);
+	--prismleaf-color-container-4: var(--prismleaf-color-light-container-4);
+	--prismleaf-color-container-5: var(--prismleaf-color-light-container-5);
 
 	/* Active palette: shadows and glow. */
 	--prismleaf-shadow-elevation-1: var(--prismleaf-shadow-light-elevation-1);
@@ -33,7 +33,7 @@
 	--prismleaf-color-outline: var(--prismleaf-color-light-outline);
 	--prismleaf-color-outline-variant: var(--prismleaf-color-light-outline-variant);
 	--prismleaf-color-divider: var(--prismleaf-color-light-divider);
-	--prismleaf-color-on-surface-muted: var(--prismleaf-color-light-on-surface-muted);
+	--prismleaf-color-muted-on: var(--prismleaf-color-light-muted-on);
 	--prismleaf-color-disabled-foreground: var(--prismleaf-color-light-disabled-foreground);
 	--prismleaf-color-disabled-surface: var(--prismleaf-color-light-disabled-surface);
 	--prismleaf-color-scrim: var(--prismleaf-color-light-scrim);
@@ -58,12 +58,12 @@ html {
 		--prismleaf-color-surface-4: var(--prismleaf-color-dark-surface-4);
 		--prismleaf-color-surface-5: var(--prismleaf-color-dark-surface-5);
 
-		--prismleaf-color-surface-container-on: var(--prismleaf-color-dark-surface-container-on);
-		--prismleaf-color-surface-container-1: var(--prismleaf-color-dark-surface-container-1);
-		--prismleaf-color-surface-container-2: var(--prismleaf-color-dark-surface-container-2);
-		--prismleaf-color-surface-container-3: var(--prismleaf-color-dark-surface-container-3);
-		--prismleaf-color-surface-container-4: var(--prismleaf-color-dark-surface-container-4);
-		--prismleaf-color-surface-container-5: var(--prismleaf-color-dark-surface-container-5);
+		--prismleaf-color-container-on: var(--prismleaf-color-dark-container-on);
+		--prismleaf-color-container-1: var(--prismleaf-color-dark-container-1);
+		--prismleaf-color-container-2: var(--prismleaf-color-dark-container-2);
+		--prismleaf-color-container-3: var(--prismleaf-color-dark-container-3);
+		--prismleaf-color-container-4: var(--prismleaf-color-dark-container-4);
+		--prismleaf-color-container-5: var(--prismleaf-color-dark-container-5);
 
 		/* Active palette: shadows and glow. */
 		--prismleaf-shadow-elevation-1: var(--prismleaf-shadow-dark-elevation-1);
@@ -76,7 +76,7 @@ html {
 		--prismleaf-color-outline: var(--prismleaf-color-dark-outline);
 		--prismleaf-color-outline-variant: var(--prismleaf-color-dark-outline-variant);
 		--prismleaf-color-divider: var(--prismleaf-color-dark-divider);
-		--prismleaf-color-on-surface-muted: var(--prismleaf-color-dark-on-surface-muted);
+		--prismleaf-color-muted-on: var(--prismleaf-color-dark-muted-on);
 		--prismleaf-color-disabled-foreground: var(--prismleaf-color-dark-disabled-foreground);
 		--prismleaf-color-disabled-surface: var(--prismleaf-color-dark-disabled-surface);
 		--prismleaf-color-scrim: var(--prismleaf-color-dark-scrim);
@@ -101,12 +101,12 @@ html {
 	--prismleaf-color-surface-4: var(--prismleaf-color-light-surface-4);
 	--prismleaf-color-surface-5: var(--prismleaf-color-light-surface-5);
 
-	--prismleaf-color-surface-container-on: var(--prismleaf-color-light-surface-container-on);
-	--prismleaf-color-surface-container-1: var(--prismleaf-color-light-surface-container-1);
-	--prismleaf-color-surface-container-2: var(--prismleaf-color-light-surface-container-2);
-	--prismleaf-color-surface-container-3: var(--prismleaf-color-light-surface-container-3);
-	--prismleaf-color-surface-container-4: var(--prismleaf-color-light-surface-container-4);
-	--prismleaf-color-surface-container-5: var(--prismleaf-color-light-surface-container-5);
+	--prismleaf-color-container-on: var(--prismleaf-color-light-container-on);
+	--prismleaf-color-container-1: var(--prismleaf-color-light-container-1);
+	--prismleaf-color-container-2: var(--prismleaf-color-light-container-2);
+	--prismleaf-color-container-3: var(--prismleaf-color-light-container-3);
+	--prismleaf-color-container-4: var(--prismleaf-color-light-container-4);
+	--prismleaf-color-container-5: var(--prismleaf-color-light-container-5);
 
 	/* Active palette: shadows and glow. */
 	--prismleaf-shadow-elevation-1: var(--prismleaf-shadow-light-elevation-1);
@@ -119,7 +119,7 @@ html {
 	--prismleaf-color-outline: var(--prismleaf-color-light-outline);
 	--prismleaf-color-outline-variant: var(--prismleaf-color-light-outline-variant);
 	--prismleaf-color-divider: var(--prismleaf-color-light-divider);
-	--prismleaf-color-on-surface-muted: var(--prismleaf-color-light-on-surface-muted);
+	--prismleaf-color-muted-on: var(--prismleaf-color-light-muted-on);
 	--prismleaf-color-disabled-foreground: var(--prismleaf-color-light-disabled-foreground);
 	--prismleaf-color-disabled-surface: var(--prismleaf-color-light-disabled-surface);
 	--prismleaf-color-scrim: var(--prismleaf-color-light-scrim);
@@ -143,12 +143,12 @@ html[data-prismleaf-color-scheme="light"] {
 	--prismleaf-color-surface-4: var(--prismleaf-color-dark-surface-4);
 	--prismleaf-color-surface-5: var(--prismleaf-color-dark-surface-5);
 
-	--prismleaf-color-surface-container-on: var(--prismleaf-color-dark-surface-container-on);
-	--prismleaf-color-surface-container-1: var(--prismleaf-color-dark-surface-container-1);
-	--prismleaf-color-surface-container-2: var(--prismleaf-color-dark-surface-container-2);
-	--prismleaf-color-surface-container-3: var(--prismleaf-color-dark-surface-container-3);
-	--prismleaf-color-surface-container-4: var(--prismleaf-color-dark-surface-container-4);
-	--prismleaf-color-surface-container-5: var(--prismleaf-color-dark-surface-container-5);
+	--prismleaf-color-container-on: var(--prismleaf-color-dark-container-on);
+	--prismleaf-color-container-1: var(--prismleaf-color-dark-container-1);
+	--prismleaf-color-container-2: var(--prismleaf-color-dark-container-2);
+	--prismleaf-color-container-3: var(--prismleaf-color-dark-container-3);
+	--prismleaf-color-container-4: var(--prismleaf-color-dark-container-4);
+	--prismleaf-color-container-5: var(--prismleaf-color-dark-container-5);
 
 	/* Active palette: shadows and glow. */
 	--prismleaf-shadow-elevation-1: var(--prismleaf-shadow-dark-elevation-1);
@@ -161,7 +161,7 @@ html[data-prismleaf-color-scheme="light"] {
 	--prismleaf-color-outline: var(--prismleaf-color-dark-outline);
 	--prismleaf-color-outline-variant: var(--prismleaf-color-dark-outline-variant);
 	--prismleaf-color-divider: var(--prismleaf-color-dark-divider);
-	--prismleaf-color-on-surface-muted: var(--prismleaf-color-dark-on-surface-muted);
+	--prismleaf-color-muted-on: var(--prismleaf-color-dark-muted-on);
 	--prismleaf-color-disabled-foreground: var(--prismleaf-color-dark-disabled-foreground);
 	--prismleaf-color-disabled-surface: var(--prismleaf-color-dark-disabled-surface);
 	--prismleaf-color-scrim: var(--prismleaf-color-dark-scrim);
@@ -178,7 +178,7 @@ html[data-prismleaf-color-scheme="dark"] {
 		--prismleaf-color-outline: color-mix(in srgb, var(--prismleaf-color-surface-on) 30%, transparent);
 		--prismleaf-color-outline-variant: color-mix(in srgb, var(--prismleaf-color-surface-on) 18%, transparent);
 		--prismleaf-color-divider: color-mix(in srgb, var(--prismleaf-color-surface-on) 12%, transparent);
-		--prismleaf-color-on-surface-muted: color-mix(in srgb, var(--prismleaf-color-surface-on) 72%, transparent);
+		--prismleaf-color-muted-on: color-mix(in srgb, var(--prismleaf-color-surface-on) 72%, transparent);
 		--prismleaf-color-disabled-foreground: color-mix(in srgb, var(--prismleaf-color-surface-on) 38%, transparent);
 		--prismleaf-color-disabled-surface: color-mix(in srgb, var(--prismleaf-color-surface-on) 12%, transparent);
 	}
@@ -187,8 +187,8 @@ html[data-prismleaf-color-scheme="dark"] {
 /* Derived colors. */
 :root {
 	/* Active palette: code defaults. */
-	--prismleaf-color-code-background: var(--prismleaf-color-surface-container-1);
-	--prismleaf-color-code-foreground: var(--prismleaf-color-surface-container-on);
+	--prismleaf-color-code-background: var(--prismleaf-color-container-1);
+	--prismleaf-color-code-foreground: var(--prismleaf-color-container-on);
 
 	/* Active palette: hyperlink defaults. */
 	--prismleaf-color-link: var(--prismleaf-color-secondary-1);
@@ -261,7 +261,7 @@ textarea:focus-visible {
 }
 
 ::placeholder {
-	color: var(--prismleaf-color-on-surface-muted);
+	color: var(--prismleaf-color-muted-on);
 	opacity: 1;
 }
 

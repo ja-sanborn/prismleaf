@@ -501,18 +501,18 @@
 		const setOpacityValues = (prefix) => {
 			palette.outline = `${prefix}-outline`;
 			palette.outline_variant = `${prefix}-outline-variant`;
-			palette.on_surface_muted = `${prefix}-on-surface-muted`;
+			palette.on_surface_muted = `${prefix}-muted-on`;
 			palette.disabled_foreground = `${prefix}-disabled-foreground`;
 			palette.disabled_surface = `${prefix}-disabled-surface`;
 		};
 
 		const setValues = (prefix, containerPrefix) => {
-			palette.on = `${prefix}-on`;
-			palette['1'] = `${prefix}-1`;
-			palette['2'] = `${prefix}-2`;
-			palette['3'] = `${prefix}-3`;
-			palette['4'] = `${prefix}-4`;
-			palette['5'] = `${prefix}-5`;
+			palette.on = `${prefix}-surface-on`;
+			palette['1'] = `${prefix}-surface-1`;
+			palette['2'] = `${prefix}-surface-2`;
+			palette['3'] = `${prefix}-surface-3`;
+			palette['4'] = `${prefix}-surface-4`;
+			palette['5'] = `${prefix}-surface-5`;
 			palette.container_on = `${containerPrefix}-on`;
 			palette.container_1 = `${containerPrefix}-1`;
 			palette.container_2 = `${containerPrefix}-2`;
@@ -532,11 +532,11 @@
 				setOpacityValues(`--prismleaf-color-${slug}`);
 				break;
 			case 'neutral_light':
-				setValues('--prismleaf-color-light-surface', '--prismleaf-color-light-surface-container');
+				setValues('--prismleaf-color-light-surface', '--prismleaf-color-light-container');
 				setOpacityValues('--prismleaf-color-light');
 				break;
 			case 'neutral_dark':
-				setValues('--prismleaf-color-dark-surface', '--prismleaf-color-dark-surface-container');
+				setValues('--prismleaf-color-dark-surface', '--prismleaf-color-dark-container');
 				setOpacityValues('--prismleaf-color-dark');
 				break;
 			default:

@@ -88,13 +88,13 @@
 	/* Background color */
 	--prismleaf-background: #ffffff;
 
-	/* Primary palette. */
-	--prismleaf-color-primary-on: #f2d9e7;
-	--prismleaf-color-primary-1: #c04b8d;
-	--prismleaf-color-primary-2: #b23e7f;
-	--prismleaf-color-primary-3: #9e3771;
-	--prismleaf-color-primary-4: #8a3063;
-	--prismleaf-color-primary-5: #762955;
+	/* Primary palette: surfaces. */
+	--prismleaf-color-primary-surface-on: #f2d9e7;
+	--prismleaf-color-primary-surface-1: #c04b8d;
+	--prismleaf-color-primary-surface-2: #b23e7f;
+	--prismleaf-color-primary-surface-3: #9e3771;
+	--prismleaf-color-primary-surface-4: #8a3063;
+	--prismleaf-color-primary-surface-5: #762955;
 
 	--prismleaf-color-primary-container-on: #f2d9e7;
 	--prismleaf-color-primary-container-1: #13070e;
@@ -107,17 +107,18 @@
 	--prismleaf-color-primary-outline: rgba(192, 75, 141, 0.30);
 	--prismleaf-color-primary-outline-variant: rgba(192, 75, 141, 0.18);
 	--prismleaf-color-primary-divider: rgba(192, 75, 141, 0.12);
-	--prismleaf-color-primary-on-surface-muted: rgba(192, 75, 141, 0.72);
+	--prismleaf-color-primary-muted-on: rgba(192, 75, 141, 0.72);
 	--prismleaf-color-primary-disabled-foreground: rgba(192, 75, 141, 0.38);
 	--prismleaf-color-primary-disabled-surface: rgba(192, 75, 141, 0.12);
+	--prismleaf-color-primary-scrim: rgba(192, 75, 141, 0.32);
 
-	/* Secondary palette. */
-	--prismleaf-color-secondary-on: #0e2521;
-	--prismleaf-color-secondary-1: #2e7d6f;
-	--prismleaf-color-secondary-2: #369383;
-	--prismleaf-color-secondary-3: #3ea997;
-	--prismleaf-color-secondary-4: #49bca9;
-	--prismleaf-color-secondary-5: #5fc4b4;
+	/* Secondary palette: surfaces. */
+	--prismleaf-color-secondary-surface-on: #0e2521;
+	--prismleaf-color-secondary-surface-1: #2e7d6f;
+	--prismleaf-color-secondary-surface-2: #369383;
+	--prismleaf-color-secondary-surface-3: #3ea997;
+	--prismleaf-color-secondary-surface-4: #49bca9;
+	--prismleaf-color-secondary-surface-5: #5fc4b4;
 
 	--prismleaf-color-secondary-container-on: #0e2521;
 	--prismleaf-color-secondary-container-1: #cdece8;
@@ -130,17 +131,18 @@
 	--prismleaf-color-secondary-outline: rgba(46, 125, 111, 0.30);
 	--prismleaf-color-secondary-outline-variant: rgba(46, 125, 111, 0.18);
 	--prismleaf-color-secondary-divider: rgba(46, 125, 111, 0.12);
-	--prismleaf-color-secondary-on-surface-muted: rgba(46, 125, 111, 0.72);
+	--prismleaf-color-secondary-muted-on: rgba(46, 125, 111, 0.72);
 	--prismleaf-color-secondary-disabled-foreground: rgba(46, 125, 111, 0.38);
 	--prismleaf-color-secondary-disabled-surface: rgba(46, 125, 111, 0.12);
+	--prismleaf-color-secondary-scrim: rgba(46, 125, 111, 0.32);
 
-	/* Tertiary palette. */
-	--prismleaf-color-tertiary-on: #d4dff7;
-	--prismleaf-color-tertiary-1: #3f6fd9;
-	--prismleaf-color-tertiary-2: #2a5ed2;
-	--prismleaf-color-tertiary-3: #2553ba;
-	--prismleaf-color-tertiary-4: #2048a2;
-	--prismleaf-color-tertiary-5: #1b3e8a;
+	/* Tertiary palette: surfaces. */
+	--prismleaf-color-tertiary-surface-on: #d4dff7;
+	--prismleaf-color-tertiary-surface-1: #3f6fd9;
+	--prismleaf-color-tertiary-surface-2: #2a5ed2;
+	--prismleaf-color-tertiary-surface-3: #2553ba;
+	--prismleaf-color-tertiary-surface-4: #2048a2;
+	--prismleaf-color-tertiary-surface-5: #1b3e8a;
 
 	--prismleaf-color-tertiary-container-on: #d4dff7;
 	--prismleaf-color-tertiary-container-1: #040a15;
@@ -153,17 +155,18 @@
 	--prismleaf-color-tertiary-outline: rgba(63, 111, 217, 0.30);
 	--prismleaf-color-tertiary-outline-variant: rgba(63, 111, 217, 0.18);
 	--prismleaf-color-tertiary-divider: rgba(63, 111, 217, 0.12);
-	--prismleaf-color-tertiary-on-surface-muted: rgba(63, 111, 217, 0.72);
+	--prismleaf-color-tertiary-muted-on: rgba(63, 111, 217, 0.72);
 	--prismleaf-color-tertiary-disabled-foreground: rgba(63, 111, 217, 0.38);
 	--prismleaf-color-tertiary-disabled-surface: rgba(63, 111, 217, 0.12);
+	--prismleaf-color-tertiary-scrim: rgba(63, 111, 217, 0.32);
 
-	/* Error palette. */
-	--prismleaf-color-error-on: #2c0907;
-	--prismleaf-color-error-1: #b3261e;
-	--prismleaf-color-error-2: #cd2c22;
-	--prismleaf-color-error-3: #dd3b31;
-	--prismleaf-color-error-4: #e1544b;
-	--prismleaf-color-error-5: #e56d65;
+	/* Error palette: surfaces. */
+	--prismleaf-color-error-surface-on: #2c0907;
+	--prismleaf-color-error-surface-1: #b3261e;
+	--prismleaf-color-error-surface-2: #cd2c22;
+	--prismleaf-color-error-surface-3: #dd3b31;
+	--prismleaf-color-error-surface-4: #e1544b;
+	--prismleaf-color-error-surface-5: #e56d65;
 
 	--prismleaf-color-error-container-on: #2c0a07;
 	--prismleaf-color-error-container-1: #fbe8e7;
@@ -176,17 +179,18 @@
 	--prismleaf-color-error-outline: rgba(179, 38, 30, 0.30);
 	--prismleaf-color-error-outline-variant: rgba(179, 38, 30, 0.18);
 	--prismleaf-color-error-divider: rgba(179, 38, 30, 0.12);
-	--prismleaf-color-error-on-surface-muted: rgba(179, 38, 30, 0.72);
+	--prismleaf-color-error-muted-on: rgba(179, 38, 30, 0.72);
 	--prismleaf-color-error-disabled-foreground: rgba(179, 38, 30, 0.38);
 	--prismleaf-color-error-disabled-surface: rgba(179, 38, 30, 0.12);
+	--prismleaf-color-error-scrim: rgba(179, 38, 30, 0.32);
 
-	/* Warning palette. */
-	--prismleaf-color-warning-on: #331e00;
-	--prismleaf-color-warning-1: #b26a00;
-	--prismleaf-color-warning-2: #d17c00;
-	--prismleaf-color-warning-3: #f08e00;
-	--prismleaf-color-warning-4: #ff9d10;
-	--prismleaf-color-warning-5: #ffaa2f;
+	/* Warning palette: surfaces. */
+	--prismleaf-color-warning-surface-on: #331e00;
+	--prismleaf-color-warning-surface-1: #b26a00;
+	--prismleaf-color-warning-surface-2: #d17c00;
+	--prismleaf-color-warning-surface-3: #f08e00;
+	--prismleaf-color-warning-surface-4: #ff9d10;
+	--prismleaf-color-warning-surface-5: #ffaa2f;
 
 	--prismleaf-color-warning-container-on: #331e00;
 	--prismleaf-color-warning-container-1: #ffe9ca;
@@ -199,17 +203,18 @@
 	--prismleaf-color-warning-outline: rgba(178, 106, 0, 0.30);
 	--prismleaf-color-warning-outline-variant: rgba(178, 106, 0, 0.18);
 	--prismleaf-color-warning-divider: rgba(178, 106, 0, 0.12);
-	--prismleaf-color-warning-on-surface-muted: rgba(178, 106, 0, 0.72);
+	--prismleaf-color-warning-muted-on: rgba(178, 106, 0, 0.72);
 	--prismleaf-color-warning-disabled-foreground: rgba(178, 106, 0, 0.38);
 	--prismleaf-color-warning-disabled-surface: rgba(178, 106, 0, 0.12);
+	--prismleaf-color-warning-scrim: rgba(178, 106, 0, 0.32);
 
-	/* Info palette. */
-	--prismleaf-color-info-on: #d1e3fa;
-	--prismleaf-color-info-1: #1a73e8;
-	--prismleaf-color-info-2: #1567d3;
-	--prismleaf-color-info-3: #135cbc;
-	--prismleaf-color-info-4: #1151a5;
-	--prismleaf-color-info-5: #0f468e;
+	/* Info palette: surfaces. */
+	--prismleaf-color-info-surface-on: #d1e3fa;
+	--prismleaf-color-info-surface-1: #1a73e8;
+	--prismleaf-color-info-surface-2: #1567d3;
+	--prismleaf-color-info-surface-3: #135cbc;
+	--prismleaf-color-info-surface-4: #1151a5;
+	--prismleaf-color-info-surface-5: #0f468e;
 
 	--prismleaf-color-info-container-on: #d1e2fa;
 	--prismleaf-color-info-container-1: #030d1b;
@@ -222,9 +227,10 @@
 	--prismleaf-color-info-outline: rgba(26, 115, 232, 0.30);
 	--prismleaf-color-info-outline-variant: rgba(26, 115, 232, 0.18);
 	--prismleaf-color-info-divider: rgba(26, 115, 232, 0.12);
-	--prismleaf-color-info-on-surface-muted: rgba(26, 115, 232, 0.72);
+	--prismleaf-color-info-muted-on: rgba(26, 115, 232, 0.72);
 	--prismleaf-color-info-disabled-foreground: rgba(26, 115, 232, 0.38);
 	--prismleaf-color-info-disabled-surface: rgba(26, 115, 232, 0.12);
+	--prismleaf-color-info-scrim: rgba(26, 115, 232, 0.32);
 
 	/* Light palette: surfaces. */
 	--prismleaf-color-light-surface-on: #191919;
@@ -234,18 +240,18 @@
 	--prismleaf-color-light-surface-4: #c5c5c5;
 	--prismleaf-color-light-surface-5: #b6b6b6;
 
-	--prismleaf-color-light-surface-container-on: #191919;
-	--prismleaf-color-light-surface-container-1: #6b6b6b;
-	--prismleaf-color-light-surface-container-2: #7a7a7a;
-	--prismleaf-color-light-surface-container-3: #898989;
-	--prismleaf-color-light-surface-container-4: #989898;
-	--prismleaf-color-light-surface-container-5: #a7a7a7;
+	--prismleaf-color-light-container-on: #191919;
+	--prismleaf-color-light-container-1: #6b6b6b;
+	--prismleaf-color-light-container-2: #7a7a7a;
+	--prismleaf-color-light-container-3: #898989;
+	--prismleaf-color-light-container-4: #989898;
+	--prismleaf-color-light-container-5: #a7a7a7;
 
 	/* Light palette: opacity values. */
 	--prismleaf-color-light-outline: rgba(242, 242, 242, 0.30);
 	--prismleaf-color-light-outline-variant: rgba(242, 242, 242, 0.18);
 	--prismleaf-color-light-divider: rgba(242, 242, 242, 0.12);
-	--prismleaf-color-light-on-surface-muted: rgba(242, 242, 242, 0.72);
+	--prismleaf-color-light-muted-on: rgba(242, 242, 242, 0.72);
 	--prismleaf-color-light-disabled-foreground: rgba(242, 242, 242, 0.38);
 	--prismleaf-color-light-disabled-surface: rgba(242, 242, 242, 0.12);
 	--prismleaf-color-light-scrim: rgba(242, 242, 242, 0.32);
@@ -265,18 +271,18 @@
 	--prismleaf-color-dark-surface-4: #3f3f3f;
 	--prismleaf-color-dark-surface-5: #4e4e4e;
 
-	--prismleaf-color-dark-surface-container-on: #1a1a1a;
-	--prismleaf-color-dark-surface-container-1: #999999;
-	--prismleaf-color-dark-surface-container-2: #8a8a8a;
-	--prismleaf-color-dark-surface-container-3: #7b7b7b;
-	--prismleaf-color-dark-surface-container-4: #6c6c6c;
-	--prismleaf-color-dark-surface-container-5: #5d5d5d;
+	--prismleaf-color-dark-container-on: #1a1a1a;
+	--prismleaf-color-dark-container-1: #999999;
+	--prismleaf-color-dark-container-2: #8a8a8a;
+	--prismleaf-color-dark-container-3: #7b7b7b;
+	--prismleaf-color-dark-container-4: #6c6c6c;
+	--prismleaf-color-dark-container-5: #5d5d5d;
 
 	/* Dark palette: opacity values. */
 	--prismleaf-color-dark-outline: rgba(18, 18, 18, 0.30);
 	--prismleaf-color-dark-outline-variant: rgba(18, 18, 18, 0.18);
 	--prismleaf-color-dark-divider: rgba(18, 18, 18, 0.12);
-	--prismleaf-color-dark-on-surface-muted: rgba(18, 18, 18, 0.72);
+	--prismleaf-color-dark-muted-on: rgba(18, 18, 18, 0.72);
 	--prismleaf-color-dark-disabled-foreground: rgba(18, 18, 18, 0.38);
 	--prismleaf-color-dark-disabled-surface: rgba(18, 18, 18, 0.12);
 	--prismleaf-color-dark-scrim: rgba(18, 18, 18, 0.32);
