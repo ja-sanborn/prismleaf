@@ -3,7 +3,8 @@
  *
  * Shared color and palette utilities.
  *
- * @package prismleaf
+ * @param {Window} window
+ * @package
  */
 
 (function (window) {
@@ -72,30 +73,35 @@
 			return false;
 		}
 
-		const match = value.trim().match(/^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0?\.\d+)\s*\)$/);
-		if (!match) {
-			return false;
+		const match = value
+			.trim()
+			.match(
+				/^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0?\.\d+)\s*\)$/
+			);
+
+		if (match) {
+			const r = Number(match[1]);
+			const g = Number(match[2]);
+			const b = Number(match[3]);
+			const a = Number(match[4]);
+
+			if (!Number.isFinite(r) || r < 0 || r > 255) {
+				return false;
+			}
+			if (!Number.isFinite(g) || g < 0 || g > 255) {
+				return false;
+			}
+			if (!Number.isFinite(b) || b < 0 || b > 255) {
+				return false;
+			}
+			if (!Number.isFinite(a) || a < 0 || a > 1) {
+				return false;
+			}
+
+			return true;
 		}
 
-		const r = Number(match[1]);
-		const g = Number(match[2]);
-		const b = Number(match[3]);
-		const a = Number(match[4]);
-
-		if (!Number.isFinite(r) || r < 0 || r > 255) {
-			return false;
-		}
-		if (!Number.isFinite(g) || g < 0 || g > 255) {
-			return false;
-		}
-		if (!Number.isFinite(b) || b < 0 || b > 255) {
-			return false;
-		}
-		if (!Number.isFinite(a) || a < 0 || a > 1) {
-			return false;
-		}
-
-		return true;
+		return false;
 	};
 
 	const rgbToHex = (rgb) => {
@@ -148,46 +154,50 @@
 	};
 
 	const hslToRgb = (hsl) => {
-		if (!Array.isArray(hsl) || hsl.length !== 3) {
-			return null;
+		if (Array.isArray(hsl) && hsl.length === 3) {
+			const h = clampFloat(hsl[0], 0, 1);
+			const s = clampFloat(hsl[1], 0, 1);
+			const l = clampFloat(hsl[2], 0, 1);
+
+			if (s === 0) {
+				const val = Math.round(l * 255);
+				return [val, val, val];
+			}
+
+			const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+			const p = 2 * l - q;
+			const hueToRgb = (p1, q1, t) => {
+				let v = t;
+				if (v < 0) {
+					v += 1;
+				}
+				if (v > 1) {
+					v -= 1;
+				}
+				if (v < 1 / 6) {
+					return p1 + (q1 - p1) * 6 * v;
+				}
+				if (v < 1 / 2) {
+					return q1;
+				}
+				if (v < 2 / 3) {
+					return p1 + (q1 - p1) * (2 / 3 - v) * 6;
+				}
+				return p1;
+			};
+
+			const r = hueToRgb(p, q, h + 1 / 3);
+			const g = hueToRgb(p, q, h);
+			const b = hueToRgb(p, q, h - 1 / 3);
+
+			return [
+				Math.round(r * 255),
+				Math.round(g * 255),
+				Math.round(b * 255),
+			];
 		}
 
-		const h = clampFloat(hsl[0], 0, 1);
-		const s = clampFloat(hsl[1], 0, 1);
-		const l = clampFloat(hsl[2], 0, 1);
-
-		if (s === 0) {
-			const val = Math.round(l * 255);
-			return [val, val, val];
-		}
-
-		const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-		const p = 2 * l - q;
-		const hueToRgb = (p1, q1, t) => {
-			let v = t;
-			if (v < 0) {
-				v += 1;
-			}
-			if (v > 1) {
-				v -= 1;
-			}
-			if (v < 1 / 6) {
-				return p1 + (q1 - p1) * 6 * v;
-			}
-			if (v < 1 / 2) {
-				return q1;
-			}
-			if (v < 2 / 3) {
-				return p1 + (q1 - p1) * (2 / 3 - v) * 6;
-			}
-			return p1;
-		};
-
-		const r = hueToRgb(p, q, h + 1 / 3);
-		const g = hueToRgb(p, q, h);
-		const b = hueToRgb(p, q, h - 1 / 3);
-
-		return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+		return null;
 	};
 
 	const relativeLuminance = (hex) => {
@@ -198,7 +208,9 @@
 
 		const srgb = rgb.map((v) => {
 			const c = v / 255;
-			return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+			return c <= 0.03928
+				? c / 12.92
+				: Math.pow((c + 0.055) / 1.055, 2.4);
 		});
 
 		return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
@@ -218,7 +230,11 @@
 
 	const minContrastRatio = (foregroundHex, backgroundHexes) => {
 		const foreground = sanitizeHexColor(foregroundHex);
-		if (!foreground || !Array.isArray(backgroundHexes) || backgroundHexes.length === 0) {
+		if (
+			!foreground ||
+			!Array.isArray(backgroundHexes) ||
+			backgroundHexes.length === 0
+		) {
 			return null;
 		}
 
@@ -253,7 +269,10 @@
 			return '';
 		}
 
-		const w = Math.min(Math.max(Number.isFinite(weight) ? weight : 0.5, 0), 1);
+		const w = Math.min(
+			Math.max(Number.isFinite(weight) ? weight : 0.5, 0),
+			1
+		);
 		const mix = [
 			Math.round(rgbA[0] + (rgbB[0] - rgbA[0]) * w),
 			Math.round(rgbA[1] + (rgbB[1] - rgbA[1]) * w),
@@ -271,7 +290,8 @@
 			return cleanOn || '';
 		}
 
-		const target = Number.isFinite(minRatio) && minRatio > 0 ? minRatio : 4.5;
+		const target =
+			Number.isFinite(minRatio) && minRatio > 0 ? minRatio : 4.5;
 		let best = cleanOn;
 		let low = 0;
 		let high = 0.5;
@@ -358,7 +378,12 @@
 		let current = start;
 
 		for (let i = 0; i < deltas.length; i += 1) {
-			const next = adjustLightnessSafe(current, Number(deltas[i]), min, max);
+			const next = adjustLightnessSafe(
+				current,
+				Number(deltas[i]),
+				min,
+				max
+			);
 			if (!next) {
 				return [];
 			}
@@ -371,11 +396,17 @@
 
 	const pickOnColorFromTones = (referenceHex, backgroundHexes) => {
 		const reference = sanitizeHexColor(referenceHex);
-		if (!reference || !Array.isArray(backgroundHexes) || backgroundHexes.length === 0) {
+		if (
+			!reference ||
+			!Array.isArray(backgroundHexes) ||
+			backgroundHexes.length === 0
+		) {
 			return '';
 		}
 
-		const backgrounds = backgroundHexes.map((hex) => sanitizeHexColor(hex)).filter(Boolean);
+		const backgrounds = backgroundHexes
+			.map((hex) => sanitizeHexColor(hex))
+			.filter(Boolean);
 		if (backgrounds.length === 0) {
 			return '';
 		}
@@ -430,7 +461,7 @@
 			return null;
 		}
 
-		let baseL = clampFloat(hsl[2], 0.05, 0.95);
+		const baseL = clampFloat(hsl[2], 0.05, 0.95);
 		let baseAdjusted = base;
 		if (baseL !== hsl[2]) {
 			const shifted = shiftToLightness(base, baseL, 0.05, 0.95);
@@ -469,7 +500,7 @@
 			surface_4: ramp[3],
 			surface_5: ramp[4],
 			surface_on: onColor,
-			outline: rgbaFromHex(opacityBase, 0.30),
+			outline: rgbaFromHex(opacityBase, 0.3),
 			outline_variant: rgbaFromHex(opacityBase, 0.18),
 			muted: rgbaFromHex(opacityBase, 0.72),
 			disabled_foreground: rgbaFromHex(opacityBase, 0.38),
@@ -482,10 +513,22 @@
 			container_on: containerOn,
 		};
 
-		const surfaceOnMuted = buildOnMutedColor(palette.surface_on, palette.surface_5);
-		const surfaceOnFaded = buildOnFadedColor(palette.surface_on, surfaceOnMuted);
-		const containerOnMuted = buildOnMutedColor(palette.container_on, palette.container_5);
-		const containerOnFaded = buildOnFadedColor(palette.container_on, containerOnMuted);
+		const surfaceOnMuted = buildOnMutedColor(
+			palette.surface_on,
+			palette.surface_5
+		);
+		const surfaceOnFaded = buildOnFadedColor(
+			palette.surface_on,
+			surfaceOnMuted
+		);
+		const containerOnMuted = buildOnMutedColor(
+			palette.container_on,
+			palette.container_5
+		);
+		const containerOnFaded = buildOnFadedColor(
+			palette.container_on,
+			containerOnMuted
+		);
 
 		palette.surface_on_muted = surfaceOnMuted;
 		palette.surface_on_faded = surfaceOnFaded;
@@ -501,10 +544,22 @@
 			return '';
 		}
 
-		const surfaceOnMuted = buildOnMutedColor(palette.surface_on, palette.surface_5);
-		const surfaceOnFaded = buildOnFadedColor(palette.surface_on, surfaceOnMuted);
-		const containerOnMuted = buildOnMutedColor(palette.container_on, palette.container_5);
-		const containerOnFaded = buildOnFadedColor(palette.container_on, containerOnMuted);
+		const surfaceOnMuted = buildOnMutedColor(
+			palette.surface_on,
+			palette.surface_5
+		);
+		const surfaceOnFaded = buildOnFadedColor(
+			palette.surface_on,
+			surfaceOnMuted
+		);
+		const containerOnMuted = buildOnMutedColor(
+			palette.container_on,
+			palette.container_5
+		);
+		const containerOnFaded = buildOnFadedColor(
+			palette.container_on,
+			containerOnMuted
+		);
 
 		palette.surface_on_muted = surfaceOnMuted;
 		palette.surface_on_faded = surfaceOnFaded;
@@ -538,11 +593,13 @@
 		const clean = {};
 		for (let i = 0; i < keys.length; i += 1) {
 			const key = keys[i];
-			if (key === 'outline'
-				|| key === 'outline_variant'
-				|| key === 'muted'
-				|| key === 'disabled_foreground'
-				|| key === 'disabled_surface') {
+			if (
+				key === 'outline' ||
+				key === 'outline_variant' ||
+				key === 'muted' ||
+				key === 'disabled_foreground' ||
+				key === 'disabled_surface'
+			) {
 				if (!isRgbaColor(palette[key])) {
 					return '';
 				}
@@ -629,15 +686,24 @@
 			case 'error':
 			case 'warning':
 			case 'info':
-				setValues(`--prismleaf-color-${slug}`, `--prismleaf-color-${slug}-container`);
+				setValues(
+					`--prismleaf-color-${slug}`,
+					`--prismleaf-color-${slug}-container`
+				);
 				setOpacityValues(`--prismleaf-color-${slug}`);
 				break;
 			case 'neutral_light':
-				setValues('--prismleaf-color-light-surface', '--prismleaf-color-light-container');
+				setValues(
+					'--prismleaf-color-light-surface',
+					'--prismleaf-color-light-container'
+				);
 				setOpacityValues('--prismleaf-color-light');
 				break;
 			case 'neutral_dark':
-				setValues('--prismleaf-color-dark-surface', '--prismleaf-color-dark-container');
+				setValues(
+					'--prismleaf-color-dark-surface',
+					'--prismleaf-color-dark-container'
+				);
 				setOpacityValues('--prismleaf-color-dark');
 				break;
 			default:

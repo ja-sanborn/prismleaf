@@ -40,16 +40,16 @@
 }
 
 .prismleaf-theme-switch[data-prismleaf-theme-switch-state="auto"] {
-	-webkit-mask-image: url('../../images/theme-auto.svg');
-	mask-image: url('../../images/theme-auto.svg');
+	-webkit-mask-image: url(../../images/theme-auto.svg);
+	mask-image: url(../../images/theme-auto.svg);
 }
 
 .prismleaf-theme-switch[data-prismleaf-theme-switch-state="dark"] {
-	-webkit-mask-image: url('../../images/theme-dark.svg');
-	mask-image: url('../../images/theme-dark.svg');
+	-webkit-mask-image: url(../../images/theme-dark.svg);
+	mask-image: url(../../images/theme-dark.svg);
 }
 
 .prismleaf-theme-switch[data-prismleaf-theme-switch-state="light"] {
-	-webkit-mask-image: url('../../images/theme-light.svg');
-	mask-image: url('../../images/theme-light.svg');
+	-webkit-mask-image: url(../../images/theme-light.svg);
+	mask-image: url(../../images/theme-light.svg);
 }

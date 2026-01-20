@@ -7,6 +7,7 @@
  */
 
 :root {
+
 	/* Font families. */
 	--prismleaf-font-serif: ui-serif, georgia, cambria, "Times New Roman", times, serif;
 	--prismleaf-font-sans: system-ui, -apple-system, "Segoe UI", roboto, helvetica, arial, "Apple Color Emoji", "Segoe UI Emoji";
@@ -87,7 +88,7 @@
 	--prismleaf-state-disabled-opacity: 0.38;
 
 	/* Background color */
-	--prismleaf-background: #ffffff;
+	--prismleaf-background: #fff;
 
 	/* Primary palette: surfaces. */
 	--prismleaf-color-primary-surface-on: #f2d9e7;
@@ -305,7 +306,7 @@
 	--prismleaf-color-dark-container-on: #1a1a1a;
 	--prismleaf-color-dark-container-on-muted: #1a1a1a;
 	--prismleaf-color-dark-container-on-faded: #1a1a1a;
-	--prismleaf-color-dark-container-1: #999999;
+	--prismleaf-color-dark-container-1: #999;
 	--prismleaf-color-dark-container-2: #8a8a8a;
 	--prismleaf-color-dark-container-3: #7b7b7b;
 	--prismleaf-color-dark-container-4: #6c6c6c;

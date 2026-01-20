@@ -7,8 +7,8 @@
  */
 
 /* Header region tokens. */
-:root{
-    --prismleaf-header-background-color: var(--prismleaf-color-surface-2);
+:root {
+	--prismleaf-header-background-color: var(--prismleaf-color-surface-2);
 	--prismleaf-header-background-image: none;
 	--prismleaf-header-background-repeat: repeat;
 	--prismleaf-header-background-position: center;
@@ -51,6 +51,6 @@
 	min-height: var(--prismleaf-header-min-height);
 	height: var(--prismleaf-header-height);
 	max-height: var(--prismleaf-header-max-height);
-    overflow-x: hidden;
+	overflow-x: hidden;
 	overflow-y: var(--prismleaf-region-overflow);
 }

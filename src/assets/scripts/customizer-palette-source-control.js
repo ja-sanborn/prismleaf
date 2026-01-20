@@ -1,7 +1,8 @@
 /**
  * Prismleaf Customizer Palette Source Control.
  *
- * @package prismleaf
+ * @param {wp.customize.API} api
+ * @package
  */
 
 (function (api) {
@@ -24,22 +25,35 @@
 	};
 
 	const togglePreview = (control, show) => {
-		const preview = control.container.find('.prismleaf-palette-source-preview');
+		const preview = control.container.find(
+			'.prismleaf-palette-source-preview'
+		);
 		if (preview.length) {
 			preview.toggle(!!show);
 		}
 	};
 
 	const initControl = (control) => {
-		const sourceSetting = control.settings && control.settings.source ? control.settings.source : null;
-		const baseSetting = control.settings && control.settings.base ? control.settings.base : null;
-		const paletteSetting = control.settings && control.settings.palette ? control.settings.palette : null;
+		const sourceSetting =
+			control.settings && control.settings.source
+				? control.settings.source
+				: null;
+		const baseSetting =
+			control.settings && control.settings.base
+				? control.settings.base
+				: null;
+		const paletteSetting =
+			control.settings && control.settings.palette
+				? control.settings.palette
+				: null;
 
 		if (!sourceSetting || !baseSetting || !paletteSetting) {
 			return;
 		}
 
-		const input = control.container.find('.prismleaf-palette-preview-input')[0];
+		const input = control.container.find(
+			'.prismleaf-palette-preview-input'
+		)[0];
 
 		const updateFromSource = () => {
 			const source = sourceSetting.get() || 'default';
@@ -67,7 +81,9 @@
 			}
 
 			if (typeof helpers.buildPaletteJsonFromVariables === 'function') {
-				paletteSetting.set(helpers.buildPaletteJsonFromVariables(source));
+				paletteSetting.set(
+					helpers.buildPaletteJsonFromVariables(source)
+				);
 			}
 		};
 

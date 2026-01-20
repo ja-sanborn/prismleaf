@@ -1,7 +1,8 @@
 /**
  * Prismleaf Customizer Palette Preview Control.
  *
- * @package prismleaf
+ * @param {wp.customize.API} api
+ * @package
  */
 
 (function (api) {
@@ -10,7 +11,6 @@
 	}
 
 	const $ = window.jQuery;
-
 
 	const initColorPicker = (input, onChange) => {
 		if (!input || !$ || !$.fn || !$.fn.wpColorPicker) {
@@ -139,13 +139,7 @@
 			return () => {};
 		}
 
-		const {
-			settingId,
-			container,
-			labels,
-			classes,
-			isActive,
-		} = options;
+		const { settingId, container, labels, classes, isActive } = options;
 
 		return () => {
 			if (typeof isActive === 'function' && !isActive()) {
@@ -185,21 +179,35 @@
 			return;
 		}
 
-		const baseSetting = (control.settings && control.settings.base)
-			? control.settings.base
-			: (control.settings && control.settings.default) ? control.settings.default : control.setting;
-		const paletteSetting = (control.settings && control.settings.palette) ? control.settings.palette : null;
-		const sourceSetting = (control.settings && control.settings.source) ? control.settings.source : null;
+		let baseSetting = control.setting;
+		if (control.settings) {
+			baseSetting =
+				control.settings.base ||
+				control.settings.default ||
+				baseSetting;
+		}
+		const paletteSetting =
+			control.settings && control.settings.palette
+				? control.settings.palette
+				: null;
+		const sourceSetting =
+			control.settings && control.settings.source
+				? control.settings.source
+				: null;
 		if (!baseSetting) {
 			return;
 		}
 
 		const grid = control.container.find('.prismleaf-preview-grid')[0];
-		const input = control.container.find('.prismleaf-palette-preview-input')[0];
+		const input = control.container.find(
+			'.prismleaf-palette-preview-input'
+		)[0];
 		const labels = control.params.paletteLabels || {};
-		const paletteSettingId = paletteSetting ? paletteSetting.id : control.params.paletteSetting;
+		const paletteSettingId = paletteSetting
+			? paletteSetting.id
+			: control.params.paletteSetting;
 
-		const updateGrid = initGridControl({
+		initGridControl({
 			settingId: paletteSettingId,
 			container: grid,
 			labels,
@@ -209,9 +217,7 @@
 				labelClass: 'prismleaf-preview-label',
 			},
 			isActive: () => !!baseSetting.get(),
-			bindings: [
-				{ id: paletteSettingId },
-			],
+			bindings: [{ id: paletteSettingId }],
 		});
 
 		const updatePaletteSetting = () => {
@@ -269,7 +275,10 @@
 
 	api.bind('ready', () => {
 		api.control.each((control) => {
-			if ('prismleaf_palette_preview' === control.params.type || 'prismleaf_palette_source' === control.params.type) {
+			if (
+				'prismleaf_palette_preview' === control.params.type ||
+				'prismleaf_palette_source' === control.params.type
+			) {
 				initControl(control);
 			}
 		});

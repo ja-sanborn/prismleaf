@@ -7,6 +7,7 @@
  */
 
 :root {
+
 	/* Focus outline tokens. */
 	--prismleaf-focus-width: 3px;
 	--prismleaf-focus-offset: 2px;
@@ -60,6 +61,7 @@
 
 /* Allow OS-managed colors in forced-colors mode. */
 @media (forced-colors: active) {
+
 	/* Underline links to provide a non-color cue. */
 	a {
 		text-decoration: underline;

@@ -8,6 +8,7 @@
 
 /* Sidebar region tokens. */
 :root {
+
 	/* Left sidebar tokens. */
 	--prismleaf-sidebar-left-background-color: var(--prismleaf-color-surface-2);
 	--prismleaf-sidebar-left-border-color: var(--prismleaf-color-outline);
@@ -50,7 +51,7 @@
 	box-shadow: var(--prismleaf-sidebar-left-elevation);
 	color: var(--prismleaf-sidebar-left-foreground-color);
 	margin: var(--prismleaf-sidebar-left-margin);
-    overflow-x: hidden;
+	overflow-x: hidden;
 	overflow-y: var(--prismleaf-region-overflow);
 }
 

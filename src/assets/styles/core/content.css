@@ -7,7 +7,7 @@
  */
 
 /* Content region tokens. */
-:root{
+:root {
 	--prismleaf-content-background-color: var(--prismleaf-color-surface-2);
 	--prismleaf-content-border-color: var(--prismleaf-color-outline);
 	--prismleaf-content-border-radius: var(--prismleaf-radius-medium);
@@ -31,5 +31,5 @@
 	color: var(--prismleaf-content-foreground-color);
 	margin: var(--prismleaf-content-margin);
 	padding: var(--prismleaf-content-padding);
-    overflow: hidden;
+	overflow: hidden;
 }

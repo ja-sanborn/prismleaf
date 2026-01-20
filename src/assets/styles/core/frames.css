@@ -7,6 +7,7 @@
  */
 
 :root {
+
 	/* Frame tokens. */
 	--prismleaf-frame-background-color: var(--prismleaf-color-surface-1);
 	--prismleaf-frame-border-color: var(--prismleaf-color-outline);
@@ -28,6 +29,7 @@
 
 /* Fallback for browsers that do not support dynamic viewport units. */
 @supports (height: 100dvh) {
+
 	:root {
 		--prismleaf-max-view-height: 100dvh;
 		--prismleaf-max-view-width: 100dvw;
@@ -45,15 +47,11 @@
 }
 
 /* Frame wrapper sizing. */
-.prismleaf-frame {
+.prismleaf-frame,
+.prismleaf-frame-inner {
 	height: var(--prismleaf-view-height);
 	inline-size: 100%;
 	max-inline-size: 100%;
-}
-
-/* Frame grid layout for outer and inner containers. */
-.prismleaf-frame,
-.prismleaf-frame-inner {
 	align-items: var(--prismleaf-frame-stretch);
 	display: grid;
 	grid-template-areas:
@@ -63,22 +61,14 @@
 	grid-template-columns: auto minmax(0, 1fr) auto;
 	grid-template-rows: auto 1fr auto;
 	overflow: hidden;
-}
-
-/* Text overflow. */
-.prismleaf-frame {
 	overflow-x: hidden;
 	overflow-y: var(--prismleaf-frame-overflow);
 }
 
-/* Text overflow. */
+/* Main frame container layout. */
 .prismleaf-frame-main {
 	overflow-x: hidden;
 	overflow-y: var(--prismleaf-region-overflow);
-}
-
-/* Main frame container layout. */
-.prismleaf-frame-main {
 	grid-area: content;
 	inline-size: 100%;
 	min-width: 0;

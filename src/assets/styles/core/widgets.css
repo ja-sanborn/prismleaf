@@ -65,12 +65,13 @@
 	width: var(--prismleaf-space-3);
 	height: var(--prismleaf-space-3);
 	transform: translateY(-50%);
-	background-color: currentColor;
-	-webkit-mask: url("../../images/leaf.svg") center / contain no-repeat;
-	mask: url("../../images/leaf.svg") center / contain no-repeat;
+	background-color: currentcolor;
+	-webkit-mask: url(../../images/leaf.svg) center / contain no-repeat;
+	mask: url(../../images/leaf.svg) center / contain no-repeat;
 }
 
 /* Search widget styling. */
+/* stylelint-disable selector-class-pattern */
 .widget_search .search-form {
 	display: flex;
 	align-items: center;
@@ -117,9 +118,9 @@
 	justify-content: center;
 	color: var(--prismleaf-color-link);
 	flex: 0 0 auto;
-	background-color: currentColor;
-	-webkit-mask: url("../../images/magnifying-glass.svg") center / contain no-repeat;
-	mask: url("../../images/magnifying-glass.svg") center / contain no-repeat;
+	background-color: currentcolor;
+	-webkit-mask: url(../../images/magnifying-glass.svg) center / contain no-repeat;
+	mask: url(../../images/magnifying-glass.svg) center / contain no-repeat;
 	cursor: pointer;
 	box-sizing: border-box;
 	border-radius: var(--prismleaf-radius-small);
@@ -133,5 +134,6 @@
 
 .widget_search .search-submit:hover {
 	color: var(--prismleaf-color-link-hover);
-	background-color: currentColor;
+	background-color: currentcolor;
 }
+/* stylelint-enable selector-class-pattern */

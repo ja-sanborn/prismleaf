@@ -47,6 +47,7 @@ body {
 
 /* Prefer dynamic viewport height when supported. */
 @supports (min-height: 100dvh) {
+
 	body {
 		min-height: 100dvh;
 	}

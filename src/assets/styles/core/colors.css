@@ -7,6 +7,7 @@
  */
 
 :root {
+
 	/* Active palette: surfaces. */
 	--prismleaf-color-surface-on: var(--prismleaf-color-light-surface-on);
 	--prismleaf-color-surface-on-faded: var(--prismleaf-color-light-surface-on-faded);
@@ -41,6 +42,20 @@
 	--prismleaf-color-disabled-foreground: var(--prismleaf-color-light-disabled-foreground);
 	--prismleaf-color-disabled-surface: var(--prismleaf-color-light-disabled-surface);
 	--prismleaf-color-scrim: var(--prismleaf-color-light-scrim);
+
+	/* Derived colors. */
+	--prismleaf-color-code-background: var(--prismleaf-color-container-1);
+	--prismleaf-color-code-foreground: var(--prismleaf-color-container-on);
+
+	/* Active palette: hyperlink defaults. */
+	--prismleaf-color-link: var(--prismleaf-color-secondary-surface-1);
+	--prismleaf-color-link-hover: var(--prismleaf-color-secondary-surface-5);
+	--prismleaf-color-link-active: var(--prismleaf-color-secondary-surface-5);
+	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-surface-1);
+
+	/* Active palette: selection. */
+	--prismleaf-color-selection-background: var(--prismleaf-color-tertiary-surface-1);
+	--prismleaf-color-selection-foreground: var(--prismleaf-color-tertiary-surface-on);
 }
 
 /* Document-level color scheme. */
@@ -50,9 +65,11 @@ html {
 
 /* System dark mode. */
 @media (prefers-color-scheme: dark) {
+
 	:root {
+	
 		/* Background color */
-		--prismleaf-background: #000000;
+		--prismleaf-background: #000;
 
 		/* Active palette: surfaces. */
 		--prismleaf-color-surface-on: var(--prismleaf-color-dark-surface-on);
@@ -98,11 +115,12 @@ html {
 
 /* User-selected light overrides. */
 :root[data-prismleaf-color-scheme="light"] {
+
 	/* Document-level color scheme. */
 	color-scheme: light;
 
 	/* Background color */
-	--prismleaf-background: #ffffff;
+		--prismleaf-background: #fff;
 
 	/* Active palette: surfaces. */
 	--prismleaf-color-surface-on: var(--prismleaf-color-light-surface-on);
@@ -142,11 +160,12 @@ html {
 
 /* User-selected dark overrides. */
 :root[data-prismleaf-color-scheme="dark"] {
+
 	/* Document-level color scheme. */
 	color-scheme: dark;
 
 	/* Background color */
-	--prismleaf-background: #000000;
+		--prismleaf-background: #000;
 
 	/* Active palette: surfaces. */
 	--prismleaf-color-surface-on: var(--prismleaf-color-dark-surface-on);
@@ -186,6 +205,7 @@ html {
 
 /* Derived semantic color tokens (if supported). */
 @supports (color: color-mix(in srgb, black 50%, transparent)) {
+
 	:root {
 		--prismleaf-color-outline: color-mix(in srgb, var(--prismleaf-color-surface-on) 30%, transparent);
 		--prismleaf-color-outline-variant: color-mix(in srgb, var(--prismleaf-color-surface-on) 18%, transparent);
@@ -194,23 +214,6 @@ html {
 		--prismleaf-color-disabled-foreground: color-mix(in srgb, var(--prismleaf-color-surface-on) 38%, transparent);
 		--prismleaf-color-disabled-surface: color-mix(in srgb, var(--prismleaf-color-surface-on) 12%, transparent);
 	}
-}
-
-/* Derived colors. */
-:root {
-	/* Active palette: code defaults. */
-	--prismleaf-color-code-background: var(--prismleaf-color-container-1);
-	--prismleaf-color-code-foreground: var(--prismleaf-color-container-on);
-
-	/* Active palette: hyperlink defaults. */
-	--prismleaf-color-link: var(--prismleaf-color-secondary-surface-1);
-	--prismleaf-color-link-hover: var(--prismleaf-color-secondary-surface-5);
-	--prismleaf-color-link-active: var(--prismleaf-color-secondary-surface-5);
-	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-surface-1);
-
-	/* Active palette: selection. */
-	--prismleaf-color-selection-background: var(--prismleaf-color-tertiary-surface-1);
-	--prismleaf-color-selection-foreground: var(--prismleaf-color-tertiary-surface-on);
 }
 
 /* Document colors. */
