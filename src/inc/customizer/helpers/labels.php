@@ -59,12 +59,12 @@ if ( ! function_exists( 'prismleaf_get_palette_label_map' ) ) {
 	 */
 	function prismleaf_get_palette_label_map() {
 		return array(
-			'1'                   => __( 'Shade 1', 'prismleaf' ),
-			'2'                   => __( 'Shade 2', 'prismleaf' ),
-			'3'                   => __( 'Shade 3', 'prismleaf' ),
-			'4'                   => __( 'Shade 4', 'prismleaf' ),
-			'5'                   => __( 'Shade 5', 'prismleaf' ),
-			'on'                  => __( 'Shade Text', 'prismleaf' ),
+			'surface_1'           => __( 'Shade 1', 'prismleaf' ),
+			'surface_2'           => __( 'Shade 2', 'prismleaf' ),
+			'surface_3'           => __( 'Shade 3', 'prismleaf' ),
+			'surface_4'           => __( 'Shade 4', 'prismleaf' ),
+			'surface_5'           => __( 'Shade 5', 'prismleaf' ),
+			'surface_on'          => __( 'Shade Text', 'prismleaf' ),
 			'container_1'         => __( 'Variant 1', 'prismleaf' ),
 			'container_2'         => __( 'Variant 2', 'prismleaf' ),
 			'container_3'         => __( 'Variant 3', 'prismleaf' ),
@@ -75,7 +75,7 @@ if ( ! function_exists( 'prismleaf_get_palette_label_map' ) ) {
 			'outline_variant'     => __( 'Outline Variant', 'prismleaf' ),
 			'disabled_foreground' => __( 'Disabled Foreground', 'prismleaf' ),
 			'disabled_surface'    => __( 'Disabled Surface', 'prismleaf' ),
-			'on_surface_muted'    => __( 'Shade Text Muted', 'prismleaf' ),
+			'muted'               => __( 'Shade Text Muted', 'prismleaf' ),
 		);
 	}
 }

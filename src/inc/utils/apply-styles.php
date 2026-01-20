@@ -152,15 +152,15 @@ if ( ! function_exists( 'prismleaf_build_palette_css_key_map' ) ) {
 		}
 
 		return array(
-			"--prismleaf-color-{$slug}-surface-on"           => 'on',
-			"--prismleaf-color-{$slug}-surface-1"            => '1',
-			"--prismleaf-color-{$slug}-surface-2"            => '2',
-			"--prismleaf-color-{$slug}-surface-3"            => '3',
-			"--prismleaf-color-{$slug}-surface-4"            => '4',
-			"--prismleaf-color-{$slug}-surface-5"            => '5',
+			"--prismleaf-color-{$slug}-surface-on"           => 'surface_on',
+			"--prismleaf-color-{$slug}-surface-1"            => 'surface_1',
+			"--prismleaf-color-{$slug}-surface-2"            => 'surface_2',
+			"--prismleaf-color-{$slug}-surface-3"            => 'surface_3',
+			"--prismleaf-color-{$slug}-surface-4"            => 'surface_4',
+			"--prismleaf-color-{$slug}-surface-5"            => 'surface_5',
 			"--prismleaf-color-{$slug}-outline"              => 'outline',
 			"--prismleaf-color-{$slug}-outline-variant"      => 'outline_variant',
-			"--prismleaf-color-{$slug}-muted-on"             => 'on_surface_muted',
+			"--prismleaf-color-{$slug}-muted"                => 'muted',
 			"--prismleaf-color-{$slug}-disabled-foreground"  => 'disabled_foreground',
 			"--prismleaf-color-{$slug}-disabled-surface"     => 'disabled_surface',
 			"--prismleaf-color-{$slug}-container-on"         => 'container_on',
@@ -307,7 +307,7 @@ if ( ! function_exists( 'prismleaf_get_framed_css_vars' ) ) {
 		$is_framed       = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
 		$max_width       = prismleaf_get_theme_mod_size_value( 'prismleaf_frame_max_width', 'frame_max_width', '1480' );
 		$show_background = prismleaf_get_theme_mod_bool( 'prismleaf_frame_show_background', true );
-		$surface         = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_frame_background_color_palette', '1', '--prismleaf-color-surface-1' );
+		$surface         = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_frame_background_color_palette', 'surface_1', '--prismleaf-color-surface-1' );
 		$border_color    = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_frame_border_color_palette', 'outline', '--prismleaf-color-outline' );
 		$border_radius   = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_frame_border_corners', 'frame_border_corners', 'Round' );
 		$border_style    = prismleaf_get_theme_mod_border_style_value( 'prismleaf_frame_border_style', 'frame_border_style', 'solid' );
@@ -359,7 +359,7 @@ if ( ! function_exists( 'prismleaf_get_header_css_vars' ) ) {
 		$max_height  = ( $is_framed || ! $is_floating ) ? '150px' : 'none';
 		$margin      = '--prismleaf-space-2';
 
-		$surface          = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_header_background_color_palette', '1', '--prismleaf-color-surface-2' );
+		$surface          = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_header_background_color_palette', 'surface_1', '--prismleaf-color-surface-2' );
 		$border_color     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_header_border_color_palette', 'outline', '--prismleaf-color-outline' );
 		$border_radius    = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_header_border_corners', 'header_border_corners', 'Round' );
 		$border_style     = prismleaf_get_theme_mod_border_style_value( 'prismleaf_header_border_style', 'header_border_style', 'solid' );
@@ -422,7 +422,7 @@ if ( ! function_exists( 'prismleaf_get_footer_css_vars' ) ) {
 		$max_height  = ( $is_framed || ! $is_floating ) ? '150px' : 'none';
 		$margin      = '--prismleaf-space-2';
 
-		$surface          = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_footer_background_color_palette', '1', '--prismleaf-color-surface-2' );
+		$surface          = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_footer_background_color_palette', 'surface_1', '--prismleaf-color-surface-2' );
 		$border_color     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_footer_border_color_palette', 'outline', '--prismleaf-color-outline' );
 		$border_radius    = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_footer_border_corners', 'footer_border_corners', 'Round' );
 		$border_style     = prismleaf_get_theme_mod_border_style_value( 'prismleaf_footer_border_style', 'footer_border_style', 'solid' );
@@ -545,7 +545,7 @@ if ( ! function_exists( 'prismleaf_get_current_sidebar_css_vars' ) ) {
 		$margin           = '--prismleaf-space-2';
 		$default_width    = ( 'primary' === $sidebar ) ? '260' : '200';
 		$width            = prismleaf_get_theme_mod_sidebar_width_value( "prismleaf_sidebar_{$sidebar}_width", "sidebar_{$sidebar}_width", $default_width );
-		$surface          = prismleaf_get_theme_mod_palette_source_value( "prismleaf_sidebar_{$sidebar}_background_color_palette", '1', '--prismleaf-color-surface-2' );
+		$surface          = prismleaf_get_theme_mod_palette_source_value( "prismleaf_sidebar_{$sidebar}_background_color_palette", 'surface_1', '--prismleaf-color-surface-2' );
 		$border_color     = prismleaf_get_theme_mod_palette_source_value( "prismleaf_sidebar_{$sidebar}_border_color_palette", 'outline', '--prismleaf-color-outline' );
 		$border_radius    = prismleaf_get_theme_mod_border_radius_value( "prismleaf_sidebar_{$sidebar}_border_corners", "sidebar_{$sidebar}_border_corners", 'Round' );
 		$border_style     = prismleaf_get_theme_mod_border_style_value( "prismleaf_sidebar_{$sidebar}_border_style", "sidebar_{$sidebar}_border_style", 'solid' );
@@ -589,7 +589,7 @@ if ( ! function_exists( 'prismleaf_get_content_css_vars' ) ) {
 	 */
 	function prismleaf_get_content_css_vars() {
 		$is_framed     = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
-		$surface       = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_background_color_palette', '1', '--prismleaf-color-surface-2' );
+		$surface       = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_background_color_palette', 'surface_1', '--prismleaf-color-surface-2' );
 		$border_color  = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_border_color_palette', 'outline', '--prismleaf-color-outline' );
 		$border_radius = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_content_border_corners', 'content_border_corners', 'Round' );
 		$border_style  = prismleaf_get_theme_mod_border_style_value( 'prismleaf_content_border_style', 'content_border_style', 'solid' );
@@ -615,12 +615,12 @@ if ( ! function_exists( 'prismleaf_get_widget_css_vars' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_widget_css_vars() {
-		$surface         = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_widget_background_color_palette', '1', '--prismleaf-color-surface-3' );
+		$surface         = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_widget_background_color_palette', 'surface_1', '--prismleaf-color-surface-3' );
 		$border_color    = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_widget_border_color_palette', 'outline', '--prismleaf-color-outline' );
 		$border_radius   = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_widget_border_corners', 'widget_border_corners', 'Round' );
 		$border_style    = prismleaf_get_theme_mod_border_style_value( 'prismleaf_widget_border_style', 'widget_border_style', 'solid' );
 		$elevation       = prismleaf_get_theme_mod_elevation_value( 'prismleaf_widget_elevation', 'widget_elevation', 'elevation-3' );
-		$title_color     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_widget_title_color_palette', '1', '--prismleaf-color-primary-surface-3' );
+		$title_color     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_widget_title_color_palette', 'surface_1', '--prismleaf-color-primary-surface-3' );
 		$title_alignment = prismleaf_get_theme_mod_widget_title_alignment( 'prismleaf_widget_title_alignment', 'left' );
 
 		$css  = '';

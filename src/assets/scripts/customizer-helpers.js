@@ -396,15 +396,15 @@
 		const opacityBase = ramp[0];
 
 		return {
-			'1': ramp[0],
-			'2': ramp[1],
-			'3': ramp[2],
-			'4': ramp[3],
-			'5': ramp[4],
-			on: onColor,
+			surface_1: ramp[0],
+			surface_2: ramp[1],
+			surface_3: ramp[2],
+			surface_4: ramp[3],
+			surface_5: ramp[4],
+			surface_on: onColor,
 			outline: rgbaFromHex(opacityBase, 0.30),
 			outline_variant: rgbaFromHex(opacityBase, 0.18),
-			on_surface_muted: rgbaFromHex(opacityBase, 0.72),
+			muted: rgbaFromHex(opacityBase, 0.72),
 			disabled_foreground: rgbaFromHex(opacityBase, 0.38),
 			disabled_surface: rgbaFromHex(opacityBase, 0.12),
 			container_1: ramp[9],
@@ -423,15 +423,15 @@
 		}
 
 		const keys = [
-			'1',
-			'2',
-			'3',
-			'4',
-			'5',
-			'on',
+			'surface_1',
+			'surface_2',
+			'surface_3',
+			'surface_4',
+			'surface_5',
+			'surface_on',
 			'outline',
 			'outline_variant',
-			'on_surface_muted',
+			'muted',
 			'disabled_foreground',
 			'disabled_surface',
 			'container_1',
@@ -447,7 +447,7 @@
 			const key = keys[i];
 			if (key === 'outline'
 				|| key === 'outline_variant'
-				|| key === 'on_surface_muted'
+				|| key === 'muted'
 				|| key === 'disabled_foreground'
 				|| key === 'disabled_surface') {
 				if (!isRgbaColor(palette[key])) {
@@ -478,15 +478,15 @@
 		}
 
 		const expectedKeys = [
-			'1',
-			'2',
-			'3',
-			'4',
-			'5',
-			'on',
+			'surface_1',
+			'surface_2',
+			'surface_3',
+			'surface_4',
+			'surface_5',
+			'surface_on',
 			'outline',
 			'outline_variant',
-			'on_surface_muted',
+			'muted',
 			'disabled_foreground',
 			'disabled_surface',
 			'container_1',
@@ -501,18 +501,18 @@
 		const setOpacityValues = (prefix) => {
 			palette.outline = `${prefix}-outline`;
 			palette.outline_variant = `${prefix}-outline-variant`;
-			palette.on_surface_muted = `${prefix}-muted-on`;
+			palette.muted = `${prefix}-muted`;
 			palette.disabled_foreground = `${prefix}-disabled-foreground`;
 			palette.disabled_surface = `${prefix}-disabled-surface`;
 		};
 
 		const setValues = (prefix, containerPrefix) => {
-			palette.on = `${prefix}-surface-on`;
-			palette['1'] = `${prefix}-surface-1`;
-			palette['2'] = `${prefix}-surface-2`;
-			palette['3'] = `${prefix}-surface-3`;
-			palette['4'] = `${prefix}-surface-4`;
-			palette['5'] = `${prefix}-surface-5`;
+			palette.surface_on = `${prefix}-surface-on`;
+			palette.surface_1 = `${prefix}-surface-1`;
+			palette.surface_2 = `${prefix}-surface-2`;
+			palette.surface_3 = `${prefix}-surface-3`;
+			palette.surface_4 = `${prefix}-surface-4`;
+			palette.surface_5 = `${prefix}-surface-5`;
 			palette.container_on = `${containerPrefix}-on`;
 			palette.container_1 = `${containerPrefix}-1`;
 			palette.container_2 = `${containerPrefix}-2`;

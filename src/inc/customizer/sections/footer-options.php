@@ -113,6 +113,25 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 			)
 		);
 
+		prismleaf_add_background_image_control(
+			$wp_customize,
+			array(
+				'section'                    => 'prismleaf_footer_options',
+				'label'                      => __( 'Background Image', 'prismleaf' ),
+				'description'                => __( 'Optional background for the footer area.', 'prismleaf' ),
+				'priority'                   => 2010,
+				'setting_base'               => 'prismleaf_footer_background',
+				'active_callback'            => 'prismleaf_is_footer_control_active',
+				'image_default_key'          => 'footer_background_image',
+				'repeat_default_key'         => 'footer_background_image_repeat',
+				'position_x_default_key'     => 'footer_background_image_position_x',
+				'position_y_default_key'     => 'footer_background_image_position_y',
+				'size_default_key'           => 'footer_background_image_size',
+				'attachment_default_key'     => 'footer_background_image_attachment',
+				'preset_default_key'         => 'footer_background_image_preset',
+			)
+		);
+
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
@@ -120,7 +139,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Border corners', 'prismleaf' ),
 				'description'      => __( 'Controls the roundness of the footer corners.', 'prismleaf' ),
-				'priority'         => 2010,
+				'priority'         => 2020,
 				'default_key'      => 'footer_border_corners',
 				'default_fallback' => 'Round',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
@@ -139,7 +158,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Border style', 'prismleaf' ),
 				'description'      => __( 'Sets the footer border line style.', 'prismleaf' ),
-				'priority'         => 2020,
+				'priority'         => 2030,
 				'default_key'      => 'footer_border_style',
 				'default_fallback' => 'solid',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
@@ -162,7 +181,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'                  => 'prismleaf_footer_options',
 				'label'                    => __( 'Border color', 'prismleaf' ),
 				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
-				'priority'                 => 2030,
+				'priority'                 => 2040,
 				'active_callback'          => 'prismleaf_is_footer_control_active',
 				'source_default_key'       => 'footer_border_color_source',
 				'source_default_fallback'  => '',
@@ -182,7 +201,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'                  => 'prismleaf_footer_options',
 				'label'                    => __( 'Background color', 'prismleaf' ),
 				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
-				'priority'                 => 2040,
+				'priority'                 => 2050,
 				'active_callback'          => 'prismleaf_is_footer_background_control_active',
 				'source_default_key'       => 'footer_background_color_source',
 				'source_default_fallback'  => '',
@@ -200,7 +219,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Elevation', 'prismleaf' ),
 				'description'      => __( 'Sets the elevation level for the footer.', 'prismleaf' ),
-				'priority'         => 2050,
+				'priority'         => 2060,
 				'default_key'      => 'footer_elevation',
 				'default_fallback' => 'elevation-2',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
@@ -219,39 +238,10 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 		prismleaf_add_section_header_control(
 			$wp_customize,
 			array(
-				'setting_id'      => 'prismleaf_footer_heading_background_image',
-				'label'           => __( 'Background Image', 'prismleaf' ),
-				'section'         => 'prismleaf_footer_options',
-				'priority'        => 3000,
-				'active_callback' => 'prismleaf_is_footer_control_active',
-			)
-		);
-
-		prismleaf_add_background_image_control(
-			$wp_customize,
-			array(
-				'section'                    => 'prismleaf_footer_options',
-				'label'                      => __( 'Optional background for the footer area.', 'prismleaf' ),
-				'priority'                   => 3010,
-				'setting_base'               => 'prismleaf_footer_background',
-				'active_callback'            => 'prismleaf_is_footer_control_active',
-				'image_default_key'          => 'footer_background_image',
-				'repeat_default_key'         => 'footer_background_image_repeat',
-				'position_x_default_key'     => 'footer_background_image_position_x',
-				'position_y_default_key'     => 'footer_background_image_position_y',
-				'size_default_key'           => 'footer_background_image_size',
-				'attachment_default_key'     => 'footer_background_image_attachment',
-				'preset_default_key'         => 'footer_background_image_preset',
-			)
-		);
-
-		prismleaf_add_section_header_control(
-			$wp_customize,
-			array(
 				'setting_id' => 'prismleaf_footer_heading_content',
 				'label'      => __( 'Content', 'prismleaf' ),
 				'section'    => 'prismleaf_footer_options',
-				'priority'   => 4000,
+				'priority'   => 3000,
 				'active_callback' => 'prismleaf_is_footer_control_active',
 			)
 		);
@@ -263,7 +253,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Widget alignment', 'prismleaf' ),
 				'description'      => __( 'Controls alignment of the footer widget row. Stretch fills the available width.', 'prismleaf' ),
-				'priority'         => 4010,
+				'priority'         => 3010,
 				'default_key'      => 'footer_widget_alignment',
 				'default_fallback' => 'center',
 				'sanitize_callback'=> 'prismleaf_sanitize_footer_widget_alignment',
@@ -284,7 +274,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Copyright text', 'prismleaf' ),
 				'description'      => __( 'Optional. Leave blank to use the site name and current year.', 'prismleaf' ),
-				'priority'         => 4020,
+				'priority'         => 3020,
 				'default_key'      => 'footer_copyright_text',
 				'default_fallback' => '',
 				'control_type'     => 'textarea',

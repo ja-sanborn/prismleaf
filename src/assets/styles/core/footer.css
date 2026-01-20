@@ -23,7 +23,7 @@
 	--prismleaf-footer-border-style-top: var(--prismleaf-border-style);
 	--prismleaf-footer-border-width: var(--prismleaf-border-width-thin);
 	--prismleaf-footer-elevation: var(--prismleaf-shadow-elevation-2);
-	--prismleaf-footer-foreground-color: var(--prismleaf-color-muted-on);
+	--prismleaf-footer-foreground-color: var(--prismleaf-color-surface-on);
 	--prismleaf-footer-margin: var(--prismleaf-space-2);
 	--prismleaf-footer-max-height: none;
 	--prismleaf-footer-padding: var(--prismleaf-space-2);
@@ -109,6 +109,7 @@
 	gap: var(--prismleaf-space-1);
 	width: 100%;
 }
+
 /* Footer region link styling. */
 .prismleaf-region-footer a {
   color: var(--prismleaf-footer-foreground-color);

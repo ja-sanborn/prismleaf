@@ -98,7 +98,7 @@
 }
 
 .widget_search .search-field::placeholder {
-	color: var(--prismleaf-color-muted-on);
+	color: var(--prismleaf-color-muted);
 }
 
 .widget_search .search-submit {

@@ -33,7 +33,7 @@
 	--prismleaf-color-outline: var(--prismleaf-color-light-outline);
 	--prismleaf-color-outline-variant: var(--prismleaf-color-light-outline-variant);
 	--prismleaf-color-divider: var(--prismleaf-color-light-divider);
-	--prismleaf-color-muted-on: var(--prismleaf-color-light-muted-on);
+	--prismleaf-color-muted: var(--prismleaf-color-light-muted);
 	--prismleaf-color-disabled-foreground: var(--prismleaf-color-light-disabled-foreground);
 	--prismleaf-color-disabled-surface: var(--prismleaf-color-light-disabled-surface);
 	--prismleaf-color-scrim: var(--prismleaf-color-light-scrim);
@@ -76,7 +76,7 @@ html {
 		--prismleaf-color-outline: var(--prismleaf-color-dark-outline);
 		--prismleaf-color-outline-variant: var(--prismleaf-color-dark-outline-variant);
 		--prismleaf-color-divider: var(--prismleaf-color-dark-divider);
-		--prismleaf-color-muted-on: var(--prismleaf-color-dark-muted-on);
+		--prismleaf-color-muted: var(--prismleaf-color-dark-muted);
 		--prismleaf-color-disabled-foreground: var(--prismleaf-color-dark-disabled-foreground);
 		--prismleaf-color-disabled-surface: var(--prismleaf-color-dark-disabled-surface);
 		--prismleaf-color-scrim: var(--prismleaf-color-dark-scrim);
@@ -119,7 +119,7 @@ html {
 	--prismleaf-color-outline: var(--prismleaf-color-light-outline);
 	--prismleaf-color-outline-variant: var(--prismleaf-color-light-outline-variant);
 	--prismleaf-color-divider: var(--prismleaf-color-light-divider);
-	--prismleaf-color-muted-on: var(--prismleaf-color-light-muted-on);
+	--prismleaf-color-muted: var(--prismleaf-color-light-muted);
 	--prismleaf-color-disabled-foreground: var(--prismleaf-color-light-disabled-foreground);
 	--prismleaf-color-disabled-surface: var(--prismleaf-color-light-disabled-surface);
 	--prismleaf-color-scrim: var(--prismleaf-color-light-scrim);
@@ -161,7 +161,7 @@ html[data-prismleaf-color-scheme="light"] {
 	--prismleaf-color-outline: var(--prismleaf-color-dark-outline);
 	--prismleaf-color-outline-variant: var(--prismleaf-color-dark-outline-variant);
 	--prismleaf-color-divider: var(--prismleaf-color-dark-divider);
-	--prismleaf-color-muted-on: var(--prismleaf-color-dark-muted-on);
+		--prismleaf-color-muted: var(--prismleaf-color-dark-muted);
 	--prismleaf-color-disabled-foreground: var(--prismleaf-color-dark-disabled-foreground);
 	--prismleaf-color-disabled-surface: var(--prismleaf-color-dark-disabled-surface);
 	--prismleaf-color-scrim: var(--prismleaf-color-dark-scrim);
@@ -178,7 +178,7 @@ html[data-prismleaf-color-scheme="dark"] {
 		--prismleaf-color-outline: color-mix(in srgb, var(--prismleaf-color-surface-on) 30%, transparent);
 		--prismleaf-color-outline-variant: color-mix(in srgb, var(--prismleaf-color-surface-on) 18%, transparent);
 		--prismleaf-color-divider: color-mix(in srgb, var(--prismleaf-color-surface-on) 12%, transparent);
-		--prismleaf-color-muted-on: color-mix(in srgb, var(--prismleaf-color-surface-on) 72%, transparent);
+		--prismleaf-color-muted: color-mix(in srgb, var(--prismleaf-color-surface-on) 72%, transparent);
 		--prismleaf-color-disabled-foreground: color-mix(in srgb, var(--prismleaf-color-surface-on) 38%, transparent);
 		--prismleaf-color-disabled-surface: color-mix(in srgb, var(--prismleaf-color-surface-on) 12%, transparent);
 	}
@@ -261,7 +261,7 @@ textarea:focus-visible {
 }
 
 ::placeholder {
-	color: var(--prismleaf-color-muted-on);
+	color: var(--prismleaf-color-muted);
 	opacity: 1;
 }
 

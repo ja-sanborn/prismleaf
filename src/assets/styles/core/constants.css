@@ -108,7 +108,7 @@
 	--prismleaf-color-primary-outline: rgba(192, 75, 141, 0.30);
 	--prismleaf-color-primary-outline-variant: rgba(192, 75, 141, 0.18);
 	--prismleaf-color-primary-divider: rgba(192, 75, 141, 0.12);
-	--prismleaf-color-primary-muted-on: rgba(192, 75, 141, 0.72);
+	--prismleaf-color-primary-muted: rgba(192, 75, 141, 0.72);
 	--prismleaf-color-primary-disabled-foreground: rgba(192, 75, 141, 0.38);
 	--prismleaf-color-primary-disabled-surface: rgba(192, 75, 141, 0.12);
 	--prismleaf-color-primary-scrim: rgba(192, 75, 141, 0.32);
@@ -132,7 +132,7 @@
 	--prismleaf-color-secondary-outline: rgba(46, 125, 111, 0.30);
 	--prismleaf-color-secondary-outline-variant: rgba(46, 125, 111, 0.18);
 	--prismleaf-color-secondary-divider: rgba(46, 125, 111, 0.12);
-	--prismleaf-color-secondary-muted-on: rgba(46, 125, 111, 0.72);
+	--prismleaf-color-secondary-muted: rgba(46, 125, 111, 0.72);
 	--prismleaf-color-secondary-disabled-foreground: rgba(46, 125, 111, 0.38);
 	--prismleaf-color-secondary-disabled-surface: rgba(46, 125, 111, 0.12);
 	--prismleaf-color-secondary-scrim: rgba(46, 125, 111, 0.32);
@@ -156,7 +156,7 @@
 	--prismleaf-color-tertiary-outline: rgba(63, 111, 217, 0.30);
 	--prismleaf-color-tertiary-outline-variant: rgba(63, 111, 217, 0.18);
 	--prismleaf-color-tertiary-divider: rgba(63, 111, 217, 0.12);
-	--prismleaf-color-tertiary-muted-on: rgba(63, 111, 217, 0.72);
+	--prismleaf-color-tertiary-muted: rgba(63, 111, 217, 0.72);
 	--prismleaf-color-tertiary-disabled-foreground: rgba(63, 111, 217, 0.38);
 	--prismleaf-color-tertiary-disabled-surface: rgba(63, 111, 217, 0.12);
 	--prismleaf-color-tertiary-scrim: rgba(63, 111, 217, 0.32);
@@ -180,7 +180,7 @@
 	--prismleaf-color-error-outline: rgba(179, 38, 30, 0.30);
 	--prismleaf-color-error-outline-variant: rgba(179, 38, 30, 0.18);
 	--prismleaf-color-error-divider: rgba(179, 38, 30, 0.12);
-	--prismleaf-color-error-muted-on: rgba(179, 38, 30, 0.72);
+	--prismleaf-color-error-muted: rgba(179, 38, 30, 0.72);
 	--prismleaf-color-error-disabled-foreground: rgba(179, 38, 30, 0.38);
 	--prismleaf-color-error-disabled-surface: rgba(179, 38, 30, 0.12);
 	--prismleaf-color-error-scrim: rgba(179, 38, 30, 0.32);
@@ -204,7 +204,7 @@
 	--prismleaf-color-warning-outline: rgba(178, 106, 0, 0.30);
 	--prismleaf-color-warning-outline-variant: rgba(178, 106, 0, 0.18);
 	--prismleaf-color-warning-divider: rgba(178, 106, 0, 0.12);
-	--prismleaf-color-warning-muted-on: rgba(178, 106, 0, 0.72);
+	--prismleaf-color-warning-muted: rgba(178, 106, 0, 0.72);
 	--prismleaf-color-warning-disabled-foreground: rgba(178, 106, 0, 0.38);
 	--prismleaf-color-warning-disabled-surface: rgba(178, 106, 0, 0.12);
 	--prismleaf-color-warning-scrim: rgba(178, 106, 0, 0.32);
@@ -228,7 +228,7 @@
 	--prismleaf-color-info-outline: rgba(26, 115, 232, 0.30);
 	--prismleaf-color-info-outline-variant: rgba(26, 115, 232, 0.18);
 	--prismleaf-color-info-divider: rgba(26, 115, 232, 0.12);
-	--prismleaf-color-info-muted-on: rgba(26, 115, 232, 0.72);
+	--prismleaf-color-info-muted: rgba(26, 115, 232, 0.72);
 	--prismleaf-color-info-disabled-foreground: rgba(26, 115, 232, 0.38);
 	--prismleaf-color-info-disabled-surface: rgba(26, 115, 232, 0.12);
 	--prismleaf-color-info-scrim: rgba(26, 115, 232, 0.32);
@@ -252,7 +252,7 @@
 	--prismleaf-color-light-outline: rgba(242, 242, 242, 0.30);
 	--prismleaf-color-light-outline-variant: rgba(242, 242, 242, 0.18);
 	--prismleaf-color-light-divider: rgba(242, 242, 242, 0.12);
-	--prismleaf-color-light-muted-on: rgba(242, 242, 242, 0.72);
+	--prismleaf-color-light-muted: rgba(242, 242, 242, 0.72);
 	--prismleaf-color-light-disabled-foreground: rgba(242, 242, 242, 0.38);
 	--prismleaf-color-light-disabled-surface: rgba(242, 242, 242, 0.12);
 	--prismleaf-color-light-scrim: rgba(242, 242, 242, 0.32);
@@ -283,7 +283,7 @@
 	--prismleaf-color-dark-outline: rgba(18, 18, 18, 0.30);
 	--prismleaf-color-dark-outline-variant: rgba(18, 18, 18, 0.18);
 	--prismleaf-color-dark-divider: rgba(18, 18, 18, 0.12);
-	--prismleaf-color-dark-muted-on: rgba(18, 18, 18, 0.72);
+	--prismleaf-color-dark-muted: rgba(18, 18, 18, 0.72);
 	--prismleaf-color-dark-disabled-foreground: rgba(18, 18, 18, 0.38);
 	--prismleaf-color-dark-disabled-surface: rgba(18, 18, 18, 0.12);
 	--prismleaf-color-dark-scrim: rgba(18, 18, 18, 0.32);

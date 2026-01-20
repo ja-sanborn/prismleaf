@@ -252,7 +252,7 @@ if ( ! function_exists( 'prismleaf_is_palette_opacity_key' ) ) {
 			array(
 				'outline',
 				'outline_variant',
-				'on_surface_muted',
+				'muted',
 				'disabled_foreground',
 				'disabled_surface',
 			),
