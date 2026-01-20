@@ -88,6 +88,7 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 			'palette_neutral_light_base'                => '',
 			'palette_primary_base'                      => '',
 			'palette_secondary_base'                    => '',
+			'palette_show_theme_switch'                 => true,
 			'palette_tertiary_base'                     => '',
 			'palette_theme_mode'                        => 'system',
 			'palette_warning_base'                      => '',

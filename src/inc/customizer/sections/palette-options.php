@@ -44,19 +44,32 @@ if ( ! function_exists( 'prismleaf_register_palette_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_palette_theme_mode',
-				'section'          => 'prismleaf_palette_options',
-				'label'            => __( 'Select Mode', 'prismleaf' ),
-				'description'      => __( 'Choose whether the theme follows the visitor system preference or enforces a light or dark appearance.', 'prismleaf' ),
-				'priority'         => 1010,
-				'default_key'      => 'palette_theme_mode',
-				'default_fallback' => 'system',
-				'sanitize_callback'=> 'prismleaf_sanitize_theme_mode',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_palette_theme_mode',
+				'section'           => 'prismleaf_palette_options',
+				'label'             => __( 'Select Mode', 'prismleaf' ),
+				'description'       => __( 'Choose whether the theme follows the visitor system preference or enforces a light or dark appearance.', 'prismleaf' ),
+				'priority'          => 1010,
+				'default_key'       => 'palette_theme_mode',
+				'default_fallback'  => 'system',
+				'sanitize_callback' => 'prismleaf_sanitize_theme_mode',
+				'choices'           => array(
 					'system' => __( 'System (Default)', 'prismleaf' ),
 					'light'  => __( 'Light Override', 'prismleaf' ),
 					'dark'   => __( 'Dark Override', 'prismleaf' ),
 				),
+			)
+		);
+
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_palette_show_theme_switch',
+				'section'          => 'prismleaf_palette_options',
+				'label'            => __( 'Show theme switcher', 'prismleaf' ),
+				'description'      => __( 'Display the theme mode toggle button in the header.', 'prismleaf' ),
+				'priority'         => 1020,
+				'default_key'      => 'palette_show_theme_switch',
+				'default_fallback' => true,
 			)
 		);
 

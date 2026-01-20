@@ -109,11 +109,25 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_theme_mode' ) ) {
 	 * @since 1.0.0
 	 *
 	 * @param string $setting_id    Theme mod ID.
-	 * @param string $default_value Default value.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_value Default value when the option is missing.
 	 * @return string
 	 */
-	function prismleaf_get_theme_mod_theme_mode( $setting_id, $default_value = 'system' ) {
-		return prismleaf_sanitize_theme_mode( prismleaf_get_theme_mod( $setting_id, $default_value ) );
+	function prismleaf_get_theme_mod_theme_mode( $setting_id, $default_key = '', $default_value = 'system' ) {
+		$setting_id = prismleaf_sanitize_text( $setting_id );
+		$default_key = prismleaf_sanitize_text( $default_key );
+		$default_value = prismleaf_sanitize_theme_mode( $default_value );
+
+		if ( '' !== $default_key ) {
+			$default_value = prismleaf_get_default_option( $default_key, $default_value );
+		}
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_theme_mode( $default_value );
+		}
+
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_theme_mode( $raw );
 	}
 }
 

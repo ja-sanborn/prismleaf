@@ -771,10 +771,7 @@ if ( ! function_exists( 'prismleaf_filter_language_attributes' ) ) {
 	 * @return string
 	 */
 	function prismleaf_filter_language_attributes( $output ) {
-		$mode = prismleaf_get_theme_mod_theme_mode(
-			'prismleaf_palette_theme_mode',
-			prismleaf_get_default_option( 'palette_theme_mode', 'system' )
-		);
+		$mode = prismleaf_get_theme_mod_theme_mode( 'prismleaf_palette_theme_mode','palette_theme_mode' );
 
 		if ( 'system' === $mode ) {
 			return $output;

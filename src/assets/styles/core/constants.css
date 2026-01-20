@@ -56,6 +56,7 @@
 	--prismleaf-radius-medium: 16px;
 	--prismleaf-radius-large: 24px;
 	--prismleaf-radius-pill: 9999px;
+	--prismleaf-radius-full: 50%;
 
 	/* Borders. */
 	--prismleaf-border-style: solid;

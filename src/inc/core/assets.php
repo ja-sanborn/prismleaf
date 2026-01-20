@@ -149,6 +149,15 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		$last_handle = 'prismleaf-widgets';
 
 		prismleaf_enqueue_style(
+			'prismleaf-theme-switch',
+			'assets/styles/components/theme-switch.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-theme-switch', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-theme-switch';
+
+		prismleaf_enqueue_style(
 			'prismleaf-mobile',
 			'assets/styles/core/mobile.css',
 			array( $last_handle ),
@@ -191,7 +200,31 @@ if ( ! function_exists( 'prismleaf_enqueue_scripts' ) ) {
 	 * @return void
 	 */
 	function prismleaf_enqueue_scripts() {
-		// remove this comment after adding scripts here.
+		wp_enqueue_script(
+			'prismleaf-theme-switch',
+			PRISMLEAF_URI . 'assets/scripts/theme-switch.js',
+			array(),
+			PRISMLEAF_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'prismleaf-theme-switch',
+			'prismleafThemeSwitchStrings',
+			array(
+				'labels' => array(
+					'auto'  => __( 'Automatic (system preference)', 'prismleaf' ),
+					'dark'  => __( 'Dark appearance override', 'prismleaf' ),
+					'light' => __( 'Light appearance override', 'prismleaf' ),
+				),
+				'actions' => array(
+					'auto'  => __( 'Switch to light override', 'prismleaf' ),
+					'light' => __( 'Switch to dark override', 'prismleaf' ),
+					'dark'  => __( 'Switch to automatic system control', 'prismleaf' ),
+				),
+				'storageKey' => 'prismleaf_theme_switch_mode',
+			)
+		);
 	}
 }
 add_action( 'wp_enqueue_scripts', 'prismleaf_enqueue_scripts' );

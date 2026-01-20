@@ -15,10 +15,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <p>
-	<?php
-	esc_html_e(
-		'This is placeholder content for the header content area. It exists to demonstrate layout behavior and scrolling while the Prismleaf layout framework is being built.',
-		'prismleaf'
-	);
-	?>
+	<?php get_template_part( 'template-parts/components/theme-switch' ); ?>
 </p>
