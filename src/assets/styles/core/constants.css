@@ -91,6 +91,8 @@
 
 	/* Primary palette: surfaces. */
 	--prismleaf-color-primary-surface-on: #f2d9e7;
+	--prismleaf-color-primary-surface-on-muted: #cfa8be;
+	--prismleaf-color-primary-surface-on-faded: #e1c1d3;
 	--prismleaf-color-primary-surface-1: #c04b8d;
 	--prismleaf-color-primary-surface-2: #b23e7f;
 	--prismleaf-color-primary-surface-3: #9e3771;
@@ -98,6 +100,8 @@
 	--prismleaf-color-primary-surface-5: #762955;
 
 	--prismleaf-color-primary-container-on: #f2d9e7;
+	--prismleaf-color-primary-container-on-muted: #be98ae;
+	--prismleaf-color-primary-container-on-faded: #d8b9cb;
 	--prismleaf-color-primary-container-1: #13070e;
 	--prismleaf-color-primary-container-2: #260d1c;
 	--prismleaf-color-primary-container-3: #3a142a;
@@ -115,6 +119,8 @@
 
 	/* Secondary palette: surfaces. */
 	--prismleaf-color-secondary-surface-on: #0e2521;
+	--prismleaf-color-secondary-surface-on-muted: #234d46;
+	--prismleaf-color-secondary-surface-on-faded: #193934;
 	--prismleaf-color-secondary-surface-1: #2e7d6f;
 	--prismleaf-color-secondary-surface-2: #369383;
 	--prismleaf-color-secondary-surface-3: #3ea997;
@@ -122,6 +128,8 @@
 	--prismleaf-color-secondary-surface-5: #5fc4b4;
 
 	--prismleaf-color-secondary-container-on: #0e2521;
+	--prismleaf-color-secondary-container-on-muted: #2b534d;
+	--prismleaf-color-secondary-container-on-faded: #1d3c37;
 	--prismleaf-color-secondary-container-1: #cdece8;
 	--prismleaf-color-secondary-container-2: #b7e4dd;
 	--prismleaf-color-secondary-container-3: #a1dcd3;
@@ -139,6 +147,8 @@
 
 	/* Tertiary palette: surfaces. */
 	--prismleaf-color-tertiary-surface-on: #d4dff7;
+	--prismleaf-color-tertiary-surface-on-muted: #9cafd6;
+	--prismleaf-color-tertiary-surface-on-faded: #b8c7e7;
 	--prismleaf-color-tertiary-surface-1: #3f6fd9;
 	--prismleaf-color-tertiary-surface-2: #2a5ed2;
 	--prismleaf-color-tertiary-surface-3: #2553ba;
@@ -146,6 +156,8 @@
 	--prismleaf-color-tertiary-surface-5: #1b3e8a;
 
 	--prismleaf-color-tertiary-container-on: #d4dff7;
+	--prismleaf-color-tertiary-container-on-muted: #8d9fc5;
+	--prismleaf-color-tertiary-container-on-faded: #b1bfde;
 	--prismleaf-color-tertiary-container-1: #040a15;
 	--prismleaf-color-tertiary-container-2: #08132a;
 	--prismleaf-color-tertiary-container-3: #0d1d42;
@@ -163,6 +175,8 @@
 
 	/* Error palette: surfaces. */
 	--prismleaf-color-error-surface-on: #2c0907;
+	--prismleaf-color-error-surface-on-muted: #4d1b18;
+	--prismleaf-color-error-surface-on-faded: #3d1210;
 	--prismleaf-color-error-surface-1: #b3261e;
 	--prismleaf-color-error-surface-2: #cd2c22;
 	--prismleaf-color-error-surface-3: #dd3b31;
@@ -170,6 +184,8 @@
 	--prismleaf-color-error-surface-5: #e56d65;
 
 	--prismleaf-color-error-container-on: #2c0a07;
+	--prismleaf-color-error-container-on-muted: #5c2a26;
+	--prismleaf-color-error-container-on-faded: #441a17;
 	--prismleaf-color-error-container-1: #fbe8e7;
 	--prismleaf-color-error-container-2: #f6d0cd;
 	--prismleaf-color-error-container-3: #f2b7b3;
@@ -187,6 +203,8 @@
 
 	/* Warning palette: surfaces. */
 	--prismleaf-color-warning-surface-on: #331e00;
+	--prismleaf-color-warning-surface-on-muted: #6a440d;
+	--prismleaf-color-warning-surface-on-faded: #4f3107;
 	--prismleaf-color-warning-surface-1: #b26a00;
 	--prismleaf-color-warning-surface-2: #d17c00;
 	--prismleaf-color-warning-surface-3: #f08e00;
@@ -194,6 +212,8 @@
 	--prismleaf-color-warning-surface-5: #ffaa2f;
 
 	--prismleaf-color-warning-container-on: #331e00;
+	--prismleaf-color-warning-container-on-muted: #6f4b17;
+	--prismleaf-color-warning-container-on-faded: #51350c;
 	--prismleaf-color-warning-container-1: #ffe9ca;
 	--prismleaf-color-warning-container-2: #ffddab;
 	--prismleaf-color-warning-container-3: #ffd08c;
@@ -211,6 +231,8 @@
 
 	/* Info palette: surfaces. */
 	--prismleaf-color-info-surface-on: #d1e3fa;
+	--prismleaf-color-info-surface-on-muted: #9cb8dc;
+	--prismleaf-color-info-surface-on-faded: #b7ceeb;
 	--prismleaf-color-info-surface-1: #1a73e8;
 	--prismleaf-color-info-surface-2: #1567d3;
 	--prismleaf-color-info-surface-3: #135cbc;
@@ -218,6 +240,8 @@
 	--prismleaf-color-info-surface-5: #0f468e;
 
 	--prismleaf-color-info-container-on: #d1e2fa;
+	--prismleaf-color-info-container-on-muted: #8ca7cc;
+	--prismleaf-color-info-container-on-faded: #afc5e3;
 	--prismleaf-color-info-container-1: #030d1b;
 	--prismleaf-color-info-container-2: #051932;
 	--prismleaf-color-info-container-3: #082449;
@@ -235,6 +259,8 @@
 
 	/* Light palette: surfaces. */
 	--prismleaf-color-light-surface-on: #191919;
+	--prismleaf-color-light-surface-on-muted: #484848;
+	--prismleaf-color-light-surface-on-faded: #313131;
 	--prismleaf-color-light-surface-1: #f2f2f2;
 	--prismleaf-color-light-surface-2: #e3e3e3;
 	--prismleaf-color-light-surface-3: #d4d4d4;
@@ -242,6 +268,8 @@
 	--prismleaf-color-light-surface-5: #b6b6b6;
 
 	--prismleaf-color-light-container-on: #191919;
+	--prismleaf-color-light-container-on-muted: #3d3d3d;
+	--prismleaf-color-light-container-on-faded: #2b2b2b;
 	--prismleaf-color-light-container-1: #6b6b6b;
 	--prismleaf-color-light-container-2: #7a7a7a;
 	--prismleaf-color-light-container-3: #898989;
@@ -266,6 +294,8 @@
 
 	/* Dark palette: surfaces. */
 	--prismleaf-color-dark-surface-on: #e6e6e6;
+	--prismleaf-color-dark-surface-on-muted: #bfbfbf;
+	--prismleaf-color-dark-surface-on-faded: #d3d3d3;
 	--prismleaf-color-dark-surface-1: #121212;
 	--prismleaf-color-dark-surface-2: #212121;
 	--prismleaf-color-dark-surface-3: #303030;
@@ -273,6 +303,8 @@
 	--prismleaf-color-dark-surface-5: #4e4e4e;
 
 	--prismleaf-color-dark-container-on: #1a1a1a;
+	--prismleaf-color-dark-container-on-muted: #1a1a1a;
+	--prismleaf-color-dark-container-on-faded: #1a1a1a;
 	--prismleaf-color-dark-container-1: #999999;
 	--prismleaf-color-dark-container-2: #8a8a8a;
 	--prismleaf-color-dark-container-3: #7b7b7b;

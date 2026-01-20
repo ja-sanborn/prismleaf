@@ -23,7 +23,7 @@
 	--prismleaf-footer-border-style-top: var(--prismleaf-border-style);
 	--prismleaf-footer-border-width: var(--prismleaf-border-width-thin);
 	--prismleaf-footer-elevation: var(--prismleaf-shadow-elevation-2);
-	--prismleaf-footer-foreground-color: var(--prismleaf-color-surface-on);
+	--prismleaf-footer-foreground-color: var(--prismleaf-color-surface-on-faded);
 	--prismleaf-footer-margin: var(--prismleaf-space-2);
 	--prismleaf-footer-max-height: none;
 	--prismleaf-footer-padding: var(--prismleaf-space-2);
@@ -93,7 +93,6 @@
 	border-radius: var(--prismleaf-footer-border-radius);
 	border-width: var(--prismleaf-footer-border-width);
 	box-shadow: var(--prismleaf-footer-elevation);
-	color: var(--prismleaf-footer-foreground-color);
 	margin: var(--prismleaf-footer-margin);
 	padding: var(--prismleaf-footer-padding);
 	min-height: var(--prismleaf-footer-min-height);
@@ -108,16 +107,6 @@
 	flex-direction: column;
 	gap: var(--prismleaf-space-1);
 	width: 100%;
-}
-
-/* Footer region link styling. */
-.prismleaf-region-footer a {
-  color: var(--prismleaf-footer-foreground-color);
-  text-decoration: underline;
-}
-
-.prismleaf-region-footer a:hover {
-  color: var(--prismleaf-color-secondary);
 }
 
 /* Footer widget row styling. */
@@ -147,6 +136,7 @@
 
 /* Footer copyright row styling. */
 .prismleaf-footer-copyright-group {
+	color: var(--prismleaf-footer-foreground-color);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -157,4 +147,14 @@
 .prismleaf-footer-copyright-text,
 .prismleaf-footer-powered-by {
 	display: block;
+}
+
+/* Copyright region link styling. */
+.prismleaf-footer-copyright-group a {
+  color: var(--prismleaf-footer-foreground-color);
+  text-decoration: underline;
+}
+
+.prismleaf-footer-copyright-group a:hover {
+  color: var(--prismleaf-color-secondary);
 }

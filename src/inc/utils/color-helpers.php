@@ -60,6 +60,93 @@ if ( ! function_exists( 'prismleaf_rgba_from_hex' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_mix_hex_colors' ) ) {
+	/**
+	 * Mix two hex colors by weight.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $hex_a  First hex color.
+	 * @param string $hex_b  Second hex color.
+	 * @param float  $weight Weight toward the second color (0..1).
+	 * @return string Empty string when mixing fails.
+	 */
+	function prismleaf_mix_hex_colors( $hex_a, $hex_b, $weight = 0.5 ) {
+		$hex_a = sanitize_hex_color( $hex_a );
+		$hex_b = sanitize_hex_color( $hex_b );
+
+		if ( ! $hex_a || ! $hex_b ) {
+			return '';
+		}
+
+		$rgb_a = prismleaf_hex_to_rgb( $hex_a );
+		$rgb_b = prismleaf_hex_to_rgb( $hex_b );
+
+		if ( ! is_array( $rgb_a ) || ! is_array( $rgb_b ) ) {
+			return '';
+		}
+
+		$w = max( 0.0, min( 1.0, (float) $weight ) );
+
+		$r = prismleaf_clamp_int( (int) round( $rgb_a[0] + ( $rgb_b[0] - $rgb_a[0] ) * $w ), 0, 255 );
+		$g = prismleaf_clamp_int( (int) round( $rgb_a[1] + ( $rgb_b[1] - $rgb_a[1] ) * $w ), 0, 255 );
+		$b = prismleaf_clamp_int( (int) round( $rgb_a[2] + ( $rgb_b[2] - $rgb_a[2] ) * $w ), 0, 255 );
+
+		return sprintf( '#%02x%02x%02x', $r, $g, $b );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_find_contrast_midpoint' ) ) {
+	/**
+	 * Find a midpoint between two colors that meets a minimum contrast ratio.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $on_color   High-contrast color (preferred).
+	 * @param string $base_color Background/base color to compare against.
+	 * @param float  $min_ratio  Minimum acceptable contrast ratio.
+	 * @return string
+	 */
+	function prismleaf_find_contrast_midpoint( $on_color, $base_color, $min_ratio = 4.5 ) {
+		$on_color   = sanitize_hex_color( $on_color );
+		$base_color = sanitize_hex_color( $base_color );
+
+		if ( ! $on_color || ! $base_color ) {
+			return $on_color ? $on_color : '';
+		}
+
+		$min_ratio = is_numeric( $min_ratio ) ? (float) $min_ratio : 4.5;
+		if ( $min_ratio <= 0 ) {
+			$min_ratio = 4.5;
+		}
+
+		$best = $on_color;
+		$low  = 0.0;
+		$high = 0.5;
+
+		for ( $i = 0; $i < 10; $i++ ) {
+			$mid_candidate = ( $low + $high ) / 2;
+			$candidate = prismleaf_mix_hex_colors( $on_color, $base_color, $mid_candidate );
+
+			if ( '' === $candidate ) {
+				$high = $mid_candidate;
+				continue;
+			}
+
+			$ratio = prismleaf_min_contrast_ratio( $candidate, array( $base_color ) );
+
+			if ( null !== $ratio && $ratio >= $min_ratio ) {
+				$best = $candidate;
+				$low  = $mid_candidate;
+			} else {
+				$high = $mid_candidate;
+			}
+		}
+
+		return $best;
+	}
+}
+
 if ( ! function_exists( 'prismleaf_rgb_to_hex' ) ) {
 	/**
 	 * Convert RGB to a hex color.
@@ -497,6 +584,31 @@ if ( ! function_exists( 'prismleaf_generate_palette_from_base' ) ) {
 			'container_on'        => $container_on,
 		);
 
+		$surface_on_muted = prismleaf_find_contrast_midpoint( $palette['surface_on'], $palette['surface_5'], 4.5 );
+		if ( '' === $surface_on_muted ) {
+			$surface_on_muted = $palette['surface_on'];
+		}
+
+		$surface_on_faded = prismleaf_mix_hex_colors( $palette['surface_on'], $surface_on_muted, 0.5 );
+		if ( '' === $surface_on_faded ) {
+			$surface_on_faded = $surface_on_muted;
+		}
+
+		$container_on_muted = prismleaf_find_contrast_midpoint( $palette['container_on'], $palette['container_5'], 4.5 );
+		if ( '' === $container_on_muted ) {
+			$container_on_muted = $palette['container_on'];
+		}
+
+		$container_on_faded = prismleaf_mix_hex_colors( $palette['container_on'], $container_on_muted, 0.5 );
+		if ( '' === $container_on_faded ) {
+			$container_on_faded = $container_on_muted;
+		}
+
+		$palette['surface_on_muted']   = $surface_on_muted;
+		$palette['surface_on_faded']   = $surface_on_faded;
+		$palette['container_on_muted'] = $container_on_muted;
+		$palette['container_on_faded'] = $container_on_faded;
+
 		foreach ( $palette as $key => $value ) {
 			$palette[ $key ] = is_string( $value ) ? $value : '';
 		}
@@ -560,6 +672,8 @@ if ( ! function_exists( 'prismleaf_get_palette_keys' ) ) {
 			'surface_4',
 			'surface_5',
 			'surface_on',
+			'surface_on_muted',
+			'surface_on_faded',
 			'outline',
 			'outline_variant',
 			'muted',
@@ -571,6 +685,8 @@ if ( ! function_exists( 'prismleaf_get_palette_keys' ) ) {
 			'container_4',
 			'container_5',
 			'container_on',
+			'container_on_muted',
+			'container_on_faded',
 		);
 	}
 }

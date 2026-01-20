@@ -240,6 +240,73 @@
 		return minRatio;
 	};
 
+	const mixHexColors = (hexA, hexB, weight) => {
+		const cleanA = sanitizeHexColor(hexA);
+		const cleanB = sanitizeHexColor(hexB);
+		if (!cleanA || !cleanB) {
+			return '';
+		}
+
+		const rgbA = hexToRgb(cleanA);
+		const rgbB = hexToRgb(cleanB);
+		if (!rgbA || !rgbB) {
+			return '';
+		}
+
+		const w = Math.min(Math.max(Number.isFinite(weight) ? weight : 0.5, 0), 1);
+		const mix = [
+			Math.round(rgbA[0] + (rgbB[0] - rgbA[0]) * w),
+			Math.round(rgbA[1] + (rgbB[1] - rgbA[1]) * w),
+			Math.round(rgbA[2] + (rgbB[2] - rgbA[2]) * w),
+		];
+
+		const hex = rgbToHex(mix);
+		return hex ? hex : '';
+	};
+
+	const findContrastMidpoint = (onColor, baseColor, minRatio = 4.5) => {
+		const cleanOn = sanitizeHexColor(onColor);
+		const cleanBase = sanitizeHexColor(baseColor);
+		if (!cleanOn || !cleanBase) {
+			return cleanOn || '';
+		}
+
+		const target = Number.isFinite(minRatio) && minRatio > 0 ? minRatio : 4.5;
+		let best = cleanOn;
+		let low = 0;
+		let high = 0.5;
+
+		for (let i = 0; i < 10; i += 1) {
+			const mid = (low + high) * 0.5;
+			const candidate = mixHexColors(cleanOn, cleanBase, mid);
+
+			if (!candidate) {
+				high = mid;
+				continue;
+			}
+
+			const ratio = minContrastRatio(candidate, [cleanBase]);
+			if (ratio !== null && ratio >= target) {
+				best = candidate;
+				low = mid;
+				continue;
+			}
+
+			high = mid;
+		}
+
+		return best;
+	};
+
+	const buildOnMutedColor = (onColor, baseColor) => {
+		return findContrastMidpoint(onColor, baseColor, 4.5);
+	};
+
+	const buildOnFadedColor = (onColor, mutedColor) => {
+		const faded = mixHexColors(onColor, mutedColor, 0.5);
+		return faded || mutedColor;
+	};
+
 	const adjustLightnessSafe = (hex, delta, minL = 0.01, maxL = 0.99) => {
 		const rgb = hexToRgb(hex);
 		if (!rgb) {
@@ -395,7 +462,7 @@
 
 		const opacityBase = ramp[0];
 
-		return {
+		const palette = {
 			surface_1: ramp[0],
 			surface_2: ramp[1],
 			surface_3: ramp[2],
@@ -414,6 +481,18 @@
 			container_5: ramp[5],
 			container_on: containerOn,
 		};
+
+		const surfaceOnMuted = buildOnMutedColor(palette.surface_on, palette.surface_5);
+		const surfaceOnFaded = buildOnFadedColor(palette.surface_on, surfaceOnMuted);
+		const containerOnMuted = buildOnMutedColor(palette.container_on, palette.container_5);
+		const containerOnFaded = buildOnFadedColor(palette.container_on, containerOnMuted);
+
+		palette.surface_on_muted = surfaceOnMuted;
+		palette.surface_on_faded = surfaceOnFaded;
+		palette.container_on_muted = containerOnMuted;
+		palette.container_on_faded = containerOnFaded;
+
+		return palette;
 	};
 
 	const buildPaletteJsonFromBase = (baseHex) => {
@@ -422,6 +501,16 @@
 			return '';
 		}
 
+		const surfaceOnMuted = buildOnMutedColor(palette.surface_on, palette.surface_5);
+		const surfaceOnFaded = buildOnFadedColor(palette.surface_on, surfaceOnMuted);
+		const containerOnMuted = buildOnMutedColor(palette.container_on, palette.container_5);
+		const containerOnFaded = buildOnFadedColor(palette.container_on, containerOnMuted);
+
+		palette.surface_on_muted = surfaceOnMuted;
+		palette.surface_on_faded = surfaceOnFaded;
+		palette.container_on_muted = containerOnMuted;
+		palette.container_on_faded = containerOnFaded;
+
 		const keys = [
 			'surface_1',
 			'surface_2',
@@ -429,6 +518,8 @@
 			'surface_4',
 			'surface_5',
 			'surface_on',
+			'surface_on_muted',
+			'surface_on_faded',
 			'outline',
 			'outline_variant',
 			'muted',
@@ -440,6 +531,8 @@
 			'container_4',
 			'container_5',
 			'container_on',
+			'container_on_muted',
+			'container_on_faded',
 		];
 
 		const clean = {};
@@ -484,6 +577,8 @@
 			'surface_4',
 			'surface_5',
 			'surface_on',
+			'surface_on_muted',
+			'surface_on_faded',
 			'outline',
 			'outline_variant',
 			'muted',
@@ -495,6 +590,8 @@
 			'container_4',
 			'container_5',
 			'container_on',
+			'container_on_muted',
+			'container_on_faded',
 		];
 
 		const palette = {};
@@ -508,12 +605,16 @@
 
 		const setValues = (prefix, containerPrefix) => {
 			palette.surface_on = `${prefix}-surface-on`;
+			palette.surface_on_muted = `${prefix}-surface-on-muted`;
+			palette.surface_on_faded = `${prefix}-surface-on-faded`;
 			palette.surface_1 = `${prefix}-surface-1`;
 			palette.surface_2 = `${prefix}-surface-2`;
 			palette.surface_3 = `${prefix}-surface-3`;
 			palette.surface_4 = `${prefix}-surface-4`;
 			palette.surface_5 = `${prefix}-surface-5`;
 			palette.container_on = `${containerPrefix}-on`;
+			palette.container_on_muted = `${containerPrefix}-on-muted`;
+			palette.container_on_faded = `${containerPrefix}-on-faded`;
 			palette.container_1 = `${containerPrefix}-1`;
 			palette.container_2 = `${containerPrefix}-2`;
 			palette.container_3 = `${containerPrefix}-3`;

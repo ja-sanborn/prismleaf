@@ -17,6 +17,9 @@
 	--prismleaf-widget-foreground-color: var(--prismleaf-color-surface-on);
 	--prismleaf-widget-padding: var(--prismleaf-space-2);
 	--prismleaf-widget-margin: var(--prismleaf-space-2);
+	--prismleaf-widget-search-background-color: var(--prismleaf-background);
+	--prismleaf-widget-search-foreground-color: var(--prismleaf-color-surface-on);
+	--prismleaf-widget-search-placeholder-color: var(--prismleaf-color-surface-on-muted);
 	--prismleaf-widget-title-alignment: left;
 	--prismleaf-widget-title-color: var(--prismleaf-color-primary-3);
 }
@@ -87,10 +90,12 @@
 	height: var(--prismleaf-space-5);
 	padding: var(--prismleaf-space-2);
 	margin: 0;
-	background-color: var(--prismleaf-color-surface-1);
-	color: var(--prismleaf-color-surface-on);
-	border: var(--prismleaf-border-width-thin) var(--prismleaf-border-style) var(--prismleaf-color-outline);
+	background-color: var(--prismleaf-widget-search-background-color);
+	color: var(--prismleaf-widget-search-foreground-color);
+	border-color: var(--prismleaf-color-outline);
 	border-radius: var(--prismleaf-radius-small);
+	border-style: var(--prismleaf-border-style);
+	border-width: var(--prismleaf-border-width-thin);
 	box-sizing: border-box;
 	flex: 1 1 auto;
 	min-width: 0;
@@ -98,7 +103,7 @@
 }
 
 .widget_search .search-field::placeholder {
-	color: var(--prismleaf-color-muted);
+	color: var(--prismleaf-widget-search-placeholder-color);
 }
 
 .widget_search .search-submit {

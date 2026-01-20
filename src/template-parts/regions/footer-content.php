@@ -31,7 +31,7 @@ foreach ( $widget_areas as $area ) {
 
 $copyright_default = sprintf(
 	/* translators: 1: Year, 2: Site name. */
-	__( '&copy; %1$d %2$s', 'prismleaf' ),
+	__( 'Copyright &copy; %1$d %2$s. All rights reserved.', 'prismleaf' ),
 	(int) current_time( 'Y' ),
 	get_bloginfo( 'name' )
 );

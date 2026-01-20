@@ -153,6 +153,8 @@ if ( ! function_exists( 'prismleaf_build_palette_css_key_map' ) ) {
 
 		return array(
 			"--prismleaf-color-{$slug}-surface-on"           => 'surface_on',
+			"--prismleaf-color-{$slug}-surface-on-muted"     => 'surface_on_muted',
+			"--prismleaf-color-{$slug}-surface-on-faded"     => 'surface_on_faded',
 			"--prismleaf-color-{$slug}-surface-1"            => 'surface_1',
 			"--prismleaf-color-{$slug}-surface-2"            => 'surface_2',
 			"--prismleaf-color-{$slug}-surface-3"            => 'surface_3',
@@ -164,6 +166,8 @@ if ( ! function_exists( 'prismleaf_build_palette_css_key_map' ) ) {
 			"--prismleaf-color-{$slug}-disabled-foreground"  => 'disabled_foreground',
 			"--prismleaf-color-{$slug}-disabled-surface"     => 'disabled_surface',
 			"--prismleaf-color-{$slug}-container-on"         => 'container_on',
+			"--prismleaf-color-{$slug}-container-on-muted"   => 'container_on_muted',
+			"--prismleaf-color-{$slug}-container-on-faded"   => 'container_on_faded',
 			"--prismleaf-color-{$slug}-container-1"          => 'container_1',
 			"--prismleaf-color-{$slug}-container-2"          => 'container_2',
 			"--prismleaf-color-{$slug}-container-3"          => 'container_3',
