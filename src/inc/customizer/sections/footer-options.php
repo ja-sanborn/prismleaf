@@ -267,6 +267,46 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 			)
 		);
 
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_footer_widget_color_source',
+				'base_setting_id'          => 'prismleaf_footer_widget_color_base',
+				'palette_setting_id'       => 'prismleaf_footer_widget_color_palette',
+				'section'                  => 'prismleaf_footer_options',
+				'label'                    => __( 'Widget foreground color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 3020,
+				'active_callback'          => 'prismleaf_is_footer_control_active',
+				'source_default_key'       => 'footer_widget_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'footer_widget_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'footer_widget_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_footer_copyright_color_source',
+				'base_setting_id'          => 'prismleaf_footer_copyright_color_base',
+				'palette_setting_id'       => 'prismleaf_footer_copyright_color_palette',
+				'section'                  => 'prismleaf_footer_options',
+				'label'                    => __( 'Copyright foreground color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 3030,
+				'active_callback'          => 'prismleaf_is_footer_control_active',
+				'source_default_key'       => 'footer_copyright_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'footer_copyright_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'footer_copyright_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
 		prismleaf_add_text_control(
 			$wp_customize,
 			array(
@@ -274,7 +314,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Copyright text', 'prismleaf' ),
 				'description'      => __( 'Optional. Leave blank to use the site name and current year.', 'prismleaf' ),
-				'priority'         => 3020,
+				'priority'         => 3040,
 				'default_key'      => 'footer_copyright_text',
 				'default_fallback' => '',
 				'control_type'     => 'textarea',
