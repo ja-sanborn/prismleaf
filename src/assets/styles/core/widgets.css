@@ -19,7 +19,7 @@
 	--prismleaf-widget-margin: var(--prismleaf-space-2);
 	--prismleaf-widget-search-background-color: var(--prismleaf-background);
 	--prismleaf-widget-search-foreground-color: var(--prismleaf-color-surface-on);
-	--prismleaf-widget-search-placeholder-color: var(--prismleaf-color-surface-on-muted);
+	--prismleaf-widget-search-placeholder-color: var(--prismleaf-color-surface-on-faded);
 	--prismleaf-widget-title-alignment: left;
 	--prismleaf-widget-title-color: var(--prismleaf-color-primary-3);
 }
