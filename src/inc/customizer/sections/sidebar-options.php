@@ -149,6 +149,26 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 			)
 		);
 
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_sidebar_primary_background_color_source',
+				'base_setting_id'          => 'prismleaf_sidebar_primary_background_color_base',
+				'palette_setting_id'       => 'prismleaf_sidebar_primary_background_color_palette',
+				'section'                  => 'prismleaf_sidebar_options',
+				'label'                    => __( 'Background color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 3010,
+				'active_callback'          => 'prismleaf_is_sidebar_primary_background_control_active',
+				'source_default_key'       => 'sidebar_primary_background_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'sidebar_primary_background_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'sidebar_primary_background_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
@@ -156,7 +176,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'          => 'prismleaf_sidebar_options',
 				'label'            => __( 'Border corners', 'prismleaf' ),
 				'description'      => __( 'Controls the roundness of the primary sidebar corners.', 'prismleaf' ),
-				'priority'         => 3010,
+				'priority'         => 3020,
 				'default_key'      => 'sidebar_primary_border_corners',
 				'default_fallback' => 'Round',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
@@ -175,7 +195,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'          => 'prismleaf_sidebar_options',
 				'label'            => __( 'Border style', 'prismleaf' ),
 				'description'      => __( 'Sets the primary sidebar border line style.', 'prismleaf' ),
-				'priority'         => 3020,
+				'priority'         => 3030,
 				'default_key'      => 'sidebar_primary_border_style',
 				'default_fallback' => 'solid',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
@@ -198,33 +218,13 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'                  => 'prismleaf_sidebar_options',
 				'label'                    => __( 'Border color', 'prismleaf' ),
 				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
-				'priority'                 => 3030,
+				'priority'                 => 3040,
 				'active_callback'          => 'prismleaf_is_sidebar_primary_control_active',
 				'source_default_key'       => 'sidebar_primary_border_color_source',
 				'source_default_fallback'  => '',
 				'base_default_key'         => 'sidebar_primary_border_color_base',
 				'base_default_fallback'    => '',
 				'palette_default_key'      => 'sidebar_primary_border_color_palette',
-				'palette_default_fallback' => '',
-			)
-		);
-
-		prismleaf_add_palette_source_control(
-			$wp_customize,
-			array(
-				'source_setting_id'        => 'prismleaf_sidebar_primary_background_color_source',
-				'base_setting_id'          => 'prismleaf_sidebar_primary_background_color_base',
-				'palette_setting_id'       => 'prismleaf_sidebar_primary_background_color_palette',
-				'section'                  => 'prismleaf_sidebar_options',
-				'label'                    => __( 'Background color', 'prismleaf' ),
-				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
-				'priority'                 => 3040,
-				'active_callback'          => 'prismleaf_is_sidebar_primary_background_control_active',
-				'source_default_key'       => 'sidebar_primary_background_color_source',
-				'source_default_fallback'  => '',
-				'base_default_key'         => 'sidebar_primary_background_color_base',
-				'base_default_fallback'    => '',
-				'palette_default_key'      => 'sidebar_primary_background_color_palette',
 				'palette_default_fallback' => '',
 			)
 		);
@@ -334,6 +334,26 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 			)
 		);
 
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_sidebar_secondary_background_color_source',
+				'base_setting_id'          => 'prismleaf_sidebar_secondary_background_color_base',
+				'palette_setting_id'       => 'prismleaf_sidebar_secondary_background_color_palette',
+				'section'                  => 'prismleaf_sidebar_options',
+				'label'                    => __( 'Background color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 5010,
+				'active_callback'          => 'prismleaf_is_sidebar_secondary_background_control_active',
+				'source_default_key'       => 'sidebar_secondary_background_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'sidebar_secondary_background_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'sidebar_secondary_background_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
@@ -341,7 +361,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'          => 'prismleaf_sidebar_options',
 				'label'            => __( 'Border corners', 'prismleaf' ),
 				'description'      => __( 'Controls the roundness of the secondary sidebar corners.', 'prismleaf' ),
-				'priority'         => 5010,
+				'priority'         => 5020,
 				'default_key'      => 'sidebar_secondary_border_corners',
 				'default_fallback' => 'Round',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
@@ -360,7 +380,7 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'          => 'prismleaf_sidebar_options',
 				'label'            => __( 'Border style', 'prismleaf' ),
 				'description'      => __( 'Sets the secondary sidebar border line style.', 'prismleaf' ),
-				'priority'         => 5020,
+				'priority'         => 5030,
 				'default_key'      => 'sidebar_secondary_border_style',
 				'default_fallback' => 'solid',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
@@ -383,33 +403,13 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 				'section'                  => 'prismleaf_sidebar_options',
 				'label'                    => __( 'Border color', 'prismleaf' ),
 				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
-				'priority'                 => 5030,
+				'priority'                 => 5040,
 				'active_callback'          => 'prismleaf_is_sidebar_secondary_control_active',
 				'source_default_key'       => 'sidebar_secondary_border_color_source',
 				'source_default_fallback'  => '',
 				'base_default_key'         => 'sidebar_secondary_border_color_base',
 				'base_default_fallback'    => '',
 				'palette_default_key'      => 'sidebar_secondary_border_color_palette',
-				'palette_default_fallback' => '',
-			)
-		);
-
-		prismleaf_add_palette_source_control(
-			$wp_customize,
-			array(
-				'source_setting_id'        => 'prismleaf_sidebar_secondary_background_color_source',
-				'base_setting_id'          => 'prismleaf_sidebar_secondary_background_color_base',
-				'palette_setting_id'       => 'prismleaf_sidebar_secondary_background_color_palette',
-				'section'                  => 'prismleaf_sidebar_options',
-				'label'                    => __( 'Background color', 'prismleaf' ),
-				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
-				'priority'                 => 5040,
-				'active_callback'          => 'prismleaf_is_sidebar_secondary_background_control_active',
-				'source_default_key'       => 'sidebar_secondary_background_color_source',
-				'source_default_fallback'  => '',
-				'base_default_key'         => 'sidebar_secondary_background_color_base',
-				'base_default_fallback'    => '',
-				'palette_default_key'      => 'sidebar_secondary_background_color_palette',
 				'palette_default_fallback' => '',
 			)
 		);

@@ -113,13 +113,33 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 			)
 		);
 
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_footer_background_color_source',
+				'base_setting_id'          => 'prismleaf_footer_background_color_base',
+				'palette_setting_id'       => 'prismleaf_footer_background_color_palette',
+				'section'                  => 'prismleaf_footer_options',
+				'label'                    => __( 'Background color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 2010,
+				'active_callback'          => 'prismleaf_is_footer_background_control_active',
+				'source_default_key'       => 'footer_background_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'footer_background_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'footer_background_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
 		prismleaf_add_background_image_control(
 			$wp_customize,
 			array(
 				'section'                    => 'prismleaf_footer_options',
 				'label'                      => __( 'Background Image', 'prismleaf' ),
 				'description'                => __( 'Optional background for the footer area.', 'prismleaf' ),
-				'priority'                   => 2010,
+				'priority'                   => 2020,
 				'setting_base'               => 'prismleaf_footer_background',
 				'active_callback'            => 'prismleaf_is_footer_control_active',
 				'image_default_key'          => 'footer_background_image',
@@ -139,7 +159,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Border corners', 'prismleaf' ),
 				'description'      => __( 'Controls the roundness of the footer corners.', 'prismleaf' ),
-				'priority'         => 2020,
+				'priority'         => 2030,
 				'default_key'      => 'footer_border_corners',
 				'default_fallback' => 'Round',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
@@ -158,7 +178,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Border style', 'prismleaf' ),
 				'description'      => __( 'Sets the footer border line style.', 'prismleaf' ),
-				'priority'         => 2030,
+				'priority'         => 2040,
 				'default_key'      => 'footer_border_style',
 				'default_fallback' => 'solid',
 				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
@@ -181,33 +201,13 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'                  => 'prismleaf_footer_options',
 				'label'                    => __( 'Border color', 'prismleaf' ),
 				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
-				'priority'                 => 2040,
+				'priority'                 => 2050,
 				'active_callback'          => 'prismleaf_is_footer_control_active',
 				'source_default_key'       => 'footer_border_color_source',
 				'source_default_fallback'  => '',
 				'base_default_key'         => 'footer_border_color_base',
 				'base_default_fallback'    => '',
 				'palette_default_key'      => 'footer_border_color_palette',
-				'palette_default_fallback' => '',
-			)
-		);
-
-		prismleaf_add_palette_source_control(
-			$wp_customize,
-			array(
-				'source_setting_id'        => 'prismleaf_footer_background_color_source',
-				'base_setting_id'          => 'prismleaf_footer_background_color_base',
-				'palette_setting_id'       => 'prismleaf_footer_background_color_palette',
-				'section'                  => 'prismleaf_footer_options',
-				'label'                    => __( 'Background color', 'prismleaf' ),
-				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
-				'priority'                 => 2050,
-				'active_callback'          => 'prismleaf_is_footer_background_control_active',
-				'source_default_key'       => 'footer_background_color_source',
-				'source_default_fallback'  => '',
-				'base_default_key'         => 'footer_background_color_base',
-				'base_default_fallback'    => '',
-				'palette_default_key'      => 'footer_background_color_palette',
 				'palette_default_fallback' => '',
 			)
 		);
