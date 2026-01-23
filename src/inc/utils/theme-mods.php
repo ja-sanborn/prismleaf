@@ -571,9 +571,78 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_header_height' ) ) {
 	 * @param string $default_fallback Default fallback value.
 	 * @return string
 	 */
-	function prismleaf_get_theme_mod_header_height( $setting_id, $default_key, $default_fallback = '' ) {
+function prismleaf_get_theme_mod_header_height( $setting_id, $default_key, $default_fallback = '' ) {
 		$default_value = '' !== $default_fallback ? $default_fallback : 'auto';
 		return prismleaf_get_theme_mod_dimension_value( $setting_id, $default_key, $default_value, 32, 300, true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_header_icon_position' ) ) {
+	/**
+	 * Get the header icon position setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_value Default fallback.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_header_icon_position( $setting_id = 'prismleaf_header_icon_position', $default_key = 'header_icon_position', $default_value = 'left' ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_value );
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_header_icon_position( $default_value );
+		}
+
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_header_icon_position( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_header_icon_size' ) ) {
+	/**
+	 * Get the header icon size setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_value Default fallback.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_header_icon_size( $setting_id = 'prismleaf_header_icon_size', $default_key = 'header_icon_size', $default_value = 'medium' ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_value );
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_header_icon_size( $default_value );
+		}
+
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_header_icon_size( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_header_icon_shape' ) ) {
+	/**
+	 * Get the header icon shape setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_value Default fallback.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_header_icon_shape( $setting_id = 'prismleaf_header_icon_shape', $default_key = 'header_icon_shape', $default_value = 'circle' ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_value );
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_header_icon_shape( $default_value );
+		}
+
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_header_icon_shape( $raw );
 	}
 }
 

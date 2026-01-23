@@ -26,6 +26,7 @@
 	--prismleaf-header-padding: var(--prismleaf-space-2);
 	--prismleaf-header-margin: var(--prismleaf-space-2);
 	--prismleaf-header-max-height: none;
+	--prismleaf-header-column-width: var(--prismleaf-space-8);
 }
 
 /* Header region styling. */
@@ -53,4 +54,35 @@
 	max-height: var(--prismleaf-header-max-height);
 	overflow-x: hidden;
 	overflow-y: var(--prismleaf-region-overflow);
+}
+
+.prismleaf-header-row {
+	display: grid;
+	align-items: stretch;
+	height: 100%;
+	width: 100%;
+	gap: var(--prismleaf-space-2);
+}
+
+.prismleaf-header-row-with-icon {
+	grid-template-columns: var(--prismleaf-header-column-width) 1fr var(--prismleaf-header-column-width);
+}
+
+.prismleaf-header-row-without-icon {
+	grid-template-columns: 1fr var(--prismleaf-header-column-width);
+}
+
+.prismleaf-header-column {
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.prismleaf-header-column-center {
+	justify-content: center;
+}
+
+.prismleaf-header-column-left,
+.prismleaf-header-column-right {
+	justify-content: center;
 }

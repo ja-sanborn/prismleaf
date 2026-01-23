@@ -1,0 +1,45 @@
+:root {
+	--prismleaf-site-icon-size: var(--prismleaf-space-6);
+	--prismleaf-site-icon-border-radius: var(--prismleaf-radius-large);
+}
+
+.prismleaf-site-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	width: var(--prismleaf-site-icon-size, var(--prismleaf-space-6));
+	height: var(--prismleaf-site-icon-size, var(--prismleaf-space-6));
+	border-radius: var(--prismleaf-site-icon-border-radius, var(--prismleaf-radius-medium));
+	overflow: hidden;
+	text-decoration: none;
+	color: inherit;
+	background-color: transparent;
+}
+
+.prismleaf-site-icon img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	border-radius: inherit;
+}
+
+.prismleaf-site-icon::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-color: var(--prismleaf-color-scrim);
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	pointer-events: none;
+}
+
+.prismleaf-site-icon:hover::after,
+.prismleaf-site-icon:focus-visible::after {
+	opacity: 1;
+}
+
+.prismleaf-site-icon:focus-visible {
+	outline: none;
+}

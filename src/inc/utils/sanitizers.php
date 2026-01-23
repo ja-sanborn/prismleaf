@@ -921,7 +921,58 @@ if ( ! function_exists( 'prismleaf_sanitize_background_attachment' ) ) {
 	function prismleaf_sanitize_background_attachment( $value ) {
 		$value = strtolower( trim( (string) $value ) );
 		$allowed = array( 'scroll', 'fixed' );
-		return in_array( $value, $allowed, true ) ? $value : 'scroll';
+	return in_array( $value, $allowed, true ) ? $value : 'scroll';
+}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_header_icon_position' ) ) {
+	/**
+	 * Sanitize the header icon position value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_header_icon_position( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'none', 'left', 'right' );
+
+		return in_array( $value, $allowed, true ) ? $value : 'left';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_header_icon_size' ) ) {
+	/**
+	 * Sanitize the header icon size value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_header_icon_size( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'small', 'medium', 'large' );
+
+		return in_array( $value, $allowed, true ) ? $value : 'medium';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_header_icon_shape' ) ) {
+	/**
+	 * Sanitize the header icon shape value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_header_icon_shape( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'square', 'rounded', 'circle' );
+
+		return in_array( $value, $allowed, true ) ? $value : 'circle';
 	}
 }
 

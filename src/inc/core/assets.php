@@ -158,6 +158,15 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		$last_handle = 'prismleaf-theme-switch';
 
 		prismleaf_enqueue_style(
+			'prismleaf-site-icon',
+			'assets/styles/components/site-icon.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-site-icon', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-site-icon';
+
+		prismleaf_enqueue_style(
 			'prismleaf-mobile',
 			'assets/styles/core/mobile.css',
 			array( $last_handle ),

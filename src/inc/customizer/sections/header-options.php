@@ -245,6 +245,66 @@ if ( ! function_exists( 'prismleaf_register_header_options_section' ) ) {
 				'active_callback' => 'prismleaf_is_header_control_active',
 			)
 		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_header_icon_position',
+				'section'          => 'prismleaf_header_options',
+				'label'            => __( 'Icon position', 'prismleaf' ),
+				'description'      => __( 'Show the site icon on the left or right of the header, or hide it entirely.', 'prismleaf' ),
+				'priority'         => 3010,
+				'default_key'      => 'header_icon_position',
+				'default_fallback' => 'left',
+				'sanitize_callback'=> 'prismleaf_sanitize_header_icon_position',
+				'choices'          => array(
+					'none'  => __( 'None', 'prismleaf' ),
+					'left'  => __( 'Left', 'prismleaf' ),
+					'right' => __( 'Right', 'prismleaf' ),
+				),
+				'active_callback'  => 'prismleaf_is_header_control_active',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_header_icon_size',
+				'section'          => 'prismleaf_header_options',
+				'label'            => __( 'Icon size', 'prismleaf' ),
+				'description'      => __( 'Adjust the diameter of the site icon.', 'prismleaf' ),
+				'priority'         => 3020,
+				'default_key'      => 'header_icon_size',
+				'default_fallback' => 'medium',
+				'sanitize_callback'=> 'prismleaf_sanitize_header_icon_size',
+				'choices'          => array(
+					'small'  => __( 'Small', 'prismleaf' ),
+					'medium' => __( 'Medium', 'prismleaf' ),
+					'large'  => __( 'Large', 'prismleaf' ),
+				),
+				'active_callback'  => 'prismleaf_is_header_control_active',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_header_icon_shape',
+				'section'          => 'prismleaf_header_options',
+				'label'            => __( 'Icon shape', 'prismleaf' ),
+				'description'      => __( 'Choose the corner treatment for the site icon.', 'prismleaf' ),
+				'priority'         => 3030,
+				'default_key'      => 'header_icon_shape',
+				'default_fallback' => 'circle',
+				'sanitize_callback'=> 'prismleaf_sanitize_header_icon_shape',
+				'choices'          => array(
+					'square'  => __( 'Square', 'prismleaf' ),
+					'rounded' => __( 'Rounded', 'prismleaf' ),
+					'circle'  => __( 'Circle', 'prismleaf' ),
+				),
+				'active_callback'  => 'prismleaf_is_header_control_active',
+			)
+		);
 	}
 }
 add_action( 'customize_register', 'prismleaf_register_header_options_section' );

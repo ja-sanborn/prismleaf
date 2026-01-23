@@ -24,6 +24,7 @@ if ( ! function_exists( 'prismleaf_output_customizer_styles' ) ) {
 		$css .= prismleaf_get_palette_css_vars();
 		$css .= prismleaf_get_framed_css_vars();
 		$css .= prismleaf_get_header_css_vars();
+		$css .= prismleaf_get_header_icon_css_vars();
 		$css .= prismleaf_get_footer_css_vars();
 		$css .= prismleaf_get_sidebar_css_vars();
 		$css .= prismleaf_get_content_css_vars();
@@ -406,6 +407,59 @@ if ( ! function_exists( 'prismleaf_get_header_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-header-height', $height );
 		$css .= prismleaf_build_css_var( '--prismleaf-header-margin', $margin );
 		$css .= prismleaf_build_css_var( '--prismleaf-header-max-height', $max_height );
+
+	return $css;
+}
+}
+
+if ( ! function_exists( 'prismleaf_get_header_icon_css_vars' ) ) {
+	/**
+	 * Build CSS variables for the header icon settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_header_icon_css_vars() {
+		$size  = prismleaf_get_theme_mod_header_icon_size();
+		$shape = prismleaf_get_theme_mod_header_icon_shape();
+
+		$size_map = array(
+			'small'  => 'var(--prismleaf-space-5)',
+			'medium' => 'var(--prismleaf-space-6)',
+			'large'  => 'var(--prismleaf-space-8)',
+		);
+
+		if ( isset( $size_map[ $size ] ) ) {
+			$size_value = $size_map[ $size ];
+		} else {
+			$size_value = 'var(--prismleaf-space-6)';
+		}
+
+		$radius_map = array(
+			'small'  => 'var(--prismleaf-radius-small)',
+			'medium' => 'var(--prismleaf-radius-medium)',
+			'large'  => 'var(--prismleaf-radius-large)',
+		);
+
+		if ( isset( $radius_map[ $size ] ) ) {
+			$radius_value = $radius_map[ $size ];
+		} else {
+			$radius_value = 'var(--prismleaf-radius-medium)';
+		}
+
+		switch ( $shape ) {
+			case 'square':
+				$radius_value = '0';
+				break;
+			case 'circle':
+				$radius_value = '50%';
+				break;
+		}
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-site-icon-size', $size_value );
+		$css .= prismleaf_build_css_var( '--prismleaf-site-icon-border-radius', $radius_value );
 
 		return $css;
 	}
