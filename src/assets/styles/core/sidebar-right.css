@@ -6,11 +6,6 @@
  * @package prismleaf
  */
 
-/* Region visibility toggle. */
-.prismleaf-sidebar-right-hidden .prismleaf-region-sidebar-right {
-	display: none;
-}
-
 /* Right sidebar region surface. */
 .prismleaf-region-sidebar-right {
 	background-color: var(--prismleaf-region-sidebar-right-background);
@@ -23,6 +18,11 @@
 
 	box-shadow: var(--prismleaf-region-sidebar-right-shadow);
 	padding: var(--prismleaf-space-2);
+}
+
+/* Region visibility toggle. */
+.prismleaf-sidebar-right-hidden .prismleaf-region-sidebar-right {
+	display: none;
 }
 
 /* Framed sidebar is square, borderless, and flat. */
@@ -62,13 +62,13 @@
 		grid-area: right;
 	}
 
-	.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained:not(.prismleaf-sidebar-right-hidden) .prismleaf-region-content > .prismleaf-region-sidebar-right {
-		grid-area: right;
-	}
-
 	/* Non-floating sidebars hug the viewport edge on desktop layouts. */
 	.prismleaf-layout-not-framed.prismleaf-sidebar-right-not-contained.prismleaf-sidebar-right-not-floating .prismleaf-region-sidebar-right {
 		margin-right: calc(-1 * var(--prismleaf-page-padding-x));
+	}
+
+	.prismleaf-layout-not-framed.prismleaf-sidebar-right-contained:not(.prismleaf-sidebar-right-hidden) .prismleaf-region-content > .prismleaf-region-sidebar-right {
+		grid-area: right;
 	}
 }
 
