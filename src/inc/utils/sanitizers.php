@@ -976,6 +976,40 @@ if ( ! function_exists( 'prismleaf_sanitize_header_icon_shape' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_sanitize_header_title_position' ) ) {
+	/**
+	 * Sanitize the header title position value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_header_title_position( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'left', 'center', 'right' );
+
+		return in_array( $value, $allowed, true ) ? $value : 'left';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_header_tagline_position' ) ) {
+	/**
+	 * Sanitize the header tagline position value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_header_tagline_position( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$allowed = array( 'inline', 'below' );
+
+		return in_array( $value, $allowed, true ) ? $value : 'inline';
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_background_preset' ) ) {
 	/**
 	 * Sanitize the background preset control value.

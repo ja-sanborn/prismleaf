@@ -371,10 +371,11 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_image_url' ) ) {
 	 * @param string $default_fallback Default fallback.
 	 * @return string
 	 */
-	function prismleaf_get_theme_mod_background_image_url( $setting_id, $default_key, $default_fallback = '' ) {
+function prismleaf_get_theme_mod_background_image_url( $setting_id, $default_key, $default_fallback = '' ) {
 		$id = prismleaf_get_theme_mod_background_image_id( $setting_id, $default_key, '' );
+		$url = '';
 
-		if ( '' !== $id) {
+		if ( '' !== $id ) {
 			$url = wp_get_attachment_image_url( $id, 'full' );
 			if ( '' === $url ) {
 				$url = wp_get_attachment_url( $id );
@@ -643,6 +644,94 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_header_icon_shape' ) ) {
 
 		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
 		return prismleaf_sanitize_header_icon_shape( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_header_title_position' ) ) {
+	/**
+	 * Get the header title position setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_value Default fallback.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_header_title_position( $setting_id = 'prismleaf_header_title_position', $default_key = 'header_title_position', $default_value = 'left' ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_value );
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_header_title_position( $default_value );
+		}
+
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_header_title_position( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_header_title_color' ) ) {
+	/**
+	 * Get the header title color setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_value Default fallback.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_header_title_color( $setting_id = 'prismleaf_header_title_color', $default_key = 'header_title_color', $default_value = '' ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_value );
+
+		$value = ( '' === $setting_id ) ? $default_value : prismleaf_get_theme_mod( $setting_id, $default_value );
+		$color = sanitize_hex_color( $value );
+
+		return $color ? $color : '';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_header_tagline_position' ) ) {
+	/**
+	 * Get the header tagline position setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_value Default fallback.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_header_tagline_position( $setting_id = 'prismleaf_header_tagline_position', $default_key = 'header_tagline_position', $default_value = 'inline' ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_value );
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_header_tagline_position( $default_value );
+		}
+
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_header_tagline_position( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_header_tagline_color' ) ) {
+	/**
+	 * Get the header tagline color setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_value Default fallback.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_header_tagline_color( $setting_id = 'prismleaf_header_tagline_color', $default_key = 'header_tagline_color', $default_value = '' ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_value );
+
+		$value = ( '' === $setting_id ) ? $default_value : prismleaf_get_theme_mod( $setting_id, $default_value );
+		$color = sanitize_hex_color( $value );
+
+		return $color ? $color : '';
 	}
 }
 

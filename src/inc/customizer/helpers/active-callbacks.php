@@ -63,6 +63,32 @@ if ( ! function_exists( 'prismleaf_is_header_background_control_active' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_is_header_icon_visible' ) ) {
+	/**
+	 * Check whether the header icon should be rendered.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_header_icon_visible() {
+		return 'none' !== prismleaf_get_theme_mod_header_icon_position();
+	}
+}
+
+if ( ! function_exists( 'prismleaf_is_header_icon_control_active' ) ) {
+	/**
+	 * Check whether header icon controls should be visible.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_header_icon_control_active() {
+		return prismleaf_is_header_control_active() && prismleaf_is_header_icon_visible();
+	}
+}
+
 if ( ! function_exists( 'prismleaf_is_sidebar_primary_control_active' ) ) {
 	/**
 	 * Check if primary sidebar controls should be visible.
@@ -74,6 +100,32 @@ if ( ! function_exists( 'prismleaf_is_sidebar_primary_control_active' ) ) {
 	function prismleaf_is_sidebar_primary_control_active() {
 		return ! prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false )
 			&& prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_primary_show', true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_is_header_tagline_active' ) ) {
+	/**
+	 * Determine whether the tagline is enabled.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_header_tagline_active() {
+		return prismleaf_get_theme_mod_bool( 'prismleaf_header_show_tagline', true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_is_header_tagline_control_active' ) ) {
+	/**
+	 * Check whether tagline controls should be visible.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_header_tagline_control_active() {
+		return prismleaf_is_header_control_active() && prismleaf_is_header_tagline_active();
 	}
 }
 

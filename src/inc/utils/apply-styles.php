@@ -25,6 +25,7 @@ if ( ! function_exists( 'prismleaf_output_customizer_styles' ) ) {
 		$css .= prismleaf_get_framed_css_vars();
 		$css .= prismleaf_get_header_css_vars();
 		$css .= prismleaf_get_header_icon_css_vars();
+		$css .= prismleaf_get_site_title_css_vars();
 		$css .= prismleaf_get_footer_css_vars();
 		$css .= prismleaf_get_sidebar_css_vars();
 		$css .= prismleaf_get_content_css_vars();
@@ -460,6 +461,36 @@ if ( ! function_exists( 'prismleaf_get_header_icon_css_vars' ) ) {
 		$css  = '';
 		$css .= prismleaf_build_css_var( '--prismleaf-site-icon-size', $size_value );
 		$css .= prismleaf_build_css_var( '--prismleaf-site-icon-border-radius', $radius_value );
+
+	return $css;
+}
+}
+
+if ( ! function_exists( 'prismleaf_get_site_title_css_vars' ) ) {
+	/**
+	 * Build CSS variables for the site title tokens.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_site_title_css_vars() {
+		$title_color   = prismleaf_get_theme_mod_header_title_color();
+		$tagline_color = prismleaf_get_theme_mod_header_tagline_color();
+		$tagline_position = prismleaf_get_theme_mod_header_tagline_position();
+
+		$css  = '';
+
+		if ( '' !== $title_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-header-title-color', $title_color );
+		}
+
+		if ( '' !== $tagline_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-header-tagline-color', $tagline_color );
+		}
+
+		$flex_direction = 'inline' === $tagline_position ? 'row' : 'column';
+		$css .= prismleaf_build_css_var( '--prismleaf-site-title-flex-direction', $flex_direction );
 
 		return $css;
 	}
