@@ -1,136 +1,142 @@
+/**
+ * Prismleaf Mobile Menu Switch
+ *
+ * Handles the hamburger toggle, focus trapping, and overlay display.
+ *
+ * @package
+ */
+
 (function () {
 	'use strict';
 
 	const toggle = document.querySelector(
 		'[data-prismleaf-mobile-menu-toggle]'
 	);
-	const overlay = document.querySelector(
-		'[data-prismleaf-mobile-menu-overlay]'
-	);
-	const dialog = document.querySelector(
-		'[data-prismleaf-mobile-menu-dialog]'
-	);
+	const overlay = document.querySelector('[data-prismleaf-mobile-menu]');
 
-	if (!toggle || !overlay || !dialog) {
+	if (!toggle || !overlay) {
 		return;
 	}
 
-	const doc = dialog.ownerDocument;
+	const mobileMenuPanel = overlay.querySelector('.prismleaf-menu-mobile');
+	const mobileMenuLinks = Array.from(
+		overlay.querySelectorAll(
+			'.prismleaf-menu-mobile .prismleaf-menu-items > li > a'
+		)
+	);
+
+	const focusableSelector =
+		'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+	let firstFocusable = null;
+	let lastFocusable = null;
 	let isOpen = false;
-	let lastFocused = null;
 
-	function getFocusableElements() {
-		return Array.prototype.slice
-			.call(
-				dialog.querySelectorAll(
-					'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-				)
-			)
-			.filter(function (element) {
-				return element.offsetParent !== null;
-			});
-	}
+	const getFocusableElements = () => {
+		const all = Array.from(
+			overlay.querySelectorAll(focusableSelector)
+		).filter(
+			(element) =>
+				element.offsetWidth > 0 ||
+				element.offsetHeight > 0 ||
+				element.getClientRects().length > 0
+		);
+		firstFocusable = all[0] || null;
+		lastFocusable = all[all.length - 1] || null;
+	};
 
-	function setOpenState(open) {
-		isOpen = open;
-		toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-		if (toggle.dataset) {
-			const label = open
-				? toggle.dataset.labelClose
-				: toggle.dataset.labelOpen;
-			if (label) {
-				toggle.setAttribute('aria-label', label);
-			}
+	const trapFocus = (event) => {
+		if ('Tab' !== event.key || !isOpen) {
+			return;
 		}
-		overlay.hidden = !open;
-		overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
 
-		if (open) {
-			doc.body.classList.add('prismleaf-mobile-menu-open');
-			dialog.focus();
-		} else {
-			doc.body.classList.remove('prismleaf-mobile-menu-open');
-			if (lastFocused && typeof lastFocused.focus === 'function') {
-				lastFocused.focus();
-			}
+		if (!firstFocusable || !lastFocusable) {
+			event.preventDefault();
+			overlay.focus();
+			return;
 		}
-	}
 
-	function openMenu() {
+		const doc = overlay.ownerDocument || document;
+		const activeElement = doc.activeElement;
+
+		if (event.shiftKey) {
+			if (activeElement === firstFocusable || activeElement === overlay) {
+				event.preventDefault();
+				lastFocusable.focus();
+			}
+		} else if (activeElement === lastFocusable) {
+			event.preventDefault();
+			firstFocusable.focus();
+		}
+	};
+
+	const handleKeydown = (event) => {
+		if ('Escape' === event.key) {
+			closeMenu();
+			return;
+		}
+
+		trapFocus(event);
+	};
+
+	const handleOutsideClick = (event) => {
+		if (toggle.contains(event.target)) {
+			return;
+		}
+
+		const isInsidePanel =
+			mobileMenuPanel && mobileMenuPanel.contains(event.target);
+
+		if (!isInsidePanel) {
+			closeMenu();
+			return;
+		}
+
+		const clickedMenuLink = mobileMenuLinks.some((link) =>
+			link.contains(event.target)
+		);
+
+		if (!clickedMenuLink) {
+			closeMenu();
+		}
+	};
+
+	const openMenu = () => {
 		if (isOpen) {
 			return;
 		}
 
-		lastFocused = doc.activeElement;
-		setOpenState(true);
+		isOpen = true;
+		overlay.classList.add('is-open');
+		toggle.classList.add('is-open');
+		toggle.setAttribute('aria-expanded', 'true');
+		overlay.setAttribute('aria-hidden', 'false');
+		overlay.focus();
+		getFocusableElements();
+		document.addEventListener('click', handleOutsideClick);
+		document.addEventListener('keydown', handleKeydown);
+	};
 
-		const focusables = getFocusableElements();
-		if (focusables.length > 0) {
-			focusables[0].focus();
-		}
-	}
-
-	function closeMenu() {
+	const closeMenu = () => {
 		if (!isOpen) {
 			return;
 		}
 
-		setOpenState(false);
-	}
+		isOpen = false;
+		overlay.classList.remove('is-open');
+		toggle.classList.remove('is-open');
+		toggle.setAttribute('aria-expanded', 'false');
+		overlay.setAttribute('aria-hidden', 'true');
+		document.removeEventListener('click', handleOutsideClick);
+		document.removeEventListener('keydown', handleKeydown);
+		toggle.focus();
+	};
 
-	toggle.addEventListener('click', function () {
+	toggle.addEventListener('click', (event) => {
+		event.preventDefault();
 		if (isOpen) {
 			closeMenu();
 		} else {
 			openMenu();
-		}
-	});
-
-	overlay.addEventListener('click', function (event) {
-		if (event.target === overlay) {
-			closeMenu();
-		}
-	});
-
-	dialog.addEventListener('click', function (event) {
-		const link = event.target.closest('a');
-		if (link) {
-			closeMenu();
-		}
-	});
-
-	doc.addEventListener('keydown', function (event) {
-		if (!isOpen) {
-			return;
-		}
-
-		if (event.key === 'Escape') {
-			event.preventDefault();
-			closeMenu();
-			return;
-		}
-
-		if (event.key !== 'Tab') {
-			return;
-		}
-
-		const focusables = getFocusableElements();
-		if (focusables.length === 0) {
-			event.preventDefault();
-			return;
-		}
-
-		const first = focusables[0];
-		const last = focusables[focusables.length - 1];
-
-		if (event.shiftKey) {
-			if (doc.activeElement === first) {
-				event.preventDefault();
-				last.focus();
-			}
-		} else if (doc.activeElement === last) {
-			event.preventDefault();
-			first.focus();
 		}
 	});
 })();

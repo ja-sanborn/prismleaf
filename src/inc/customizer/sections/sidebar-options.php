@@ -2,7 +2,7 @@
 /**
  * Prismleaf Customizer: Sidebar Options
  *
- * Registers Customizer settings for sidebar layout and styling.
+ * Registers the Sidebar Options section.
  *
  * @package prismleaf
  */
@@ -11,379 +11,431 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'prismleaf_customize_register_sidebar_layout' ) ) {
+if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 	/**
-	 * Register sidebar layout controls.
+	 * Register the Sidebar Options section in the Customizer.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
 	 * @return void
 	 */
-	function prismleaf_customize_register_sidebar_layout( $wp_customize ) {
-		if ( ! $wp_customize->get_panel( 'prismleaf_theme_options' ) ) {
-			return;
-		}
-
-		$section_id = 'prismleaf_sidebar_options';
-		prismleaf_register_theme_option_section( $wp_customize, $section_id );
-
-		$sidebars = array(
-			'left'  => __( 'Left sidebar', 'prismleaf' ),
-			'right' => __( 'Right sidebar', 'prismleaf' ),
+	function prismleaf_register_sidebar_options_section( $wp_customize ) {
+		prismleaf_register_options_section(
+			$wp_customize,
+			array(
+				'id'          => 'prismleaf_sidebar_options',
+				'title'       => __( 'Sidebar Styling', 'prismleaf' ),
+				'description' => __( 'Configure left and right sidebar layout and styling.', 'prismleaf' ),
+				'priority'    => 50,
+			)
 		);
 
-		$sidebar_headers = array(
-			'left'  => __( 'Left Sidebar', 'prismleaf' ),
-			'right' => __( 'Right Sidebar', 'prismleaf' ),
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_sidebar_heading_layout',
+				'label'      => __( 'Sidebar Layout', 'prismleaf' ),
+				'section'    => 'prismleaf_sidebar_options',
+				'priority'   => 1000,
+			)
 		);
 
-		foreach ( $sidebars as $side => $label ) {
-			$priority_base   = ( 'left' === $side ) ? 40 : 60;
-			$visible_setting = "prismleaf_layout_sidebar_{$side}_visible";
-			$width_setting   = "prismleaf_layout_sidebar_{$side}_width";
-			$coll_setting    = "prismleaf_layout_sidebar_{$side}_collapsible";
-			$cont_setting    = "prismleaf_layout_sidebar_{$side}_contained";
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_swap',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Swap primary and secondary sidebar', 'prismleaf' ),
+				'description'      => __( 'Moves primary from left to right and secondary from right to left when enabled.', 'prismleaf' ),
+				'priority'         => 1010,
+				'default_key'      => 'sidebar_swap',
+				'default_fallback' => false,
+			)
+		);
 
-			$wp_customize->add_setting(
-				"prismleaf_layout_heading_sidebar_{$side}",
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'sanitize_callback' => 'sanitize_text_field',
-					'transport'         => 'refresh',
-				)
-			);
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_hide_on_front',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Hide sidebars on front page', 'prismleaf' ),
+				'description'      => __( 'Prevents both sidebars from rendering on the site front page.', 'prismleaf' ),
+				'priority'         => 1020,
+				'default_key'      => 'sidebar_hide_on_front',
+				'default_fallback' => false,
+			)
+		);
 
-			$wp_customize->add_control(
-				new Prismleaf_Customize_Section_Header_Control(
-					$wp_customize,
-					"prismleaf_layout_heading_sidebar_{$side}",
-					array(
-						'section'  => $section_id,
-						'label'    => isset( $sidebar_headers[ $side ] ) ? $sidebar_headers[ $side ] : $label,
-						'priority' => $priority_base,
-					)
-				)
-			);
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_sidebar_heading_primary_layout',
+				'label'      => __( 'Primary Layout', 'prismleaf' ),
+				'section'    => 'prismleaf_sidebar_options',
+				'priority'   => 2000,
+			)
+		);
 
-			$wp_customize->add_setting(
-				$visible_setting,
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => true,
-					'sanitize_callback' => 'wp_validate_boolean',
-					'transport'         => 'refresh',
-				)
-			);
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_primary_show',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Show primary sidebar', 'prismleaf' ),
+				'description'      => __( 'Controls whether the primary sidebar is displayed.', 'prismleaf' ),
+				'priority'         => 2010,
+				'default_key'      => 'sidebar_primary_show',
+				'default_fallback' => true,
+			)
+		);
 
-			$wp_customize->add_control(
-				$visible_setting,
-				array(
-					'type'            => 'checkbox',
-					'section'         => $section_id,
-					/* translators: %s is sidebar name. */
-					'label'           => sprintf( __( 'Show %s', 'prismleaf' ), $label ),
-					'description'     => __( 'Controls whether this sidebar is displayed.', 'prismleaf' ),
-					'active_callback' => 'prismleaf_customize_callback_not_all_hidden',
-					'priority'        => $priority_base + 1,
-				)
-			);
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_primary_contained',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Contain primary sidebar', 'prismleaf' ),
+				'description'      => __( 'When enabled, the primary sidebar is rendered inside the inner frame.', 'prismleaf' ),
+				'priority'         => 2020,
+				'default_key'      => 'sidebar_primary_contained',
+				'default_fallback' => true,
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
+			)
+		);
 
-			$wp_customize->add_setting(
-				$cont_setting,
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => true,
-					'sanitize_callback' => 'wp_validate_boolean',
-					'transport'         => 'refresh',
-				)
-			);
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_primary_floating',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Floating primary sidebar', 'prismleaf' ),
+				'description'      => __( 'When disabled, the primary sidebar stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
+				'priority'         => 2030,
+				'default_key'      => 'sidebar_primary_floating',
+				'default_fallback' => true,
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
+			)
+		);
 
-			$wp_customize->add_control(
-				$cont_setting,
-				array(
-					'type'            => 'checkbox',
-					'section'         => $section_id,
-					/* translators: %s is sidebar name. */
-					'label'           => sprintf( __( 'Contain %s', 'prismleaf' ), $label ),
-					'description'     => __(
-						'When enabled, the sidebar is visually separated from the site edges. This option is disabled when using the framed layout.',
-						'prismleaf'
-					),
-					'active_callback' => 'prismleaf_customize_callback_sidebar_contained_active',
-					'priority'        => $priority_base + 2,
-				)
-			);
+		prismleaf_add_number_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_primary_width',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Sidebar width', 'prismleaf' ),
+				'description'      => __( 'Adjust the primary sidebar width in pixels.', 'prismleaf' ),
+				'priority'         => 2040,
+				'default_key'      => 'sidebar_primary_width',
+				'default_fallback' => '260',
+				'sanitize_callback'=> 'prismleaf_sanitize_sidebar_width_control',
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
+				'input_attrs'      => array(
+					'min' => 150,
+					'max' => 300,
+					'step'=> 1,
+				),
+			)
+		);
 
-			$floating_setting = "prismleaf_layout_sidebar_{$side}_floating";
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id'      => 'prismleaf_sidebar_heading_primary_style',
+				'label'           => __( 'Primary Style', 'prismleaf' ),
+				'section'         => 'prismleaf_sidebar_options',
+				'priority'        => 3000,
+				'active_callback' => 'prismleaf_is_sidebar_primary_control_active',
+			)
+		);
 
-			$wp_customize->add_setting(
-				$floating_setting,
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => true,
-					'sanitize_callback' => 'wp_validate_boolean',
-					'transport'         => 'refresh',
-				)
-			);
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_sidebar_primary_background_color_source',
+				'base_setting_id'          => 'prismleaf_sidebar_primary_background_color_base',
+				'palette_setting_id'       => 'prismleaf_sidebar_primary_background_color_palette',
+				'section'                  => 'prismleaf_sidebar_options',
+				'label'                    => __( 'Background color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 3010,
+				'active_callback'          => 'prismleaf_is_sidebar_primary_background_control_active',
+				'source_default_key'       => 'sidebar_primary_background_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'sidebar_primary_background_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'sidebar_primary_background_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
 
-			$wp_customize->add_control(
-				$floating_setting,
-				array(
-					'type'            => 'checkbox',
-					'section'         => $section_id,
-					/* translators: %s is sidebar name. */
-					'label'           => sprintf( __( 'Floating %s', 'prismleaf' ), $label ),
-					'description'     => __( 'When disabled, the sidebar stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
-					'active_callback' => 'prismleaf_customize_callback_sidebar_floating_active',
-					'priority'        => $priority_base + 3,
-				)
-			);
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_primary_border_corners',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Border corners', 'prismleaf' ),
+				'description'      => __( 'Controls the roundness of the primary sidebar corners.', 'prismleaf' ),
+				'priority'         => 3020,
+				'default_key'      => 'sidebar_primary_border_corners',
+				'default_fallback' => 'Round',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
+				'choices'          => array(
+					'Square' => __( 'Square', 'prismleaf' ),
+					'Round'  => __( 'Round', 'prismleaf' ),
+				),
+			)
+		);
 
-			$wp_customize->add_setting(
-				$width_setting,
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => 300,
-					'sanitize_callback' => 'prismleaf_sanitize_sidebar_width',
-					'transport'         => 'refresh',
-				)
-			);
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_primary_border_style',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Border style', 'prismleaf' ),
+				'description'      => __( 'Sets the primary sidebar border line style.', 'prismleaf' ),
+				'priority'         => 3030,
+				'default_key'      => 'sidebar_primary_border_style',
+				'default_fallback' => 'solid',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
+				'choices'          => array(
+					'none'   => __( 'None', 'prismleaf' ),
+					'solid'  => __( 'Solid', 'prismleaf' ),
+					'dotted' => __( 'Dotted', 'prismleaf' ),
+					'dashed' => __( 'Dashed', 'prismleaf' ),
+				),
+			)
+		);
 
-			$wp_customize->add_control(
-				$width_setting,
-				array(
-					'type'            => 'number',
-					'section'         => $section_id,
-					/* translators: %s is sidebar name. */
-					'label'           => sprintf( __( '%s width (desktop)', 'prismleaf' ), $label ),
-					'description'     => __( 'Width in pixels on desktop layouts.', 'prismleaf' ),
-					'input_attrs'     => array(
-						'min'  => 200,
-						'max'  => 400,
-						'step' => 10,
-					),
-					'active_callback' => 'prismleaf_customize_callback_sidebar_visible',
-					'priority'        => $priority_base + 4,
-				)
-			);
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_sidebar_primary_border_color_source',
+				'base_setting_id'          => 'prismleaf_sidebar_primary_border_color_base',
+				'palette_setting_id'       => 'prismleaf_sidebar_primary_border_color_palette',
+				'section'                  => 'prismleaf_sidebar_options',
+				'label'                    => __( 'Border color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 3040,
+				'active_callback'          => 'prismleaf_is_sidebar_primary_control_active',
+				'source_default_key'       => 'sidebar_primary_border_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'sidebar_primary_border_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'sidebar_primary_border_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
 
-			$wp_customize->add_setting(
-				$coll_setting,
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => true,
-					'sanitize_callback' => 'wp_validate_boolean',
-					'transport'         => 'refresh',
-				)
-			);
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_primary_elevation',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Elevation', 'prismleaf' ),
+				'description'      => __( 'Sets the elevation level for the primary sidebar.', 'prismleaf' ),
+				'priority'         => 3050,
+				'default_key'      => 'sidebar_primary_elevation',
+				'default_fallback' => 'elevation-2',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
+				'active_callback'  => 'prismleaf_is_sidebar_primary_control_active',
+				'choices'          => array(
+					'none'        => __( 'None', 'prismleaf' ),
+					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
+					'elevation-2' => __( 'Elevation 2', 'prismleaf' ),
+					'elevation-3' => __( 'Elevation 3', 'prismleaf' ),
+					'elevation-4' => __( 'Elevation 4', 'prismleaf' ),
+					'elevation-5' => __( 'Elevation 5', 'prismleaf' ),
+				),
+			)
+		);
 
-			$wp_customize->add_control(
-				$coll_setting,
-				array(
-					'type'            => 'checkbox',
-					'section'         => $section_id,
-					/* translators: %s is sidebar name. */
-					'label'           => sprintf( __( '%s collapsible on desktop', 'prismleaf' ), $label ),
-					'description'     => __( 'When enabled, the sidebar can collapse. Collapsing does not apply to the stacked mobile layout.', 'prismleaf' ),
-					'active_callback' => 'prismleaf_customize_callback_sidebar_visible',
-					'priority'        => $priority_base + 5,
-				)
-			);
-		}
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_sidebar_heading_secondary_layout',
+				'label'      => __( 'Secondary Layout', 'prismleaf' ),
+				'section'    => 'prismleaf_sidebar_options',
+				'priority'   => 4000,
+			)
+		);
+
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_secondary_show',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Show secondary sidebar', 'prismleaf' ),
+				'description'      => __( 'Controls whether the secondary sidebar is displayed.', 'prismleaf' ),
+				'priority'         => 4010,
+				'default_key'      => 'sidebar_secondary_show',
+				'default_fallback' => true,
+			)
+		);
+
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_secondary_contained',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Contain secondary sidebar', 'prismleaf' ),
+				'description'      => __( 'When enabled, the secondary sidebar is rendered inside the inner frame.', 'prismleaf' ),
+				'priority'         => 4020,
+				'default_key'      => 'sidebar_secondary_contained',
+				'default_fallback' => true,
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
+			)
+		);
+
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_secondary_floating',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Floating secondary sidebar', 'prismleaf' ),
+				'description'      => __( 'When disabled, the secondary sidebar stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
+				'priority'         => 4030,
+				'default_key'      => 'sidebar_secondary_floating',
+				'default_fallback' => true,
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
+			)
+		);
+
+		prismleaf_add_number_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_secondary_width',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Sidebar width', 'prismleaf' ),
+				'description'      => __( 'Adjust the secondary sidebar width in pixels.', 'prismleaf' ),
+				'priority'         => 4040,
+				'default_key'      => 'sidebar_secondary_width',
+				'default_fallback' => '200',
+				'sanitize_callback'=> 'prismleaf_sanitize_sidebar_width_control',
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
+				'input_attrs'      => array(
+					'min' => 150,
+					'max' => 300,
+					'step'=> 1,
+				),
+			)
+		);
+
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id'      => 'prismleaf_sidebar_heading_secondary_style',
+				'label'           => __( 'Secondary Style', 'prismleaf' ),
+				'section'         => 'prismleaf_sidebar_options',
+				'priority'        => 5000,
+				'active_callback' => 'prismleaf_is_sidebar_secondary_control_active',
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_sidebar_secondary_background_color_source',
+				'base_setting_id'          => 'prismleaf_sidebar_secondary_background_color_base',
+				'palette_setting_id'       => 'prismleaf_sidebar_secondary_background_color_palette',
+				'section'                  => 'prismleaf_sidebar_options',
+				'label'                    => __( 'Background color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 5010,
+				'active_callback'          => 'prismleaf_is_sidebar_secondary_background_control_active',
+				'source_default_key'       => 'sidebar_secondary_background_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'sidebar_secondary_background_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'sidebar_secondary_background_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_secondary_border_corners',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Border corners', 'prismleaf' ),
+				'description'      => __( 'Controls the roundness of the secondary sidebar corners.', 'prismleaf' ),
+				'priority'         => 5020,
+				'default_key'      => 'sidebar_secondary_border_corners',
+				'default_fallback' => 'Round',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
+				'choices'          => array(
+					'Square' => __( 'Square', 'prismleaf' ),
+					'Round'  => __( 'Round', 'prismleaf' ),
+				),
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_secondary_border_style',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Border style', 'prismleaf' ),
+				'description'      => __( 'Sets the secondary sidebar border line style.', 'prismleaf' ),
+				'priority'         => 5030,
+				'default_key'      => 'sidebar_secondary_border_style',
+				'default_fallback' => 'solid',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
+				'choices'          => array(
+					'none'   => __( 'None', 'prismleaf' ),
+					'solid'  => __( 'Solid', 'prismleaf' ),
+					'dotted' => __( 'Dotted', 'prismleaf' ),
+					'dashed' => __( 'Dashed', 'prismleaf' ),
+				),
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_sidebar_secondary_border_color_source',
+				'base_setting_id'          => 'prismleaf_sidebar_secondary_border_color_base',
+				'palette_setting_id'       => 'prismleaf_sidebar_secondary_border_color_palette',
+				'section'                  => 'prismleaf_sidebar_options',
+				'label'                    => __( 'Border color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 5040,
+				'active_callback'          => 'prismleaf_is_sidebar_secondary_control_active',
+				'source_default_key'       => 'sidebar_secondary_border_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'sidebar_secondary_border_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'sidebar_secondary_border_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_secondary_elevation',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Elevation', 'prismleaf' ),
+				'description'      => __( 'Sets the elevation level for the secondary sidebar.', 'prismleaf' ),
+				'priority'         => 5050,
+				'default_key'      => 'sidebar_secondary_elevation',
+				'default_fallback' => 'elevation-2',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
+				'active_callback'  => 'prismleaf_is_sidebar_secondary_control_active',
+				'choices'          => array(
+					'none'        => __( 'None', 'prismleaf' ),
+					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
+					'elevation-2' => __( 'Elevation 2', 'prismleaf' ),
+					'elevation-3' => __( 'Elevation 3', 'prismleaf' ),
+					'elevation-4' => __( 'Elevation 4', 'prismleaf' ),
+					'elevation-5' => __( 'Elevation 5', 'prismleaf' ),
+				),
+			)
+		);
 	}
 }
-add_action( 'customize_register', 'prismleaf_customize_register_sidebar_layout' );
-
-if ( ! function_exists( 'prismleaf_customize_register_sidebar_style' ) ) {
-	/**
-	 * Register Customizer controls for sidebar styling.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
-	 * @return void
-	 */
-	function prismleaf_customize_register_sidebar_style( $wp_customize ) {
-		if ( ! $wp_customize instanceof WP_Customize_Manager ) {
-			return;
-		}
-
-		if ( ! $wp_customize->get_panel( 'prismleaf_theme_options' ) ) {
-			return;
-		}
-
-		$section_id = 'prismleaf_sidebar_options';
-		prismleaf_register_theme_option_section( $wp_customize, $section_id );
-
-		$regions = array(
-			'sidebar_left'  => array(
-				'label'       => __( 'Left Sidebar', 'prismleaf' ),
-				'description' => __( 'Controls the left sidebar region surface.', 'prismleaf' ),
-			),
-			'sidebar_right' => array(
-				'label'       => __( 'Right Sidebar', 'prismleaf' ),
-				'description' => __( 'Controls the right sidebar region surface.', 'prismleaf' ),
-			),
-		);
-
-		foreach ( $regions as $key => $config ) {
-			$prefix = "prismleaf_global_{$key}_";
-
-			$wp_customize->add_setting(
-				"prismleaf_global_heading_{$key}",
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'sanitize_callback' => 'sanitize_text_field',
-					'transport'         => 'refresh',
-				)
-			);
-
-			$wp_customize->add_control(
-				new Prismleaf_Customize_Section_Header_Control(
-					$wp_customize,
-					"prismleaf_global_heading_{$key}",
-					array(
-						'section'     => $section_id,
-						'label'       => $config['label'],
-						'description' => $config['description'],
-					)
-				)
-			);
-
-			$wp_customize->add_setting(
-				$prefix . 'border_style',
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => null,
-					'sanitize_callback' => 'prismleaf_sanitize_border_style_or_empty',
-					'transport'         => 'refresh',
-				)
-			);
-
-			$wp_customize->add_control(
-				$prefix . 'border_style',
-				array(
-					'type'        => 'select',
-					'section'     => $section_id,
-					'label'       => __( 'Border style', 'prismleaf' ),
-					'description' => __( 'Optional. Use Default to keep the theme token-driven border behavior.', 'prismleaf' ),
-					'choices'     => array(
-						''       => __( 'Default (use theme)', 'prismleaf' ),
-						'none'   => __( 'None', 'prismleaf' ),
-						'solid'  => __( 'Solid', 'prismleaf' ),
-						'dashed' => __( 'Dashed', 'prismleaf' ),
-						'dotted' => __( 'Dotted', 'prismleaf' ),
-						'double' => __( 'Double', 'prismleaf' ),
-					),
-				)
-			);
-
-			$wp_customize->add_setting(
-				$prefix . 'border_color',
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => null,
-					'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
-					'transport'         => 'refresh',
-				)
-			);
-
-			$wp_customize->add_control(
-				new WP_Customize_Color_Control(
-					$wp_customize,
-					$prefix . 'border_color',
-					array(
-						'section'     => $section_id,
-						'label'       => __( 'Border color', 'prismleaf' ),
-						'description' => __( 'Optional. Leave blank to use the theme default outline color.', 'prismleaf' ),
-					)
-				)
-			);
-
-			$wp_customize->add_setting(
-				$prefix . 'background',
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => null,
-					'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
-					'transport'         => 'refresh',
-				)
-			);
-
-			$wp_customize->add_control(
-				new WP_Customize_Color_Control(
-					$wp_customize,
-					$prefix . 'background',
-					array(
-						'section'     => $section_id,
-						'label'       => __( 'Background', 'prismleaf' ),
-						'description' => __( 'Optional. Leave blank to use token-driven defaults.', 'prismleaf' ),
-					)
-				)
-			);
-
-			$wp_customize->add_setting(
-				$prefix . 'foreground',
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => null,
-					'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
-					'transport'         => 'refresh',
-				)
-			);
-
-			$wp_customize->add_control(
-				new WP_Customize_Color_Control(
-					$wp_customize,
-					$prefix . 'foreground',
-					array(
-						'section'     => $section_id,
-						'label'       => __( 'Foreground', 'prismleaf' ),
-						'description' => __( 'Optional. Leave blank to use token-driven defaults.', 'prismleaf' ),
-					)
-				)
-			);
-
-			$wp_customize->add_setting(
-				$prefix . 'elevation',
-				array(
-					'type'              => 'theme_mod',
-					'capability'        => 'edit_theme_options',
-					'default'           => null,
-					'sanitize_callback' => 'prismleaf_sanitize_elevation_0_3',
-					'transport'         => 'refresh',
-				)
-			);
-
-			$wp_customize->add_control(
-				$prefix . 'elevation',
-				array(
-					'type'        => 'select',
-					'section'     => $section_id,
-					'label'       => __( 'Elevation', 'prismleaf' ),
-					'description' => __( 'Optional. Use Default to keep theme tokens. Set None to explicitly remove elevation effects (no shadow, no glow).', 'prismleaf' ),
-					'choices'     => array(
-						'' => __( 'Default (use theme)', 'prismleaf' ),
-						0  => __( 'None', 'prismleaf' ),
-						1  => __( 'Elevation 1', 'prismleaf' ),
-						2  => __( 'Elevation 2', 'prismleaf' ),
-						3  => __( 'Elevation 3', 'prismleaf' ),
-					),
-				)
-			);
-		}
-	}
-}
-add_action( 'customize_register', 'prismleaf_customize_register_sidebar_style' );
+add_action( 'customize_register', 'prismleaf_register_sidebar_options_section' );

@@ -1,0 +1,235 @@
+/**
+ * Prismleaf Layout
+ *
+ * Base layout resets and element defaults.
+ *
+ * @package prismleaf
+ */
+
+/* Border-box sizing. */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* Reset default margins. */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+figure,
+pre,
+dl,
+dd,
+ul,
+ol,
+hr {
+	margin: 0;
+}
+
+/* Body baseline sizing. */
+html,
+body {
+	height: var(--prismleaf-view-height);
+	overflow-x: hidden;
+	overflow-y: var(--prismleaf-frame-overflow);
+}
+
+body {
+	min-height: 100svh;
+}
+
+/* Prefer dynamic viewport height when supported. */
+@supports (min-height: 100dvh) {
+
+	body {
+		min-height: 100dvh;
+	}
+}
+
+/* Normalize list spacing. */
+ul,
+ol {
+	padding-left: 1.25em;
+	margin: 0;
+}
+
+/* Use disc markers for unordered lists. */
+ul {
+	list-style: disc;
+}
+
+/* Use decimal markers for ordered lists. */
+ol {
+	list-style: decimal;
+}
+
+/* Remove default list item margins. */
+li {
+	margin: 0;
+}
+
+/* Normalize blockquote spacing. */
+blockquote {
+	margin-left: var(--prismleaf-space-3);
+	margin-right: var(--prismleaf-space-3);
+	padding: 0;
+}
+
+/* Normalize blockquote citations. */
+blockquote cite {
+	display: block;
+}
+
+/* Token-driven divider rule. */
+hr {
+	height: var(--prismleaf-border-width-thin);
+	border: 0;
+}
+
+/* Offset anchored targets for fixed UI. */
+:target {
+	scroll-margin-top: var(--prismleaf-admin-bar-offset);
+}
+
+/* Normalize form controls. */
+button,
+input,
+select,
+textarea {
+	border-style: var(--prismleaf-border-style);
+	border-radius: 0;
+	border-width: var(--prismleaf-border-width-thin);
+	padding-block: var(--prismleaf-control-padding-y);
+	padding-inline: var(--prismleaf-control-padding-x);
+	margin: 0;
+}
+
+/* Pointer cursor for button-like inputs. */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+	cursor: pointer;
+}
+
+/* Normalize fieldset and legend. */
+fieldset {
+	min-inline-size: 0;
+	margin: 0;
+	padding: var(--prismleaf-space-3);
+	border: 0;
+	border-radius: 0;
+}
+
+legend {
+	padding-inline: var(--prismleaf-space-2);
+}
+
+/* Reduce disabled control affordance. */
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+	cursor: not-allowed;
+}
+
+/* Focus-visible border styling. */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+	outline: none;
+	box-shadow: none;
+	border-style: var(--prismleaf-border-style);
+	border-color: var(--prismleaf-color-primary-1);
+}
+
+/* Normalize WebKit search inputs. */
+input[type="search"] {
+	-webkit-appearance: textfield;
+	appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+/* Pointer cursor for summary. */
+summary {
+	cursor: pointer;
+}
+
+/* Constrain audio controls to content width. */
+audio {
+	width: 100%;
+}
+
+/* Prevent replaced media overflow. */
+progress,
+meter,
+img,
+picture,
+video,
+canvas,
+svg,
+audio,
+iframe,
+embed,
+object {
+	display: block;
+	max-width: 100%;
+}
+
+/* Preserve intrinsic image proportions. */
+img {
+	height: auto;
+}
+
+/* Normalize table layout and spacing. */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+}
+
+/* Table cell padding and separators. */
+th,
+td {
+	text-align: left;
+	padding: var(--prismleaf-space-2);
+	border-bottom-style: var(--prismleaf-border-style);
+	border-bottom-width: var(--prismleaf-border-width-thin);
+}
+
+/* Avoid chip styling at the baseline layer. */
+code {
+	padding: 0;
+}
+
+/* Readable preformatted blocks. */
+pre {
+	line-height: 1.5;
+	overflow: auto;
+	padding: var(--prismleaf-space-3);
+	border-radius: var(--prismleaf-radius-medium);
+	border-style: var(--prismleaf-border-style);
+	border-width: var(--prismleaf-border-width-thin);
+}
+
+/* Normalize label layout. */
+label {
+	display: inline-block;
+}
+
+/* Allow vertical resizing for textareas. */
+textarea {
+	resize: vertical;
+}

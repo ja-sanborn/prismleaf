@@ -1,0 +1,107 @@
+/**
+ * Prismleaf Accessibility
+ *
+ * Accessibility tokens and behaviors.
+ *
+ * @package prismleaf
+ */
+
+:root {
+
+	/* Focus outline tokens. */
+	--prismleaf-focus-width: 3px;
+	--prismleaf-focus-offset: 2px;
+	--prismleaf-focus-style: solid;
+	--prismleaf-focus-radius: var(--prismleaf-radius-small);
+
+	/* Motion tokens. */
+	--prismleaf-motion-multiplier: 1;
+
+	/* Durations (scaled by multiplier). */
+	--prismleaf-duration-fast: 120ms;
+	--prismleaf-duration-base: 180ms;
+	--prismleaf-duration-slow: 240ms;
+
+	/* Easing curves (MD3-aligned). */
+	--prismleaf-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+	--prismleaf-ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
+	--prismleaf-ease-decelerate: cubic-bezier(0, 0, 0, 1);
+	--prismleaf-ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+
+	/* Touch targets and control sizing. */
+	--prismleaf-tap-target-min: var(--prismleaf-space-6);
+	--prismleaf-control-padding-y: var(--prismleaf-space-2);
+	--prismleaf-control-padding-x: var(--prismleaf-space-3);
+	--prismleaf-control-min-height: var(--prismleaf-tap-target-min);
+}
+
+/* Accessibility helpers. */
+.screen-reader-text {
+	position: absolute;
+	inline-size: 1px;
+	block-size: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.screen-reader-text:focus,
+.screen-reader-text:active {
+	clip: auto;
+	inline-size: auto;
+	block-size: auto;
+	margin: 0;
+	padding: var(--prismleaf-space-1);
+	background: var(--prismleaf-color-surface-2);
+	color: var(--prismleaf-color-surface-on);
+	z-index: var(--prismleaf-z-dropdown);
+}
+
+/* Allow OS-managed colors in forced-colors mode. */
+@media (forced-colors: active) {
+
+	/* Underline links to provide a non-color cue. */
+	a {
+		text-decoration: underline;
+	}
+
+	/* Ensure borders remain visible with system colors. */
+	button,
+	input,
+	select,
+	textarea,
+	pre,
+	fieldset {
+		border: 1px solid CanvasText;
+	}
+
+	/* Use system highlight for focus indicators in forced colors. */
+	a:focus-visible,
+	button:focus-visible,
+	input:focus-visible,
+	select:focus-visible,
+	textarea:focus-visible,
+	summary:focus-visible,
+	[tabindex]:not([tabindex="-1"]):focus-visible {
+		outline: 2px solid Highlight;
+		outline-offset: 2px;
+	}
+}
+
+/* Respect reduced-motion preference. */
+@media (prefers-reduced-motion: reduce) {
+
+	* {
+		scroll-behavior: auto !important;
+		transition: none !important;
+		animation: none !important;
+	}
+
+	*::before,
+	*::after {
+		transition: none !important;
+		animation: none !important;
+	}
+}

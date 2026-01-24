@@ -2,7 +2,7 @@
 /**
  * Prismleaf Customizer: Content Options
  *
- * Registers Customizer settings for content styling.
+ * Registers the Content Options section.
  *
  * @package prismleaf
  */
@@ -11,176 +11,135 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'prismleaf_customize_register_content_style' ) ) {
+if ( ! function_exists( 'prismleaf_register_content_options_section' ) ) {
 	/**
-	 * Register Customizer controls for content styling.
+	 * Register the Content Options section in the Customizer.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
 	 * @return void
 	 */
-	function prismleaf_customize_register_content_style( $wp_customize ) {
-		if ( ! $wp_customize instanceof WP_Customize_Manager ) {
-			return;
-		}
-
-		if ( ! $wp_customize->get_panel( 'prismleaf_theme_options' ) ) {
-			return;
-		}
-
-		$section_id = 'prismleaf_content_options';
-		prismleaf_register_theme_option_section( $wp_customize, $section_id );
-
-		$prefix = 'prismleaf_global_content_';
-
-		$wp_customize->add_setting(
-			'prismleaf_global_heading_content',
-			array(
-				'type'              => 'theme_mod',
-				'capability'        => 'edit_theme_options',
-				'sanitize_callback' => 'sanitize_text_field',
-				'transport'         => 'refresh',
-			)
-		);
-
-		$wp_customize->add_control(
-			new Prismleaf_Customize_Section_Header_Control(
-				$wp_customize,
-				'prismleaf_global_heading_content',
+	function prismleaf_register_content_options_section( $wp_customize ) {
+		if ( ! $wp_customize->get_section( 'prismleaf_content_options' ) ) {
+			$wp_customize->add_section(
+				'prismleaf_content_options',
 				array(
-					'section'     => $section_id,
-					'label'       => __( 'Content', 'prismleaf' ),
-					'description' => __( 'Controls the content region branding surface (.prismleaf-region-content).', 'prismleaf' ),
+					'title'       => __( 'Content Styling', 'prismleaf' ),
+					'description' => __( 'Configure the content layout and styling.', 'prismleaf' ),
+					'panel'       => 'prismleaf_theme_options',
+					'priority'    => 60,
 				)
+			);
+		}
+
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_content_heading_style',
+				'label'      => __( 'Style', 'prismleaf' ),
+				'section'    => 'prismleaf_content_options',
+				'priority'   => 1000,
 			)
 		);
 
-		$wp_customize->add_setting(
-			$prefix . 'border_style',
+		prismleaf_add_palette_source_control(
+			$wp_customize,
 			array(
-				'type'              => 'theme_mod',
-				'capability'        => 'edit_theme_options',
-				'default'           => null,
-				'sanitize_callback' => 'prismleaf_sanitize_border_style_or_empty',
-				'transport'         => 'refresh',
+				'source_setting_id'        => 'prismleaf_content_background_color_source',
+				'base_setting_id'          => 'prismleaf_content_background_color_base',
+				'palette_setting_id'       => 'prismleaf_content_background_color_palette',
+				'section'                  => 'prismleaf_content_options',
+				'label'                    => __( 'Background color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 1010,
+				'source_default_key'       => 'content_background_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'content_background_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'content_background_color_palette',
+				'palette_default_fallback' => '',
 			)
 		);
 
-		$wp_customize->add_control(
-			$prefix . 'border_style',
+		prismleaf_add_select_control(
+			$wp_customize,
 			array(
-				'type'        => 'select',
-				'section'     => $section_id,
-				'label'       => __( 'Border style', 'prismleaf' ),
-				'description' => __( 'Optional. Use Default to keep the theme token-driven border behavior.', 'prismleaf' ),
-				'choices'     => array(
-					''       => __( 'Default (use theme)', 'prismleaf' ),
-					'none'   => __( 'None', 'prismleaf' ),
-					'solid'  => __( 'Solid', 'prismleaf' ),
-					'dashed' => __( 'Dashed', 'prismleaf' ),
-					'dotted' => __( 'Dotted', 'prismleaf' ),
-					'double' => __( 'Double', 'prismleaf' ),
+				'setting_id'       => 'prismleaf_content_border_corners',
+				'section'          => 'prismleaf_content_options',
+				'label'            => __( 'Border corners', 'prismleaf' ),
+				'description'      => __( 'Controls the roundness of the content corners.', 'prismleaf' ),
+				'priority'         => 1020,
+				'default_key'      => 'content_border_corners',
+				'default_fallback' => 'Round',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
+				'choices'          => array(
+					'Square' => __( 'Square', 'prismleaf' ),
+					'Round'  => __( 'Round', 'prismleaf' ),
 				),
 			)
 		);
 
-		$wp_customize->add_setting(
-			$prefix . 'border_color',
+		prismleaf_add_select_control(
+			$wp_customize,
 			array(
-				'type'              => 'theme_mod',
-				'capability'        => 'edit_theme_options',
-				'default'           => null,
-				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
-				'transport'         => 'refresh',
+				'setting_id'       => 'prismleaf_content_border_style',
+				'section'          => 'prismleaf_content_options',
+				'label'            => __( 'Border style', 'prismleaf' ),
+				'description'      => __( 'Sets the content border line style.', 'prismleaf' ),
+				'priority'         => 1030,
+				'default_key'      => 'content_border_style',
+				'default_fallback' => 'solid',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
+				'choices'          => array(
+					'none'   => __( 'None', 'prismleaf' ),
+					'solid'  => __( 'Solid', 'prismleaf' ),
+					'dotted' => __( 'Dotted', 'prismleaf' ),
+					'dashed' => __( 'Dashed', 'prismleaf' ),
+				),
 			)
 		);
 
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				$prefix . 'border_color',
-				array(
-					'section'     => $section_id,
-					'label'       => __( 'Border color', 'prismleaf' ),
-					'description' => __( 'Optional. Leave blank to use the theme default outline color.', 'prismleaf' ),
-				)
-			)
-		);
-
-		$wp_customize->add_setting(
-			$prefix . 'background',
+		prismleaf_add_palette_source_control(
+			$wp_customize,
 			array(
-				'type'              => 'theme_mod',
-				'capability'        => 'edit_theme_options',
-				'default'           => null,
-				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
-				'transport'         => 'refresh',
+				'source_setting_id'        => 'prismleaf_content_border_color_source',
+				'base_setting_id'          => 'prismleaf_content_border_color_base',
+				'palette_setting_id'       => 'prismleaf_content_border_color_palette',
+				'section'                  => 'prismleaf_content_options',
+				'label'                    => __( 'Border color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 1040,
+				'source_default_key'       => 'content_border_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'content_border_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'content_border_color_palette',
+				'palette_default_fallback' => '',
 			)
 		);
 
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				$prefix . 'background',
-				array(
-					'section'     => $section_id,
-					'label'       => __( 'Background', 'prismleaf' ),
-					'description' => __( 'Optional. Leave blank to use token-driven defaults.', 'prismleaf' ),
-				)
-			)
-		);
-
-		$wp_customize->add_setting(
-			$prefix . 'foreground',
+		prismleaf_add_select_control(
+			$wp_customize,
 			array(
-				'type'              => 'theme_mod',
-				'capability'        => 'edit_theme_options',
-				'default'           => null,
-				'sanitize_callback' => 'prismleaf_customize_sanitize_optional_hex_color_empty_ok',
-				'transport'         => 'refresh',
-			)
-		);
-
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				$prefix . 'foreground',
-				array(
-					'section'     => $section_id,
-					'label'       => __( 'Foreground', 'prismleaf' ),
-					'description' => __( 'Optional. Leave blank to use token-driven defaults.', 'prismleaf' ),
-				)
-			)
-		);
-
-		$wp_customize->add_setting(
-			$prefix . 'elevation',
-			array(
-				'type'              => 'theme_mod',
-				'capability'        => 'edit_theme_options',
-				'default'           => null,
-				'sanitize_callback' => 'prismleaf_sanitize_elevation_0_3',
-				'transport'         => 'refresh',
-			)
-		);
-
-		$wp_customize->add_control(
-			$prefix . 'elevation',
-			array(
-				'type'        => 'select',
-				'section'     => $section_id,
-				'label'       => __( 'Elevation', 'prismleaf' ),
-				'description' => __( 'Optional. Use Default to keep theme tokens. Set None to explicitly remove elevation effects (no shadow, no glow).', 'prismleaf' ),
-				'choices'     => array(
-					'' => __( 'Default (use theme)', 'prismleaf' ),
-					0  => __( 'None', 'prismleaf' ),
-					1  => __( 'Elevation 1', 'prismleaf' ),
-					2  => __( 'Elevation 2', 'prismleaf' ),
-					3  => __( 'Elevation 3', 'prismleaf' ),
+				'setting_id'       => 'prismleaf_content_elevation',
+				'section'          => 'prismleaf_content_options',
+				'label'            => __( 'Elevation', 'prismleaf' ),
+				'description'      => __( 'Sets the elevation level for the content area.', 'prismleaf' ),
+				'priority'         => 1050,
+				'default_key'      => 'content_elevation',
+				'default_fallback' => 'elevation-2',
+				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
+				'choices'          => array(
+					'none'        => __( 'None', 'prismleaf' ),
+					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
+					'elevation-2' => __( 'Elevation 2', 'prismleaf' ),
+					'elevation-3' => __( 'Elevation 3', 'prismleaf' ),
+					'elevation-4' => __( 'Elevation 4', 'prismleaf' ),
+					'elevation-5' => __( 'Elevation 5', 'prismleaf' ),
 				),
 			)
 		);
 	}
 }
-add_action( 'customize_register', 'prismleaf_customize_register_content_style' );
+add_action( 'customize_register', 'prismleaf_register_content_options_section' );

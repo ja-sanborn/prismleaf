@@ -29,16 +29,12 @@ if ( ! function_exists( 'prismleaf_enqueue_style' ) ) {
 				return;
 			}
 
-			$path = trailingslashit( get_stylesheet_directory() ) . $relative_path;
 			$uri  = trailingslashit( get_stylesheet_directory_uri() ) . $relative_path;
-
 			wp_enqueue_style( $handle, $uri, $deps, $ver );
 			return;
 		}
 
-		$path = PRISMLEAF_DIR . $relative_path;
 		$uri  = PRISMLEAF_URI . $relative_path;
-
 		wp_enqueue_style( $handle, $uri, $deps, $ver );
 	}
 }
@@ -60,160 +56,164 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		);
 		wp_style_add_data( 'prismleaf-style', 'rtl', 'replace' );
 
-		$token_handle = 'prismleaf-style';
+		$last_handle = 'prismleaf-style';
+
+		prismleaf_enqueue_style(
+			'prismleaf-constants',
+			'assets/styles/core/constants.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-constants', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-constants';
+
+		prismleaf_enqueue_style(
+			'prismleaf-typography',
+			'assets/styles/core/typography.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-typography', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-typography';
+
+		prismleaf_enqueue_style(
+			'prismleaf-colors',
+			'assets/styles/core/colors.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-colors', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-colors';
+
+		prismleaf_enqueue_style(
+			'prismleaf-layout',
+			'assets/styles/core/layout.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-layout', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-layout';
+
+		prismleaf_enqueue_style(
+			'prismleaf-frames',
+			'assets/styles/core/frames.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-frames', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-frames';
+
+		prismleaf_enqueue_style(
+			'prismleaf-header',
+			'assets/styles/core/header.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-header', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-header';
+
+		prismleaf_enqueue_style(
+			'prismleaf-footer',
+			'assets/styles/core/footer.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-footer', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-footer';
+
+		prismleaf_enqueue_style(
+			'prismleaf-sidebars',
+			'assets/styles/core/sidebars.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-sidebars', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-sidebars';
+
+		prismleaf_enqueue_style(
+			'prismleaf-content',
+			'assets/styles/core/content.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-content', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-content';
+
+		prismleaf_enqueue_style(
+			'prismleaf-widgets',
+			'assets/styles/core/widgets.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-widgets', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-widgets';
+
+		prismleaf_enqueue_style(
+			'prismleaf-theme-switch',
+			'assets/styles/components/theme-switch.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-theme-switch', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-theme-switch';
+
+		prismleaf_enqueue_style(
+			'prismleaf-site-icon',
+			'assets/styles/components/site-icon.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-site-icon', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-site-icon';
+
+		prismleaf_enqueue_style(
+			'prismleaf-site-title',
+			'assets/styles/components/site-title.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-site-title', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-site-title';
+
+		prismleaf_enqueue_style(
+			'prismleaf-menus',
+			'assets/styles/core/menus.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-menus', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-menus';
+
+		prismleaf_enqueue_style(
+			'prismleaf-mobile',
+			'assets/styles/core/mobile.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-mobile', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-mobile';
+
+		prismleaf_enqueue_style(
+			'prismleaf-accessibility',
+			'assets/styles/core/accessibility.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-accessibility', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-accessibility';
 
 		if ( is_child_theme() ) {
 			prismleaf_enqueue_style(
 				'prismleaf-child-style',
 				'style.css',
-				array( 'prismleaf-style' ),
+				array( $last_handle ),
 				wp_get_theme()->get( 'Version' )
 			);
-
-			$token_handle = 'prismleaf-child-style';
+			wp_style_add_data( 'prismleaf-child-style', 'rtl', 'replace' );
+			$last_handle = 'prismleaf-child-style';
 		}
 
-		prismleaf_enqueue_style(
-			'prismleaf-tokens-hardcoded',
-			'assets/styles/tokens/foundational.css',
-			array( $token_handle ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-tokens-hardcoded', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-tokens-colors',
-			'assets/styles/tokens/colors.css',
-			array( 'prismleaf-tokens-hardcoded' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-tokens-colors', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-tokens-active',
-			'assets/styles/tokens/active.css',
-			array( 'prismleaf-tokens-colors' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-tokens-active', 'rtl', 'replace' );
-
-		if ( function_exists( 'prismleaf_get_css_variable_overrides' ) ) {
-			$prismleaf_inline_vars = prismleaf_get_css_variable_overrides();
-			if ( '' !== $prismleaf_inline_vars ) {
-				wp_add_inline_style( 'prismleaf-tokens-active', $prismleaf_inline_vars );
-			}
-		}
-
-		prismleaf_enqueue_style(
-			'prismleaf-base',
-			'assets/styles/core/base.css',
-			array( 'prismleaf-tokens-active' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-base', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-frame',
-			'assets/styles/core/frame.css',
-			array( 'prismleaf-base' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-frame', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-header',
-			'assets/styles/core/header.css',
-			array( 'prismleaf-frame' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-header', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-footer',
-			'assets/styles/core/footer.css',
-			array( 'prismleaf-frame' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-footer', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-sidebar-left',
-			'assets/styles/core/sidebar-left.css',
-			array( 'prismleaf-frame' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-sidebar-left', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-sidebar-right',
-			'assets/styles/core/sidebar-right.css',
-			array( 'prismleaf-frame' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-sidebar-right', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-branding',
-			'assets/styles/components/branding.css',
-			array( 'prismleaf-header' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-branding', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-site-icon',
-			'assets/styles/components/site-icon.css',
-			array( 'prismleaf-header' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-site-icon', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-primary-menu',
-			'assets/styles/components/primary-menu.css',
-			array( 'prismleaf-header' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-primary-menu', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-secondary-menu',
-			'assets/styles/components/secondary-menu.css',
-			array( 'prismleaf-header' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-secondary-menu', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-mobile-menu',
-			'assets/styles/components/mobile-menu.css',
-			array( 'prismleaf-header' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-mobile-menu', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-theme-switch',
-			'assets/styles/components/theme-switch.css',
-			array( 'prismleaf-header' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-theme-switch', 'rtl', 'replace' );
-
-		prismleaf_enqueue_style(
-			'prismleaf-search',
-			'assets/styles/components/search.css',
-			array( 'prismleaf-header' ),
-			PRISMLEAF_VERSION
-		);
-		wp_style_add_data( 'prismleaf-search', 'rtl', 'replace' );
-
-		if ( function_exists( 'prismleaf_get_site_metadata_css_variable_overrides' ) ) {
-			$site_metadata_vars = prismleaf_get_site_metadata_css_variable_overrides();
-			if ( '' !== $site_metadata_vars ) {
-				wp_add_inline_style( 'prismleaf-site-icon', $site_metadata_vars );
-			}
-		}
+		prismleaf_output_customizer_styles( $last_handle );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'prismleaf_enqueue_styles' );
@@ -227,67 +227,40 @@ if ( ! function_exists( 'prismleaf_enqueue_scripts' ) ) {
 	 * @return void
 	 */
 	function prismleaf_enqueue_scripts() {
-		wp_enqueue_script(
-			'prismleaf-theme-switch',
-			PRISMLEAF_URI . 'assets/scripts/theme-switch.js',
-			array(),
-			PRISMLEAF_VERSION,
-			true
-		);
+	wp_enqueue_script(
+		'prismleaf-theme-switch',
+		PRISMLEAF_URI . 'assets/scripts/theme-switch.js',
+		array(),
+		PRISMLEAF_VERSION,
+		true
+	);
 
-		wp_enqueue_script(
-			'prismleaf-search',
-			PRISMLEAF_URI . 'assets/scripts/search.js',
-			array(),
-			PRISMLEAF_VERSION,
-			true
-		);
+	wp_localize_script(
+		'prismleaf-theme-switch',
+		'prismleafThemeSwitchStrings',
+		array(
+				'labels' => array(
+					'auto'  => __( 'Automatic (system preference)', 'prismleaf' ),
+					'dark'  => __( 'Dark appearance override', 'prismleaf' ),
+					'light' => __( 'Light appearance override', 'prismleaf' ),
+				),
+			'actions' => array(
+				'auto'  => __( 'Switch to light override', 'prismleaf' ),
+				'light' => __( 'Switch to dark override', 'prismleaf' ),
+				'dark'  => __( 'Switch to automatic system control', 'prismleaf' ),
+			),
+			'storageKey' => 'prismleaf_theme_switch_mode',
+		)
+	);
 
-		wp_enqueue_script(
-			'prismleaf-branding-script',
-			PRISMLEAF_URI . 'assets/scripts/branding.js',
-			array(),
-			PRISMLEAF_VERSION,
-			true
-		);
-
-		wp_enqueue_script(
-			'prismleaf-mobile-menu',
-			PRISMLEAF_URI . 'assets/scripts/mobile-menu.js',
-			array(),
-			PRISMLEAF_VERSION,
-			true
-		);
-
-		if ( is_customize_preview() ) {
-			wp_enqueue_script(
-				'prismleaf-customizer-preview',
-				PRISMLEAF_URI . 'assets/scripts/customizer-preview.js',
-				array( 'customize-preview' ),
-				PRISMLEAF_VERSION,
-				true
-			);
-		}
-
-		$force_light = prismleaf_get_theme_mod_bool( 'prismleaf_brand_force_light', false );
-
-		wp_add_inline_script(
-			'prismleaf-theme-switch',
-			'window.PrismleafThemeSwitch = ' . wp_json_encode(
-				array(
-					'forceLight'    => $force_light,
-					'initialState'  => $force_light ? 'light' : 'auto',
-					'labelAuto'     => __( 'Color scheme: Auto', 'prismleaf' ),
-					'labelLight'    => __( 'Color scheme: Light', 'prismleaf' ),
-					'labelDark'     => __( 'Color scheme: Dark', 'prismleaf' ),
-					'hintNextLight' => __( 'Next: Light', 'prismleaf' ),
-					'hintNextDark'  => __( 'Next: Dark', 'prismleaf' ),
-					'hintNextAuto'  => __( 'Next: Auto', 'prismleaf' ),
-				)
-			) . ';',
-			'before'
-		);
-	}
+	wp_enqueue_script(
+		'prismleaf-mobile-menu',
+		PRISMLEAF_URI . 'assets/scripts/mobile-menu.js',
+		array(),
+		PRISMLEAF_VERSION,
+		true
+	);
+}
 }
 add_action( 'wp_enqueue_scripts', 'prismleaf_enqueue_scripts' );
 
@@ -300,20 +273,53 @@ if ( ! function_exists( 'prismleaf_enqueue_customizer_components' ) ) {
 	 * @return void
 	 */
 	function prismleaf_enqueue_customizer_components() {
-		static $enqueued = false;
-
-		if ( $enqueued ) {
-			return;
-		}
-
+		wp_enqueue_style(
+			'prismleaf-customizer-controls',
+			PRISMLEAF_URI . 'assets/styles/core/customizer.css',
+			array(),
+			PRISMLEAF_VERSION
+		);
 		wp_enqueue_script(
-			'prismleaf-customizer-components',
-			PRISMLEAF_URI . 'assets/scripts/utils.js',
-			array( 'customize-controls', 'wp-color-picker' ),
+			'prismleaf-customizer-helpers',
+			PRISMLEAF_URI . 'assets/scripts/customizer-helpers.js',
+			array( 'customize-controls' ),
 			PRISMLEAF_VERSION,
 			true
 		);
-
-		$enqueued = true;
+		wp_enqueue_script(
+			'prismleaf-customizer-palette-control',
+			PRISMLEAF_URI . 'assets/scripts/customizer-palette-control.js',
+			array( 'customize-controls', 'wp-color-picker', 'prismleaf-customizer-helpers' ),
+			PRISMLEAF_VERSION,
+			true
+		);
+		wp_enqueue_script(
+			'prismleaf-customizer-palette-source-control',
+			PRISMLEAF_URI . 'assets/scripts/customizer-palette-source-control.js',
+			array( 'customize-controls', 'wp-color-picker', 'prismleaf-customizer-helpers', 'prismleaf-customizer-palette-control' ),
+			PRISMLEAF_VERSION,
+			true
+		);
 	}
 }
+add_action( 'customize_controls_enqueue_scripts', 'prismleaf_enqueue_customizer_components' );
+
+if ( ! function_exists( 'prismleaf_enqueue_customizer_preview' ) ) {
+	/**
+	 * Enqueue Customizer preview scripts.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	function prismleaf_enqueue_customizer_preview() {
+		wp_enqueue_script(
+			'prismleaf-customizer-preview',
+			PRISMLEAF_URI . 'assets/scripts/customizer-preview.js',
+			array( 'customize-preview' ),
+			PRISMLEAF_VERSION,
+			true
+		);
+	}
+}
+add_action( 'customize_preview_init', 'prismleaf_enqueue_customizer_preview' );

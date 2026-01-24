@@ -1,0 +1,222 @@
+/**
+ * Prismleaf Customizer
+ *
+ * Customizer control styles.
+ *
+ * @package prismleaf
+ */
+
+/* Custom customizer section header control. */
+.prismleaf-customize-section-header {
+	margin: 12px 0 8px;
+}
+
+.prismleaf-customize-divider {
+	margin: 10px 0;
+	border: 0;
+		border-top: 1px solid #ddd;
+}
+
+.prismleaf-customize-section-header .customize-control-title {
+	display: block;
+	font-size: 15px;
+	line-height: 1.4;
+}
+
+.prismleaf-customize-section-header .customize-control-description {
+	display: block;
+	margin-top: 6px;
+}
+
+/* Palette preview control. */
+.prismleaf-palette-preview-control .customize-control-title {
+	display: block;
+}
+
+.prismleaf-preview-grid {
+	margin-top: 10px;
+	display: grid;
+	gap: 6px;
+}
+
+.prismleaf-preview-row {
+	display: grid;
+	grid-template-columns: 24px 1fr;
+	align-items: center;
+	column-gap: 8px;
+}
+
+.prismleaf-preview-swatch {
+	width: 24px;
+	height: 24px;
+		border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.prismleaf-preview-label {
+	font-size: 13px;
+	line-height: 1.3;
+}
+
+.prismleaf-palette-preview-input {
+	width: 100%;
+	margin-top: 8px;
+}
+
+/* Palette source control. */
+.prismleaf-palette-source-control {
+	margin-top: 8px;
+}
+
+.prismleaf-palette-source-select {
+	width: 100%;
+	margin-top: 8px;
+}
+
+.prismleaf-palette-source-preview {
+	margin-top: 10px;
+}
+
+/* Background image control. */
+.prismleaf-background-image-control {
+	margin-top: 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.prismleaf-background-image-preview {
+	min-height: 110px;
+	background: #f9f9f9;
+	border: 1px dashed #dcdcdc;
+	border-radius: 8px;
+	padding: 8px;
+	position: relative;
+	overflow: hidden;
+	display: none;
+}
+
+.prismleaf-background-image-preview.has-image {
+	display: block;
+	background: #fff;
+	border: 1px solid #dfe0e3;
+	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.prismleaf-background-image-preview img {
+	max-width: 100%;
+	max-height: 130px;
+	object-fit: contain;
+	border-radius: 6px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.prismleaf-background-image-preview.is-empty {
+	display: none;
+}
+
+.prismleaf-background-image-actions {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+.prismleaf-background-image-actions .button,
+.prismleaf-background-image-actions .link-button {
+	min-height: 34px;
+	border-radius: 6px;
+	font-weight: 600;
+	box-shadow: none;
+	text-transform: none;
+	padding: 0 16px;
+	border: 1px solid #e53935;
+	color: #e53935;
+	background: #fff;
+}
+
+.prismleaf-background-image-actions .button:hover,
+.prismleaf-background-image-actions .link-button:hover {
+	background: rgba(229, 57, 53, 0.08);
+}
+
+.prismleaf-background-image-field {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.prismleaf-background-image-field label {
+	font-weight: 600;
+	font-size: 14px;
+	color: #5f5f5f;
+}
+
+.prismleaf-background-position-grid {
+	display: inline-grid;
+	width: max-content;
+	justify-content: start;
+	align-self: flex-start;
+
+	grid-template-columns: repeat(3, 38px);
+	grid-auto-rows: 38px;
+
+	gap: 1px;
+	padding: 1px;
+	background: #e53935;
+
+	border-radius: 6px;
+	margin: 0;
+}
+
+.prismleaf-background-position-button {
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+
+	background: #fff;
+	color: #e53935;
+
+	width: 38px;
+	height: 38px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 18px;
+	line-height: 1;
+	padding: 0;
+
+	transition: background 0.15s ease, color 0.15s ease;
+}
+
+.prismleaf-background-position-button[data-position-x="center"][data-position-y="center"] {
+	color: #444;
+}
+
+.prismleaf-background-position-button.is-active,
+.prismleaf-background-position-button[aria-pressed="true"] {
+	background: #fff0f0;
+	color: #e53935;
+}
+
+.prismleaf-background-position-button:focus {
+	outline: 2px solid rgba(229, 57, 53, 0.45);
+	outline-offset: 2px;
+}
+
+.prismleaf-background-image-toggle {
+	margin-top: 6px;
+	font-size: 14px;
+	color: #333;
+}
+
+.prismleaf-background-image-toggle input {
+	margin-right: 6px;
+}
+
+.prismleaf-background-image-toggle label {
+	font-weight: 400;
+}

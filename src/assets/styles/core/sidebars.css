@@ -1,0 +1,75 @@
+/**
+ * Prismleaf Sidebar Regions
+ *
+ * Layout and surface styling for the sidebar regions.
+ *
+ * @package prismleaf
+ */
+
+/* Sidebar region tokens. */
+:root {
+
+	/* Left sidebar tokens. */
+	--prismleaf-sidebar-left-background-color: var(--prismleaf-color-surface-2);
+	--prismleaf-sidebar-left-border-color: var(--prismleaf-color-outline);
+	--prismleaf-sidebar-left-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-sidebar-left-border-style-bottom: var(--prismleaf-border-style);
+	--prismleaf-sidebar-left-border-style-left: var(--prismleaf-border-style);
+	--prismleaf-sidebar-left-border-style-right: var(--prismleaf-border-style);
+	--prismleaf-sidebar-left-border-style-top: var(--prismleaf-border-style);
+	--prismleaf-sidebar-left-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-sidebar-left-elevation: var(--prismleaf-shadow-elevation-2);
+	--prismleaf-sidebar-left-foreground-color: var(--prismleaf-color-surface-on);
+	--prismleaf-sidebar-left-margin: var(--prismleaf-space-2);
+
+	/* Right sidebar tokens. */
+	--prismleaf-sidebar-right-background-color: var(--prismleaf-color-surface-2);
+	--prismleaf-sidebar-right-border-color: var(--prismleaf-color-outline);
+	--prismleaf-sidebar-right-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-sidebar-right-border-style-bottom: var(--prismleaf-border-style);
+	--prismleaf-sidebar-right-border-style-left: var(--prismleaf-border-style);
+	--prismleaf-sidebar-right-border-style-right: var(--prismleaf-border-style);
+	--prismleaf-sidebar-right-border-style-top: var(--prismleaf-border-style);
+	--prismleaf-sidebar-right-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-sidebar-right-elevation: var(--prismleaf-shadow-elevation-2);
+	--prismleaf-sidebar-right-foreground-color: var(--prismleaf-color-surface-on);
+	--prismleaf-sidebar-right-margin: var(--prismleaf-space-2);
+}
+
+/* Left sidebar styling. */
+.prismleaf-region-sidebar-left {
+	grid-area: sidebar-left;
+	inline-size: var(--prismleaf-sidebar-left-width);
+	background-color: var(--prismleaf-sidebar-left-background-color);
+	border-block-start-style: var(--prismleaf-sidebar-left-border-style-top);
+	border-block-end-style: var(--prismleaf-sidebar-left-border-style-bottom);
+	border-color: var(--prismleaf-sidebar-left-border-color);
+	border-inline-start-style: var(--prismleaf-sidebar-left-border-style-left);
+	border-inline-end-style: var(--prismleaf-sidebar-left-border-style-right);
+	border-radius: var(--prismleaf-sidebar-left-border-radius);
+	border-width: var(--prismleaf-sidebar-left-border-width);
+	box-shadow: var(--prismleaf-sidebar-left-elevation);
+	color: var(--prismleaf-sidebar-left-foreground-color);
+	margin: var(--prismleaf-sidebar-left-margin);
+	overflow-x: hidden;
+	overflow-y: var(--prismleaf-region-overflow);
+}
+
+/* Right sidebar styling. */
+.prismleaf-region-sidebar-right {
+	grid-area: sidebar-right;
+	inline-size: var(--prismleaf-sidebar-right-width);
+	background-color: var(--prismleaf-sidebar-right-background-color);
+	border-block-start-style: var(--prismleaf-sidebar-right-border-style-top);
+	border-block-end-style: var(--prismleaf-sidebar-right-border-style-bottom);
+	border-color: var(--prismleaf-sidebar-right-border-color);
+	border-inline-start-style: var(--prismleaf-sidebar-right-border-style-left);
+	border-inline-end-style: var(--prismleaf-sidebar-right-border-style-right);
+	border-radius: var(--prismleaf-sidebar-right-border-radius);
+	border-width: var(--prismleaf-sidebar-right-border-width);
+	box-shadow: var(--prismleaf-sidebar-right-elevation);
+	color: var(--prismleaf-sidebar-right-foreground-color);
+	margin: var(--prismleaf-sidebar-right-margin);
+	overflow-x: hidden;
+	overflow-y: var(--prismleaf-region-overflow);
+}

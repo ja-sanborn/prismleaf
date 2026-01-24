@@ -1,9 +1,6 @@
 <?php
 /**
- * Customizer utilities.
- *
- * Helpers for reading Customizer values (including live-preview values) and
- * sanitization callbacks used by Customizer settings.
+ * Customizer helpers.
  *
  * @package prismleaf
  */
@@ -12,817 +9,775 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'prismleaf_customize_get_bool' ) ) {
+if ( ! function_exists( 'prismleaf_register_options_section' ) ) {
 	/**
-	 * Get a boolean Customizer value, honoring live-preview when available.
+	 * Register a section under the Theme Options panel.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param WP_Customize_Manager $manager       Customizer manager instance.
-	 * @param string               $setting_id    Setting ID.
-	 * @param bool                 $default_value Default value when unset.
-	 * @return bool
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Section arguments.
+	 * @return void
 	 */
-	function prismleaf_customize_get_bool( $manager, $setting_id, $default_value = false ) {
-		if ( ! ( $manager instanceof WP_Customize_Manager ) ) {
-			return (bool) $default_value;
-		}
-
-		$setting = $manager->get_setting( $setting_id );
-
-		if ( ! $setting ) {
-			return (bool) $default_value;
-		}
-
-		$value = $setting->post_value( null );
-
-		if ( null === $value ) {
-			return (bool) get_theme_mod( $setting_id, $default_value );
-		}
-
-		return (bool) wp_validate_boolean( $value );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_get_string' ) ) {
-	/**
-	 * Get a string Customizer value, honoring live-preview when available.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Manager $manager       Customizer manager instance.
-	 * @param string               $setting_id    Setting ID.
-	 * @param string               $default_value Default value when unset.
-	 * @return string
-	 */
-	function prismleaf_customize_get_string( $manager, $setting_id, $default_value = '' ) {
-		if ( ! ( $manager instanceof WP_Customize_Manager ) ) {
-			return (string) $default_value;
-		}
-
-		$setting = $manager->get_setting( $setting_id );
-
-		if ( ! $setting ) {
-			return (string) $default_value;
-		}
-
-		$value = $setting->post_value( null );
-
-		if ( null === $value ) {
-			return (string) get_theme_mod( $setting_id, $default_value );
-		}
-
-		return (string) $value;
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_get_value' ) ) {
-	/**
-	 * Get a setting value directly (raw), honoring live-preview when available.
-	 *
-	 * This is useful for settings where the value type is not strictly boolean/string.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Manager $manager       Customizer manager instance.
-	 * @param string               $setting_id    Setting ID.
-	 * @param mixed                $default_value Default value when unset.
-	 * @return mixed
-	 */
-	function prismleaf_customize_get_value( $manager, $setting_id, $default_value = null ) {
-		if ( ! ( $manager instanceof WP_Customize_Manager ) ) {
-			return $default_value;
-		}
-
-		$setting = $manager->get_setting( $setting_id );
-
-		if ( ! $setting ) {
-			return $default_value;
-		}
-
-		$value = $setting->post_value( null );
-
-		if ( null === $value ) {
-			return get_theme_mod( $setting_id, $default_value );
-		}
-
-		return $setting->post_value( null );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_all_regions_hidden' ) ) {
-	/**
-	 * Whether all layout regions are hidden (effective).
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Manager $manager Customizer manager instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_all_regions_hidden( $manager ) {
-		$regions = array(
-			'prismleaf_layout_header_visible',
-			'prismleaf_layout_footer_visible',
-			'prismleaf_layout_sidebar_left_visible',
-			'prismleaf_layout_sidebar_right_visible',
+	function prismleaf_register_options_section( $wp_customize, $args ) {
+		$defaults = array(
+			'id'          => '',
+			'title'       => '',
+			'description' => '',
+			'priority'    => 0,
+			'panel'       => 'prismleaf_theme_options',
 		);
 
-		foreach ( $regions as $setting_id ) {
-			if ( prismleaf_customize_get_bool( $manager, $setting_id, true ) ) {
-				return false;
-			}
+		$args = wp_parse_args( $args, $defaults );
+		$args['id']          = prismleaf_sanitize_customizer_id( $args['id'] );
+		$args['title']       = prismleaf_sanitize_text( $args['title'] );
+		$args['description'] = prismleaf_sanitize_text( $args['description'] );
+		$args['panel']       = prismleaf_sanitize_customizer_id( $args['panel'] );
+		$args['priority']    = prismleaf_sanitize_int( $args['priority'] );
+
+		if ( '' === $args['id'] || '' === $args['title'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
 		}
 
-		return true;
+		if ( $wp_customize->get_section( $args['id'] ) ) {
+			return;
+		}
+
+		$wp_customize->add_section(
+			$args['id'],
+			array(
+				'title'       => $args['title'],
+				'description' => $args['description'],
+				'panel'       => $args['panel'],
+				'priority'    => $args['priority'],
+			)
+		);
 	}
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_checkbox' ) ) {
+if ( ! function_exists( 'prismleaf_add_section_header_control' ) ) {
 	/**
-	 * Sanitize a boolean (checkbox) setting.
+	 * Add a section header control.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value Value to sanitize.
-	 * @return bool
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
 	 */
-	function prismleaf_sanitize_checkbox( $value ) {
-		return (bool) wp_validate_boolean( $value );
+	function prismleaf_add_section_header_control( $wp_customize, $args ) {
+		$defaults = array(
+			'setting_id' => '',
+			'label'      => '',
+			'section'    => '',
+			'priority'   => 0,
+			'active_callback' => null,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$args['setting_id'] = prismleaf_sanitize_customizer_id( $args['setting_id'] );
+		$args['label']      = prismleaf_sanitize_text( $args['label'] );
+		$args['section']    = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['priority']   = prismleaf_sanitize_int( $args['priority'] );
+
+		if ( '' === $args['setting_id'] || '' === $args['label'] || '' === $args['section'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
+		}
+
+		$wp_customize->add_setting(
+			$args['setting_id'],
+			array(
+				'default'           => '',
+				'sanitize_callback' => 'prismleaf_sanitize_text',
+			)
+		);
+
+		$wp_customize->add_control(
+			new Prismleaf_Customize_Section_Header_Control(
+				$wp_customize,
+				$args['setting_id'],
+				array(
+					'label'    => $args['label'],
+					'section'  => $args['section'],
+					'priority' => $args['priority'],
+					'active_callback' => $args['active_callback'],
+				)
+			)
+		);
 	}
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_site_metadata_icon_corners' ) ) {
+if ( ! function_exists( 'prismleaf_add_checkbox_control' ) ) {
 	/**
-	 * Sanitize icon corner style for Site Metadata.
+	 * Add a checkbox control with defaults.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value Raw value.
-	 * @return string
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
 	 */
-	function prismleaf_sanitize_site_metadata_icon_corners( $value ) {
-		if ( null === $value ) {
-			return '';
+	function prismleaf_add_checkbox_control( $wp_customize, $args ) {
+		$defaults = array(
+			'setting_id'      => '',
+			'section'         => '',
+			'label'           => '',
+			'description'     => '',
+			'priority'        => 0,
+			'default_key'     => '',
+			'default_fallback'=> false,
+			'transport'       => 'refresh',
+			'active_callback' => null,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$args['setting_id']       = prismleaf_sanitize_customizer_id( $args['setting_id'] );
+		$args['section']          = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['label']            = prismleaf_sanitize_text( $args['label'] );
+		$args['description']      = prismleaf_sanitize_text( $args['description'] );
+		$args['priority']         = prismleaf_sanitize_int( $args['priority'] );
+		$args['default_key']      = prismleaf_sanitize_text( $args['default_key'] );
+		$args['default_fallback'] = prismleaf_sanitize_boolean( $args['default_fallback'] );
+		$args['transport']        = prismleaf_sanitize_transport( $args['transport'] );
+
+		if ( '' === $args['setting_id'] || '' === $args['section'] || '' === $args['label'] || '' === $args['default_key'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
 		}
 
-		$value   = (string) $value;
-		$allowed = array( '', 'square', 'circle', 'round' );
+		$wp_customize->add_setting(
+			$args['setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['default_key'], $args['default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_boolean',
+				'transport'         => $args['transport'],
+			)
+		);
 
-		if ( in_array( $value, $allowed, true ) ) {
-			return $value;
+		$control_args = array(
+			'type'        => 'checkbox',
+			'section'     => $args['section'],
+			'label'       => $args['label'],
+			'description' => $args['description'],
+			'priority'    => $args['priority'],
+		);
+
+		if ( $args['active_callback'] ) {
+			$control_args['active_callback'] = $args['active_callback'];
 		}
 
-		return '';
+		$wp_customize->add_control( $args['setting_id'], $control_args );
 	}
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_site_metadata_tagline_position' ) ) {
+if ( ! function_exists( 'prismleaf_add_select_control' ) ) {
 	/**
-	 * Sanitize tagline position for Site Metadata.
+	 * Add a select control with defaults.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value Raw value.
-	 * @return string
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
 	 */
-	function prismleaf_sanitize_site_metadata_tagline_position( $value ) {
-		if ( null === $value ) {
-			return '';
+	function prismleaf_add_select_control( $wp_customize, $args ) {
+		$defaults = array(
+			'setting_id'       => '',
+			'section'          => '',
+			'label'            => '',
+			'description'      => '',
+			'priority'         => 0,
+			'default_key'      => '',
+			'default_fallback' => '',
+			'choices'          => array(),
+			'sanitize_callback'=> '',
+			'transport'        => 'refresh',
+			'active_callback'  => null,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$args['setting_id']  = prismleaf_sanitize_customizer_id( $args['setting_id'] );
+		$args['section']     = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['label']       = prismleaf_sanitize_text( $args['label'] );
+		$args['description'] = prismleaf_sanitize_text( $args['description'] );
+		$args['priority']    = prismleaf_sanitize_int( $args['priority'] );
+		$args['default_key'] = prismleaf_sanitize_text( $args['default_key'] );
+		$args['transport']   = prismleaf_sanitize_transport( $args['transport'] );
+
+		if ( '' === $args['setting_id'] || '' === $args['section'] || '' === $args['label'] || '' === $args['default_key'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
 		}
 
-		$value   = (string) $value;
-		$allowed = array( '', 'inline', 'below' );
-
-		if ( in_array( $value, $allowed, true ) ) {
-			return $value;
+		if ( ! is_array( $args['choices'] ) || empty( $args['choices'] ) ) {
+			return;
 		}
 
-		return '';
+		if ( empty( $args['sanitize_callback'] ) || ! is_string( $args['sanitize_callback'] ) ) {
+			return;
+		}
+
+		$wp_customize->add_setting(
+			$args['setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['default_key'], $args['default_fallback'] ),
+				'sanitize_callback' => $args['sanitize_callback'],
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$control_args = array(
+			'type'        => 'select',
+			'section'     => $args['section'],
+			'label'       => $args['label'],
+			'description' => $args['description'],
+			'priority'    => $args['priority'],
+			'choices'     => $args['choices'],
+		);
+
+		if ( $args['active_callback'] ) {
+			$control_args['active_callback'] = $args['active_callback'];
+		}
+
+		$wp_customize->add_control( $args['setting_id'], $control_args );
 	}
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_site_metadata_icon_size' ) ) {
+if ( ! function_exists( 'prismleaf_add_number_control' ) ) {
 	/**
-	 * Sanitize icon size for Site Metadata.
+	 * Add a number control with defaults.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $value Raw value.
-	 * @return string
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
 	 */
-	function prismleaf_sanitize_site_metadata_icon_size( $value ) {
-		if ( null === $value ) {
-			return '';
+	function prismleaf_add_number_control( $wp_customize, $args ) {
+		$defaults = array(
+			'setting_id'       => '',
+			'section'          => '',
+			'label'            => '',
+			'description'      => '',
+			'priority'         => 0,
+			'default_key'      => '',
+			'default_fallback' => '',
+			'sanitize_callback'=> '',
+			'transport'        => 'refresh',
+			'active_callback'  => null,
+			'input_attrs'      => array(),
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$args['setting_id']  = prismleaf_sanitize_customizer_id( $args['setting_id'] );
+		$args['section']     = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['label']       = prismleaf_sanitize_text( $args['label'] );
+		$args['description'] = prismleaf_sanitize_text( $args['description'] );
+		$args['priority']    = prismleaf_sanitize_int( $args['priority'] );
+		$args['default_key'] = prismleaf_sanitize_text( $args['default_key'] );
+		$args['transport']   = prismleaf_sanitize_transport( $args['transport'] );
+
+		if ( '' === $args['setting_id'] || '' === $args['section'] || '' === $args['label'] || '' === $args['default_key'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
 		}
 
-		$value   = (string) $value;
-		$allowed = array( '', 'small', 'medium', 'large' );
-
-		if ( in_array( $value, $allowed, true ) ) {
-			return $value;
+		if ( empty( $args['sanitize_callback'] ) || ! is_string( $args['sanitize_callback'] ) ) {
+			return;
 		}
 
-		return '';
+		$wp_customize->add_setting(
+			$args['setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['default_key'], $args['default_fallback'] ),
+				'sanitize_callback' => $args['sanitize_callback'],
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$control_args = array(
+			'type'        => 'number',
+			'section'     => $args['section'],
+			'label'       => $args['label'],
+			'description' => $args['description'],
+			'priority'    => $args['priority'],
+			'input_attrs' => is_array( $args['input_attrs'] ) ? $args['input_attrs'] : array(),
+		);
+
+		if ( $args['active_callback'] ) {
+			$control_args['active_callback'] = $args['active_callback'];
+		}
+
+		$wp_customize->add_control( $args['setting_id'], $control_args );
 	}
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_hex_color_or_null' ) ) {
+if ( ! function_exists( 'prismleaf_add_text_control' ) ) {
 	/**
-	 * Sanitize a hex color value (with leading #), allowing empty.
+	 * Add a text or textarea control with defaults.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $value Color value.
-	 * @return string|null
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
 	 */
-	function prismleaf_sanitize_hex_color_or_null( $value ) {
-		$value = (string) $value;
+	function prismleaf_add_text_control( $wp_customize, $args ) {
+		$defaults = array(
+			'setting_id'       => '',
+			'section'          => '',
+			'label'            => '',
+			'description'      => '',
+			'priority'         => 0,
+			'default_key'      => '',
+			'default_fallback' => '',
+			'sanitize_callback'=> 'prismleaf_sanitize_text',
+			'control_type'     => 'text',
+			'transport'        => 'refresh',
+			'active_callback'  => null,
+			'input_attrs'      => array(),
+		);
 
-		if ( '' === $value ) {
-			return null;
+		$args = wp_parse_args( $args, $defaults );
+		$args['setting_id']       = prismleaf_sanitize_customizer_id( $args['setting_id'] );
+		$args['section']          = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['label']            = prismleaf_sanitize_text( $args['label'] );
+		$args['description']      = prismleaf_sanitize_text( $args['description'] );
+		$args['priority']         = prismleaf_sanitize_int( $args['priority'] );
+		$args['default_key']      = prismleaf_sanitize_text( $args['default_key'] );
+		$args['transport']        = prismleaf_sanitize_transport( $args['transport'] );
+		$args['control_type']     = prismleaf_sanitize_text( $args['control_type'] );
+
+		if ( '' === $args['setting_id'] || '' === $args['section'] || '' === $args['label'] || '' === $args['default_key'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
 		}
 
-		$sanitized = sanitize_hex_color( $value );
-
-		if ( ! $sanitized ) {
-			return null;
+		if ( empty( $args['sanitize_callback'] ) || ! is_string( $args['sanitize_callback'] ) ) {
+			return;
 		}
 
-		return $sanitized;
+		$wp_customize->add_setting(
+			$args['setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['default_key'], $args['default_fallback'] ),
+				'sanitize_callback' => $args['sanitize_callback'],
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$control_args = array(
+			'section'     => $args['section'],
+			'label'       => $args['label'],
+			'description' => $args['description'],
+			'priority'    => $args['priority'],
+			'type'        => $args['control_type'],
+		);
+
+		if ( is_array( $args['input_attrs'] ) && ! empty( $args['input_attrs'] ) ) {
+			$control_args['input_attrs'] = $args['input_attrs'];
+		}
+
+		if ( $args['active_callback'] ) {
+			$control_args['active_callback'] = $args['active_callback'];
+		}
+
+		$wp_customize->add_control( $args['setting_id'], $control_args );
 	}
 }
 
-if ( ! function_exists( 'prismleaf_customize_sanitize_optional_hex_color_empty_ok' ) ) {
+if ( ! function_exists( 'prismleaf_add_palette_preview_control' ) ) {
 	/**
-	 * Customizer-safe optional hex color sanitizer.
-	 *
-	 * Returns an empty string when cleared so the Customizer UI does not flag it
-	 * as invalid, while still allowing null/invalid to be treated as invalid.
+	 * Add a palette preview control with computed palette JSON storage.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string|null $value Color string.
-	 * @return string|null
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
 	 */
-	function prismleaf_customize_sanitize_optional_hex_color_empty_ok( $value ) {
-		if ( null === $value || '' === (string) $value ) {
-			return '';
+	function prismleaf_add_palette_preview_control( $wp_customize, $args ) {
+		$defaults = array(
+			'setting_id'         => '',
+			'palette_setting_id' => '',
+			'section'            => '',
+			'label'              => '',
+			'description'        => '',
+			'priority'           => 0,
+			'default_key'        => '',
+			'default_fallback'   => '',
+			'palette_default'    => '',
+			'transport'          => 'refresh',
+			'active_callback'    => null,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$args['setting_id']         = prismleaf_sanitize_customizer_id( $args['setting_id'] );
+		$args['palette_setting_id'] = prismleaf_sanitize_customizer_id( $args['palette_setting_id'] );
+		$args['section']            = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['label']              = prismleaf_sanitize_text( $args['label'] );
+		$args['description']        = prismleaf_sanitize_text( $args['description'] );
+		$args['priority']           = prismleaf_sanitize_int( $args['priority'] );
+		$args['default_key']        = prismleaf_sanitize_text( $args['default_key'] );
+		$args['transport']          = prismleaf_sanitize_transport( $args['transport'] );
+
+		if ( '' === $args['setting_id'] || '' === $args['palette_setting_id'] || '' === $args['section'] || '' === $args['label'] || '' === $args['default_key'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
 		}
 
-		return prismleaf_sanitize_optional_hex_color( $value );
+		$wp_customize->add_setting(
+			$args['setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['default_key'], $args['default_fallback'] ),
+				'sanitize_callback' => 'sanitize_hex_color',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$args['palette_setting_id'],
+			array(
+				'default'           => $args['palette_default'],
+				'sanitize_callback' => 'prismleaf_sanitize_palette_json_from_base',
+				'transport'         => $args['transport'],
+			)
+		);
+
+			$control_args = array(
+				'label'       => $args['label'],
+				'description' => $args['description'],
+				'section'     => $args['section'],
+				'priority'    => $args['priority'],
+				'settings'    => array(
+					'default' => $args['setting_id'],
+					'palette' => $args['palette_setting_id'],
+				),
+			'palette_labels' => prismleaf_get_palette_preview_labels( prismleaf_get_palette_keys() ),
+		);
+
+		if ( $args['active_callback'] ) {
+			$control_args['active_callback'] = $args['active_callback'];
+		}
+
+		$wp_customize->add_control(
+			new Prismleaf_Customize_Palette_Preview_Control(
+				$wp_customize,
+				$args['setting_id'],
+				$control_args
+			)
+		);
 	}
 }
 
-if ( ! function_exists( 'prismleaf_get_palette_role_choices' ) ) {
+if ( ! function_exists( 'prismleaf_add_palette_preview_control_with_defaults' ) ) {
 	/**
-	 * Get palette role choices for composite color controls.
+	 * Add a palette preview control with shared defaults.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
+	 */
+	function prismleaf_add_palette_preview_control_with_defaults( $wp_customize, $args ) {
+		$defaults = array(
+			'description'     => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+			'default_fallback'=> '',
+			'palette_default' => '',
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		prismleaf_add_palette_preview_control( $wp_customize, $args );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_add_background_image_control' ) ) {
+	/**
+	 * Add a background image control with supporting settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 * @param array<string,mixed>  $args Control arguments.
+	 * @return void
+	 */
+	function prismleaf_add_background_image_control( $wp_customize, $args ) {
+		$defaults = array(
+			'section'                    => '',
+			'label'                      => '',
+			'description'                => '',
+			'priority'                   => 0,
+			'setting_base'               => '',
+			'active_callback'            => null,
+			'transport'                  => 'refresh',
+			'image_default_key'          => '',
+			'image_default_fallback'     => '',
+			'repeat_default_key'         => '',
+			'repeat_default_fallback'    => 'repeat',
+			'position_x_default_key'     => '',
+			'position_x_default_fallback'=> 'center',
+			'position_y_default_key'     => '',
+			'position_y_default_fallback'=> 'center',
+			'size_default_key'           => '',
+			'size_default_fallback'      => 'auto',
+			'attachment_default_key'     => '',
+			'attachment_default_fallback'=> 'scroll',
+			'preset_default_key'         => '',
+			'preset_default_fallback'    => 'default',
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$args['section']               = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['label']                 = prismleaf_sanitize_text( $args['label'] );
+		$args['description']           = prismleaf_sanitize_text( $args['description'] );
+		$args['priority']              = prismleaf_sanitize_int( $args['priority'] );
+		$args['setting_base']          = prismleaf_sanitize_customizer_id( $args['setting_base'] );
+		$args['transport']             = prismleaf_sanitize_transport( $args['transport'] );
+		$args['image_default_key']     = prismleaf_sanitize_text( $args['image_default_key'] );
+		$args['repeat_default_key']    = prismleaf_sanitize_text( $args['repeat_default_key'] );
+		$args['position_x_default_key']= prismleaf_sanitize_text( $args['position_x_default_key'] );
+		$args['position_y_default_key']= prismleaf_sanitize_text( $args['position_y_default_key'] );
+		$args['size_default_key']      = prismleaf_sanitize_text( $args['size_default_key'] );
+		$args['attachment_default_key']= prismleaf_sanitize_text( $args['attachment_default_key'] );
+		$args['preset_default_key']    = prismleaf_sanitize_text( $args['preset_default_key'] );
+
+		if ( '' === $args['setting_base'] || '' === $args['section'] || '' === $args['label'] || ! array_key_exists( 'priority', $args ) ) {
+			return;
+		}
+
+		$ids = array(
+			'image'      => $args['setting_base'] . '_image',
+			'repeat'     => $args['setting_base'] . '_repeat',
+			'position_x' => $args['setting_base'] . '_position_x',
+			'position_y' => $args['setting_base'] . '_position_y',
+			'size'       => $args['setting_base'] . '_size',
+			'attachment' => $args['setting_base'] . '_attachment',
+			'preset'     => $args['setting_base'] . '_preset',
+		);
+
+		$wp_customize->add_setting(
+			$ids['image'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['image_default_key'], $args['image_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_image',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['repeat'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['repeat_default_key'], $args['repeat_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_repeat',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['position_x'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['position_x_default_key'], $args['position_x_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_position_x',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['position_y'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['position_y_default_key'], $args['position_y_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_position_y',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['size'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['size_default_key'], $args['size_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_size',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['attachment'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['attachment_default_key'], $args['attachment_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_attachment',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$ids['preset'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['preset_default_key'], $args['preset_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_background_preset',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$control_args = array(
+			'label'    => $args['label'],
+			'description' => $args['description'],
+			'section'  => $args['section'],
+			'priority' => $args['priority'],
+			'settings' => $ids,
+		);
+
+		if ( $args['active_callback'] ) {
+			$control_args['active_callback'] = $args['active_callback'];
+		}
+
+		$wp_customize->add_control(
+			new Prismleaf_Customize_Background_Image_Control(
+				$wp_customize,
+				$ids['image'],
+				$control_args
+			)
+		);
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_palette_source_choices' ) ) {
+	/**
+	 * Get palette source choices for a dropdown control.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array<string,string>
 	 */
-	function prismleaf_get_palette_role_choices() {
+	function prismleaf_get_palette_source_choices() {
 		return array(
-			''                   => __( 'Default (use theme)', 'prismleaf' ),
-			'primary'            => __( 'Primary', 'prismleaf' ),
-			'primary-container'  => __( 'Primary Container', 'prismleaf' ),
-			'secondary'          => __( 'Secondary', 'prismleaf' ),
-			'secondary-container' => __( 'Secondary Container', 'prismleaf' ),
-			'tertiary'           => __( 'Tertiary', 'prismleaf' ),
-			'tertiary-container' => __( 'Tertiary Container', 'prismleaf' ),
-			'surface'            => __( 'Surface', 'prismleaf' ),
-			'surface-variant'    => __( 'Surface Variant', 'prismleaf' ),
-			'foreground'         => __( 'Foreground', 'prismleaf' ),
-			'custom'             => __( 'Custom', 'prismleaf' ),
+			'default'       => __( 'Default (Use CSS)', 'prismleaf' ),
+			'primary'       => __( 'Primary', 'prismleaf' ),
+			'secondary'     => __( 'Secondary', 'prismleaf' ),
+			'tertiary'      => __( 'Tertiary', 'prismleaf' ),
+			'error'         => __( 'Error', 'prismleaf' ),
+			'warning'       => __( 'Warning', 'prismleaf' ),
+			'info'          => __( 'Info', 'prismleaf' ),
+			'neutral_light' => __( 'Neutral Light', 'prismleaf' ),
+			'neutral_dark'  => __( 'Neutral Dark', 'prismleaf' ),
+			'custom'        => __( 'Custom', 'prismleaf' ),
 		);
 	}
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_palette_role_choice' ) ) {
+if ( ! function_exists( 'prismleaf_add_palette_source_control' ) ) {
 	/**
-	 * Sanitize palette role selection value.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value Raw value.
-	 * @return string
-	 */
-	function prismleaf_sanitize_palette_role_choice( $value ) {
-		if ( null === $value ) {
-			return '';
-		}
-
-		$value   = (string) $value;
-		$allowed = array_keys( prismleaf_get_palette_role_choices() );
-
-		if ( in_array( $value, $allowed, true ) ) {
-			return $value;
-		}
-
-		return '';
-	}
-}
-
-if ( ! function_exists( 'prismleaf_sanitize_elevation_0_3' ) ) {
-	/**
-	 * Sanitize an elevation value in the range 0–3 (inclusive).
-	 *
-	 * Returns null for empty input to indicate "no override".
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value Elevation value.
-	 * @return int|null
-	 */
-	function prismleaf_sanitize_elevation_0_3( $value ) {
-		if ( null === $value || '' === $value ) {
-			return null;
-		}
-
-		$value = absint( $value );
-
-		if ( $value < 0 || $value > 3 ) {
-			return null;
-		}
-
-		return $value;
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_not_all_hidden' ) ) {
-	/**
-	 * Determine whether controls should be active when not all layout regions are hidden.
-	 *
-	 * Used as a Customizer `active_callback`.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control The Customizer control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_not_all_hidden( $control ) {
-		if ( ! ( $control instanceof WP_Customize_Control ) ) {
-			return true;
-		}
-
-		return ! prismleaf_customize_all_regions_hidden( $control->manager );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_footer_visible' ) ) {
-	/**
-	 * Determine whether the footer visibility controls should be active.
-	 *
-	 * Used as a Customizer `active_callback`.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control The Customizer control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_footer_visible( $control ) {
-		return prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_footer_visible', true );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_header_visible' ) ) {
-	/**
-	 * Determine whether the header visibility controls should be active.
-	 *
-	 * Used as a Customizer `active_callback`.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control The Customizer control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_header_visible( $control ) {
-		return prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_header_visible', true );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_header_contained_active' ) ) {
-	/**
-	 * Determine whether the header containment control should be active.
-	 *
-	 * Header containment only applies when:
-	 * - Not all regions are hidden,
-	 * - The header is visible, and
-	 * - The layout is not in framed mode.
-	 *
-	 * Used as a Customizer `active_callback`.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control The Customizer control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_header_contained_active( $control ) {
-		if ( ! prismleaf_customize_callback_not_all_hidden( $control ) ) {
-			return false;
-		}
-
-		if ( ! prismleaf_customize_callback_header_visible( $control ) ) {
-			return false;
-		}
-
-		return ! prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_framed', false );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_header_floating_active' ) ) {
-	/**
-	 * Determine whether the header floating control should be active.
-	 *
-	 * Header floating only applies when:
-	 * - The header is visible, and
-	 * - The header is not contained.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control The Customizer control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_header_floating_active( $control ) {
-		if ( ! prismleaf_customize_callback_header_visible( $control ) ) {
-			return false;
-		}
-
-		return ! prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_header_contained', true );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_footer_contained_active' ) ) {
-	/**
-	 * Determine whether the footer containment control should be active.
-	 *
-	 * Footer containment only applies when:
-	 * - Not all regions are hidden,
-	 * - The footer is visible, and
-	 * - The layout is not in framed mode.
-	 *
-	 * Used as a Customizer `active_callback`.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control The Customizer control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_footer_contained_active( $control ) {
-		if ( ! prismleaf_customize_callback_not_all_hidden( $control ) ) {
-			return false;
-		}
-
-		if ( ! prismleaf_customize_callback_footer_visible( $control ) ) {
-			return false;
-		}
-
-		return ! prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_framed', false );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_footer_floating_active' ) ) {
-	/**
-	 * Determine whether the footer floating control should be active.
-	 *
-	 * Footer floating only applies when:
-	 * - The footer is visible, and
-	 * - The footer is not contained.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control The Customizer control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_footer_floating_active( $control ) {
-		if ( ! prismleaf_customize_callback_footer_visible( $control ) ) {
-			return false;
-		}
-
-		return ! prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_footer_contained', true );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_sidebar_visible' ) ) {
-	/**
-	 * Determine whether the sidebar visibility controls should be active.
-	 *
-	 * Used as a Customizer `active_callback`.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control The Customizer control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_sidebar_visible( $control ) {
-		$id = (string) $control->id;
-
-		if ( false !== strpos( $id, 'sidebar_left' ) ) {
-			return prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_sidebar_left_visible', true );
-		}
-
-		if ( false !== strpos( $id, 'sidebar_right' ) ) {
-			return prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_sidebar_right_visible', true );
-		}
-
-		// If we can't determine which sidebar, fail open (show control).
-		return true;
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_sidebar_contained_active' ) ) {
-	/**
-	 * Determine whether the sidebar containment control should be active.
-	 *
-	 * Sidebar containment only applies when:
-	 * - Not all regions are hidden,
-	 * - The relevant sidebar is visible, and
-	 * - The layout is not in framed mode.
-	 *
-	 * Used as a Customizer `active_callback`.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control The Customizer control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_sidebar_contained_active( $control ) {
-		if ( ! prismleaf_customize_callback_not_all_hidden( $control ) ) {
-			return false;
-		}
-
-		if ( ! prismleaf_customize_callback_sidebar_visible( $control ) ) {
-			return false;
-		}
-
-		return ! prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_framed', false );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_customize_callback_sidebar_floating_active' ) ) {
-	/**
-	 * Determine whether the sidebar floating control should be active.
-	 *
-	 * Sidebar floating only applies when:
-	 * - The sidebar is visible, and
-	 * - The sidebar is not contained.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param WP_Customize_Control $control The Customizer control instance.
-	 * @return bool
-	 */
-	function prismleaf_customize_callback_sidebar_floating_active( $control ) {
-		if ( ! prismleaf_customize_callback_sidebar_visible( $control ) ) {
-			return false;
-		}
-
-		$id = (string) $control->id;
-
-		if ( false !== strpos( $id, 'sidebar_left' ) ) {
-			return ! prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_sidebar_left_contained', true );
-		}
-
-		if ( false !== strpos( $id, 'sidebar_right' ) ) {
-			return ! prismleaf_customize_get_bool( $control->manager, 'prismleaf_layout_sidebar_right_contained', true );
-		}
-
-		return true;
-	}
-}
-
-if ( ! function_exists( 'prismleaf_layout_all_regions_hidden' ) ) {
-	/**
-	 * Whether all layout regions are hidden (front-end effective).
-	 *
-	 * Supports both legacy `prismleaf_layout_hide_*` mods and the current
-	 * `prismleaf_layout_*_visible` mods. If both exist, `*_visible` wins.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-	function prismleaf_layout_all_regions_hidden() {
-		$regions = array(
-			'header'        => array(
-				'visible' => 'prismleaf_layout_header_visible',
-				'hide'    => 'prismleaf_layout_hide_header',
-				'default' => true,
-			),
-			'footer'        => array(
-				'visible' => 'prismleaf_layout_footer_visible',
-				'hide'    => 'prismleaf_layout_hide_footer',
-				'default' => true,
-			),
-			'sidebar_left'  => array(
-				'visible' => 'prismleaf_layout_sidebar_left_visible',
-				'hide'    => 'prismleaf_layout_hide_sidebar_left',
-				'default' => true,
-			),
-			'sidebar_right' => array(
-				'visible' => 'prismleaf_layout_sidebar_right_visible',
-				'hide'    => 'prismleaf_layout_hide_sidebar_right',
-				'default' => true,
-			),
-		);
-
-		foreach ( $regions as $region ) {
-			// Prefer the current `*_visible` setting if it has been saved.
-			$visible_value = get_theme_mod( $region['visible'], null );
-			if ( null !== $visible_value ) {
-				if ( (bool) wp_validate_boolean( $visible_value ) ) {
-					return false;
-				}
-				continue;
-			}
-
-			// Fall back to legacy `hide_*` if present.
-			$hide_value = get_theme_mod( $region['hide'], null );
-			if ( null !== $hide_value ) {
-				if ( ! (bool) wp_validate_boolean( $hide_value ) ) {
-					return false;
-				}
-				continue;
-			}
-
-			// If neither mod exists, assume default visibility (not hidden).
-			if ( (bool) $region['default'] ) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-}
-
-if ( ! function_exists( 'prismleaf_sanitize_header_height' ) ) {
-	/**
-	 * Sanitize header height (px), allowing 0 for "auto".
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value Height value.
-	 * @return int
-	 */
-	function prismleaf_sanitize_header_height( $value ) {
-		if ( '' === (string) $value ) {
-			return '';
-		}
-
-		if ( ! is_numeric( $value ) ) {
-			return '';
-		}
-
-		$value = absint( $value );
-
-		// 0 means "auto".
-		if ( 0 === $value ) {
-			return 0;
-		}
-
-		// Defensive clamp.
-		return max( 16, min( 240, $value ) );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_sanitize_footer_height' ) ) {
-	/**
-	 * Sanitize footer height (px), allowing 0 for "auto".
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value Height value.
-	 * @return int
-	 */
-	function prismleaf_sanitize_footer_height( $value ) {
-		if ( '' === (string) $value ) {
-			return '';
-		}
-
-		if ( ! is_numeric( $value ) ) {
-			return '';
-		}
-
-		$value = absint( $value );
-
-		// 0 means "auto".
-		if ( 0 === $value ) {
-			return 0;
-		}
-
-		// Defensive clamp.
-		return max( 16, min( 320, $value ) );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_sanitize_sidebar_width' ) ) {
-	/**
-	 * Sanitize sidebar width (px).
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value Width value.
-	 * @return int
-	 */
-	function prismleaf_sanitize_sidebar_width( $value ) {
-		if ( '' === (string) $value ) {
-			return 300;
-		}
-
-		if ( ! is_numeric( $value ) ) {
-			return 300;
-		}
-
-		$value = absint( $value );
-
-		// Defensive clamp.
-		return max( 200, min( 400, $value ) );
-	}
-}
-
-if ( ! function_exists( 'prismleaf_sanitize_border_style' ) ) {
-	/**
-	 * Sanitize a border style value.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value Border style.
-	 * @return string
-	 */
-	function prismleaf_sanitize_border_style( $value ) {
-		$value = (string) $value;
-
-		$allowed = array(
-			'none',
-			'solid',
-			'dashed',
-			'dotted',
-			'double',
-		);
-
-		if ( in_array( $value, $allowed, true ) ) {
-			return $value;
-		}
-
-		// Default to a safe, predictable value.
-		return 'solid';
-	}
-}
-
-if ( ! function_exists( 'prismleaf_register_theme_option_section' ) ) {
-	/**
-	 * Ensure a theme options section exists.
+	 * Add a palette source control using existing settings.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
-	 * @param string               $section_id  Section ID.
+	 * @param array<string,mixed>  $args Control arguments.
 	 * @return void
 	 */
-	function prismleaf_register_theme_option_section( $wp_customize, $section_id ) {
-		if ( ! ( $wp_customize instanceof WP_Customize_Manager ) ) {
-			return;
-		}
-
-		$sections = array(
-			'prismleaf_global_options' => array(
-				'title'       => __( 'Global', 'prismleaf' ),
-				'description' => __( 'Global theme options such as layout mode and palette overrides.', 'prismleaf' ),
-				'priority'    => 10,
-			),
-			'prismleaf_header_options' => array(
-				'title'       => __( 'Header', 'prismleaf' ),
-				'description' => __( 'Configure header layout, styling, and components.', 'prismleaf' ),
-				'priority'    => 20,
-			),
-			'prismleaf_footer_options' => array(
-				'title'       => __( 'Footer', 'prismleaf' ),
-				'description' => __( 'Configure footer layout, styling, and content.', 'prismleaf' ),
-				'priority'    => 30,
-			),
-			'prismleaf_sidebar_options' => array(
-				'title'       => __( 'Sidebars', 'prismleaf' ),
-				'description' => __( 'Configure left and right sidebar layout and styling.', 'prismleaf' ),
-				'priority'    => 40,
-			),
-			'prismleaf_content_options' => array(
-				'title'       => __( 'Content', 'prismleaf' ),
-				'description' => __( 'Configure the content region styling.', 'prismleaf' ),
-				'priority'    => 50,
-			),
+	function prismleaf_add_palette_source_control( $wp_customize, $args ) {
+		$defaults = array(
+			'source_setting_id'        => '',
+			'base_setting_id'          => '',
+			'palette_setting_id'       => '',
+			'section'                  => '',
+			'label'                    => '',
+			'description'              => '',
+			'priority'                 => 0,
+			'active_callback'          => null,
+			'source_default_key'       => '',
+			'source_default_fallback'  => '',
+			'base_default_key'         => '',
+			'base_default_fallback'    => '',
+			'palette_default_key'      => '',
+			'palette_default_fallback' => '',
+			'transport'                => 'refresh',
 		);
 
-		if ( ! isset( $sections[ $section_id ] ) ) {
+		$args = wp_parse_args( $args, $defaults );
+		$args['source_setting_id']   = prismleaf_sanitize_customizer_id( $args['source_setting_id'] );
+		$args['base_setting_id']     = prismleaf_sanitize_customizer_id( $args['base_setting_id'] );
+		$args['palette_setting_id']  = prismleaf_sanitize_customizer_id( $args['palette_setting_id'] );
+		$args['section']             = prismleaf_sanitize_customizer_id( $args['section'] );
+		$args['label']               = prismleaf_sanitize_text( $args['label'] );
+		$args['description']         = prismleaf_sanitize_text( $args['description'] );
+		$args['priority']            = prismleaf_sanitize_int( $args['priority'] );
+		$args['source_default_key']  = prismleaf_sanitize_text( $args['source_default_key'] );
+		$args['base_default_key']    = prismleaf_sanitize_text( $args['base_default_key'] );
+		$args['palette_default_key'] = prismleaf_sanitize_text( $args['palette_default_key'] );
+		$args['transport']           = prismleaf_sanitize_transport( $args['transport'] );
+
+		if ( '' === $args['source_setting_id'] || '' === $args['base_setting_id'] || '' === $args['palette_setting_id'] || '' === $args['section'] || '' === $args['label'] || ! array_key_exists( 'priority', $args ) ) {
 			return;
 		}
 
-		if ( $wp_customize->get_section( $section_id ) ) {
-			return;
+		$wp_customize->add_setting(
+			$args['source_setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['source_default_key'], $args['source_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_palette_source',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$args['base_setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['base_default_key'], $args['base_default_fallback'] ),
+				'sanitize_callback' => 'sanitize_hex_color',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$wp_customize->add_setting(
+			$args['palette_setting_id'],
+			array(
+				'default'           => prismleaf_get_default_option( $args['palette_default_key'], $args['palette_default_fallback'] ),
+				'sanitize_callback' => 'prismleaf_sanitize_palette_source_json',
+				'transport'         => $args['transport'],
+			)
+		);
+
+		$control_args = array(
+			'label'       => $args['label'],
+			'description' => $args['description'],
+			'section'     => $args['section'],
+			'priority'    => $args['priority'],
+			'choices'     => prismleaf_get_palette_source_choices(),
+			'settings'    => array(
+				'source'  => $args['source_setting_id'],
+				'base'    => $args['base_setting_id'],
+				'palette' => $args['palette_setting_id'],
+			),
+			'palette_labels' => prismleaf_get_palette_preview_labels( prismleaf_get_palette_keys() ),
+		);
+
+		if ( $args['active_callback'] ) {
+			$control_args['active_callback'] = $args['active_callback'];
 		}
 
-		$args = $sections[ $section_id ];
-		$args['panel'] = 'prismleaf_theme_options';
-		$wp_customize->add_section( $section_id, $args );
+		$wp_customize->add_control(
+			new Prismleaf_Customize_Palette_Source_Control(
+				$wp_customize,
+				$args['source_setting_id'],
+				$control_args
+			)
+		);
 	}
 }
 
+if ( ! function_exists( 'prismleaf_filter_language_attributes' ) ) {
+	/**
+	 * Append theme mode overrides to the HTML language attributes.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $output Language attributes string.
+	 * @return string
+	 */
+	function prismleaf_filter_language_attributes( $output ) {
+		$mode = prismleaf_get_theme_mod_theme_mode( 'prismleaf_palette_theme_mode','palette_theme_mode' );
+
+		if ( 'system' === $mode ) {
+			return $output;
+		}
+
+		return $output . ' data-prismleaf-color-scheme="' . esc_attr( $mode ) . '"';
+	}
+}
+add_filter( 'language_attributes', 'prismleaf_filter_language_attributes' );

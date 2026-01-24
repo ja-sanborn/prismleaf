@@ -6,206 +6,172 @@
  * @package prismleaf
  */
 
-/* Region visibility toggle. */
-.prismleaf-footer-hidden .prismleaf-region-footer {
-	display: none;
+/* Footer region tokens. */
+:root {
+	--prismleaf-footer-background-color: var(--prismleaf-color-surface-2);
+	--prismleaf-footer-background-image: none;
+	--prismleaf-footer-background-repeat: repeat;
+	--prismleaf-footer-background-position: center;
+	--prismleaf-footer-background-size: auto;
+	--prismleaf-footer-background-attachment: scroll;
+	--prismleaf-footer-background-overlay: none;
+	--prismleaf-footer-border-color: var(--prismleaf-color-outline);
+	--prismleaf-footer-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-footer-border-style-bottom: var(--prismleaf-border-style);
+	--prismleaf-footer-border-style-left: var(--prismleaf-border-style);
+	--prismleaf-footer-border-style-right: var(--prismleaf-border-style);
+	--prismleaf-footer-border-style-top: var(--prismleaf-border-style);
+	--prismleaf-footer-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-footer-elevation: var(--prismleaf-shadow-elevation-2);
+	--prismleaf-footer-margin: var(--prismleaf-space-2);
+	--prismleaf-footer-max-height: none;
+	--prismleaf-footer-padding: var(--prismleaf-space-2);
+	--prismleaf-footer-copyright-color: var(--prismleaf-color-surface-on-muted);
+	--prismleaf-footer-widget-color: var(--prismleaf-color-surface-on-muted);
+	--prismleaf-footer-widget-column-width: 150px;
+	--prismleaf-footer-widget-row-gap: var(--prismleaf-space-3);
+	--prismleaf-footer-widget-row-justify: center;
+	--prismleaf-footer-widget-row-width: 100%;
 }
 
-/* Footer region surface. */
+/* Responsive footer widget column widths. */
+@media (min-width: 800px) {
+
+	:root {
+		--prismleaf-footer-widget-column-width: 175px;
+	}
+}
+
+@media (min-width: 900px) {
+
+	:root {
+		--prismleaf-footer-widget-column-width: 200px;
+	}
+}
+
+@media (min-width: 1000px) {
+
+	:root {
+		--prismleaf-footer-widget-column-width: 225px;
+	}
+}
+
+@media (min-width: 1100px) {
+
+	:root {
+		--prismleaf-footer-widget-column-width: 250px;
+	}
+}
+
+@media (min-width: 1200px) {
+
+	:root {
+		--prismleaf-footer-widget-column-width: 275px;
+	}
+}
+
+@media (min-width: 1300px) {
+
+	:root {
+		--prismleaf-footer-widget-column-width: 300px;
+	}
+}
+
+@media (min-width: 1400px) {
+
+	:root {
+		--prismleaf-footer-widget-column-width: 325px;
+	}
+}
+
+/* Footer region styling. */
 .prismleaf-region-footer {
-	background-color: var(--prismleaf-region-footer-background);
-	color: var(--prismleaf-region-footer-foreground);
-
-	border-width: var(--prismleaf-border-width-thin);
-	border-style: var(--prismleaf-region-footer-border-style);
-	border-color: var(--prismleaf-region-footer-border-color);
-	border-radius: var(--prismleaf-region-footer-radius);
-
-	box-shadow: var(--prismleaf-region-footer-shadow);
-	padding: var(--prismleaf-space-2);
-}
-
-/* Footer layout content. */
-.prismleaf-footer {
-	display: flex;
-	flex-direction: column;
-	gap: var(--prismleaf-space-2);
-	padding: var(--prismleaf-space-2) 0;
-	color: var(--prismleaf-color-on-surface-muted);
+	grid-area: footer;
+	background-color: var(--prismleaf-footer-background-color);
+	background-image: var(--prismleaf-footer-background-overlay), var(--prismleaf-footer-background-image);
+	background-repeat: var(--prismleaf-footer-background-repeat);
+	background-size: var(--prismleaf-footer-background-size);
+	background-position: var(--prismleaf-footer-background-position);
+	background-attachment: var(--prismleaf-footer-background-attachment);
+	border-block-start-style: var(--prismleaf-footer-border-style-top);
+	border-block-end-style: var(--prismleaf-footer-border-style-bottom);
+	border-color: var(--prismleaf-footer-border-color);
+	border-inline-start-style: var(--prismleaf-footer-border-style-left);
+	border-inline-end-style: var(--prismleaf-footer-border-style-right);
+	border-radius: var(--prismleaf-footer-border-radius);
+	border-width: var(--prismleaf-footer-border-width);
+	box-shadow: var(--prismleaf-footer-elevation);
+	margin: var(--prismleaf-footer-margin);
+	padding: var(--prismleaf-footer-padding);
+	min-height: var(--prismleaf-footer-min-height);
+	height: var(--prismleaf-footer-height);
+	max-height: var(--prismleaf-footer-max-height);
+	overflow-x: hidden;
+	overflow-y: var(--prismleaf-region-overflow);
 }
 
 .prismleaf-footer-row {
-	width: 100%;
 	display: flex;
 	flex-direction: column;
 	gap: var(--prismleaf-space-1);
+	width: 100%;
 }
 
+/* Footer widget row styling. */
 .prismleaf-footer-row-widgets {
-	align-items: stretch;
+	align-items: center;
 }
 
 .prismleaf-footer-widgets {
-	display: grid;
-	grid-template-columns: var(--prismleaf-footer-widget-columns, repeat(4, 150px));
-	gap: var(--prismleaf-space-3);
-	align-items: start;
-	justify-content: var(--prismleaf-footer-widget-justify, center);
-	width: 100%;
+	display: flex;
+	justify-content: var(--prismleaf-footer-widget-row-justify, center);
+	flex-wrap: wrap;
+	gap: 0;
+	width: var(--prismleaf-footer-widget-row-width, 100%);
+	inline-size: var(--prismleaf-footer-widget-row-width, 100%);
+	max-width: var(--prismleaf-footer-widget-row-width, 100%);
+	max-inline-size: var(--prismleaf-footer-widget-row-width, 100%);
+	margin-inline: auto;
 }
 
 .prismleaf-footer-widget {
-	display: flex;
-	flex-direction: column;
-	gap: var(--prismleaf-space-2);
+	color: var(--prismleaf-footer-widget-color);
+	flex: 0 0 var(--prismleaf-footer-widget-column-width);
+	width: var(--prismleaf-footer-widget-column-width);
+	inline-size: var(--prismleaf-footer-widget-column-width);
+	min-width: var(--prismleaf-footer-widget-column-width);
+	min-inline-size: var(--prismleaf-footer-widget-column-width);
 }
 
-.prismleaf-footer-row-copyright {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	text-align: left;
-}
-
+/* Footer copyright row styling. */
 .prismleaf-footer-copyright-group {
+	color: var(--prismleaf-footer-copyright-color);
 	display: flex;
-	flex-wrap: wrap;
-	gap: var(--prismleaf-space-1) var(--prismleaf-space-3);
+	justify-content: space-between;
 	align-items: center;
+	gap: var(--prismleaf-space-1);
 	width: 100%;
-	font-size: var(--prismleaf-font-size-sm);
-	color: var(--prismleaf-color-on-surface-muted);
 }
 
-.prismleaf-footer-copyright-text {
-	color: inherit;
-}
-
+.prismleaf-footer-copyright-text,
 .prismleaf-footer-powered-by {
-	color: var(--prismleaf-color-on-surface-muted);
-	margin-left: auto;
-	text-align: right;
+	display: block;
 }
 
-.prismleaf-footer-powered-by a {
-	color: var(--prismleaf-color-secondary);
-	text-decoration: none;
-	font-weight: var(--prismleaf-font-weight-medium);
+/* Link styling. */
+.prismleaf-footer-widget a {
+	color: var(--prismleaf-footer-widget-color);
 }
 
-.prismleaf-footer-powered-by a:hover {
-	color: var(--prismleaf-color-secondary-darker);
+.prismleaf-footer-copyright-group a {
+	color: var(--prismleaf-footer-copyright-color);
 	text-decoration: underline;
 }
 
-.prismleaf-footer-powered-by a:active {
-	color: var(--prismleaf-color-secondary-darkest);
+.prismleaf-footer-widget-group a:hover {
+	color: var(--prismleaf-color-link-hover);
 }
 
-/* Framed footer is square, borderless, and flat. */
-.prismleaf-layout-framed .prismleaf-region-footer {
-	border: 0;
-	border-radius: 0;
-	box-shadow: none;
-}
-
-/* Contained footer inherits the content surface. */
-.prismleaf-layout-not-framed.prismleaf-footer-contained .prismleaf-region-content .prismleaf-region-footer {
-	background-color: transparent;
-	color: inherit;
-	border: 0;
-	border-radius: 0;
-	box-shadow: none;
-}
-
-/* Not-contained, not-floating footer is square. */
-.prismleaf-layout-not-framed.prismleaf-footer-not-contained.prismleaf-footer-not-floating .prismleaf-region-footer {
-	border-radius: 0;
-}
-
-/* Desktop layout (>= 770px). */
-@media (min-width: 769px) {
-
-	.prismleaf-layout-framed .prismleaf-region-footer {
-		grid-row: 3;
-		grid-column: 1 / -1;
-		overflow: hidden;
-	}
-
-	.prismleaf-layout-not-framed .prismleaf-region-footer {
-		grid-area: footer;
-		min-height: var(--prismleaf-footer-height);
-		overflow-y: hidden;
-	}
-
-	/* Non-floating footers hug the viewport edge on desktop layouts. */
-	.prismleaf-layout-not-framed.prismleaf-footer-not-contained.prismleaf-footer-not-floating .prismleaf-region-footer {
-		margin-bottom: calc(-1 * var(--prismleaf-page-padding-y));
-		margin-inline: calc(50% - 50svw);
-		width: 100svw;
-		padding: var(--prismleaf-space-2);
-	}
-
-	@supports (width: 100dvw) {
-
-		.prismleaf-layout-not-framed.prismleaf-footer-not-contained.prismleaf-footer-not-floating .prismleaf-region-footer {
-			margin-inline: calc(50% - 50dvw);
-			width: 100dvw;
-		}
-	}
-}
-
-/* Mobile / stacked layout (<= 769px). */
-@media (max-width: 768px) {
-
-	.prismleaf-region-footer {
-		padding: var(--prismleaf-space-2);
-		overflow-x: hidden;
-	}
-
-	.prismleaf-layout-not-framed .prismleaf-region-footer {
-		border-radius: var(--prismleaf-radius-medium);
-		background-color: var(--prismleaf-region-footer-background);
-		color: var(--prismleaf-region-footer-foreground);
-		box-shadow: var(--prismleaf-region-footer-shadow);
-		border-width: var(--prismleaf-border-width-thin);
-		border-style: var(--prismleaf-region-footer-border-style);
-		border-color: var(--prismleaf-region-footer-border-color);
-	}
-
-	.prismleaf-layout-not-framed.prismleaf-footer-contained .prismleaf-region-content .prismleaf-region-footer {
-		background-color: var(--prismleaf-region-footer-background);
-		color: var(--prismleaf-region-footer-foreground);
-		box-shadow: var(--prismleaf-region-footer-shadow);
-		border-width: var(--prismleaf-border-width-thin);
-		border-style: var(--prismleaf-region-footer-border-style);
-		border-color: var(--prismleaf-region-footer-border-color);
-		border-radius: var(--prismleaf-radius-medium);
-	}
-
-	.prismleaf-footer {
-		gap: var(--prismleaf-space-1);
-	}
-
-	.prismleaf-footer-widgets {
-		grid-template-columns: 1fr;
-		justify-content: stretch;
-	}
-
-	.prismleaf-footer-row-copyright {
-		justify-content: center;
-		text-align: center;
-	}
-
-	.prismleaf-footer-copyright-group {
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		justify-content: center;
-	}
-
-	.prismleaf-footer-powered-by {
-		margin-left: 0;
-		text-align: center;
-	}
+.prismleaf-footer-copyright-group a:hover {
+	color: var(--prismleaf-color-link-hover);
 }

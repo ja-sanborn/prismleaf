@@ -27,24 +27,21 @@ get_header();
 	 */
 	?>
 	<section>
-		<h1><?php esc_html_e( 'Prismleaf Content Area', 'prismleaf' ); ?></h1>
-
+		<h1>Prismleaf Index Template</h1>
 		<p>
-			<?php
-			esc_html_e(
-				'This is placeholder content for the main content area. It exists to demonstrate layout behavior and scrolling while the Prismleaf layout framework is being built.',
-				'prismleaf'
-			);
-			?>
+			Index.php is the ultimate fallback for every WordPress query, so keep
+			it to supply base markup whenever no other template exists.
 		</p>
 
 		<p>
-			<?php
-			esc_html_e(
-				'Resize the viewport or toggle layout options in the Customizer to observe framed, non-framed, and stacked behaviors.',
-				'prismleaf'
-			);
-			?>
+			This is placeholder content for the main content area. It exists to
+			demonstrate layout behavior and scrolling while the Prismleaf layout
+			framework is being built.
+		</p>
+
+		<p>
+			Resize the viewport or toggle layout options in the Customizer to
+			observe framed, non-framed, and stacked behaviors.
 		</p>
 	</section>
 
