@@ -6,11 +6,6 @@
  * @package prismleaf
  */
 
-/* Region visibility toggle. */
-.prismleaf-sidebar-left-hidden .prismleaf-region-sidebar-left {
-	display: none;
-}
-
 /* Left sidebar region surface. */
 .prismleaf-region-sidebar-left {
 	background-color: var(--prismleaf-region-sidebar-left-background);
@@ -23,6 +18,11 @@
 
 	box-shadow: var(--prismleaf-region-sidebar-left-shadow);
 	padding: var(--prismleaf-space-2);
+}
+
+/* Region visibility toggle. */
+.prismleaf-sidebar-left-hidden .prismleaf-region-sidebar-left {
+	display: none;
 }
 
 /* Framed sidebar is square, borderless, and flat. */
@@ -62,13 +62,13 @@
 		grid-area: left;
 	}
 
-	.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained:not(.prismleaf-sidebar-left-hidden) .prismleaf-region-content > .prismleaf-region-sidebar-left {
-		grid-area: left;
-	}
-
 	/* Non-floating sidebars hug the viewport edge on desktop layouts. */
 	.prismleaf-layout-not-framed.prismleaf-sidebar-left-not-contained.prismleaf-sidebar-left-not-floating .prismleaf-region-sidebar-left {
 		margin-left: calc(-1 * var(--prismleaf-page-padding-x));
+	}
+
+	.prismleaf-layout-not-framed.prismleaf-sidebar-left-contained:not(.prismleaf-sidebar-left-hidden) .prismleaf-region-content > .prismleaf-region-sidebar-left {
+		grid-area: left;
 	}
 }
 
