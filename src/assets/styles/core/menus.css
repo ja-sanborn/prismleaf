@@ -7,9 +7,9 @@
  */
 
 :root {
-	--prismleaf-menu-item-gap: var(--prismleaf-space-2);
-	--prismleaf-menu-item-padding-horizontal: var(--prismleaf-space-3);
-	--prismleaf-menu-item-padding-vertical: var(--prismleaf-space-2);
+	--prismleaf-menu-item-gap: var(--prismleaf-space-1);
+	--prismleaf-menu-item-padding-horizontal: var(--prismleaf-space-2);
+	--prismleaf-menu-item-padding-vertical: var(--prismleaf-space-1);
 	--prismleaf-menu-divider-width: var(--prismleaf-border-width-thick);
 	--prismleaf-mobile-menu-overlay-z: 2000;
 	--prismleaf-mobile-menu-width: min(320px, 100%);
@@ -21,18 +21,12 @@
 	justify-content: center;
 }
 
-.prismleaf-header-menu-row-primary {
-	margin-bottom: var(--prismleaf-space-2);
-}
-
-.prismleaf-header-menu-row-secondary {
-	margin-top: var(--prismleaf-space-2);
-}
-
 .prismleaf-menu {
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	padding-left: var(--prismleaf-space-2);
+	padding-right: var(--prismleaf-space-2);
 }
 
 .prismleaf-menu-items {
@@ -285,12 +279,12 @@
 		display: none;
 	}
 
-.prismleaf-mobile-menu-toggle {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	z-index: calc(var(--prismleaf-mobile-menu-overlay-z) + 1);
- }
+	.prismleaf-mobile-menu-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		z-index: calc(var(--prismleaf-mobile-menu-overlay-z) + 1);
+	}
 
 	.prismleaf-header-meta {
 		width: 100%;

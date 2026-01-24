@@ -23,7 +23,6 @@
 	--prismleaf-header-border-width: var(--prismleaf-border-width-thin);
 	--prismleaf-header-elevation: var(--prismleaf-shadow-elevation-2);
 	--prismleaf-header-foreground-color: var(--prismleaf-color-surface-on);
-	--prismleaf-header-padding: var(--prismleaf-space-2);
 	--prismleaf-header-margin: var(--prismleaf-space-2);
 	--prismleaf-header-max-height: none;
 	--prismleaf-header-side-column-width: var(--prismleaf-site-icon-size, var(--prismleaf-space-6));
@@ -48,7 +47,6 @@
 	box-shadow: var(--prismleaf-header-elevation);
 	color: var(--prismleaf-header-foreground-color);
 	margin: var(--prismleaf-header-margin);
-	padding: var(--prismleaf-header-padding);
 	min-height: var(--prismleaf-header-min-height);
 	height: var(--prismleaf-header-height);
 	max-height: var(--prismleaf-header-max-height);
@@ -61,7 +59,28 @@
 	align-items: center;
 	height: 100%;
 	width: 100%;
-	gap: var(--prismleaf-space-4);
+	gap: var(--prismleaf-space-3);
+	padding: var(--prismleaf-space-3);
+}
+
+.prismleaf-header-column-title {
+	order: 2;
+	flex: 1;
+	justify-content: flex-start;
+}
+
+.prismleaf-header-column-icon {
+	order: 1;
+	flex: 0 0 var(--prismleaf-header-side-column-width);
+	width: var(--prismleaf-header-side-column-width);
+	justify-content: center;
+}
+
+.prismleaf-header-column-meta {
+	order: 3;
+	flex: 0 0 var(--prismleaf-header-side-column-width);
+	width: var(--prismleaf-header-side-column-width);
+	justify-content: center;
 }
 
 .prismleaf-header-row-no-icon .prismleaf-header-column-icon {
@@ -92,24 +111,4 @@
 	display: flex;
 	align-items: center;
 	height: 100%;
-}
-
-.prismleaf-header-column-title {
-	order: 2;
-	flex: 1;
-	justify-content: flex-start;
-}
-
-.prismleaf-header-column-icon {
-	order: 1;
-	flex: 0 0 var(--prismleaf-header-side-column-width);
-	width: var(--prismleaf-header-side-column-width);
-	justify-content: center;
-}
-
-.prismleaf-header-column-meta {
-	order: 3;
-	flex: 0 0 var(--prismleaf-header-side-column-width);
-	width: var(--prismleaf-header-side-column-width);
-	justify-content: center;
 }

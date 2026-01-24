@@ -27,7 +27,7 @@ if ( ! function_exists( 'prismleaf_register_menu_options_section' ) ) {
 				'id'          => 'prismleaf_menu_options',
 				'title'       => __( 'Menu Styling', 'prismleaf' ),
 				'description' => __( 'Control the appearance of the primary, secondary, and mobile menus.', 'prismleaf' ),
-				'priority'    => 40,
+				'priority'    => 80,
 			)
 		);
 

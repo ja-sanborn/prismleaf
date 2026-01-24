@@ -26,12 +26,9 @@ $tagline_classes = array(
 	'prismleaf-site-tagline',
 	'prismleaf-site-tagline-' . $tagline_position,
 );
-
-$title_element_class = 'prismleaf-site-title-text prismleaf-font-title prismleaf-font-3xl';
-
 ?>
 <div class="<?php echo esc_attr( implode( ' ', $title_classes ) ); ?>">
-	<<?php echo esc_html( $title_tag ); ?> class="<?php echo esc_attr( $title_element_class ); ?>">
+	<<?php echo esc_html( $title_tag ); ?> class="prismleaf-site-title-text">
 		<?php echo esc_html( $site_title ); ?>
 	</<?php echo esc_html( $title_tag ); ?>>
 	<?php if ( $show_tagline ) : ?>
