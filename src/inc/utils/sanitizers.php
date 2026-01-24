@@ -484,11 +484,28 @@ if ( ! function_exists( 'prismleaf_sanitize_frame_border_corners' ) ) {
 	 * @param mixed $value Value to sanitize.
 	 * @return string
 	 */
-	function prismleaf_sanitize_frame_border_corners( $value ) {
-		$value = trim( (string) $value );
-		$allowed = array( 'Square', 'Round' );
+function prismleaf_sanitize_frame_border_corners( $value ) {
+	$value = trim( (string) $value );
+	$allowed = array( 'Square', 'Round' );
 
-		return in_array( $value, $allowed, true ) ? $value : 'Round';
+	return in_array( $value, $allowed, true ) ? $value : 'Round';
+}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_menu_button_corners' ) ) {
+	/**
+	 * Sanitize the menu button corner option.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_menu_button_corners( $value ) {
+		$value = trim( (string) $value );
+		$allowed = array( 'Square', 'Round', 'Pill' );
+
+		return in_array( $value, $allowed, true ) ? $value : 'Square';
 	}
 }
 

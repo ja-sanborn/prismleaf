@@ -59,3 +59,19 @@
 	display: block;
 	width: 100%;
  }
+
+@media (max-width: 767px) {
+
+	:root {
+		--prismleaf-site-title-flex-direction: column;
+		--prismleaf-site-title-gap: var(--prismleaf-space-1);
+	}
+
+	.prismleaf-site-title {
+		align-items: center;
+	}
+
+	.prismleaf-site-tagline {
+		text-align: center;
+	}
+}

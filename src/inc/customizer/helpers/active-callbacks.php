@@ -190,8 +190,73 @@ if ( ! function_exists( 'prismleaf_is_frame_background_control_active' ) ) {
 	 *
 	 * @return bool
 	 */
-	function prismleaf_is_frame_background_control_active() {
-		return ! prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false )
-			&& prismleaf_get_theme_mod_bool( 'prismleaf_frame_show_background', true );
+function prismleaf_is_frame_background_control_active() {
+	return ! prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false )
+		&& prismleaf_get_theme_mod_bool( 'prismleaf_frame_show_background', true );
+}
+}
+
+if ( ! function_exists( 'prismleaf_is_primary_menu_button_corners_active' ) ) {
+	/**
+	 * Show primary menu button corners control when the strip is disabled.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_primary_menu_button_corners_active() {
+		return ! prismleaf_get_theme_mod_bool( 'prismleaf_menu_primary_strip', true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_is_primary_menu_divider_active' ) ) {
+	/**
+	 * Show primary menu divider control when the strip is enabled.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_primary_menu_divider_active() {
+		return prismleaf_get_theme_mod_bool( 'prismleaf_menu_primary_strip', true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_is_secondary_menu_button_corners_active' ) ) {
+	/**
+	 * Show secondary menu button corners control when the strip is disabled.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_secondary_menu_button_corners_active() {
+		return ! prismleaf_get_theme_mod_bool( 'prismleaf_menu_secondary_strip', true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_is_secondary_menu_divider_active' ) ) {
+	/**
+	 * Show secondary menu divider control when the strip is enabled.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_secondary_menu_divider_active() {
+		return prismleaf_get_theme_mod_bool( 'prismleaf_menu_secondary_strip', true );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_is_mobile_menu_divider_active' ) ) {
+	/**
+	 * Show mobile divider control when the panel is enabled.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	function prismleaf_is_mobile_menu_divider_active() {
+		return prismleaf_get_theme_mod_bool( 'prismleaf_menu_mobile_panel', true );
 	}
 }

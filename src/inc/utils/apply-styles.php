@@ -19,25 +19,41 @@ if ( ! function_exists( 'prismleaf_output_customizer_styles' ) ) {
 	 *
 	 * @return void
 	 */
-	function prismleaf_output_customizer_styles( $handle = 'prismleaf-style' ) {
-		$css = '';
-		$css .= prismleaf_get_palette_css_vars();
-		$css .= prismleaf_get_framed_css_vars();
-		$css .= prismleaf_get_header_css_vars();
-		$css .= prismleaf_get_header_icon_css_vars();
-		$css .= prismleaf_get_site_title_css_vars();
-		$css .= prismleaf_get_footer_css_vars();
-		$css .= prismleaf_get_sidebar_css_vars();
-		$css .= prismleaf_get_content_css_vars();
-		$css .= prismleaf_get_widget_css_vars();
+function prismleaf_output_customizer_styles( $handle = 'prismleaf-style' ) {
+	$css = '';
+	$css .= prismleaf_get_palette_css_vars();
+	$css .= prismleaf_get_framed_css_vars();
+	$css .= prismleaf_get_header_css_vars();
+$css .= prismleaf_get_header_icon_css_vars();
+	$css .= prismleaf_get_site_title_css_vars();
+	$css .= prismleaf_get_footer_css_vars();
+	$css .= prismleaf_get_sidebar_css_vars();
+	$css .= prismleaf_get_content_css_vars();
+	$css .= prismleaf_get_widget_css_vars();
 
-		if ( '' === $css ) {
-			return;
-		}
-
-		$css = '@media(min-width: 768px){:root{' . $css . '}}';
-		wp_add_inline_style( $handle, $css );
+	if ( '' === $css ) {
+		return;
 	}
+
+	$menu_css = prismleaf_get_menu_css_vars();
+	$inline_css = '';
+
+	if ( '' !== $menu_css ) {
+		$inline_css .= ':root{' . $menu_css . '}';
+	}
+
+	if ( '' === $css && '' === $inline_css ) {
+		return;
+	}
+
+	if ( '' !== $css ) {
+		$inline_css .= '@media(min-width: 768px){:root{' . $css . '}}';
+	}
+
+	if ( '' !== $inline_css ) {
+		wp_add_inline_style( $handle, $inline_css );
+	}
+}
 }
 
 if ( ! function_exists( 'prismleaf_build_css_var' ) ) {
@@ -474,12 +490,12 @@ if ( ! function_exists( 'prismleaf_get_site_title_css_vars' ) ) {
 	 *
 	 * @return string
 	 */
-	function prismleaf_get_site_title_css_vars() {
-		$title_color   = prismleaf_get_theme_mod_header_title_color();
-		$tagline_color = prismleaf_get_theme_mod_header_tagline_color();
-		$tagline_position = prismleaf_get_theme_mod_header_tagline_position();
+function prismleaf_get_site_title_css_vars() {
+	$title_color   = prismleaf_get_theme_mod_header_title_color();
+	$tagline_color = prismleaf_get_theme_mod_header_tagline_color();
+	$tagline_position = prismleaf_get_theme_mod_header_tagline_position();
 
-		$css  = '';
+	$css  = '';
 
 		if ( '' !== $title_color ) {
 			$css .= prismleaf_build_css_var( '--prismleaf-header-title-color', $title_color );
@@ -490,7 +506,145 @@ if ( ! function_exists( 'prismleaf_get_site_title_css_vars' ) ) {
 		}
 
 		$flex_direction = 'inline' === $tagline_position ? 'row' : 'column';
-		$css .= prismleaf_build_css_var( '--prismleaf-site-title-flex-direction', $flex_direction );
+	$css .= prismleaf_build_css_var( '--prismleaf-site-title-flex-direction', $flex_direction );
+
+	return $css;
+}
+}
+
+if ( ! function_exists( 'prismleaf_get_menu_css_vars' ) ) {
+	/**
+	 * Build CSS variables for the menu palette overrides.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_menu_css_vars() {
+		$primary_background = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_menu_primary_background_color_palette',
+			'surface_1',
+			'--prismleaf-color-primary-surface-1'
+		);
+		$primary_foreground = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_menu_primary_foreground_color_palette',
+			'surface_on',
+			'--prismleaf-color-primary-surface-on'
+		);
+
+		$secondary_background = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_menu_secondary_background_color_palette',
+			'surface_1',
+			'--prismleaf-color-secondary-surface-1'
+		);
+		$secondary_foreground = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_menu_secondary_foreground_color_palette',
+			'surface_on',
+			'--prismleaf-color-secondary-surface-on'
+		);
+
+		$mobile_background = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_menu_mobile_background_color_palette',
+			'surface_1',
+			'--prismleaf-color-primary-surface-1'
+		);
+		$mobile_foreground = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_menu_mobile_foreground_color_palette',
+			'surface_on',
+			'--prismleaf-color-primary-surface-on'
+		);
+
+		$normalize_token = static function ( $value ) {
+			$value = trim( (string) $value );
+			if ( '' === $value ) {
+				return '';
+			}
+
+			if ( 0 === strpos( $value, 'var(' ) ) {
+				return $value;
+			}
+
+			if ( 0 === strpos( $value, '--' ) ) {
+				return 'var(' . $value . ')';
+			}
+
+			return $value;
+		};
+
+		$primary_background   = $normalize_token( $primary_background );
+		$primary_foreground   = $normalize_token( $primary_foreground );
+		$secondary_background = $normalize_token( $secondary_background );
+		$secondary_foreground = $normalize_token( $secondary_foreground );
+		$mobile_background    = $normalize_token( $mobile_background );
+		$mobile_foreground    = $normalize_token( $mobile_foreground );
+
+		$corner_map = array(
+			'Square' => '0',
+			'Round'  => '--prismleaf-radius-medium',
+			'Pill'   => '--prismleaf-radius-pill',
+		);
+
+		$primary_strip     = prismleaf_get_theme_mod_bool( 'prismleaf_menu_primary_strip', true );
+		$primary_divider   = prismleaf_get_theme_mod_bool( 'prismleaf_menu_primary_divider', true );
+		$primary_corners   = prismleaf_get_theme_mod_menu_button_corners( 'prismleaf_menu_primary_button_corners', 'primary_menu_button_corners' );
+		$primary_radius    = isset( $corner_map[ $primary_corners ] ) ? $corner_map[ $primary_corners ] : '--prismleaf-radius-medium';
+
+		$primary_button_bg      = $primary_background;
+		$primary_divider_active = $primary_strip && $primary_divider;
+		$primary_gap_zero       = $primary_strip;
+
+		$secondary_strip     = prismleaf_get_theme_mod_bool( 'prismleaf_menu_secondary_strip', true );
+		$secondary_divider   = prismleaf_get_theme_mod_bool( 'prismleaf_menu_secondary_divider', true );
+		$secondary_corners   = prismleaf_get_theme_mod_menu_button_corners( 'prismleaf_menu_secondary_button_corners', 'secondary_menu_button_corners' );
+		$secondary_radius    = isset( $corner_map[ $secondary_corners ] ) ? $corner_map[ $secondary_corners ] : '--prismleaf-radius-medium';
+
+		$secondary_button_bg      = $secondary_background;
+		$secondary_divider_active = $secondary_strip && $secondary_divider;
+		$secondary_gap_zero       = $secondary_strip;
+
+		$mobile_panel        = prismleaf_get_theme_mod_bool( 'prismleaf_menu_mobile_panel', true );
+		$mobile_divider      = prismleaf_get_theme_mod_bool( 'prismleaf_menu_mobile_divider', true );
+		$mobile_corners      = prismleaf_get_theme_mod_menu_button_corners( 'prismleaf_menu_mobile_button_corners', 'mobile_menu_button_corners' );
+		$mobile_radius       = isset( $corner_map[ $mobile_corners ] ) ? $corner_map[ $mobile_corners ] : '--prismleaf-radius-medium';
+		$mobile_item_bg      = $mobile_background;
+		$mobile_panel_bg     = $mobile_panel ? $mobile_background : 'transparent';
+		$mobile_overlay_bg   = $mobile_panel ? 'rgba(0, 0, 0, 0.35)' : 'transparent';
+		$mobile_divider_col  = $mobile_panel && $mobile_divider ? $mobile_foreground : 'transparent';
+		$mobile_panel_radius = in_array( $mobile_corners, array( 'Round', 'Pill' ), true ) ? '--prismleaf-radius-large' : '0';
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-background-color', $primary_background );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-foreground-color', $primary_foreground );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-hover-color', '--prismleaf-color-primary-surface-2' );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-secondary-background-color', $secondary_background );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-secondary-foreground-color', $secondary_foreground );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-secondary-hover-color', '--prismleaf-color-secondary-surface-2' );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-mobile-background-color', $mobile_background );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-mobile-foreground-color', $mobile_foreground );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-mobile-hover-color', '--prismleaf-color-primary-surface-2' );
+
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-strip-background', $primary_strip ? $primary_background : 'transparent' );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-button-background', $primary_button_bg );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-button-radius', $primary_strip ? '0' : $primary_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-divider-color', $primary_divider_active ? $primary_foreground : 'transparent' );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-divider-gap', $primary_gap_zero ? '0' : 'var(--prismleaf-menu-item-gap)' );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-divider-width', '--prismleaf-border-width-thick' );
+
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-secondary-strip-background', $secondary_strip ? $secondary_background : 'transparent' );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-secondary-button-background', $secondary_button_bg );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-secondary-button-radius', $secondary_strip ? '0' : $secondary_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-secondary-divider-color', $secondary_divider_active ? $secondary_foreground : 'transparent' );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-secondary-divider-gap', $secondary_gap_zero ? '0' : 'var(--prismleaf-menu-item-gap)' );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-secondary-divider-width', '--prismleaf-border-width-thick' );
+
+		$css .= prismleaf_build_css_var( '--prismleaf-mobile-menu-overlay-background', $mobile_overlay_bg );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-mobile-panel-background', $mobile_panel_bg );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-mobile-panel-radius', $mobile_panel_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-mobile-item-background', $mobile_item_bg );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-mobile-button-radius', $mobile_panel ? '0' : $mobile_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-mobile-divider-color', $mobile_divider_col );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-mobile-divider-gap', $mobile_panel ? '0' : 'var(--prismleaf-menu-item-gap)' );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-mobile-divider-width', '--prismleaf-border-width-thick' );
 
 		return $css;
 	}

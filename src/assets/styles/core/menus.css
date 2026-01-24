@@ -1,0 +1,321 @@
+/*!
+ * Prismleaf Menu Styling
+ *
+ * Provides layout, tokens, and responsive styles for the primary, secondary, and mobile menus.
+ *
+ * @package prismleaf
+ */
+
+:root {
+	--prismleaf-menu-item-gap: var(--prismleaf-space-2);
+	--prismleaf-menu-item-padding-horizontal: var(--prismleaf-space-3);
+	--prismleaf-menu-item-padding-vertical: var(--prismleaf-space-2);
+	--prismleaf-menu-divider-width: var(--prismleaf-border-width-thick);
+	--prismleaf-mobile-menu-overlay-z: 2000;
+	--prismleaf-mobile-menu-width: min(320px, 100%);
+}
+
+.prismleaf-header-menu-row {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.prismleaf-header-menu-row-primary {
+	margin-bottom: var(--prismleaf-space-2);
+}
+
+.prismleaf-header-menu-row-secondary {
+	margin-top: var(--prismleaf-space-2);
+}
+
+.prismleaf-menu {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.prismleaf-menu-items {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--prismleaf-menu-item-gap);
+	flex-wrap: wrap;
+}
+
+.prismleaf-menu-items > li {
+	margin: 0;
+}
+
+.prismleaf-menu-items > li > a {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--prismleaf-menu-item-padding-vertical) var(--prismleaf-menu-item-padding-horizontal);
+	text-decoration: none;
+	font-weight: 600;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.prismleaf-menu-primary,
+.prismleaf-menu-secondary {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.prismleaf-menu-primary {
+	background-color: var(--prismleaf-menu-primary-strip-background, transparent);
+	padding: 0;
+}
+
+.prismleaf-menu-primary .prismleaf-menu-items {
+	gap: var(--prismleaf-menu-primary-divider-gap, var(--prismleaf-menu-item-gap));
+}
+
+.prismleaf-menu-primary .prismleaf-menu-items > li {
+	border-left: var(--prismleaf-menu-primary-divider-width, var(--prismleaf-border-width-thick)) solid var(--prismleaf-menu-primary-divider-color, transparent);
+}
+
+.prismleaf-menu-primary .prismleaf-menu-items > li > a {
+	color: var(--prismleaf-menu-primary-foreground-color, var(--prismleaf-color-primary-surface-on));
+	background-color: var(--prismleaf-menu-primary-button-background, var(--prismleaf-color-primary-surface-1));
+	border-radius: var(--prismleaf-menu-primary-button-radius, 0);
+}
+
+.prismleaf-menu-secondary {
+	background-color: var(--prismleaf-menu-secondary-strip-background, transparent);
+	padding: 0;
+}
+
+.prismleaf-menu-secondary .prismleaf-menu-items {
+	gap: var(--prismleaf-menu-secondary-divider-gap, var(--prismleaf-menu-item-gap));
+}
+
+.prismleaf-menu-secondary .prismleaf-menu-items > li {
+	border-left: var(--prismleaf-menu-secondary-divider-width, var(--prismleaf-border-width-thick)) solid var(--prismleaf-menu-secondary-divider-color, transparent);
+}
+
+.prismleaf-menu-secondary .prismleaf-menu-items > li > a {
+	color: var(--prismleaf-menu-secondary-foreground-color, var(--prismleaf-color-secondary-surface-on));
+	background-color: var(--prismleaf-menu-secondary-button-background, var(--prismleaf-color-secondary-surface-1));
+	border-radius: var(--prismleaf-menu-secondary-button-radius, 0);
+}
+
+.prismleaf-menu-mobile {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: stretch;
+	padding: 0;
+}
+
+.prismleaf-menu-mobile .prismleaf-menu-items {
+	flex-direction: column;
+	align-items: stretch;
+	gap: var(--prismleaf-menu-mobile-divider-gap, var(--prismleaf-menu-item-gap));
+}
+
+.prismleaf-menu-mobile .prismleaf-menu-items > li > a {
+	color: var(--prismleaf-menu-mobile-foreground-color, var(--prismleaf-color-primary-surface-on));
+	width: 100%;
+	background-color: var(--prismleaf-menu-mobile-item-background, var(--prismleaf-color-primary-surface-1));
+	border-radius: var(--prismleaf-menu-mobile-button-radius, 0);
+}
+
+.prismleaf-menu-mobile .prismleaf-menu-items > li + li {
+	border-top: var(--prismleaf-menu-mobile-divider-width, var(--prismleaf-border-width-thick)) solid var(--prismleaf-menu-mobile-divider-color, transparent);
+}
+
+.prismleaf-menu-primary .prismleaf-menu-items > li:last-child {
+	border-right: var(--prismleaf-menu-primary-divider-width, var(--prismleaf-border-width-thick)) solid var(--prismleaf-menu-primary-divider-color, transparent);
+}
+
+.prismleaf-menu-secondary .prismleaf-menu-items > li:last-child {
+	border-right: var(--prismleaf-menu-secondary-divider-width, var(--prismleaf-border-width-thick)) solid var(--prismleaf-menu-secondary-divider-color, transparent);
+}
+
+.prismleaf-menu-primary .prismleaf-menu-items > li > a:hover,
+.prismleaf-menu-primary .prismleaf-menu-items > li > a:focus-visible {
+	background-color: var(--prismleaf-menu-primary-hover-color, var(--prismleaf-color-primary-surface-2));
+}
+
+.prismleaf-menu-secondary .prismleaf-menu-items > li > a:hover,
+.prismleaf-menu-secondary .prismleaf-menu-items > li > a:focus-visible {
+	background-color: var(--prismleaf-menu-secondary-hover-color, var(--prismleaf-color-secondary-surface-2));
+}
+
+.prismleaf-menu-mobile .prismleaf-menu-items > li > a:hover,
+.prismleaf-menu-mobile .prismleaf-menu-items > li > a:focus-visible {
+	background-color: var(--prismleaf-menu-mobile-hover-color, var(--prismleaf-color-primary-surface-2));
+}
+
+.prismleaf-mobile-menu-overlay {
+	position: fixed;
+	inset: 0;
+	display: none;
+	align-items: flex-start;
+	justify-content: flex-end;
+	z-index: var(--prismleaf-mobile-menu-overlay-z);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.2s ease;
+	background-color: var(--prismleaf-mobile-menu-overlay-background, rgba(0, 0, 0, 0.35));
+	padding: var(--prismleaf-space-2);
+	gap: var(--prismleaf-space-2);
+}
+
+.prismleaf-mobile-menu-overlay.is-open {
+	display: flex;
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.prismleaf-mobile-menu-overlay .prismleaf-menu-mobile {
+	width: var(--prismleaf-mobile-menu-width);
+	max-height: calc(100vh - var(--prismleaf-space-6));
+	background-color: var(--prismleaf-menu-mobile-panel-background, var(--prismleaf-color-primary-surface-1));
+	box-shadow: var(--prismleaf-shadow-light-elevation-3);
+	padding: var(--prismleaf-space-2);
+	box-sizing: border-box;
+	overflow-y: auto;
+	transform-origin: top right;
+	transform: translateY(-10px) scaleY(0.95);
+	opacity: 0;
+	transition: transform 0.3s ease, opacity 0.3s ease;
+	border-radius: var(--prismleaf-menu-mobile-panel-radius, var(--prismleaf-radius-medium));
+}
+
+.prismleaf-mobile-menu-overlay.is-open .prismleaf-menu-mobile {
+	transform: translateY(0) scaleY(1);
+	opacity: 1;
+}
+
+.prismleaf-mobile-menu-toggle {
+	display: none;
+	border: none;
+	background: none;
+	color: inherit;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: 48px;
+	height: 48px;
+}
+
+.prismleaf-mobile-menu-icon {
+	display: block;
+	width: 24px;
+	height: 2px;
+	background: currentcolor;
+	position: relative;
+	margin: 0 auto;
+	transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.prismleaf-mobile-menu-icon::before,
+.prismleaf-mobile-menu-icon::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: currentcolor;
+	transition: transform 0.2s ease;
+}
+
+.prismleaf-mobile-menu-icon::before {
+	top: -6px;
+}
+
+.prismleaf-mobile-menu-icon::after {
+	top: 6px;
+}
+
+.prismleaf-mobile-menu-toggle.is-open .prismleaf-mobile-menu-icon {
+	background: transparent;
+}
+
+.prismleaf-mobile-menu-toggle.is-open .prismleaf-mobile-menu-icon::before {
+	transform: translateY(6px) rotate(45deg);
+}
+
+.prismleaf-mobile-menu-toggle.is-open .prismleaf-mobile-menu-icon::after {
+	transform: translateY(-6px) rotate(-45deg);
+}
+
+.prismleaf-header-meta {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--prismleaf-space-2);
+}
+
+@media (max-width: 767px) {
+
+	.prismleaf-header-row {
+		flex-direction: column;
+		align-items: stretch;
+		gap: var(--prismleaf-space-2);
+	}
+
+	.prismleaf-header-menu-row-primary,
+	.prismleaf-header-menu-row-secondary {
+		display: none;
+	}
+
+	.prismleaf-header-column-meta {
+		order: 1;
+		width: 100%;
+		justify-content: flex-end;
+	}
+
+	.prismleaf-header-column-title {
+		order: 2;
+		width: 100%;
+		justify-content: center;
+	}
+
+	.prismleaf-header-column-icon {
+		order: 3;
+		display: none;
+	}
+
+.prismleaf-mobile-menu-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	z-index: calc(var(--prismleaf-mobile-menu-overlay-z) + 1);
+ }
+
+	.prismleaf-header-meta {
+		width: 100%;
+		justify-content: flex-end;
+		gap: var(--prismleaf-space-2);
+	}
+
+	.prismleaf-site-title {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.prismleaf-site-tagline {
+		display: block;
+	}
+
+	.prismleaf-header-column-title .prismleaf-site-title,
+	.prismleaf-header-column-title .prismleaf-site-tagline {
+		text-align: center;
+		width: 100%;
+	}
+
+	.prismleaf-mobile-menu-overlay .prismleaf-menu-mobile {
+		max-width: 90vw;
+	}
+}
+
+
