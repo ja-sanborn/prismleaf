@@ -52,14 +52,6 @@ if ( ( $outer_left_sidebar || $outer_right_sidebar ) && $inner_footer ) {
 	$inner_footer = false;
 	$outer_footer = true;
 }
-
-if ( ! $prismleaf_sidebar_left_active ) {
-	$prismleaf_sidebar_left_visible = false;
-}
-
-if ( ! $prismleaf_sidebar_right_active ) {
-	$prismleaf_sidebar_right_visible = false;
-}
 ?>
 			</main><!-- .prismleaf-region-content -->
 			<?php if ( $inner_left_sidebar ) : ?>
