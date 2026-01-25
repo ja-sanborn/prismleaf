@@ -12,65 +12,69 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header();
-?>
 
+if ( have_posts() ) :
+	?>
 	<section aria-labelledby="index-title">
 		<header>
 			<h1 id="index-title"><?php esc_html_e( 'Blog Fallback View', 'prismleaf' ); ?></h1>
 			<p><?php esc_html_e( 'Index.php powers the blog loop whenever a more specific template is not available.', 'prismleaf' ); ?></p>
 		</header>
 
-		<?php
-		if ( have_posts() ) :
-			?>
-			<div class="prismleaf-post-list">
-				<?php
-				while ( have_posts() ) :
-					the_post();
-					?>
-					<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
-						<header class="entry-header">
+		<div class="prismleaf-post-list">
+			<?php
+			while ( have_posts() ) :
+				the_post();
+				?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
+					<header class="entry-header">
+						<?php
+						the_title(
+							sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
+							'</a></h2>'
+						);
+						?>
+						<p class="entry-meta">
 							<?php
-							the_title(
-								sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
-								'</a></h2>'
+							printf(
+								/* translators: %s: post date. */
+								esc_html__( 'Published on %s', 'prismleaf' ),
+								esc_html( get_the_date() )
 							);
 							?>
-							<p class="entry-meta">
-								<?php
-								printf(
-									/* translators: %s: post date. */
-									esc_html__( 'Published on %s', 'prismleaf' ),
-									esc_html( get_the_date() )
-								);
-								?>
-							</p>
-						</header>
-						<div class="entry-summary">
-							<?php the_excerpt(); ?>
-						</div>
-						<a class="entry-link" href="<?php the_permalink(); ?>">
-							<?php esc_html_e( 'Read the full story', 'prismleaf' ); ?>
-						</a>
-					</article>
-					<?php
-				endwhile;
-				?>
-			</div>
-			<?php
-			the_posts_pagination(
-				array(
-					'prev_text' => esc_html__( 'Previous', 'prismleaf' ),
-					'next_text' => esc_html__( 'Next', 'prismleaf' ),
-				)
-			);
-		else :
+						</p>
+					</header>
+					<div class="entry-summary">
+						<?php the_excerpt(); ?>
+					</div>
+					<a class="entry-link" href="<?php the_permalink(); ?>">
+						<?php esc_html_e( 'Read the full story', 'prismleaf' ); ?>
+					</a>
+				</article>
+				<?php
+			endwhile;
 			?>
-			<p><?php esc_html_e( 'No posts are published yet. Check back soon.', 'prismleaf' ); ?></p>
-			<?php
-		endif;
+		</div>
+		<?php
+		the_posts_pagination(
+			array(
+				'prev_text' => esc_html__( 'Previous', 'prismleaf' ),
+				'next_text' => esc_html__( 'Next', 'prismleaf' ),
+			)
+		);
 		?>
 	</section>
+	<?php
+else :
+	get_template_part(
+		'template-parts/not-found',
+		null,
+		array(
+			'context'    => 'entries',
+			'show_title' => false,
+			'show_poem'  => false,
+		)
+	);
+endif;
 
-<?php
 get_footer();

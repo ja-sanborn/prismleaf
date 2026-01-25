@@ -14,8 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 $author = get_queried_object();
-?>
 
+if ( have_posts() ) :
+	?>
 	<section aria-labelledby="author-title">
 		<header>
 			<h1 id="author-title">
@@ -37,50 +38,52 @@ $author = get_queried_object();
 			<?php endif; ?>
 		</div>
 
+		<div class="prismleaf-post-list">
+			<?php
+			while ( have_posts() ) :
+				the_post();
+				?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
+					<header class="entry-header">
+						<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+						<p class="entry-meta">
+							<?php
+							printf(
+								/* translators: %s: post date. */
+								esc_html__( 'Published on %s', 'prismleaf' ),
+								esc_html( get_the_date() )
+							);
+							?>
+						</p>
+					</header>
+					<div class="entry-summary">
+						<?php the_excerpt(); ?>
+					</div>
+					<a class="entry-link" href="<?php the_permalink(); ?>">
+						<?php esc_html_e( 'Read more', 'prismleaf' ); ?>
+					</a>
+				</article>
+			<?php endwhile; ?>
+		</div>
+
 		<?php
-		if ( have_posts() ) :
-			?>
-			<div class="prismleaf-post-list">
-				<?php
-				while ( have_posts() ) :
-					the_post();
-					?>
-					<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
-						<header class="entry-header">
-							<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-							<p class="entry-meta">
-								<?php
-								printf(
-									/* translators: %s: post date. */
-									esc_html__( 'Published on %s', 'prismleaf' ),
-									esc_html( get_the_date() )
-								);
-								?>
-							</p>
-						</header>
-						<div class="entry-summary">
-							<?php the_excerpt(); ?>
-						</div>
-						<a class="entry-link" href="<?php the_permalink(); ?>">
-							<?php esc_html_e( 'Read more', 'prismleaf' ); ?>
-						</a>
-					</article>
-				<?php endwhile; ?>
-			</div>
-			<?php
-			the_posts_pagination(
-				array(
-					'prev_text' => esc_html__( 'Previous', 'prismleaf' ),
-					'next_text' => esc_html__( 'Next', 'prismleaf' ),
-				)
-			);
-		else :
-			?>
-			<p><?php esc_html_e( 'This author has not published anything yet.', 'prismleaf' ); ?></p>
-			<?php
-		endif;
+		the_posts_pagination(
+			array(
+				'prev_text' => esc_html__( 'Previous', 'prismleaf' ),
+				'next_text' => esc_html__( 'Next', 'prismleaf' ),
+			)
+		);
 		?>
 	</section>
+	<?php
+else :
+	get_template_part(
+		'template-parts/not-found',
+		null,
+		array(
+			'context' => 'entries',
+		)
+	);
+endif;
 
-<?php
 get_footer();

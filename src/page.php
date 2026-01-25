@@ -12,8 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header();
-?>
 
+if ( have_posts() ) :
+	?>
 	<section aria-labelledby="page-template-title">
 		<header>
 			<h1 id="page-template-title"><?php esc_html_e( 'Static Page Layout', 'prismleaf' ); ?></h1>
@@ -55,6 +56,15 @@ get_header();
 		endwhile;
 		?>
 	</section>
+	<?php
+else :
+	get_template_part(
+		'template-parts/not-found',
+		null,
+		array(
+			'context' => 'entries',
+		)
+	);
+endif;
 
-<?php
 get_footer();
