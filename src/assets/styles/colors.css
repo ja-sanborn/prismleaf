@@ -156,7 +156,7 @@ html {
 /* System light mode. */
 @media (prefers-color-scheme: light) {
 
-	:root {
+	:root:not([data-prismleaf-color-scheme]) {
 
 		/* Document-level color scheme. */
 		color-scheme: light;
@@ -204,7 +204,7 @@ html {
 /* System dark mode. */
 @media (prefers-color-scheme: dark) {
 
-	:root {
+	:root:not([data-prismleaf-color-scheme]) {
 
 		/* Document-level color scheme. */
 		color-scheme: dark;

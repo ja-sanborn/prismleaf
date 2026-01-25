@@ -60,7 +60,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-constants',
-			'assets/styles/core/constants.css',
+			'assets/styles/constants.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -69,7 +69,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-typography',
-			'assets/styles/core/typography.css',
+			'assets/styles/typography.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -78,7 +78,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-colors',
-			'assets/styles/core/colors.css',
+			'assets/styles/colors.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -87,7 +87,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-layout',
-			'assets/styles/core/layout.css',
+			'assets/styles/layout.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -96,7 +96,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-frames',
-			'assets/styles/core/frames.css',
+			'assets/styles/frames.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -105,7 +105,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-header',
-			'assets/styles/core/header.css',
+			'assets/styles/header.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -114,7 +114,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-footer',
-			'assets/styles/core/footer.css',
+			'assets/styles/footer.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -123,7 +123,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-sidebars',
-			'assets/styles/core/sidebars.css',
+			'assets/styles/sidebars.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -132,7 +132,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-content',
-			'assets/styles/core/content.css',
+			'assets/styles/content.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -141,7 +141,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-widgets',
-			'assets/styles/core/widgets.css',
+			'assets/styles/widgets.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -150,7 +150,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-theme-switch',
-			'assets/styles/components/theme-switch.css',
+			'assets/styles/theme-switch.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -159,7 +159,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-site-icon',
-			'assets/styles/components/site-icon.css',
+			'assets/styles/site-icon.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -168,7 +168,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-site-title',
-			'assets/styles/components/site-title.css',
+			'assets/styles/site-title.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -177,7 +177,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-menus',
-			'assets/styles/core/menus.css',
+			'assets/styles/menus.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -186,7 +186,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-mobile',
-			'assets/styles/core/mobile.css',
+			'assets/styles/mobile.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -195,7 +195,7 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 
 		prismleaf_enqueue_style(
 			'prismleaf-accessibility',
-			'assets/styles/core/accessibility.css',
+			'assets/styles/accessibility.css',
 			array( $last_handle ),
 			PRISMLEAF_VERSION
 		);
@@ -275,7 +275,7 @@ if ( ! function_exists( 'prismleaf_enqueue_customizer_components' ) ) {
 	function prismleaf_enqueue_customizer_components() {
 		wp_enqueue_style(
 			'prismleaf-customizer-controls',
-			PRISMLEAF_URI . 'assets/styles/core/customizer.css',
+			PRISMLEAF_URI . 'assets/styles/customizer.css',
 			array(),
 			PRISMLEAF_VERSION
 		);

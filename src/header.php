@@ -35,16 +35,16 @@ $inner_header = $header_show && ! $outer_header;
 
 <div class="prismleaf-frame">
 	<?php if ( $outer_header ) : ?>
-		<header class="prismleaf-region-header prismleaf-region">
-			<?php get_template_part( 'template-parts/regions/header-content' ); ?>
-		</header>
+			<header class="prismleaf-region-header prismleaf-region">
+				<?php get_template_part( 'template-parts/header-content' ); ?>
+			</header>
 	<?php endif; ?>
 
 	<div class="prismleaf-frame-main">
 		<div class="prismleaf-frame-inner">
 			<?php if ( $inner_header ) : ?>
 				<header class="prismleaf-region-header prismleaf-region">
-					<?php get_template_part( 'template-parts/regions/header-content' ); ?>
+					<?php get_template_part( 'template-parts/header-content' ); ?>
 				</header>
 			<?php endif; ?>
 			<main id="prismleaf-main" class="prismleaf-region-content prismleaf-region" tabindex="-1">
