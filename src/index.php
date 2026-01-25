@@ -16,7 +16,7 @@ get_header();
 
 	<section aria-labelledby="index-title">
 		<header>
-			<h2 id="index-title"><?php esc_html_e( 'Blog Fallback View', 'prismleaf' ); ?></h2>
+			<h1 id="index-title"><?php esc_html_e( 'Blog Fallback View', 'prismleaf' ); ?></h1>
 			<p><?php esc_html_e( 'Index.php powers the blog loop whenever a more specific template is not available.', 'prismleaf' ); ?></p>
 		</header>
 
