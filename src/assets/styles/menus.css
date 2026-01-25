@@ -13,6 +13,8 @@
 	--prismleaf-menu-divider-width: var(--prismleaf-border-width-thick);
 	--prismleaf-mobile-menu-overlay-z: 2000;
 	--prismleaf-mobile-menu-width: min(320px, 100%);
+	--prismleaf-menu-link-color: var(--prismleaf-color-primary-surface-1);
+	--prismleaf-menu-link-hover-color: var(--prismleaf-color-primary-surface-5);
 }
 
 .prismleaf-header-menu-row {
@@ -76,7 +78,7 @@
 }
 
 .prismleaf-menu-primary .prismleaf-menu-items > li > a {
-	color: var(--prismleaf-menu-primary-foreground-color, var(--prismleaf-color-primary-surface-on));
+	color: var(--prismleaf-menu-link-color, var(--prismleaf-color-primary-surface-1));
 	background-color: var(--prismleaf-menu-primary-button-background, var(--prismleaf-color-primary-surface-1));
 	border-radius: var(--prismleaf-menu-primary-button-radius, 0);
 }
@@ -95,7 +97,7 @@
 }
 
 .prismleaf-menu-secondary .prismleaf-menu-items > li > a {
-	color: var(--prismleaf-menu-secondary-foreground-color, var(--prismleaf-color-secondary-surface-on));
+	color: var(--prismleaf-menu-link-color, var(--prismleaf-color-primary-surface-1));
 	background-color: var(--prismleaf-menu-secondary-button-background, var(--prismleaf-color-secondary-surface-1));
 	border-radius: var(--prismleaf-menu-secondary-button-radius, 0);
 }
@@ -115,7 +117,7 @@
 }
 
 .prismleaf-menu-mobile .prismleaf-menu-items > li > a {
-	color: var(--prismleaf-menu-mobile-foreground-color, var(--prismleaf-color-primary-surface-on));
+	color: var(--prismleaf-menu-link-color, var(--prismleaf-color-primary-surface-1));
 	width: 100%;
 	background-color: var(--prismleaf-menu-mobile-item-background, var(--prismleaf-color-primary-surface-1));
 	border-radius: var(--prismleaf-menu-mobile-button-radius, 0);
@@ -134,18 +136,12 @@
 }
 
 .prismleaf-menu-primary .prismleaf-menu-items > li > a:hover,
-.prismleaf-menu-primary .prismleaf-menu-items > li > a:focus-visible {
-	background-color: var(--prismleaf-menu-primary-hover-color, var(--prismleaf-color-primary-surface-2));
-}
-
+.prismleaf-menu-primary .prismleaf-menu-items > li > a:focus-visible,
 .prismleaf-menu-secondary .prismleaf-menu-items > li > a:hover,
-.prismleaf-menu-secondary .prismleaf-menu-items > li > a:focus-visible {
-	background-color: var(--prismleaf-menu-secondary-hover-color, var(--prismleaf-color-secondary-surface-2));
-}
-
+.prismleaf-menu-secondary .prismleaf-menu-items > li > a:focus-visible,
 .prismleaf-menu-mobile .prismleaf-menu-items > li > a:hover,
 .prismleaf-menu-mobile .prismleaf-menu-items > li > a:focus-visible {
-	background-color: var(--prismleaf-menu-mobile-hover-color, var(--prismleaf-color-primary-surface-2));
+	background-color: var(--prismleaf-menu-link-hover-color, var(--prismleaf-color-primary-surface-5));
 }
 
 .prismleaf-mobile-menu-overlay {

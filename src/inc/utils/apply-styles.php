@@ -505,8 +505,10 @@ function prismleaf_get_site_title_css_vars() {
 			$css .= prismleaf_build_css_var( '--prismleaf-header-tagline-color', $tagline_color );
 		}
 
-		$flex_direction = 'inline' === $tagline_position ? 'row' : 'column';
+	$flex_direction = 'inline' === $tagline_position ? 'row' : 'column';
 	$css .= prismleaf_build_css_var( '--prismleaf-site-title-flex-direction', $flex_direction );
+	$css .= prismleaf_build_css_var( '--prismleaf-site-title-link-color', 'var(--prismleaf-color-primary-surface-1)' );
+	$css .= prismleaf_build_css_var( '--prismleaf-site-title-link-hover-color', 'var(--prismleaf-color-primary-surface-5)' );
 
 	return $css;
 }
@@ -613,6 +615,8 @@ if ( ! function_exists( 'prismleaf_get_menu_css_vars' ) ) {
 		$mobile_panel_radius = in_array( $mobile_corners, array( 'Round', 'Pill' ), true ) ? '--prismleaf-radius-large' : '0';
 
 		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-link-color', '--prismleaf-color-primary-surface-1' );
+		$css .= prismleaf_build_css_var( '--prismleaf-menu-link-hover-color', '--prismleaf-color-primary-surface-5' );
 		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-background-color', $primary_background );
 		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-foreground-color', $primary_foreground );
 		$css .= prismleaf_build_css_var( '--prismleaf-menu-primary-hover-color', '--prismleaf-color-primary-surface-2' );

@@ -29,7 +29,9 @@ $tagline_classes = array(
 ?>
 <div class="<?php echo esc_attr( implode( ' ', $title_classes ) ); ?>">
 	<<?php echo esc_html( $title_tag ); ?> class="prismleaf-site-title-text">
-		<?php echo esc_html( $site_title ); ?>
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+			<?php echo esc_html( $site_title ); ?>
+		</a>
 	</<?php echo esc_html( $title_tag ); ?>>
 	<?php if ( $show_tagline ) : ?>
 		<span class="<?php echo esc_attr( implode( ' ', $tagline_classes ) ); ?>">
