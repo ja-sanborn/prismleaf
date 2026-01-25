@@ -1,10 +1,8 @@
 <?php
 /**
- * The main template file for Prismleaf.
+ * Attachment template for Prismleaf.
  *
- * This file is intentionally content-focused.
- * It includes the header, outputs placeholder content,
- * and defers all global layout structure to header.php and footer.php.
+ * Presents the selected media item with context and metadata.
  *
  * @package prismleaf
  */
@@ -16,34 +14,52 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-	<?php
-	/**
-	 * Placeholder content.
-	 *
-	 * This exists only to make the layout visible while the
-	 * structural framework is being established.
-	 * Real themes/child themes will replace this with the loop
-	 * and proper templates.
-	 */
-	?>
-	<section>
-		<h1>Prismleaf Attachment Template</h1>
-		<p>
-			This template renders media attachment pages; removing it makes
-			WordPress fall back to single.php and then to index.php, so keep it
-			when you want custom attachment layouts.
-		</p>
+	<section aria-labelledby="attachment-title">
+		<header>
+			<h1 id="attachment-title"><?php the_title(); ?></h1>
+			<p><?php esc_html_e( 'This template displays a single attachment with its caption and metadata.', 'prismleaf' ); ?></p>
+		</header>
 
-		<p>
-			This is placeholder content for the main content area. It exists to
-			demonstrate layout behavior and scrolling while the Prismleaf layout
-			framework is being built.
-		</p>
-
-		<p>
-			Resize the viewport or toggle layout options in the Customizer to
-			observe framed, non-framed, and stacked behaviors.
-		</p>
+		<?php
+		while ( have_posts() ) :
+			the_post();
+			$parent = get_post()->post_parent;
+			?>
+			<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
+				<div class="attachment-media">
+					<?php
+					if ( wp_attachment_is_image() ) :
+						echo wp_get_attachment_image( get_the_ID(), 'large' );
+					else :
+						echo wp_get_attachment_link( get_the_ID(), 'large', false );
+					endif;
+					?>
+				</div>
+				<div class="entry-content">
+					<?php the_content(); ?>
+				</div>
+				<footer class="entry-footer">
+					<?php if ( $parent ) : ?>
+						<p>
+							<?php
+							printf(
+								/* translators: %s: parent post title. */
+								esc_html__( 'Return to %s', 'prismleaf' ),
+								'<a href="' . esc_url( get_permalink( $parent ) ) . '">' . esc_html( get_the_title( $parent ) ) . '</a>'
+							);
+							?>
+						</p>
+					<?php endif; ?>
+					<?php if ( $meta = wp_get_attachment_metadata() ) : ?>
+						<p>
+							<?php esc_html_e( 'Dimensions', 'prismleaf' ); ?>: <?php echo esc_html( sprintf( '%dx%d', $meta['width'], $meta['height'] ) ); ?>
+						</p>
+					<?php endif; ?>
+				</footer>
+			</article>
+			<?php
+		endwhile;
+		?>
 	</section>
 
 <?php

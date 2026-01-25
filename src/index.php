@@ -1,10 +1,8 @@
 <?php
 /**
- * The main template file for Prismleaf.
+ * Index template for Prismleaf.
  *
- * This file is intentionally content-focused.
- * It includes the header, outputs placeholder content,
- * and defers all global layout structure to header.php and footer.php.
+ * Renders the fallback blog loop when no other template matches the query.
  *
  * @package prismleaf
  */
@@ -16,33 +14,62 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-	<?php
-	/**
-	 * Placeholder content.
-	 *
-	 * This exists only to make the layout visible while the
-	 * structural framework is being established.
-	 * Real themes/child themes will replace this with the loop
-	 * and proper templates.
-	 */
-	?>
-	<section>
-		<h1>Prismleaf Index Template</h1>
-		<p>
-			Index.php is the ultimate fallback for every WordPress query, so keep
-			it to supply base markup whenever no other template exists.
-		</p>
+	<section aria-labelledby="index-title">
+		<header>
+			<h2 id="index-title"><?php esc_html_e( 'Blog Fallback View', 'prismleaf' ); ?></h2>
+			<p><?php esc_html_e( 'Index.php powers the blog loop whenever a more specific template is not available.', 'prismleaf' ); ?></p>
+		</header>
 
-		<p>
-			This is placeholder content for the main content area. It exists to
-			demonstrate layout behavior and scrolling while the Prismleaf layout
-			framework is being built.
-		</p>
-
-		<p>
-			Resize the viewport or toggle layout options in the Customizer to
-			observe framed, non-framed, and stacked behaviors.
-		</p>
+		<?php
+		if ( have_posts() ) :
+			?>
+			<div class="prismleaf-post-list">
+				<?php
+				while ( have_posts() ) :
+					the_post();
+					?>
+					<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
+						<header class="entry-header">
+							<?php
+							the_title(
+								sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
+								'</a></h2>'
+							);
+							?>
+							<p class="entry-meta">
+								<?php
+								printf(
+									/* translators: %s: post date. */
+									esc_html__( 'Published on %s', 'prismleaf' ),
+									esc_html( get_the_date() )
+								);
+								?>
+							</p>
+						</header>
+						<div class="entry-summary">
+							<?php the_excerpt(); ?>
+						</div>
+						<a class="entry-link" href="<?php the_permalink(); ?>">
+							<?php esc_html_e( 'Read the full story', 'prismleaf' ); ?>
+						</a>
+					</article>
+					<?php
+				endwhile;
+				?>
+			</div>
+			<?php
+			the_posts_pagination(
+				array(
+					'prev_text' => esc_html__( 'Previous', 'prismleaf' ),
+					'next_text' => esc_html__( 'Next', 'prismleaf' ),
+				)
+			);
+		else :
+			?>
+			<p><?php esc_html_e( 'No posts are published yet. Check back soon.', 'prismleaf' ); ?></p>
+			<?php
+		endif;
+		?>
 	</section>
 
 <?php

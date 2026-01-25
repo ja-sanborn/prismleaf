@@ -1,10 +1,8 @@
 <?php
 /**
- * The main template file for Prismleaf.
+ * Front-page template for Prismleaf.
  *
- * This file is intentionally content-focused.
- * It includes the header, outputs placeholder content,
- * and defers all global layout structure to header.php and footer.php.
+ * Outputs the selected landing content with its hero messaging.
  *
  * @package prismleaf
  */
@@ -16,34 +14,52 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-	<?php
-	/**
-	 * Placeholder content.
-	 *
-	 * This exists only to make the layout visible while the
-	 * structural framework is being established.
-	 * Real themes/child themes will replace this with the loop
-	 * and proper templates.
-	 */
-	?>
-	<section>
-		<h1>Prismleaf Front Template</h1>
-		<p>
-			This front-page template takes precedence for the landing view.
-			Removing it makes WordPress fall back to home.php (or the selected
-			static page template), so keep this file to own the front layout.
-		</p>
+	<section aria-labelledby="front-page-intro">
+		<header>
+			<h2 id="front-page-intro"><?php esc_html_e( 'Curated Landing Story', 'prismleaf' ); ?></h2>
+			<p><?php esc_html_e( 'This template owns the hero narrative, featured blocks, and introductory statements that welcome new visitors.', 'prismleaf' ); ?></p>
+		</header>
 
-		<p>
-			This is placeholder content for the main content area. It exists to
-			demonstrate layout behavior and scrolling while the Prismleaf layout
-			framework is being built.
-		</p>
-
-		<p>
-			Resize the viewport or toggle layout options in the Customizer to
-			observe framed, non-framed, and stacked behaviors.
-		</p>
+		<?php
+		if ( have_posts() ) :
+			while ( have_posts() ) :
+				the_post();
+				?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
+					<?php the_title( '<h2 class="entry-title">', '</h2>' ); ?>
+					<div class="entry-content">
+						<?php the_content(); ?>
+					</div>
+					<div class="entry-footer">
+						<?php
+						wp_link_pages(
+							array(
+								'before' => '<nav class="page-links">' . esc_html__( 'Continue reading:', 'prismleaf' ),
+								'after'  => '</nav>',
+							)
+						);
+						edit_post_link(
+							sprintf(
+								/* translators: %s: post title. */
+								esc_html__( 'Edit %s', 'prismleaf' ),
+								the_title( '<span class="screen-reader-text">"', '"</span>', false )
+							),
+							'<span class="edit-link">',
+							'</span>'
+						);
+						?>
+					</div>
+				</article>
+				<?php
+			endwhile;
+		else :
+			?>
+			<div class="prismleaf-no-results">
+				<p><?php esc_html_e( 'No front-page content is available right now.', 'prismleaf' ); ?></p>
+			</div>
+			<?php
+		endif;
+		?>
 	</section>
 
 <?php
