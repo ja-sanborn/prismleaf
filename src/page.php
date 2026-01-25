@@ -1,10 +1,8 @@
 <?php
 /**
- * The main template file for Prismleaf.
+ * Page template for Prismleaf.
  *
- * This file is intentionally content-focused.
- * It includes the header, outputs placeholder content,
- * and defers all global layout structure to header.php and footer.php.
+ * Displays static page content with consistent spacing and landmarks.
  *
  * @package prismleaf
  */
@@ -16,34 +14,46 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-	<?php
-	/**
-	 * Placeholder content.
-	 *
-	 * This exists only to make the layout visible while the
-	 * structural framework is being established.
-	 * Real themes/child themes will replace this with the loop
-	 * and proper templates.
-	 */
-	?>
-	<section>
-		<h1>Prismleaf Page Template</h1>
-		<p>
-			This page.php template defines how static pages render and acts as
-			the fallback for custom page templates; without it WordPress uses
-			index.php, so keep it to control page-level layout.
-		</p>
+	<section aria-labelledby="page-template-title">
+		<header>
+			<h1 id="page-template-title"><?php esc_html_e( 'Static Page Layout', 'prismleaf' ); ?></h1>
+			<p><?php esc_html_e( 'Page.php renders custom pages when no specialized template is provided.', 'prismleaf' ); ?></p>
+		</header>
 
-		<p>
-			This is placeholder content for the main content area. It exists to
-			demonstrate layout behavior and scrolling while the Prismleaf layout
-			framework is being built.
-		</p>
-
-		<p>
-			Resize the viewport or toggle layout options in the Customizer to
-			observe framed, non-framed, and stacked behaviors.
-		</p>
+		<?php
+		while ( have_posts() ) :
+			the_post();
+			?>
+			<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
+				<header class="entry-header">
+					<?php the_title( '<h2 class="entry-title">', '</h2>' ); ?>
+				</header>
+				<div class="entry-content">
+					<?php the_content(); ?>
+				</div>
+				<footer class="entry-footer">
+					<?php
+					wp_link_pages(
+						array(
+							'before' => '<nav class="page-links">' . esc_html__( 'Continue reading:', 'prismleaf' ),
+							'after'  => '</nav>',
+						)
+					);
+					edit_post_link(
+						sprintf(
+							/* translators: %s: post title. */
+							esc_html__( 'Edit %s', 'prismleaf' ),
+							the_title( '<span class="screen-reader-text">"', '"</span>', false )
+						),
+						'<span class="edit-link">',
+						'</span>'
+					);
+					?>
+				</footer>
+			</article>
+			<?php
+		endwhile;
+		?>
 	</section>
 
 <?php

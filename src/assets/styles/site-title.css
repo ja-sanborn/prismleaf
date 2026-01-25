@@ -4,6 +4,8 @@
 	--prismleaf-header-title-color: var(--prismleaf-color-primary-surface-1);
 	--prismleaf-header-tagline-color: var(--prismleaf-color-surface-on-muted);
 	--prismleaf-site-title-flex-direction: row;
+	--prismleaf-site-title-link-color: var(--prismleaf-color-primary-surface-1);
+	--prismleaf-site-title-link-hover-color: var(--prismleaf-color-primary-surface-5);
 }
 
 .prismleaf-site-title {
@@ -39,6 +41,17 @@
 	font-family: var(--prismleaf-font-serif);
 	font-size: var(--prismleaf-font-size-2xl);
 	padding-right: var(--prismleaf-space-2);
+}
+
+.prismleaf-site-title-text a {
+	color: var(--prismleaf-site-title-link-color);
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.prismleaf-site-title-text a:hover,
+.prismleaf-site-title-text a:focus-visible {
+	color: var(--prismleaf-site-title-link-hover-color);
 }
 
 .prismleaf-site-tagline {

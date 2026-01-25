@@ -1,10 +1,8 @@
 <?php
 /**
- * The main template file for Prismleaf.
+ * Single post template for Prismleaf.
  *
- * This file is intentionally content-focused.
- * It includes the header, outputs placeholder content,
- * and defers all global layout structure to header.php and footer.php.
+ * Displays the entry content, metadata, and navigation for a single post.
  *
  * @package prismleaf
  */
@@ -16,35 +14,72 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-	<?php
-	/**
-	 * Placeholder content.
-	 *
-	 * This exists only to make the layout visible while the
-	 * structural framework is being established.
-	 * Real themes/child themes will replace this with the loop
-	 * and proper templates.
-	 */
-	?>
-	<section>
-		<h1>Prismleaf Single Post Template</h1>
-		<p>
-			This single.php template renders individual posts and serves as the
-			fallback for any post type without a dedicated template; removing it
-			causes WordPress to use index.php, so keep it to layer in post meta and
-			comments.
-		</p>
+	<section aria-labelledby="single-title">
+		<header>
+			<h2 id="single-title"><?php esc_html_e( 'Single Post', 'prismleaf' ); ?></h2>
+			<p><?php esc_html_e( 'Single.php renders the full story, metadata, and navigation for an individual post.', 'prismleaf' ); ?></p>
+		</header>
 
-		<p>
-			This is placeholder content for the main content area. It exists to
-			demonstrate layout behavior and scrolling while the Prismleaf layout
-			framework is being built.
-		</p>
-
-		<p>
-			Resize the viewport or toggle layout options in the Customizer to
-			observe framed, non-framed, and stacked behaviors.
-		</p>
+		<?php
+		if ( have_posts() ) :
+			while ( have_posts() ) :
+				the_post();
+				?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
+					<header class="entry-header">
+						<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+						<p class="entry-meta">
+							<?php
+							printf(
+								/* translators: %s: post date. */
+								esc_html__( 'Published on %s', 'prismleaf' ),
+								esc_html( get_the_date() )
+							);
+							?>
+						</p>
+					</header>
+					<div class="entry-content">
+						<?php the_content(); ?>
+						<?php
+						wp_link_pages(
+							array(
+								'before' => '<nav class="page-links">' . esc_html__( 'Continue reading:', 'prismleaf' ),
+								'after'  => '</nav>',
+							)
+						);
+						?>
+					</div>
+					<footer class="entry-footer">
+						<?php
+						the_post_navigation(
+							array(
+								'prev_text' => esc_html__( 'Previous post', 'prismleaf' ),
+								'next_text' => esc_html__( 'Next post', 'prismleaf' ),
+							)
+						);
+						?>
+						<?php
+						edit_post_link(
+							sprintf(
+								/* translators: %s: post title. */
+								esc_html__( 'Edit %s', 'prismleaf' ),
+								the_title( '<span class="screen-reader-text">"', '"</span>', false )
+							),
+							'<span class="edit-link">',
+							'</span>'
+						);
+						?>
+					</footer>
+				</article>
+				<?php
+				comments_template();
+			endwhile;
+		else :
+			?>
+			<p><?php esc_html_e( 'No content is available.', 'prismleaf' ); ?></p>
+			<?php
+		endif;
+		?>
 	</section>
 
 <?php

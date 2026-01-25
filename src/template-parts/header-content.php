@@ -66,19 +66,19 @@ $mobile_menu_overlay_id = 'prismleaf-mobile-menu-overlay';
 
 <div class="<?php echo esc_attr( implode( ' ', $row_classes ) ); ?>" data-prismleaf-icon-position="<?php echo esc_attr( $icon_position ); ?>">
     <div class="prismleaf-header-column prismleaf-header-column-title">
-        <?php get_template_part( 'template-parts/components/site-title' ); ?>
+        <?php get_template_part( 'template-parts/site-title' ); ?>
     </div>
 
     <div class="prismleaf-header-column prismleaf-header-column-icon">
         <?php if ( $show_icon ) : ?>
-            <?php get_template_part( 'template-parts/components/site-icon' ); ?>
+            <?php get_template_part( 'template-parts/site-icon' ); ?>
         <?php endif; ?>
     </div>
 
     <div class="prismleaf-header-column prismleaf-header-column-meta">
         <div class="prismleaf-header-meta">
             <?php do_action( 'prismleaf_header_center_content' ); ?>
-            <?php get_template_part( 'template-parts/components/theme-switch' ); ?>
+            <?php get_template_part( 'template-parts/theme-switch' ); ?>
             <?php if ( $mobile_menu_exists ) : ?>
                 <button
                     type="button"

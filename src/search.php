@@ -1,10 +1,8 @@
 <?php
 /**
- * The main template file for Prismleaf.
+ * Search results template for Prismleaf.
  *
- * This file is intentionally content-focused.
- * It includes the header, outputs placeholder content,
- * and defers all global layout structure to header.php and footer.php.
+ * Outputs search hits for visitors and suggests alternative queries when there are no matches.
  *
  * @package prismleaf
  */
@@ -16,34 +14,44 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-	<?php
-	/**
-	 * Placeholder content.
-	 *
-	 * This exists only to make the layout visible while the
-	 * structural framework is being established.
-	 * Real themes/child themes will replace this with the loop
-	 * and proper templates.
-	 */
-	?>
-	<section>
-		<h1>Prismleaf Search Template</h1>
-		<p>
-			This search.php template handles search results and should guide users
-			through terms or filters; deleting it makes WordPress fall back to
-			index.php, so keep it to describe the custom results layout.
-		</p>
+	<section aria-labelledby="search-title">
+		<header>
+			<h1 id="search-title"><?php esc_html_e( 'Search Results', 'prismleaf' ); ?></h1>
+			<p><?php printf( esc_html__( 'You searched for "%s".', 'prismleaf' ), esc_html( get_search_query() ) ); ?></p>
+		</header>
 
-		<p>
-			This is placeholder content for the main content area. It exists to
-			demonstrate layout behavior and scrolling while the Prismleaf layout
-			framework is being built.
-		</p>
-
-		<p>
-			Resize the viewport or toggle layout options in the Customizer to
-			observe framed, non-framed, and stacked behaviors.
-		</p>
+		<?php
+		if ( have_posts() ) :
+			?>
+			<div class="prismleaf-post-list">
+				<?php
+				while ( have_posts() ) :
+					the_post();
+					?>
+					<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
+						<header class="entry-header">
+							<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+						</header>
+						<div class="entry-summary">
+							<?php the_excerpt(); ?>
+						</div>
+					</article>
+				<?php endwhile; ?>
+			</div>
+			<?php
+			the_posts_pagination(
+				array(
+					'prev_text' => esc_html__( 'Previous', 'prismleaf' ),
+					'next_text' => esc_html__( 'Next', 'prismleaf' ),
+				)
+			);
+		else :
+			?>
+			<p><?php esc_html_e( 'No results matched your search query.', 'prismleaf' ); ?></p>
+			<?php get_search_form(); ?>
+			<?php
+		endif;
+		?>
 	</section>
 
 <?php

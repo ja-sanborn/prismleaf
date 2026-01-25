@@ -56,19 +56,19 @@ if ( ( $outer_left_sidebar || $outer_right_sidebar ) && $inner_footer ) {
 			</main><!-- .prismleaf-region-content -->
 			<?php if ( $inner_left_sidebar ) : ?>
 				<aside class="prismleaf-region-sidebar-left prismleaf-region">
-					<?php get_template_part( 'template-parts/regions/sidebar-content', null, $left_sidebar ); ?>
+					<?php get_template_part( 'template-parts/sidebar-content', null, $left_sidebar ); ?>
 				</aside>
 			<?php endif; ?>
 
 			<?php if ( $inner_right_sidebar ) : ?>
 				<aside class="prismleaf-region-sidebar-right prismleaf-region">
-					<?php get_template_part( 'template-parts/regions/sidebar-content', null, $right_sidebar ); ?>
+					<?php get_template_part( 'template-parts/sidebar-content', null, $right_sidebar ); ?>
 				</aside>
 			<?php endif; ?>
 
 			<?php if ( $inner_footer ) : ?>
 				<footer class="prismleaf-region-footer prismleaf-region">
-					<?php get_template_part( 'template-parts/regions/footer-content' ); ?>
+					<?php get_template_part( 'template-parts/footer-content' ); ?>
 				</footer>
 			<?php endif; ?>
 		</div><!-- .prismleaf-frame-inner -->
@@ -76,19 +76,19 @@ if ( ( $outer_left_sidebar || $outer_right_sidebar ) && $inner_footer ) {
 
 	<?php if ( $outer_left_sidebar ) : ?>
 		<aside class="prismleaf-region-sidebar-left prismleaf-region">
-			<?php get_template_part( 'template-parts/regions/sidebar-content', null, $left_sidebar ); ?>
+			<?php get_template_part( 'template-parts/sidebar-content', null, $left_sidebar ); ?>
 		</aside>
 	<?php endif; ?>
 
 	<?php if ( $outer_right_sidebar ) : ?>
 		<aside class="prismleaf-region-sidebar-right prismleaf-region">
-			<?php get_template_part( 'template-parts/regions/sidebar-content', null, $right_sidebar ); ?>
+			<?php get_template_part( 'template-parts/sidebar-content', null, $right_sidebar ); ?>
 		</aside>
 	<?php endif; ?>
 
 	<?php if ( $outer_footer ) : ?>
 		<footer class="prismleaf-region-footer prismleaf-region">
-			<?php get_template_part( 'template-parts/regions/footer-content' ); ?>
+			<?php get_template_part( 'template-parts/footer-content' ); ?>
 		</footer>
 	<?php endif; ?>
 </div><!-- .prismleaf-frame -->

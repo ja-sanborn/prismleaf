@@ -1,10 +1,8 @@
 <?php
 /**
- * The main template file for Prismleaf.
+ * Archive template for Prismleaf.
  *
- * This file is intentionally content-focused.
- * It includes the header, outputs placeholder content,
- * and defers all global layout structure to header.php and footer.php.
+ * Displays the archive title, description, and loop for date/category/tag/year views.
  *
  * @package prismleaf
  */
@@ -16,34 +14,56 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-	<?php
-	/**
-	 * Placeholder content.
-	 *
-	 * This exists only to make the layout visible while the
-	 * structural framework is being established.
-	 * Real themes/child themes will replace this with the loop
-	 * and proper templates.
-	 */
-	?>
-	<section>
-		<h1>Prismleaf Archive Template</h1>
-		<p>
-			This archive template renders general listings (date, tag, category,
-			and taxonomy views) and serves as their fallback; deleting it falls
-			back to index.php, so keep it to centralize archive layout control.
-		</p>
+	<section aria-labelledby="archive-title">
+		<header>
+			<h1 id="archive-title"><?php the_archive_title(); ?></h1>
+			<p><?php esc_html_e( 'Archives group similar stories so readers can browse by date, category, tag, or topic.', 'prismleaf' ); ?></p>
+			<?php the_archive_description( '<div class="archive-description">', '</div>' ); ?>
+		</header>
 
-		<p>
-			This is placeholder content for the main content area. It exists to
-			demonstrate layout behavior and scrolling while the Prismleaf layout
-			framework is being built.
-		</p>
-
-		<p>
-			Resize the viewport or toggle layout options in the Customizer to
-			observe framed, non-framed, and stacked behaviors.
-		</p>
+		<?php
+		if ( have_posts() ) :
+			?>
+			<div class="prismleaf-post-list">
+				<?php
+				while ( have_posts() ) :
+					the_post();
+					?>
+					<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
+						<header class="entry-header">
+							<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+							<p class="entry-meta">
+								<?php
+								printf(
+									/* translators: %s: post date. */
+									esc_html__( 'Published on %s', 'prismleaf' ),
+									esc_html( get_the_date() )
+								);
+								?>
+							</p>
+						</header>
+						<div class="entry-summary">
+							<?php the_excerpt(); ?>
+						</div>
+						<a class="entry-link" href="<?php the_permalink(); ?>">
+							<?php esc_html_e( 'Continue reading', 'prismleaf' ); ?>
+						</a>
+					</article>
+				<?php endwhile; ?>
+			</div>
+			<?php
+			the_posts_pagination(
+				array(
+					'prev_text' => esc_html__( 'Previous', 'prismleaf' ),
+					'next_text' => esc_html__( 'Next', 'prismleaf' ),
+				)
+			);
+		else :
+			?>
+			<p><?php esc_html_e( 'No items match this archive yet.', 'prismleaf' ); ?></p>
+			<?php
+		endif;
+		?>
 	</section>
 
 <?php

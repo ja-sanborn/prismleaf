@@ -16,33 +16,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-	<?php
-	/**
-	 * Placeholder content.
-	 *
-	 * This exists only to make the layout visible while the
-	 * structural framework is being established.
-	 * Real themes/child themes will replace this with the loop
-	 * and proper templates.
-	 */
-	?>
-	<section>
-		<h1>Prismleaf 404 Template</h1>
-		<p>
-			This template handles WordPress not-found pages; without it the system
-			falls back to index.php, so keep it to explain missing content clearly.
-		</p>
+	<section aria-labelledby="error-404-title">
+		<header>
+			<h1 id="error-404-title"><?php esc_html_e( 'Page Not Found', 'prismleaf' ); ?></h1>
+			<p><?php esc_html_e( 'The page you requested can no longer be found, but the navigation and search tools are still available.', 'prismleaf' ); ?></p>
+		</header>
 
-		<p>
-			This is placeholder content for the main content area. It exists to
-			demonstrate layout behavior and scrolling while the Prismleaf layout
-			framework is being built.
-		</p>
+		<p><?php esc_html_e( 'Prismleaf keeps the header, footer, and landmarks consistent so you can return to a known context even when content moves.', 'prismleaf' ); ?></p>
 
-		<p>
-			Resize the viewport or toggle layout options in the Customizer to
-			observe framed, non-framed, and stacked behaviors.
-		</p>
+		<p><?php esc_html_e( 'Try a different keyword with the search box below or use the primary navigation to continue exploring.', 'prismleaf' ); ?></p>
+
+		<?php get_search_form(); ?>
 	</section>
 
 <?php

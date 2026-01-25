@@ -1,10 +1,8 @@
 <?php
 /**
- * The main template file for Prismleaf.
+ * Author template for Prismleaf.
  *
- * This file is intentionally content-focused.
- * It includes the header, outputs placeholder content,
- * and defers all global layout structure to header.php and footer.php.
+ * Displays the author biography and their posts.
  *
  * @package prismleaf
  */
@@ -14,36 +12,74 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header();
+
+$author = get_queried_object();
 ?>
 
-	<?php
-	/**
-	 * Placeholder content.
-	 *
-	 * This exists only to make the layout visible while the
-	 * structural framework is being established.
-	 * Real themes/child themes will replace this with the loop
-	 * and proper templates.
-	 */
-	?>
-	<section>
-		<h1>Prismleaf Author Template</h1>
-		<p>
-			This author template lists posts by a specific user; without it
-			WordPress falls back to archive.php (and eventually index.php), so
-			keep it to provide author-specific layouts.
-		</p>
+	<section aria-labelledby="author-title">
+		<header>
+			<h1 id="author-title">
+				<?php
+				printf(
+					/* translators: %s: author name. */
+					esc_html__( '%s’s Posts', 'prismleaf' ),
+					esc_html( get_the_author_meta( 'display_name', $author->ID ) )
+				);
+				?>
+			</h1>
+			<p><?php esc_html_e( 'Highlight the author biography, avatar, and metadata alongside their published work.', 'prismleaf' ); ?></p>
+		</header>
 
-		<p>
-			This is placeholder content for the main content area. It exists to
-			demonstrate layout behavior and scrolling while the Prismleaf layout
-			framework is being built.
-		</p>
+		<div class="author-summary">
+			<?php echo get_avatar( $author->ID, 120 ); ?>
+			<?php if ( $bio = get_the_author_meta( 'description', $author->ID ) ) : ?>
+				<p><?php echo esc_html( $bio ); ?></p>
+			<?php endif; ?>
+		</div>
 
-		<p>
-			Resize the viewport or toggle layout options in the Customizer to
-			observe framed, non-framed, and stacked behaviors.
-		</p>
+		<?php
+		if ( have_posts() ) :
+			?>
+			<div class="prismleaf-post-list">
+				<?php
+				while ( have_posts() ) :
+					the_post();
+					?>
+					<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
+						<header class="entry-header">
+							<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+							<p class="entry-meta">
+								<?php
+								printf(
+									/* translators: %s: post date. */
+									esc_html__( 'Published on %s', 'prismleaf' ),
+									esc_html( get_the_date() )
+								);
+								?>
+							</p>
+						</header>
+						<div class="entry-summary">
+							<?php the_excerpt(); ?>
+						</div>
+						<a class="entry-link" href="<?php the_permalink(); ?>">
+							<?php esc_html_e( 'Read more', 'prismleaf' ); ?>
+						</a>
+					</article>
+				<?php endwhile; ?>
+			</div>
+			<?php
+			the_posts_pagination(
+				array(
+					'prev_text' => esc_html__( 'Previous', 'prismleaf' ),
+					'next_text' => esc_html__( 'Next', 'prismleaf' ),
+				)
+			);
+		else :
+			?>
+			<p><?php esc_html_e( 'This author has not published anything yet.', 'prismleaf' ); ?></p>
+			<?php
+		endif;
+		?>
 	</section>
 
 <?php
