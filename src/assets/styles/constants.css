@@ -45,12 +45,13 @@
 	--prismleaf-space-0: 0;
 	--prismleaf-space-1: 4px;
 	--prismleaf-space-2: 8px;
-	--prismleaf-space-3: 16px;
-	--prismleaf-space-4: 24px;
-	--prismleaf-space-5: 32px;
-	--prismleaf-space-6: 48px;
-	--prismleaf-space-7: 52px;
-	--prismleaf-space-8: 64px;
+	--prismleaf-space-3: 12px;
+	--prismleaf-space-4: 16px;
+	--prismleaf-space-5: 24px;
+	--prismleaf-space-6: 32px;
+	--prismleaf-space-7: 48px;
+	--prismleaf-space-8: 52px;
+	--prismleaf-space-9: 64px;
 
 	/* Border radius. */
 	--prismleaf-radius-small: 8px;

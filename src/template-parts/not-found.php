@@ -36,7 +36,7 @@ $poems = array(
 				"Oh find it — Sir — for me!",
 			),
 		),
-		'cite' => '— Emily Dickinson, “I lost a World — the other day!”',
+		'cite' => 'Emily Dickinson, “I lost a World — the other day!”',
 	),
 	'soft_rains' => array(
 		'line' => array(
@@ -65,7 +65,7 @@ $poems = array(
 				'Would scarcely know that we were gone.'
 			),
 		),
-		'cite' => '— Sara Teasdale, “There Will Come Soft Rains”',
+		'cite' => 'Sara Teasdale, “There Will Come Soft Rains”',
 	),
 );
 
@@ -111,8 +111,8 @@ $read_more = __( 'Read more of the poem', 'prismleaf' );
 		<?php if ( $show_poem ) : ?>
 			<blockquote lang="en">
 				<details class="prismleaf-quote-expand" aria-describedby="<?php echo esc_attr( $title_id ); ?>">
-					<summary class="prismleaf-quote-line">
-						<span class="prismleaf-quote-start"><?php echo wp_kses_post( implode( '<br>', $poem['line'] ) ); ?></span>
+					<summary class="prismleaf-quote-summary">
+						<span class="prismleaf-quote-line"><?php echo wp_kses_post( implode( '<br>', $poem['line'] ) ); ?></span>
 						<span class="screen-reader-text"><?php echo esc_html( $read_more ); ?></span>
 					</summary>
 

@@ -25,7 +25,7 @@
 	--prismleaf-header-foreground-color: var(--prismleaf-color-surface-on);
 	--prismleaf-header-margin: var(--prismleaf-space-2);
 	--prismleaf-header-max-height: none;
-	--prismleaf-header-side-column-width: var(--prismleaf-site-icon-size, var(--prismleaf-space-6));
+	--prismleaf-header-side-column-width: var(--prismleaf-site-icon-size, var(--prismleaf-space-7));
 }
 
 /* Header region styling. */
@@ -59,8 +59,8 @@
 	align-items: center;
 	height: 100%;
 	width: 100%;
-	gap: var(--prismleaf-space-3);
-	padding: var(--prismleaf-space-3);
+	gap: var(--prismleaf-space-4);
+	padding: var(--prismleaf-space-4);
 }
 
 .prismleaf-header-column-title {

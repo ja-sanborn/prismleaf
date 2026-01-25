@@ -30,7 +30,7 @@
 }
 
 .search-field {
-	height: var(--prismleaf-space-5);
+	height: var(--prismleaf-space-6);
 	padding: var(--prismleaf-space-2);
 	margin: 0;
 	background-color: var(--prismleaf-search-background-color);
@@ -50,8 +50,8 @@
 }
 
 .search-submit {
-	width: var(--prismleaf-space-4);
-	height: var(--prismleaf-space-4);
+	width: var(--prismleaf-space-5);
+	height: var(--prismleaf-space-5);
 	margin: 0;
 	padding: 0;
 	border: none;

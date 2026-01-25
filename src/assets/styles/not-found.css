@@ -20,7 +20,7 @@
 
 .prismleaf-quote-line {
 	display: block;
-	margin-bottom: var(--prismleaf-space-2);
+	margin-bottom: var(--prismleaf-space-3);
 }
 
 .prismleaf-quote-body {
@@ -31,7 +31,7 @@
 }
 
 .prismleaf-quote-expand[open] .prismleaf-quote-body {
-	max-height: 18rem;
+	max-height: 100%;
 	opacity: 1;
 }
 

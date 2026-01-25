@@ -74,15 +74,22 @@ ol {
 
 /* Normalize blockquote spacing. */
 blockquote {
-	margin-bottom: var(--prismleaf-space-2);
-	padding-left: var(--prismleaf-space-4);
-	font-size: var(--prismleaf-font-size-md);
+	margin-bottom: var(--prismleaf-space-3);
+	padding-left: var(--prismleaf-space-7);
+	position: relative;
+}
+
+blockquote::before {
+	position: absolute;
+	top: 0;
+	left: var(--prismleaf-space-2);
 }
 
 /* Normalize blockquote citations. */
 blockquote cite {
 	display: block;
-	margin-top: var(--prismleaf-space-2);
+	margin-top: var(--prismleaf-space-3);
+	padding-left: var(--prismleaf-space-4);
 }
 
 /* Token-driven divider rule. */
@@ -121,7 +128,7 @@ input[type="reset"] {
 fieldset {
 	min-inline-size: 0;
 	margin: 0;
-	padding: var(--prismleaf-space-3);
+	padding: var(--prismleaf-space-4);
 	border: 0;
 	border-radius: 0;
 }
@@ -211,7 +218,7 @@ code {
 pre {
 	line-height: 1.5;
 	overflow: auto;
-	padding: var(--prismleaf-space-3);
+	padding: var(--prismleaf-space-4);
 	border-radius: var(--prismleaf-radius-medium);
 	border-style: var(--prismleaf-border-style);
 	border-width: var(--prismleaf-border-width-thin);

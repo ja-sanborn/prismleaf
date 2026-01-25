@@ -84,16 +84,23 @@ pre {
 
 /* Blockquote typography. */
 blockquote {
-	font-size: var(--prismleaf-font-size-md);
+	font-family: var(--prismleaf-font-serif);
 	font-style: italic;
 	text-align: justify;
 }
 
+blockquote::before {
+	content: '“';
+	font-size: var(--prismleaf-space-9);
+	font-family: var(--prismleaf-font-serif);
+	line-height: 1;
+}
+
 blockquote cite {
+	font-family: var(--prismleaf-font-sans-serif);
 	font-size: var(--prismleaf-font-size-sm);
 	font-style: normal;
 	font-weight: var(--prismleaf-font-weight-semibold);
-	text-align: end;
 }
 
 /* Address typography. */
