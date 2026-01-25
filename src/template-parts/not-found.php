@@ -2,11 +2,6 @@
 /**
  * Template part for not-found / no-results sections.
  *
- * Contexts supported:
- * - 404     : Page not found (Dickinson)
- * - search  : Search performed but no results (Teasdale)
- * - entries : No entries available / empty state (Teasdale by default)
- *
  * @package prismleaf
  */
 
@@ -17,27 +12,58 @@ if ( ! defined( 'ABSPATH' ) ) {
 $context      = isset( $args['context'] ) ? sanitize_key( $args['context'] ) : '404';
 $search_query = isset( $args['search_query'] ) ? (string) $args['search_query'] : '';
 $show_poem    = isset( $args['show_poem'] ) ? (bool) $args['show_poem'] : true;
-$show_title   = isset( $args['show_title'] ) ? (bool) $args['show_title'] : true;
+$title_tag    = isset( $args['title_tag'] ) ? strtolower( trim( (string) $args['title_tag'] ) ) : '';
+$title_id     = 'content-title-' . wp_unique_id();
+$allowed_tags = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
 
-$read_more = __( 'Read more of the poem', 'prismleaf' );
-$show_less = __( 'Show less', 'prismleaf' );
+if ( ! in_array( $title_tag, $allowed_tags, true ) ) {
+	$title_tag = 'h1';
+}
 
 $poems = array(
-	'lost'      => array(
-		'line' => "I lost a World — the other day!<br>Has Anybody found?<br>You'll know it by the Row of Stars<br>Around its forehead bound.",
+	'lost'       => array(
+		'line' => array(
+			"I lost a World — the other day!",
+			"Has Anybody found?",
+			"You'll know it by the Row of Stars",
+			"Around its forehead bound."
+		),
 		'body' => array(
-			"A Rich man — might not notice it —<br>Yet — to my frugal Eye,<br>Of more Esteem than Ducats —<br>Oh find it — Sir — for me!",
+			array(
+				"A Rich man — might not notice it —",
+				"Yet — to my frugal Eye,",
+				"Of more Esteem than Ducats —",
+				"Oh find it — Sir — for me!",
+			),
 		),
 		'cite' => '— Emily Dickinson, “I lost a World — the other day!”',
 	),
 	'soft_rains' => array(
-		'line' => 'There will come soft rains and the smell of the ground,<br>And swallows circling with their shimmering sound;',
+		'line' => array(
+			'There will come soft rains and the smell of the ground,',
+			'And swallows circling with their shimmering sound;'
+		),
 		'body' => array(
-			'And frogs in the pools singing at night,<br>And wild plum trees in tremulous white;',
-			'Robins will wear their feathery fire,<br>Whistling their whims on a low fence-wire;',
-			'And not one will know of the war, not one<br>Will care at last when it is done.',
-			'Not one would mind, neither bird nor tree,<br>If mankind perished utterly;',
-			'And Spring herself, when she woke at dawn,<br>Would scarcely know that we were gone.',
+			array(
+				'And frogs in the pools singing at night,',
+				'And wild plum trees in tremulous white;'
+			),
+			array(
+				'Robins will wear their feathery fire,',
+				'Whistling their whims on a low fence-wire;'
+			),
+			array(
+				'And not one will know of the war, not one',
+				'Will care at last when it is done.'
+			),
+			array(
+				'Not one would mind, neither fish nor frog,',
+				'If mankind perished utterly;'
+			),
+			array(
+				'And Spring herself, when she woke at dawn,',
+				'Would scarcely know that we were gone.'
+			),
 		),
 		'cite' => '— Sara Teasdale, “There Will Come Soft Rains”',
 	),
@@ -50,12 +76,12 @@ $contexts = array(
 		'poem_key' => 'lost',
 	),
 	'search'  => array(
-		'title'    => __( 'Nothing matched your search', 'prismleaf' ),
+		'title'    => __( 'No Matches Found', 'prismleaf' ),
 		'summary'  => __( 'We could not find any search results. Try broader keywords or browse the navigation.', 'prismleaf' ),
 		'poem_key' => 'soft_rains',
 	),
 	'entries' => array(
-		'title'    => __( 'Content unavailable', 'prismleaf' ),
+		'title'    => __( 'Content Unavailable', 'prismleaf' ),
 		'summary'  => __( 'It appears there are no matching entries right now.', 'prismleaf' ),
 		'poem_key' => 'soft_rains',
 	),
@@ -71,59 +97,55 @@ if ( 'search' === $context && '' === trim( $search_query ) ) {
 
 $entry     = $contexts[ $context ];
 $poem      = isset( $poems[ $entry['poem_key'] ] ) ? $poems[ $entry['poem_key'] ] : $poems['lost'];
-$title     = $entry['title'];
-$summary   = $entry['summary'];
-$title_tag = $show_title ? 'h1' : 'span';
+$read_more = __( 'Read more of the poem', 'prismleaf' );
 ?>
 
-<section class="prismleaf-not-found" aria-labelledby="not-found-title">
-	<header class="prismleaf-not-found-title">
-		<?php if ( 'span' === $title_tag ) : ?>
-			<span id="not-found-title" class="prismleaf-not-found-title-text" role="heading" aria-level="1">
-				<?php echo esc_html( $title ); ?>
-			</span>
-		<?php else : ?>
-			<h1 id="not-found-title" class="prismleaf-not-found-title-text">
-				<?php echo esc_html( $title ); ?>
-			</h1>
-		<?php endif; ?>
+<section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
+	<header class="prismleaf-content-title">
+		<<?php echo $title_tag; ?> id="<?php echo esc_attr( $title_id ); ?>" class="prismleaf-content-title-text">
+			<?php echo esc_html( $entry['title'] ); ?>
+		</<?php echo $title_tag; ?>>
 	</header>
 
-	<?php if ( $show_poem ) : ?>
-		<blockquote lang="en">
-			<details class="prismleaf-quote-expand" aria-describedby="not-found-title">
-				<summary>
-					<span class="prismleaf-quote-line"><?php echo wp_kses_post( $poem['line'] ); ?></span>
-					<span class="screen-reader-text"><?php echo esc_html( $read_more ); ?></span>
-				</summary>
+	<div class="prismleaf-content-body">
+		<?php if ( $show_poem ) : ?>
+			<blockquote lang="en">
+				<details class="prismleaf-quote-expand" aria-describedby="<?php echo esc_attr( $title_id ); ?>">
+					<summary class="prismleaf-quote-line">
+						<span class="prismleaf-quote-start"><?php echo wp_kses_post( implode( '<br>', $poem['line'] ) ); ?></span>
+						<span class="screen-reader-text"><?php echo esc_html( $read_more ); ?></span>
+					</summary>
 
-				<div class="prismleaf-quote-body">
-					<?php foreach ( (array) $poem['body'] as $stanza ) : ?>
-						<span class="prismleaf-quote-line"><?php echo wp_kses_post( $stanza ); ?></span>
-					<?php endforeach; ?>
-				</div>
-			</details>
+					<div class="prismleaf-quote-body">
+						<?php foreach ( (array) $poem['body'] as $stanza ) : ?>
+							<p class="prismleaf-quote-line"><?php echo wp_kses_post( implode( '<br>', $stanza ) ); ?></p>
+						<?php endforeach; ?>
+					</div>
+				</details>
 
-			<cite lang="en"><?php echo esc_html( $poem['cite'] ); ?></cite>
-		</blockquote>
-	<?php endif; ?>
+				<cite lang="en"><?php echo esc_html( $poem['cite'] ); ?></cite>
+			</blockquote>
+		<?php endif; ?>
 
-	<p>
-		<?php
-		echo esc_html( $summary );
+		<p>
+			<?php
+			echo esc_html( $entry['summary'] );
 
-		if ( 'search' === $context && '' !== trim( $search_query ) ) {
-			printf(
-				'<br>%s',
-				sprintf(
-					/* translators: %s: search query. */
-					esc_html__( 'You searched for: “%s”.', 'prismleaf' ),
-					esc_html( $search_query )
-				)
-			);
-		}
-		?>
-	</p>
+			if ( 'search' === $context && '' !== trim( $search_query ) ) {
+				printf(
+					'<br>%s',
+					sprintf(
+						/* translators: %s: search query. */
+						esc_html__( 'You searched for: “%s”.', 'prismleaf' ),
+						esc_html( $search_query )
+					)
+				);
+			}
+			?>
+		</p>
 
-	<?php get_search_form(); ?>
+		<div class="prismleaf-not-found-search">
+			<?php get_search_form(); ?>
+		</div>
+	</div>
 </section>

@@ -1,74 +1,26 @@
 /**
  * Styles for the not-found template part.
  *
+ * Layout and surface defaults for not found regions.
+ *
  * @package prismleaf
  */
 
-.prismleaf-not-found-title {
-	margin-bottom: var(--prismleaf-space-3);
-}
-
-.prismleaf-not-found-title-text {
+.prismleaf-quote-summary {
 	display: block;
-	font-size: var(--prismleaf-font-size-xl);
-	line-height: var(--prismleaf-line-height-tight);
-	font-weight: var(--prismleaf-font-weight-semibold);
-	color: var(--prismleaf-color-primary-surface-1);
-	margin: 0;
-}
-
-.prismleaf-not-found blockquote {
-	margin: var(--prismleaf-space-4) 0;
-	padding-left: var(--prismleaf-space-4);
-	border-left: 4px solid currentcolor;
-	font-style: italic;
-	color: var(--prismleaf-color-on-surface-faded);
-}
-
-.prismleaf-not-found blockquote cite {
-	display: block;
-	margin-top: var(--prismleaf-space-2);
-	font-style: normal;
-	font-size: var(--prismleaf-font-size-sm);
-	color: var(--prismleaf-color-surface-on-faded);
-}
-
-.prismleaf-quote-expand {
-	margin: 0;
-	padding: 0;
-}
-
-.prismleaf-quote-expand summary {
-	display: block;
-	background: transparent;
-	border: none;
 	cursor: pointer;
-	font-weight: var(--prismleaf-font-weight-regular);
-	font-size: var(--prismleaf-font-size-md);
-	color: inherit;
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
 
-.prismleaf-quote-line {
-	display: block;
-	margin-bottom: var(--prismleaf-space-2);
-}
-
-.prismleaf-quote-expand summary::-webkit-details-marker {
+.prismleaf-quote-summary::-webkit-details-marker {
 	display: none;
 }
 
-.prismleaf-quote-expand summary::after {
-	content: attr(data-toggle-label);
-	margin-left: 0.75rem;
-	font-size: 0.85rem;
-	color: var(--prismleaf-color-surface-on-faded);
-}
-
-.prismleaf-quote-expand[open] summary::after {
-	content: attr(data-toggle-label-open);
+.prismleaf-quote-line {
+	display: block;
+	margin-bottom: var(--prismleaf-space-2);
 }
 
 .prismleaf-quote-body {
@@ -81,4 +33,12 @@
 .prismleaf-quote-expand[open] .prismleaf-quote-body {
 	max-height: 18rem;
 	opacity: 1;
+}
+
+.prismleaf-not-found-search {
+	width: 300px;
+	margin-bottom: 0;
+	margin-left: var(--prismleaf-space-4);
+	margin-right: 0;
+	margin-top: var(--prismleaf-space-4);
 }

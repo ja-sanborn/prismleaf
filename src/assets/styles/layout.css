@@ -29,8 +29,11 @@ dl,
 dd,
 ul,
 ol,
+li,
+summary,
 hr {
 	margin: 0;
+	padding: 0;
 }
 
 /* Body baseline sizing. */
@@ -57,7 +60,6 @@ body {
 ul,
 ol {
 	padding-left: 1.25em;
-	margin: 0;
 }
 
 /* Use disc markers for unordered lists. */
@@ -70,21 +72,17 @@ ol {
 	list-style: decimal;
 }
 
-/* Remove default list item margins. */
-li {
-	margin: 0;
-}
-
 /* Normalize blockquote spacing. */
 blockquote {
-	margin-left: var(--prismleaf-space-3);
-	margin-right: var(--prismleaf-space-3);
-	padding: 0;
+	margin-bottom: var(--prismleaf-space-2);
+	padding-left: var(--prismleaf-space-4);
+	font-size: var(--prismleaf-font-size-md);
 }
 
 /* Normalize blockquote citations. */
 blockquote cite {
 	display: block;
+	margin-top: var(--prismleaf-space-2);
 }
 
 /* Token-driven divider rule. */
@@ -160,11 +158,6 @@ input[type="search"] {
 input[type="search"]::-webkit-search-decoration {
 	-webkit-appearance: none;
 	appearance: none;
-}
-
-/* Pointer cursor for summary. */
-summary {
-	cursor: pointer;
 }
 
 /* Constrain audio controls to content width. */

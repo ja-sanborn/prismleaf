@@ -82,6 +82,20 @@ pre {
 	font-size: 0.9375em;
 }
 
+/* Blockquote typography. */
+blockquote {
+	font-size: var(--prismleaf-font-size-md);
+	font-style: italic;
+	text-align: justify;
+}
+
+blockquote cite {
+	font-size: var(--prismleaf-font-size-sm);
+	font-style: normal;
+	font-weight: var(--prismleaf-font-weight-semibold);
+	text-align: end;
+}
+
 /* Address typography. */
 address {
 	font-style: normal;

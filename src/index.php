@@ -71,7 +71,7 @@ else :
 		null,
 		array(
 			'context'    => 'entries',
-			'show_title' => false,
+			'title_tag'  => 'span',
 			'show_poem'  => false,
 		)
 	);

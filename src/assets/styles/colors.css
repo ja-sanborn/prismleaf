@@ -338,3 +338,8 @@ pre {
 	border-color: var(--prismleaf-color-outline);
 	color: var(--prismleaf-color-code-foreground);
 }
+
+/* Blockquote color. */
+blockquote {
+	color: var(--prismleaf-color-on-surface-faded);
+}

@@ -17,6 +17,7 @@
 	--prismleaf-content-foreground-color: var(--prismleaf-color-surface-on);
 	--prismleaf-content-padding: var(--prismleaf-space-2);
 	--prismleaf-content-margin: var(--prismleaf-space-2);
+	--prismleaf-content-title-color: var(--prismleaf-color-primary-surface-1);
 }
 
 /* Content region styling. */
@@ -32,4 +33,12 @@
 	margin: var(--prismleaf-content-margin);
 	padding: var(--prismleaf-content-padding);
 	overflow: hidden;
+}
+
+.prismleaf-content-title {
+	margin-bottom: var(--prismleaf-space-3);
+}
+
+.prismleaf-content-title-text {
+	color: var(--prismleaf-content-title-color);
 }

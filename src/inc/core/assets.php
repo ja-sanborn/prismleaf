@@ -149,6 +149,15 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		$last_handle = 'prismleaf-not-found';
 
 		prismleaf_enqueue_style(
+			'prismleaf-search-box',
+			'assets/styles/search-box.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-search-box', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-search-box';
+
+		prismleaf_enqueue_style(
 			'prismleaf-widgets',
 			'assets/styles/widgets.css',
 			array( $last_handle ),
