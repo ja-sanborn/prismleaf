@@ -68,7 +68,7 @@ else :
 		null,
 		array(
 			'context'    => 'entries',
-			'title_tag'  => 'span',
+			'title_tag'  => 'h2',
 			'show_poem'  => false,
 		)
 	);

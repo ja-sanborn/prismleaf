@@ -1,8 +1,8 @@
 <?php
 /**
- * Index template for Prismleaf.
+ * Date archive template for Prismleaf.
  *
- * Renders the fallback blog loop when no other template matches the query.
+ * Shows posts from a specific date query (day, month, or year).
  *
  * @package prismleaf
  */
@@ -15,10 +15,11 @@ get_header();
 
 if ( have_posts() ) :
 	?>
-	<section aria-labelledby="index-title">
+	<section aria-labelledby="date-title">
 		<header>
-			<h1 id="index-title"><?php esc_html_e( 'Blog Fallback View', 'prismleaf' ); ?></h1>
-			<p><?php esc_html_e( 'Index.php powers the blog loop whenever a more specific template is not available.', 'prismleaf' ); ?></p>
+			<h1 id="date-title"><?php the_archive_title(); ?></h1>
+			<p><?php esc_html_e( 'Date archives let readers explore what was published on a particular day, month, or year.', 'prismleaf' ); ?></p>
+			<?php the_archive_description( '<div class="archive-description">', '</div>' ); ?>
 		</header>
 
 		<div class="prismleaf-post-list">
@@ -28,12 +29,7 @@ if ( have_posts() ) :
 				?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
 					<header class="entry-header">
-						<?php
-						the_title(
-							sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
-							'</a></h2>'
-						);
-						?>
+						<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 						<p class="entry-meta">
 							<?php
 							printf(
@@ -48,13 +44,12 @@ if ( have_posts() ) :
 						<?php the_excerpt(); ?>
 					</div>
 					<a class="entry-link" href="<?php the_permalink(); ?>">
-						<?php esc_html_e( 'Read the full story', 'prismleaf' ); ?>
+						<?php esc_html_e( 'Continue reading', 'prismleaf' ); ?>
 					</a>
 				</article>
-				<?php
-			endwhile;
-			?>
+			<?php endwhile; ?>
 		</div>
+
 		<?php
 		the_posts_pagination(
 			array(
@@ -70,9 +65,7 @@ else :
 		'template-parts/not-found',
 		null,
 		array(
-			'context'    => 'entries',
-			'title_tag'  => 'h2',
-			'show_poem'  => false,
+			'context' => 'entries',
 		)
 	);
 endif;
