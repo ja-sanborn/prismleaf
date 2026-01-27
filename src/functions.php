@@ -36,5 +36,6 @@ require_once PRISMLEAF_DIR . 'inc/customizer/sections/widget-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/sidebar-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/content-options.php';
 require_once PRISMLEAF_DIR . 'inc/customizer/sections/menu-options.php';
+require_once PRISMLEAF_DIR . 'inc/customizer/sections/blog-options.php';
 require_once PRISMLEAF_DIR . 'inc/core/assets.php';
 require_once PRISMLEAF_DIR . 'inc/core/setup.php';
