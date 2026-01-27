@@ -7,8 +7,8 @@
 .prismleaf-theme-switch {
 	border: none;
 	background-color: var(--prismleaf-color-link);
-	width: var(--prismleaf-space-4);
-	height: var(--prismleaf-space-4);
+	width: var(--prismleaf-space-5);
+	height: var(--prismleaf-space-5);
 	padding: 0;
 	margin: 0;
 	border-radius: var(--prismleaf-radius-full);

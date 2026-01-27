@@ -442,15 +442,15 @@ if ( ! function_exists( 'prismleaf_get_header_icon_css_vars' ) ) {
 		$shape = prismleaf_get_theme_mod_header_icon_shape();
 
 		$size_map = array(
-			'small'  => 'var(--prismleaf-space-5)',
-			'medium' => 'var(--prismleaf-space-6)',
-			'large'  => 'var(--prismleaf-space-8)',
+			'small'  => 'var(--prismleaf-space-6)',
+			'medium' => 'var(--prismleaf-space-7)',
+			'large'  => 'var(--prismleaf-space-9)',
 		);
 
 		if ( isset( $size_map[ $size ] ) ) {
 			$size_value = $size_map[ $size ];
 		} else {
-			$size_value = 'var(--prismleaf-space-6)';
+			$size_value = 'var(--prismleaf-space-7)';
 		}
 
 		$radius_map = array(

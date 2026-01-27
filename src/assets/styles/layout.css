@@ -29,8 +29,11 @@ dl,
 dd,
 ul,
 ol,
+li,
+summary,
 hr {
 	margin: 0;
+	padding: 0;
 }
 
 /* Body baseline sizing. */
@@ -57,7 +60,6 @@ body {
 ul,
 ol {
 	padding-left: 1.25em;
-	margin: 0;
 }
 
 /* Use disc markers for unordered lists. */
@@ -70,21 +72,24 @@ ol {
 	list-style: decimal;
 }
 
-/* Remove default list item margins. */
-li {
-	margin: 0;
-}
-
 /* Normalize blockquote spacing. */
 blockquote {
-	margin-left: var(--prismleaf-space-3);
-	margin-right: var(--prismleaf-space-3);
-	padding: 0;
+	margin-bottom: var(--prismleaf-space-3);
+	padding-left: var(--prismleaf-space-7);
+	position: relative;
+}
+
+blockquote::before {
+	position: absolute;
+	top: 0;
+	left: var(--prismleaf-space-2);
 }
 
 /* Normalize blockquote citations. */
 blockquote cite {
 	display: block;
+	margin-top: var(--prismleaf-space-3);
+	padding-left: var(--prismleaf-space-4);
 }
 
 /* Token-driven divider rule. */
@@ -123,7 +128,7 @@ input[type="reset"] {
 fieldset {
 	min-inline-size: 0;
 	margin: 0;
-	padding: var(--prismleaf-space-3);
+	padding: var(--prismleaf-space-4);
 	border: 0;
 	border-radius: 0;
 }
@@ -160,11 +165,6 @@ input[type="search"] {
 input[type="search"]::-webkit-search-decoration {
 	-webkit-appearance: none;
 	appearance: none;
-}
-
-/* Pointer cursor for summary. */
-summary {
-	cursor: pointer;
 }
 
 /* Constrain audio controls to content width. */
@@ -218,7 +218,7 @@ code {
 pre {
 	line-height: 1.5;
 	overflow: auto;
-	padding: var(--prismleaf-space-3);
+	padding: var(--prismleaf-space-4);
 	border-radius: var(--prismleaf-radius-medium);
 	border-style: var(--prismleaf-border-style);
 	border-width: var(--prismleaf-border-width-thin);

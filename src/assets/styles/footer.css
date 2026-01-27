@@ -29,7 +29,7 @@
 	--prismleaf-footer-copyright-color: var(--prismleaf-color-surface-on-muted);
 	--prismleaf-footer-widget-color: var(--prismleaf-color-surface-on-muted);
 	--prismleaf-footer-widget-column-width: 150px;
-	--prismleaf-footer-widget-row-gap: var(--prismleaf-space-3);
+	--prismleaf-footer-widget-row-gap: var(--prismleaf-space-4);
 	--prismleaf-footer-widget-row-justify: center;
 	--prismleaf-footer-widget-row-width: 100%;
 }

@@ -43,17 +43,21 @@
 	--prismleaf-color-disabled-surface: var(--prismleaf-color-light-disabled-surface);
 	--prismleaf-color-scrim: var(--prismleaf-color-light-scrim);
 
-	/* Derived colors. */
+	/* Derived colors: code area. */
 	--prismleaf-color-code-background: var(--prismleaf-color-container-1);
 	--prismleaf-color-code-foreground: var(--prismleaf-color-container-on);
 
-	/* Active palette: hyperlink defaults. */
+	/* Derived colors: blockquote area. */
+	--prismleaf-color-blockquote-accent: var(--prismleaf-color-secondary-surface-1);
+	--prismleaf-color-blockquote-foreground: var(--prismleaf-color-on-surface-faded);
+
+	/* Derived colors: hyperlink defaults. */
 	--prismleaf-color-link: var(--prismleaf-color-secondary-surface-1);
 	--prismleaf-color-link-hover: var(--prismleaf-color-secondary-surface-5);
 	--prismleaf-color-link-active: var(--prismleaf-color-secondary-surface-5);
 	--prismleaf-color-link-visited: var(--prismleaf-color-secondary-surface-1);
 
-	/* Active palette: selection. */
+	/* Derived colors: selection. */
 	--prismleaf-color-selection-background: var(--prismleaf-color-tertiary-surface-1);
 	--prismleaf-color-selection-foreground: var(--prismleaf-color-tertiary-surface-on);
 }
@@ -337,4 +341,13 @@ pre {
 	background-color: var(--prismleaf-color-code-background);
 	border-color: var(--prismleaf-color-outline);
 	color: var(--prismleaf-color-code-foreground);
+}
+
+/* Blockquote color. */
+blockquote {
+	color: var(--prismleaf-color-blockquote-foreground);
+}
+
+blockquote::before {
+	color: var(--prismleaf-color-blockquote-accent);
 }

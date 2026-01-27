@@ -1,0 +1,80 @@
+/*!
+ * Prismleaf Search Box Styling
+ *
+ * Layout and surface defaults for WordPress search boxes.
+ *
+ * @package prismleaf
+ */
+
+/* Widget styling tokens. */
+:root {
+	--prismleaf-search-background-color: var(--prismleaf-background);
+	--prismleaf-search-foreground-color: var(--prismleaf-color-surface-on);
+	--prismleaf-search-placeholder-color: var(--prismleaf-color-surface-on-faded);
+}
+
+/* Search styling. */
+.search-form {
+	display: flex;
+	align-items: center;
+	gap: var(--prismleaf-space-1);
+	width: 100%;
+	padding: 0;
+}
+
+.search-form label {
+	margin: 0;
+	flex: 1 1 auto;
+	width: 100%;
+	display: flex;
+}
+
+.search-field {
+	height: var(--prismleaf-space-6);
+	padding: var(--prismleaf-space-2);
+	margin: 0;
+	background-color: var(--prismleaf-search-background-color);
+	color: var(--prismleaf-search-foreground-color);
+	border-color: var(--prismleaf-color-outline);
+	border-radius: var(--prismleaf-radius-small);
+	border-style: var(--prismleaf-border-style);
+	border-width: var(--prismleaf-border-width-thin);
+	box-sizing: border-box;
+	flex: 1 1 auto;
+	min-width: 0;
+	max-width: none;
+}
+
+.search-field::placeholder {
+	color: var(--prismleaf-search-placeholder-color);
+}
+
+.search-submit {
+	width: var(--prismleaf-space-5);
+	height: var(--prismleaf-space-5);
+	margin: 0;
+	padding: 0;
+	border: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--prismleaf-color-link);
+	flex: 0 0 auto;
+	background-color: currentcolor;
+	-webkit-mask: url(../images/magnifying-glass.svg) center / contain no-repeat;
+	mask: url(../images/magnifying-glass.svg) center / contain no-repeat;
+	cursor: pointer;
+	box-sizing: border-box;
+	border-radius: var(--prismleaf-radius-small);
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	-webkit-appearance: none;
+	appearance: none;
+	line-height: 1;
+}
+
+.search-submit:hover {
+	color: var(--prismleaf-color-link-hover);
+	background-color: currentcolor;
+}

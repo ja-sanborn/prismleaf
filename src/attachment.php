@@ -12,8 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header();
-?>
 
+if ( have_posts() ) :
+	?>
 	<section aria-labelledby="attachment-title">
 		<header>
 			<h1 id="attachment-title"><?php the_title(); ?></h1>
@@ -61,6 +62,15 @@ get_header();
 		endwhile;
 		?>
 	</section>
+	<?php
+else :
+	get_template_part(
+		'template-parts/not-found',
+		null,
+		array(
+			'context' => 'entries',
+		)
+	);
+endif;
 
-<?php
 get_footer();

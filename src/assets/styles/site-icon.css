@@ -1,5 +1,5 @@
 :root {
-	--prismleaf-site-icon-size: var(--prismleaf-space-6);
+	--prismleaf-site-icon-size: var(--prismleaf-space-7);
 	--prismleaf-site-icon-border-radius: var(--prismleaf-radius-large);
 }
 
@@ -8,8 +8,8 @@
 	align-items: center;
 	justify-content: center;
 	position: relative;
-	width: var(--prismleaf-site-icon-size, var(--prismleaf-space-6));
-	height: var(--prismleaf-site-icon-size, var(--prismleaf-space-6));
+	width: var(--prismleaf-site-icon-size, var(--prismleaf-space-7));
+	height: var(--prismleaf-site-icon-size, var(--prismleaf-space-7));
 	border-radius: var(--prismleaf-site-icon-border-radius, var(--prismleaf-radius-medium));
 	overflow: hidden;
 	text-decoration: none;

@@ -1,0 +1,44 @@
+/**
+ * Styles for the not-found template part.
+ *
+ * Layout and surface defaults for not found regions.
+ *
+ * @package prismleaf
+ */
+
+.prismleaf-quote-summary {
+	display: block;
+	cursor: pointer;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.prismleaf-quote-summary::-webkit-details-marker {
+	display: none;
+}
+
+.prismleaf-quote-line {
+	display: block;
+	margin-bottom: var(--prismleaf-space-3);
+}
+
+.prismleaf-quote-body {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.4s ease, opacity 0.3s ease;
+	opacity: 0;
+}
+
+.prismleaf-quote-expand[open] .prismleaf-quote-body {
+	max-height: 100%;
+	opacity: 1;
+}
+
+.prismleaf-not-found-search {
+	width: 300px;
+	margin-bottom: 0;
+	margin-left: var(--prismleaf-space-4);
+	margin-right: 0;
+	margin-top: var(--prismleaf-space-4);
+}

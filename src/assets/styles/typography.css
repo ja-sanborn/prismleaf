@@ -82,6 +82,27 @@ pre {
 	font-size: 0.9375em;
 }
 
+/* Blockquote typography. */
+blockquote {
+	font-family: var(--prismleaf-font-serif);
+	font-style: italic;
+	text-align: justify;
+}
+
+blockquote::before {
+	content: '“';
+	font-size: var(--prismleaf-space-9);
+	font-family: var(--prismleaf-font-serif);
+	line-height: 1;
+}
+
+blockquote cite {
+	font-family: var(--prismleaf-font-sans-serif);
+	font-size: var(--prismleaf-font-size-sm);
+	font-style: normal;
+	font-weight: var(--prismleaf-font-weight-semibold);
+}
+
 /* Address typography. */
 address {
 	font-style: normal;

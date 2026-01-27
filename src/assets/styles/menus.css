@@ -186,7 +186,7 @@
 
 .prismleaf-mobile-menu-overlay .prismleaf-menu-mobile {
 	width: var(--prismleaf-mobile-menu-width);
-	max-height: calc(100vh - var(--prismleaf-space-6));
+	max-height: calc(100vh - var(--prismleaf-space-7));
 	background-color: var(--prismleaf-menu-mobile-panel-background, var(--prismleaf-color-primary-surface-1));
 	box-shadow: var(--prismleaf-shadow-light-elevation-3);
 	padding: var(--prismleaf-space-2);

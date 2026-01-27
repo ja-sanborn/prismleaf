@@ -1,8 +1,8 @@
 <?php
 /**
- * Author template for Prismleaf.
+ * Date archive template for Prismleaf.
  *
- * Displays the author biography and their posts.
+ * Shows posts from a specific date query (day, month, or year).
  *
  * @package prismleaf
  */
@@ -13,30 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-$author = get_queried_object();
-
 if ( have_posts() ) :
 	?>
-	<section aria-labelledby="author-title">
+	<section aria-labelledby="date-title">
 		<header>
-			<h1 id="author-title">
-				<?php
-				printf(
-					/* translators: %s: author name. */
-					esc_html__( '%s’s Posts', 'prismleaf' ),
-					esc_html( get_the_author_meta( 'display_name', $author->ID ) )
-				);
-				?>
-			</h1>
-			<p><?php esc_html_e( 'Highlight the author biography, avatar, and metadata alongside their published work.', 'prismleaf' ); ?></p>
+			<h1 id="date-title"><?php the_archive_title(); ?></h1>
+			<p><?php esc_html_e( 'Date archives let readers explore what was published on a particular day, month, or year.', 'prismleaf' ); ?></p>
+			<?php the_archive_description( '<div class="archive-description">', '</div>' ); ?>
 		</header>
-
-		<div class="author-summary">
-			<?php echo get_avatar( $author->ID, 120 ); ?>
-			<?php if ( $bio = get_the_author_meta( 'description', $author->ID ) ) : ?>
-				<p><?php echo esc_html( $bio ); ?></p>
-			<?php endif; ?>
-		</div>
 
 		<div class="prismleaf-post-list">
 			<?php
@@ -60,7 +44,7 @@ if ( have_posts() ) :
 						<?php the_excerpt(); ?>
 					</div>
 					<a class="entry-link" href="<?php the_permalink(); ?>">
-						<?php esc_html_e( 'Read more', 'prismleaf' ); ?>
+						<?php esc_html_e( 'Continue reading', 'prismleaf' ); ?>
 					</a>
 				</article>
 			<?php endwhile; ?>
