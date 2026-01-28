@@ -746,10 +746,10 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_menu_button_corners' ) ) {
 	 * @param string $default_value Default fallback.
 	 * @return string
 	 */
-	function prismleaf_get_theme_mod_menu_button_corners( $setting_id, $default_key = '', $default_value = 'Square' ) {
-		$setting_id = prismleaf_sanitize_text( $setting_id );
-		$default_key = prismleaf_sanitize_text( $default_key );
-		$default_value = prismleaf_sanitize_menu_button_corners( $default_value );
+function prismleaf_get_theme_mod_menu_button_corners( $setting_id, $default_key = '', $default_value = 'Square' ) {
+	$setting_id = prismleaf_sanitize_text( $setting_id );
+	$default_key = prismleaf_sanitize_text( $default_key );
+	$default_value = prismleaf_sanitize_menu_button_corners( $default_value );
 
 		if ( '' !== $default_key ) {
 			$default_value = prismleaf_get_default_option( $default_key, $default_value );
@@ -760,7 +760,65 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_menu_button_corners' ) ) {
 		}
 
 		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
-		return prismleaf_sanitize_menu_button_corners( $raw );
+	return prismleaf_sanitize_menu_button_corners( $raw );
+}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_pagination_size' ) ) {
+	/**
+	 * Retrieve a sanitized pagination size selection.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_value Default fallback.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_pagination_size( $setting_id, $default_key = '', $default_value = 'Medium' ) {
+		$setting_id = prismleaf_sanitize_text( $setting_id );
+		$default_key = prismleaf_sanitize_text( $default_key );
+		$default_value = prismleaf_sanitize_pagination_size( $default_value );
+
+		if ( '' !== $default_key ) {
+			$default_value = prismleaf_get_default_option( $default_key, $default_value );
+		}
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_pagination_size( $default_value );
+		}
+
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_pagination_size( $raw );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_theme_mod_pagination_shape' ) ) {
+	/**
+	 * Retrieve a sanitized pagination shape selection.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id    Theme mod ID.
+	 * @param string $default_key   Default option key.
+	 * @param string $default_value Default fallback.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_pagination_shape( $setting_id, $default_key = '', $default_value = 'Round' ) {
+		$setting_id = prismleaf_sanitize_text( $setting_id );
+		$default_key = prismleaf_sanitize_text( $default_key );
+		$default_value = prismleaf_sanitize_pagination_shape( $default_value );
+
+		if ( '' !== $default_key ) {
+			$default_value = prismleaf_get_default_option( $default_key, $default_value );
+		}
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_pagination_shape( $default_value );
+		}
+
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
+		return prismleaf_sanitize_pagination_shape( $raw );
 	}
 }
 

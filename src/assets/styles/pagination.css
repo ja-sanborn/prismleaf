@@ -1,0 +1,229 @@
+/*!
+ * Prismleaf Pagination
+ *
+ * Layout, typography, and surface tokens for the pagination controls.
+ *
+ * @package prismleaf
+ */
+
+:root {
+
+	/* Archive pagination tokens. */
+	--prismleaf-pagination-archive-background-color: var(--prismleaf-color-secondary-surface-1);
+	--prismleaf-pagination-archive-foreground-color: var(--prismleaf-color-secondary-surface-on);
+	--prismleaf-pagination-archive-hover-color: var(--prismleaf-color-secondary-surface-5);
+	--prismleaf-pagination-archive-border-color: var(--prismleaf-color-secondary-outline);
+	--prismleaf-pagination-archive-border-style: var(--prismleaf-border-style);
+	--prismleaf-pagination-archive-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-pagination-archive-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-pagination-archive-gap: var(--prismleaf-space-2);
+
+	/* Pagebreak pagination tokens. */
+	--prismleaf-pagination-pagebreak-background-color: var(--prismleaf-color-secondary-surface-1);
+	--prismleaf-pagination-pagebreak-foreground-color: var(--prismleaf-color-secondary-surface-on);
+	--prismleaf-pagination-pagebreak-hover-color: var(--prismleaf-color-secondary-surface-5);
+	--prismleaf-pagination-pagebreak-border-color: var(--prismleaf-color-secondary-outline);
+	--prismleaf-pagination-pagebreak-border-style: var(--prismleaf-border-style);
+	--prismleaf-pagination-pagebreak-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-pagination-pagebreak-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-pagination-pagebreak-gap: var(--prismleaf-space-2);
+
+	/* Post navigation tokens. */
+	--prismleaf-pagination-post-background-color: var(--prismleaf-color-secondary-surface-1);
+	--prismleaf-pagination-post-foreground-color: var(--prismleaf-color-secondary-surface-on);
+	--prismleaf-pagination-post-hover-color: var(--prismleaf-color-secondary-surface-5);
+	--prismleaf-pagination-post-border-color: var(--prismleaf-color-secondary-outline);
+	--prismleaf-pagination-post-border-style: var(--prismleaf-border-style);
+	--prismleaf-pagination-post-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-pagination-post-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-pagination-post-gap: var(--prismleaf-space-2);
+
+	--prismleaf-pagination-gap: var(--prismleaf-pagination-archive-gap);
+
+}
+
+.prismleaf-pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: var(--prismleaf-space-4) auto;
+	padding: 0;
+	white-space: nowrap;
+}
+
+.prismleaf-pagination-links {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--prismleaf-pagination-gap);
+	width: max-content;
+	max-width: 100%;
+	flex-wrap: nowrap;
+	background-color: transparent;
+	border: none;
+	padding: 0;
+}
+
+.prismleaf-pagination-links .page-numbers,
+.prismleaf-pagination-links a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--prismleaf-space-2);
+	margin: 0;
+	text-decoration: none;
+	font-weight: 500;
+	border-radius: 0;
+	border: none;
+	transition: color 0.2s ease, background-color 0.2s ease;
+	gap: var(--prismleaf-space-1);
+	color: inherit;
+}
+
+.prismleaf-pagination-links a.current {
+	font-weight: 700;
+}
+
+.prismleaf-pagination-bar .prismleaf-pagination-links {
+	gap: 0;
+	border-radius: 0;
+	overflow: hidden;
+}
+
+.prismleaf-pagination-buttons .prismleaf-pagination-links {
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	gap: var(--prismleaf-pagination-gap);
+}
+
+.prismleaf-pagination-type-archive .prismleaf-pagination-links .page-numbers,
+.prismleaf-pagination-type-archive .prismleaf-pagination-links a {
+	color: var(--prismleaf-pagination-archive-foreground-color);
+	background-color: var(--prismleaf-pagination-archive-background-color);
+}
+
+.prismleaf-pagination-type-pagebreak .prismleaf-pagination-links .page-numbers,
+.prismleaf-pagination-type-pagebreak .prismleaf-pagination-links a {
+	color: var(--prismleaf-pagination-pagebreak-foreground-color);
+	background-color: var(--prismleaf-pagination-pagebreak-background-color);
+}
+
+.prismleaf-pagination-type-post .prismleaf-pagination-links .page-numbers,
+.prismleaf-pagination-type-post .prismleaf-pagination-links a {
+	color: var(--prismleaf-pagination-post-foreground-color);
+	background-color: var(--prismleaf-pagination-post-background-color);
+}
+
+.prismleaf-pagination-type-archive .prismleaf-pagination-links .page-numbers:hover,
+.prismleaf-pagination-type-archive .prismleaf-pagination-links .page-numbers:focus-visible,
+.prismleaf-pagination-type-archive .prismleaf-pagination-links a:hover,
+.prismleaf-pagination-type-archive .prismleaf-pagination-links a:focus-visible {
+	background-color: var(--prismleaf-pagination-archive-hover-color);
+	color: var(--prismleaf-color-secondary-surface-on-faded);
+}
+
+.prismleaf-pagination-type-pagebreak .prismleaf-pagination-links .page-numbers:hover,
+.prismleaf-pagination-type-pagebreak .prismleaf-pagination-links .page-numbers:focus-visible,
+.prismleaf-pagination-type-pagebreak .prismleaf-pagination-links a:hover,
+.prismleaf-pagination-type-pagebreak .prismleaf-pagination-links a:focus-visible {
+	background-color: var(--prismleaf-pagination-pagebreak-hover-color);
+	color: var(--prismleaf-color-secondary-surface-on-faded);
+}
+
+.prismleaf-pagination-type-post .prismleaf-pagination-links .page-numbers:hover,
+.prismleaf-pagination-type-post .prismleaf-pagination-links .page-numbers:focus-visible,
+.prismleaf-pagination-type-post .prismleaf-pagination-links a:hover,
+.prismleaf-pagination-type-post .prismleaf-pagination-links a:focus-visible {
+	background-color: var(--prismleaf-pagination-post-hover-color);
+	color: var(--prismleaf-color-secondary-surface-on-faded);
+}
+
+.prismleaf-pagination-type-archive.prismleaf-pagination-bar .prismleaf-pagination-links {
+	background-color: var(--prismleaf-pagination-archive-background-color);
+	border-style: var(--prismleaf-pagination-archive-border-style);
+	border-width: var(--prismleaf-pagination-archive-border-width);
+	border-color: var(--prismleaf-pagination-archive-border-color);
+}
+
+.prismleaf-pagination-type-pagebreak.prismleaf-pagination-bar .prismleaf-pagination-links {
+	background-color: var(--prismleaf-pagination-pagebreak-background-color);
+	border-style: var(--prismleaf-pagination-pagebreak-border-style);
+	border-width: var(--prismleaf-pagination-pagebreak-border-width);
+	border-color: var(--prismleaf-pagination-pagebreak-border-color);
+}
+
+.prismleaf-pagination-type-post.prismleaf-pagination-bar .prismleaf-pagination-links {
+	background-color: var(--prismleaf-pagination-post-background-color);
+	border-style: var(--prismleaf-pagination-post-border-style);
+	border-width: var(--prismleaf-pagination-post-border-width);
+	border-color: var(--prismleaf-pagination-post-border-color);
+}
+
+.prismleaf-pagination-type-archive.prismleaf-pagination-buttons .prismleaf-pagination-links .page-numbers {
+	border-style: var(--prismleaf-pagination-archive-border-style);
+	border-width: var(--prismleaf-pagination-archive-border-width);
+	border-color: var(--prismleaf-pagination-archive-border-color);
+}
+
+.prismleaf-pagination-type-pagebreak.prismleaf-pagination-buttons .prismleaf-pagination-links .page-numbers {
+	border-style: var(--prismleaf-pagination-pagebreak-border-style);
+	border-width: var(--prismleaf-pagination-pagebreak-border-width);
+	border-color: var(--prismleaf-pagination-pagebreak-border-color);
+}
+
+.prismleaf-pagination-type-post.prismleaf-pagination-buttons .prismleaf-pagination-links .page-numbers {
+	border-style: var(--prismleaf-pagination-post-border-style);
+	border-width: var(--prismleaf-pagination-post-border-width);
+	border-color: var(--prismleaf-pagination-post-border-color);
+}
+
+.prismleaf-pagination-page-count {
+	font-size: 0.875rem;
+	margin: 0 var(--prismleaf-space-2);
+	color: var(--prismleaf-pagination-archive-foreground-color);
+}
+
+.prismleaf-pagination-shape-square.prismleaf-pagination-buttons .prismleaf-pagination-links,
+.prismleaf-pagination-shape-square.prismleaf-pagination-buttons .prismleaf-pagination-links .page-numbers,
+.prismleaf-pagination-shape-square.prismleaf-pagination-buttons .prismleaf-pagination-links a,
+.prismleaf-pagination-shape-square.prismleaf-pagination-bar .prismleaf-pagination-links {
+	border-radius: 0;
+}
+
+.prismleaf-pagination-shape-round.prismleaf-pagination-buttons .prismleaf-pagination-links,
+.prismleaf-pagination-shape-round.prismleaf-pagination-buttons .prismleaf-pagination-links .page-numbers,
+.prismleaf-pagination-shape-round.prismleaf-pagination-buttons .prismleaf-pagination-links a,
+.prismleaf-pagination-shape-round.prismleaf-pagination-bar .prismleaf-pagination-links {
+	border-radius: var(--prismleaf-radius-medium);
+}
+
+.prismleaf-pagination-shape-pill.prismleaf-pagination-buttons .prismleaf-pagination-links,
+.prismleaf-pagination-shape-pill.prismleaf-pagination-buttons .prismleaf-pagination-links .page-numbers,
+.prismleaf-pagination-shape-pill.prismleaf-pagination-buttons .prismleaf-pagination-links a,
+.prismleaf-pagination-shape-pill.prismleaf-pagination-bar .prismleaf-pagination-links {
+	border-radius: var(--prismleaf-radius-pill);
+}
+
+.prismleaf-pagination-type-post.prismleaf-pagination-bar.prismleaf-pagination-post-has-both.prismleaf-pagination-post-has-titles .prismleaf-pagination-links > a + a {
+	border-left: var(--prismleaf-border-width-thick) solid var(--prismleaf-pagination-post-border-color);
+	padding-left: var(--prismleaf-space-2);
+}
+
+.prismleaf-pagination-post-link-title {
+	margin-left: var(--prismleaf-space-2);
+	margin-right: var(--prismleaf-space-2);
+	text-transform: none;
+}
+
+.prismleaf-pagination-type-post .prismleaf-pagination-post-link-title {
+	color: var(--prismleaf-pagination-post-foreground-color);
+	text-decoration: none;
+}
+
+@media (max-width: 767px) {
+
+	.prismleaf-pagination-post-link-title {
+		display: none;
+	}
+}

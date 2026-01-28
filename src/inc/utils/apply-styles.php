@@ -30,6 +30,7 @@ $css .= prismleaf_get_header_icon_css_vars();
 	$css .= prismleaf_get_sidebar_css_vars();
 	$css .= prismleaf_get_content_css_vars();
 	$css .= prismleaf_get_widget_css_vars();
+	$css .= prismleaf_get_pagination_css_vars();
 
 	if ( '' === $css ) {
 		return;
@@ -877,6 +878,53 @@ if ( ! function_exists( 'prismleaf_get_widget_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-widget-elevation', $elevation );
 		$css .= prismleaf_build_css_var( '--prismleaf-widget-title-color', $title_color );
 		$css .= prismleaf_build_css_var( '--prismleaf-widget-title-alignment', $title_alignment );
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_pagination_css_vars' ) ) {
+	/**
+	 * Build CSS variables for pagination overrides from the Customizer.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_pagination_css_vars() {
+		$archive_background = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_result_navigation_background_color_palette',
+			'surface_1',
+			'--prismleaf-color-secondary-surface-1'
+		);
+
+		$entry_background = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_entry_navigation_background_color_palette',
+			'surface_1',
+			'--prismleaf-color-secondary-surface-1'
+		);
+
+		$normalize = static function ( $value ) {
+			$value = trim( (string) $value );
+			if ( '' === $value ) {
+				return '';
+			}
+			if ( 0 === strpos( $value, 'var(' ) ) {
+				return $value;
+			}
+			if ( 0 === strpos( $value, '--' ) ) {
+				return 'var(' . $value . ')';
+			}
+			return $value;
+		};
+
+		$archive_background = $normalize( $archive_background );
+		$entry_background   = $normalize( $entry_background );
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-pagination-archive-background-color', $archive_background );
+		$css .= prismleaf_build_css_var( '--prismleaf-pagination-pagebreak-background-color', $entry_background );
+		$css .= prismleaf_build_css_var( '--prismleaf-pagination-post-background-color', $entry_background );
 
 		return $css;
 	}

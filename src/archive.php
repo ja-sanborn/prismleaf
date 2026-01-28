@@ -50,10 +50,11 @@ if ( have_posts() ) :
 			<?php endwhile; ?>
 		</div>
 		<?php
-		the_posts_pagination(
+		get_template_part(
+			'template-parts/pagination',
+			null,
 			array(
-				'prev_text' => esc_html__( 'Previous', 'prismleaf' ),
-				'next_text' => esc_html__( 'Next', 'prismleaf' ),
+				'type' => 'archive',
 			)
 		);
 		?>

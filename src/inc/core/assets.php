@@ -203,6 +203,15 @@ if ( ! function_exists( 'prismleaf_enqueue_styles' ) ) {
 		$last_handle = 'prismleaf-menus';
 
 		prismleaf_enqueue_style(
+			'prismleaf-pagination',
+			'assets/styles/pagination.css',
+			array( $last_handle ),
+			PRISMLEAF_VERSION
+		);
+		wp_style_add_data( 'prismleaf-pagination', 'rtl', 'replace' );
+		$last_handle = 'prismleaf-pagination';
+
+		prismleaf_enqueue_style(
 			'prismleaf-mobile',
 			'assets/styles/mobile.css',
 			array( $last_handle ),

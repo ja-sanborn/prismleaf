@@ -34,10 +34,11 @@ if ( have_posts() ) :
 				</div>
 				<footer class="entry-footer">
 					<?php
-					wp_link_pages(
+					get_template_part(
+						'template-parts/pagination',
+						null,
 						array(
-							'before' => '<nav class="page-links">' . esc_html__( 'Continue reading:', 'prismleaf' ),
-							'after'  => '</nav>',
+							'type' => 'pagebreak',
 						)
 					);
 					edit_post_link(

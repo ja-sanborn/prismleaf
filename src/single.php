@@ -41,20 +41,22 @@ if ( have_posts() ) :
 				<div class="entry-content">
 					<?php the_content(); ?>
 					<?php
-					wp_link_pages(
+					get_template_part(
+						'template-parts/pagination',
+						null,
 						array(
-							'before' => '<nav class="page-links">' . esc_html__( 'Continue reading:', 'prismleaf' ),
-							'after'  => '</nav>',
+							'type' => 'pagebreak',
 						)
 					);
 					?>
 				</div>
 				<footer class="entry-footer">
 					<?php
-					the_post_navigation(
+					get_template_part(
+						'template-parts/pagination',
+						null,
 						array(
-							'prev_text' => esc_html__( 'Previous post', 'prismleaf' ),
-							'next_text' => esc_html__( 'Next post', 'prismleaf' ),
+							'type' => 'post',
 						)
 					);
 					?>

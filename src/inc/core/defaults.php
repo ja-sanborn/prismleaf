@@ -179,6 +179,22 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 			'widget_title_color_source'                 => '',
 		);
 
+		$defaults += array(
+			'result_navigation_is_buttons'                => false,
+			'result_navigation_size'                      => 'Medium',
+			'result_navigation_shape'                     => 'Round',
+			'result_navigation_background_color_base'     => '',
+			'result_navigation_background_color_palette'  => '',
+			'result_navigation_background_color_source'   => '',
+			'entry_navigation_is_buttons'                 => false,
+			'entry_navigation_show_page_numbers'          => true,
+			'entry_navigation_show_post_titles'           => true,
+			'entry_navigation_shape'                      => 'Round',
+			'entry_navigation_background_color_base'      => '',
+			'entry_navigation_background_color_palette'   => '',
+			'entry_navigation_background_color_source'    => '',
+		);
+
 		return apply_filters( 'prismleaf_default_options', $defaults );
 	}
 }
