@@ -62,15 +62,10 @@ if ( have_posts() ) :
 		endwhile;
 		?>
 	</section>
+
 	<?php
 else :
-	get_template_part(
-		'template-parts/not-found',
-		null,
-		array(
-			'context' => 'entries',
-		)
-	);
+	get_template_part( 'template-parts/not-found' );
 endif;
 
 get_footer();

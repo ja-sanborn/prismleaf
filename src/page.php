@@ -14,14 +14,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 if ( have_posts() ) :
+	$title_id   = 'page-title-' . wp_unique_id();
+	$page_title = get_the_title( get_queried_object_id() );
 	?>
-	<section aria-labelledby="page-template-title">
-		<header>
-			<h1 id="page-template-title"><?php esc_html_e( 'Static Page Layout', 'prismleaf' ); ?></h1>
-			<p><?php esc_html_e( 'Page.php renders custom pages when no specialized template is provided.', 'prismleaf' ); ?></p>
-		</header>
-
+	<section aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
 		<?php
+		get_template_part(
+			'template-parts/content-title',
+			array(
+				'title_id'      => $title_id,
+				'title_tag'     => 'h1',
+				'content_title' => $page_title,
+				'description'   => __( 'Page.php renders custom pages when no specialized template is provided.', 'prismleaf' ),
+			)
+		);
+
 		while ( have_posts() ) :
 			the_post();
 			?>
@@ -59,13 +66,7 @@ if ( have_posts() ) :
 	</section>
 	<?php
 else :
-	get_template_part(
-		'template-parts/not-found',
-		null,
-		array(
-			'context' => 'entries',
-		)
-	);
+	get_template_part( 'template-parts/not-found' );
 endif;
 
 get_footer();

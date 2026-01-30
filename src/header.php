@@ -17,7 +17,8 @@ $header_contained = prismleaf_get_theme_mod_bool( 'prismleaf_header_contained', 
 
 $outer_header = $header_show && ( $is_framed || ! $header_contained );
 $inner_header = $header_show && ! $outer_header;
-
+$title_id     = isset( $args['title_id'] ) ? (string) $args['title_id'] : '';
+$aria_label   = '' === $title_id ? '' : ' aria-labelledby="' . esc_attr( $title_id ) . '"';
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -35,9 +36,9 @@ $inner_header = $header_show && ! $outer_header;
 
 <div class="prismleaf-frame">
 	<?php if ( $outer_header ) : ?>
-			<header class="prismleaf-region-header prismleaf-region">
-				<?php get_template_part( 'template-parts/header-content' ); ?>
-			</header>
+		<header class="prismleaf-region-header prismleaf-region">
+			<?php get_template_part( 'template-parts/header-content' ); ?>
+		</header>
 	<?php endif; ?>
 
 	<div class="prismleaf-frame-main">
@@ -47,4 +48,4 @@ $inner_header = $header_show && ! $outer_header;
 					<?php get_template_part( 'template-parts/header-content' ); ?>
 				</header>
 			<?php endif; ?>
-			<main id="prismleaf-main" class="prismleaf-region-content prismleaf-region" tabindex="-1">
+			<main id="prismleaf-main" class="prismleaf-region-content prismleaf-region" tabindex="-1"<?php echo $aria_label; ?>>

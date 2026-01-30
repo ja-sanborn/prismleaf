@@ -76,6 +76,7 @@ ol {
 blockquote {
 	margin-bottom: var(--prismleaf-space-3);
 	padding-left: var(--prismleaf-space-7);
+	padding-right: var(--prismleaf-space-5);
 	position: relative;
 }
 
@@ -145,16 +146,6 @@ textarea:disabled {
 	cursor: not-allowed;
 }
 
-/* Focus-visible border styling. */
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-	outline: none;
-	box-shadow: none;
-	border-style: var(--prismleaf-border-style);
-	border-color: var(--prismleaf-color-primary-1);
-}
 
 /* Normalize WebKit search inputs. */
 input[type="search"] {

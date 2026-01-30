@@ -35,10 +35,10 @@
 	overflow: hidden;
 }
 
-.prismleaf-content-title {
+.prismleaf-content-header {
 	margin-bottom: var(--prismleaf-space-4);
 }
 
-.prismleaf-content-title-text {
+.prismleaf-content-title {
 	color: var(--prismleaf-content-title-color);
 }
