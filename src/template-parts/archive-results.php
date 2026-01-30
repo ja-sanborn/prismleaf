@@ -12,30 +12,64 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $show_poem = isset( $args['show_poem'] ) ? (bool) $args['show_poem'] : true;
+$show_featured_image = prismleaf_get_theme_mod_bool(
+	'prismleaf_result_show_featured_image',
+	prismleaf_get_default_option( 'result_show_featured_image', true )
+);
+$show_categories = prismleaf_get_theme_mod_bool(
+	'prismleaf_result_show_categories',
+	prismleaf_get_default_option( 'result_show_categories', true )
+);
+$show_author = prismleaf_get_theme_mod_bool(
+	'prismleaf_result_show_author',
+	prismleaf_get_default_option( 'result_show_author', true )
+);
+$show_date = prismleaf_get_theme_mod_bool(
+	'prismleaf_result_show_date',
+	prismleaf_get_default_option( 'result_show_date', true )
+);
+$show_comments = prismleaf_get_theme_mod_bool(
+	'prismleaf_result_show_comments',
+	prismleaf_get_default_option( 'result_show_comments', true )
+);
 
 if ( have_posts() ) :
 	?>
-	<div class="prismleaf-post-list">
+	<div class="prismleaf-archive-list">
 		<?php
 		while ( have_posts() ) :
 			the_post();
 			$author_url = get_author_posts_url( get_the_author_meta( 'ID' ) );
 			$author_name = get_the_author();
 			$author_link = sprintf(
-				'<a class="prismleaf-post-author-link" href="%1$s">%2$s</a>',
+				'<a class="prismleaf-archive-author-link" href="%1$s">%2$s</a>',
 				esc_url( $author_url ),
 				esc_html( $author_name )
 			);
 			$published_date = get_the_date( 'F j, Y' );
-			$published_time = get_the_time( 'g:i a' );
-			$published_label = sprintf(
-				/* translators: 1: date, 2: time. */
-				esc_html__( 'Published on %1$s at %2$s', 'prismleaf' ),
-				esc_html( $published_date ),
-				esc_html( $published_time )
-			);
+			$meta_parts = array();
+
+			if ( $show_author ) {
+				$meta_parts[] = sprintf(
+					/* translators: %s: author. */
+					esc_html__( 'by %s', 'prismleaf' ),
+					wp_kses_post( $author_link )
+				);
+			}
+
+			if ( $show_date ) {
+				$meta_parts[] = sprintf(
+					/* translators: %s: date. */
+					esc_html__( 'on %s', 'prismleaf' ),
+					esc_html( $published_date )
+				);
+			}
+
+			$posted_by_label = '';
+			if ( ! empty( $meta_parts ) ) {
+				$posted_by_label = esc_html__( 'Posted', 'prismleaf' ) . ' ' . implode( ' ', $meta_parts );
+			}
 			$categories_list = get_the_category_list( ', ' );
-			$tags_list = get_the_tag_list( '', ', ' );
 			$comments_count = get_comments_number();
 			$comment_text = sprintf(
 				/* translators: %s: comment count. */
@@ -43,80 +77,45 @@ if ( have_posts() ) :
 				number_format_i18n( $comments_count )
 			);
 			?>
-			<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
-				<?php if ( has_post_thumbnail() ) : ?>
-					<figure class="entry-thumbnail prismleaf-post-thumbnail">
-						<a class="prismleaf-post-thumbnail-link" href="<?php echo esc_url( get_permalink() ); ?>">
-							<?php the_post_thumbnail( 'post-thumbnail', array( 'loading' => 'lazy' ) ); ?>
+			<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-archive-card' ); ?>>
+				<?php if ( $show_featured_image && has_post_thumbnail() ) : ?>
+					<figure class="prismleaf-archive-card-thumbnail">
+						<a class="prismleaf-archive-card-thumbnail-link" href="<?php echo esc_url( get_permalink() ); ?>">
+							<?php the_post_thumbnail( 'prismleaf-archive-card', array( 'loading' => 'lazy', 'sizes' => '(max-width: 300px) 100vw, 300px' ) ); ?>
 						</a>
 					</figure>
 				<?php endif; ?>
-				<header class="entry-header prismleaf-post-header">
-					<?php the_title( sprintf( '<h2 class="entry-title prismleaf-post-title"><a class="prismleaf-post-title-link" href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+				<header class="prismleaf-archive-card-header">
+					<?php the_title( sprintf( '<h2 class="prismleaf-archive-card-title"><a class="prismleaf-archive-card-title-link" href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+					<?php if ( '' !== $posted_by_label ) : ?>
+						<p class="prismleaf-archive-card-meta">
+							<?php echo $posted_by_label; ?>
+						</p>
+					<?php endif; ?>
+					<?php if ( $categories_list ) : ?>
+						<?php if ( $show_categories ) : ?>
+							<p class="prismleaf-archive-card-categories">
+								<?php
+								printf(
+									/* translators: %s: category list. */
+									esc_html__( 'Categories: %s', 'prismleaf' ),
+									wp_kses_post( $categories_list )
+								);
+								?>
+							</p>
+						<?php endif; ?>
+					<?php endif; ?>
 				</header>
-				<div class="entry-meta prismleaf-post-author-meta">
-					<span class="entry-meta-author prismleaf-post-author-name">
-						<?php
-						printf(
-							/* translators: %s: author. */
-							esc_html__( 'By %s', 'prismleaf' ),
-							wp_kses_post( $author_link )
-						);
-						?>
-					</span>
-				</div>
-				<div class="entry-meta prismleaf-post-published">
-					<span class="entry-meta-date prismleaf-post-published-date">
-						<?php echo esc_html( $published_label ); ?>
-					</span>
-				</div>
-				<div class="entry-summary prismleaf-post-summary">
+				<div class="prismleaf-archive-card-excerpt">
 					<?php the_excerpt(); ?>
 				</div>
-				<div class="entry-meta prismleaf-post-author-archive">
-					<span class="entry-meta-author prismleaf-post-author-archive-text">
-						<?php
-						printf(
-							/* translators: %s: author archive. */
-							esc_html__( 'Author: %s', 'prismleaf' ),
-							wp_kses_post( $author_link )
-						);
-						?>
-					</span>
-				</div>
-				<?php if ( $categories_list ) : ?>
-					<div class="entry-meta prismleaf-post-categories">
-						<span class="entry-meta-categories-list prismleaf-post-categories-list">
-							<?php
-							printf(
-								/* translators: %s: category list. */
-								esc_html__( 'Categories: %s', 'prismleaf' ),
-								wp_kses_post( $categories_list )
-							);
-							?>
-						</span>
-					</div>
-				<?php endif; ?>
-				<?php if ( $tags_list ) : ?>
-					<div class="entry-meta prismleaf-post-tags">
-						<span class="entry-meta-tags-list prismleaf-post-tags-list">
-							<?php
-							printf(
-								/* translators: %s: tag list. */
-								esc_html__( 'Tags: %s', 'prismleaf' ),
-								wp_kses_post( $tags_list )
-							);
-							?>
-						</span>
-					</div>
-				<?php endif; ?>
-				<div class="entry-meta prismleaf-post-comments">
-					<a class="entry-meta-comments-link prismleaf-post-comments-link" href="<?php echo esc_url( get_comments_link() ); ?>">
-						<?php echo esc_html( $comment_text ); ?>
-					</a>
-				</div>
-				<div class="entry-footer prismleaf-post-footer">
-					<a class="entry-link prismleaf-post-link" href="<?php echo esc_url( get_permalink() ); ?>">
+				<div class="prismleaf-archive-card-footer">
+					<?php if ( $show_comments ) : ?>
+						<a class="prismleaf-archive-card-comments-link" href="<?php echo esc_url( get_comments_link() ); ?>">
+							<?php echo esc_html( $comment_text ); ?>
+						</a>
+					<?php endif; ?>
+					<a class="prismleaf-archive-card-continue-link" href="<?php echo esc_url( get_permalink() ); ?>">
 						<?php esc_html_e( 'Continue reading', 'prismleaf' ); ?>
 					</a>
 				</div>
