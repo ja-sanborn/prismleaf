@@ -20,6 +20,7 @@ $description = __( 'The page you are looking for cannot be found. Try the search
 get_header( '', array( 'title_id' => $title_id ) );
 get_template_part(
 	'template-parts/content-title',
+	null,
 	array(
 		'title_id'      => $title_id,
 		'title_tag'     => 'h1',
