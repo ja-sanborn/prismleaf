@@ -95,13 +95,7 @@ if ( have_posts() ) :
 					<?php if ( $categories_list ) : ?>
 						<?php if ( $show_categories ) : ?>
 							<p class="prismleaf-archive-card-categories">
-								<?php
-								printf(
-									/* translators: %s: category list. */
-									esc_html__( 'Categories: %s', 'prismleaf' ),
-									wp_kses_post( $categories_list )
-								);
-								?>
+								<?php echo wp_kses_post( $categories_list ) ?>
 							</p>
 						<?php endif; ?>
 					<?php endif; ?>
