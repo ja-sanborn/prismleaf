@@ -15,7 +15,7 @@ $title_id    = 'content-title-' . wp_unique_id();
 $title       = get_the_archive_title();
 $description = get_the_archive_description();
 
-get_header( '', array( 'title_id' => $title_id ) );
+get_header();
 get_template_part(
 	'template-parts/content-title',
 	null,

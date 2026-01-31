@@ -15,7 +15,7 @@ $title_id    = 'content-title-' . wp_unique_id();
 $title       = __( 'Search Results', 'prismleaf' );
 $description = sprintf( esc_html__( 'You searched for "%s".', 'prismleaf' ), esc_html( get_search_query() ) );
 
-get_header( '', array( 'title_id' => $title_id ) );
+get_header();
 get_template_part(
 	'template-parts/content-title',
 	null,

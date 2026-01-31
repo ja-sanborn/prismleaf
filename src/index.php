@@ -15,7 +15,7 @@ $title_id    = 'content-title-' . wp_unique_id();
 $title       = __( 'Welcome', 'prismleaf' );
 $description = __( 'This template owns the hero narrative, featured blocks, and introductory statements that welcome new visitors.', 'prismleaf' );
 
-get_header( '', array( 'title_id' => $title_id ) );
+get_header();
 get_template_part(
 	'template-parts/content-title',
 	null,

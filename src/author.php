@@ -39,17 +39,17 @@ if ( '' !== $author_image ) {
 	}
 }
 
-get_header( '', array( 'title_id' => $title_id ) );
-	get_template_part(
-		'template-parts/content-title',
-		null,
-		array(
-			'title_id'      => $title_id,
-			'title_tag'     => 'h1',
-			'content_title' => $author_name,
-			'description'   => $description,
-		)
-	);
+get_header();
+get_template_part(
+	'template-parts/content-title',
+	null,
+	array(
+		'title_id'      => $title_id,
+		'title_tag'     => 'h1',
+		'content_title' => $author_name,
+		'description'   => $description,
+	)
+);
 ?>
 
 <section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">

@@ -17,7 +17,7 @@ $title_id    = 'content-title-' . wp_unique_id();
 $title       = __( 'Page Not Found', 'prismleaf' );
 $description = __( 'The page you are looking for cannot be found. Try the search box below or explore another section.', 'prismleaf' );
 
-get_header( '', array( 'title_id' => $title_id ) );
+get_header();
 get_template_part(
 	'template-parts/content-title',
 	null,
