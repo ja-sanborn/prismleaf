@@ -74,6 +74,18 @@ if ( have_posts() ) :
 				</footer>
 			</article>
 			<?php
+			$single_author_id = get_the_author_meta( 'ID' );
+			get_template_part(
+				'template-parts/author-bio',
+				null,
+				array(
+					'author_name'  => get_the_author_meta( 'display_name', $single_author_id ),
+					'author_bio'   => get_the_author_meta( 'description', $single_author_id ),
+					'author_link'  => get_author_posts_url( $single_author_id ),
+					'author_image' => get_avatar( $single_author_id, 64 ),
+					'author_id'    => $single_author_id,
+				)
+			);
 			comments_template();
 		endwhile;
 		?>

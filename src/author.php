@@ -11,31 +11,48 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$author      = get_queried_object();
-$title_id    = 'content-title-' . wp_unique_id();
-$title       = get_the_archive_title();
-$description = get_the_archive_description();
+$author       = get_queried_object();
+$author_id    = $author->ID;
+$author_name  = get_the_author_meta( 'display_name', $author_id );
+$author_bio   = get_the_author_meta( 'description', $author_id );
+$author_image = get_avatar( $author_id, 64 );
+$title_id     = 'content-title-' . wp_unique_id();
+$description  = $author_bio;
+
+if ( '' !== $author_image ) {
+	ob_start();
+	get_template_part(
+		'template-parts/author-bio',
+		null,
+		array(
+			'author_id'    => $author_id,
+			'author_image' => $author_image,
+			'author_bio'   => $author_bio,
+			'author_name'  => '',
+			'author_link'  => '',
+		)
+	);
+	$author_bio_output = ob_get_clean();
+
+	if ( '' !== trim( $author_bio_output ) ) {
+		$description = $author_bio_output;
+	}
+}
 
 get_header( '', array( 'title_id' => $title_id ) );
-get_template_part(
-	'template-parts/content-title',
-	null,
-	array(
-		'title_id'      => $title_id,
-		'title_tag'     => 'h1',
-		'content_title' => $title,
-		'description'   => $description,
-	)
-);
+	get_template_part(
+		'template-parts/content-title',
+		null,
+		array(
+			'title_id'      => $title_id,
+			'title_tag'     => 'h1',
+			'content_title' => $author_name,
+			'description'   => $description,
+		)
+	);
 ?>
 
 <section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
-	<div class="author-summary">
-		<?php echo get_avatar( $author->ID, 120 ); ?>
-		<?php if ( $bio = get_the_author_meta( 'description', $author->ID ) ) : ?>
-			<p><?php echo esc_html( $bio ); ?></p>
-		<?php endif; ?>
-	</div>
 	<?php get_template_part( 'template-parts/archive-results', null, array( 'show_poem' => false, 'layout' => 'grid' ) ); ?>
 </section>
 
