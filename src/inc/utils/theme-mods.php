@@ -793,6 +793,36 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_pagination_shape' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_get_theme_mod_author_avatar_shape' ) ) {
+	/**
+	 * Retrieve a sanitized author avatar shape selection.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param string $default_value Default fallback value.
+	 * @return string
+	 */
+	function prismleaf_get_theme_mod_author_avatar_shape( $setting_id, $default_key, $default_value = 'Circle' ) {
+		$setting_id   = prismleaf_sanitize_text( $setting_id );
+		$default_key  = prismleaf_sanitize_text( $default_key );
+		$default_value = prismleaf_sanitize_author_avatar_shape( $default_value );
+
+		if ( '' !== $default_key ) {
+			$default_value = prismleaf_get_default_option( $default_key, $default_value );
+		}
+
+		if ( '' === $setting_id ) {
+			return prismleaf_sanitize_author_avatar_shape( $default_value );
+		}
+
+		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
+
+		return prismleaf_sanitize_author_avatar_shape( $raw );
+	}
+}
+
 if ( ! function_exists( 'prismleaf_get_theme_mod_footer_height' ) ) {
 	/**
 	 * Get the footer height CSS value from theme mods.

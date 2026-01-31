@@ -31,6 +31,7 @@ function prismleaf_output_customizer_styles( $handle = 'prismleaf-style' ) {
 	$css .= prismleaf_get_content_css_vars();
 	$css .= prismleaf_get_widget_css_vars();
 	$css .= prismleaf_get_archive_results_css_vars();
+	$css .= prismleaf_get_author_css_vars();
 	$css .= prismleaf_get_pagination_css_vars();
 
 	if ( '' === $css ) {
@@ -1034,6 +1035,60 @@ if ( ! function_exists( 'prismleaf_get_archive_results_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-archive-card-meta-color', $metadata_color );
 		$css .= prismleaf_build_css_var( '--prismleaf-archive-card-meta-link-color', $metadata_link_color );
 		$css .= prismleaf_build_css_var( '--prismleaf-archive-card-meta-link-hover-color', $metadata_link_hover_color );
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_author_css_vars' ) ) {
+	/**
+	 * Generate CSS overrides for author bio styling.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_author_css_vars() {
+		$shape = prismleaf_get_theme_mod_author_avatar_shape( 'prismleaf_author_avatar_shape', 'author_avatar_shape', 'Circle' );
+		$radius_map = array(
+			'Square' => '0',
+			'Round'  => 'var(--prismleaf-radius-medium)',
+			'Circle' => 'var(--prismleaf-radius-full)',
+		);
+		$radius = isset( $radius_map[ $shape ] ) ? $radius_map[ $shape ] : 'var(--prismleaf-radius-full)';
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-author-image-radius', $radius );
+
+		$author_name_color = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_author_name_color_palette',
+			'surface_1',
+			''
+		);
+
+		if ( '' !== $author_name_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-author-name-color', $author_name_color );
+		}
+
+		$author_name_hover = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_author_name_color_palette',
+			'surface_5',
+			''
+		);
+
+		if ( '' !== $author_name_hover ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-author-name-hover-color', $author_name_hover );
+		}
+
+		$author_text_color = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_author_text_color_palette',
+			'surface_1',
+			''
+		);
+
+		if ( '' !== $author_text_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-author-bio-color', $author_text_color );
+		}
 
 		return $css;
 	}

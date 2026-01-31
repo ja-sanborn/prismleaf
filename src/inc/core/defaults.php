@@ -173,6 +173,13 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 				'result_title_color_base' => '',
 				'result_title_color_palette' => '',
 				'result_title_color_source' => '',
+				'author_avatar_shape' => 'Circle',
+				'author_name_color_base' => '',
+				'author_name_color_palette' => '',
+				'author_name_color_source' => '',
+				'author_text_color_base' => '',
+				'author_text_color_palette' => '',
+				'author_text_color_source' => '',
 
 				'secondary_menu_background_color_base' => '',
 				'secondary_menu_background_color_palette' => '',

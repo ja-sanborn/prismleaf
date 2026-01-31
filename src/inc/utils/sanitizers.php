@@ -526,6 +526,31 @@ if ( ! function_exists( 'prismleaf_sanitize_pagination_shape' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_sanitize_author_avatar_shape' ) ) {
+	/**
+	 * Sanitize the author avatar shape selection.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_author_avatar_shape( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		$map   = array(
+			'square' => 'Square',
+			'round'  => 'Round',
+			'circle' => 'Circle',
+		);
+
+		if ( isset( $map[ $value ] ) ) {
+			return $map[ $value ];
+		}
+
+		return 'Circle';
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_footer_widget_alignment' ) ) {
 	/**
 	 * Sanitize the footer widget alignment value.
