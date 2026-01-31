@@ -105,10 +105,7 @@ if ( have_posts() ) :
 				$article_classes[] = 'prismleaf-archive-card-layout-list';
 			}
 			?>
-			<article
-				id="post-<?php the_ID(); ?>"
-				<?php post_class( $article_classes ); ?>
-			>
+			<article id="post-<?php the_ID(); ?>" <?php post_class( $article_classes ); ?>>
 				<?php if ( 'grid' === $layout ) : ?>
 					<?php if ( $has_thumbnail ) : ?>
 						<figure class="prismleaf-archive-card-thumbnail">
@@ -117,20 +114,20 @@ if ( have_posts() ) :
 							</a>
 						</figure>
 					<?php endif; ?>
-					<header class="prismleaf-archive-card-header">
-						<?php the_title( sprintf( '<h2 class="prismleaf-archive-card-title"><a class="prismleaf-archive-card-title-link" href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+					<header class="prismleaf-archive-card-header entry-header">
+						<?php the_title( sprintf( '<h2 class="prismleaf-archive-card-title entry-title"><a class="prismleaf-archive-card-title-link entry-title-link" href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 						<?php if ( '' !== $posted_by_label ) : ?>
-							<p class="prismleaf-archive-card-meta">
+							<p class="prismleaf-archive-card-meta entry-meta">
 								<?php echo $posted_by_label; ?>
 							</p>
 						<?php endif; ?>
 						<?php if ( $categories_list && $show_categories ) : ?>
-							<p class="prismleaf-archive-card-categories">
+							<p class="prismleaf-archive-card-categories entry-categories">
 								<?php echo wp_kses_post( $categories_list ); ?>
 							</p>
 						<?php endif; ?>
 					</header>
-					<div class="prismleaf-archive-card-excerpt">
+					<div class="prismleaf-archive-card-excerpt entry-summary">
 						<?php the_excerpt(); ?>
 					</div>
 					<div class="prismleaf-archive-card-footer">
@@ -139,13 +136,13 @@ if ( have_posts() ) :
 								<?php echo esc_html( $comment_text ); ?>
 							</a>
 						<?php endif; ?>
-						<a class="prismleaf-archive-card-continue-link" href="<?php echo esc_url( get_permalink() ); ?>">
+						<a class="prismleaf-archive-card-continue-link entry-read-more" href="<?php echo esc_url( get_permalink() ); ?>">
 							<?php esc_html_e( 'Continue reading', 'prismleaf' ); ?>
 						</a>
 					</div>
 				<?php else : ?>
-					<header class="prismleaf-archive-card-header">
-						<?php the_title( sprintf( '<h2 class="prismleaf-archive-card-title"><a class="prismleaf-archive-card-title-link" href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+					<header class="prismleaf-archive-card-header entry-header">
+						<?php the_title( sprintf( '<h2 class="prismleaf-archive-card-title entry-title"><a class="prismleaf-archive-card-title-link entry-title-link" href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 					</header>
 					<?php
 					$list_body_classes = array( 'prismleaf-archive-card-list-body' );
@@ -162,7 +159,7 @@ if ( have_posts() ) :
 							</figure>
 						<?php endif; ?>
 						<div class="prismleaf-archive-card-list-excerpt">
-							<div class="prismleaf-archive-card-excerpt">
+							<div class="prismleaf-archive-card-excerpt entry-summary">
 								<?php the_excerpt(); ?>
 							</div>
 							<a class="prismleaf-archive-card-continue-link" href="<?php echo esc_url( get_permalink() ); ?>">
@@ -172,18 +169,18 @@ if ( have_posts() ) :
 					</div>
 					<div class="prismleaf-archive-card-list-meta-row">
 						<?php if ( '' !== $posted_by_label ) : ?>
-							<p class="prismleaf-archive-card-meta prismleaf-archive-card-meta-list">
+							<p class="prismleaf-archive-card-meta prismleaf-archive-card-meta-list entry-meta">
 								<?php echo $posted_by_label; ?>
 							</p>
 						<?php endif; ?>
 						<?php if ( $show_comments ) : ?>
-							<a class="prismleaf-archive-card-comments-link prismleaf-archive-card-comments-link-list" href="<?php echo esc_url( get_comments_link() ); ?>">
+							<a class="prismleaf-archive-card-comments-link prismleaf-archive-card-comments-link-list entry-comments-link" href="<?php echo esc_url( get_comments_link() ); ?>">
 								<?php echo esc_html( $comment_text ); ?>
 							</a>
 						<?php endif; ?>
 					</div>
 					<?php if ( $categories_list && $show_categories ) : ?>
-						<p class="prismleaf-archive-card-categories prismleaf-archive-card-categories-list">
+						<p class="prismleaf-archive-card-categories prismleaf-archive-card-categories-list entry-categories">
 							<?php echo wp_kses_post( $categories_list ); ?>
 						</p>
 					<?php endif; ?>

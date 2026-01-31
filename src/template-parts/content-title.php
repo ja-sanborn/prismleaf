@@ -16,17 +16,21 @@ $title_id      = '' === $title_id ? '' : ' id="' . esc_attr( $title_id ) . '"';
 $title_tag     = isset( $args['title_tag'] ) ? strtolower( trim( (string) $args['title_tag'] ) ) : '';
 $allowed_tags  = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
 $description   = isset( $args['description'] ) ? (string) $args['description'] : '';
+$is_entry      = isset( $args['is_entry'] ) ? (bool) $args['is_entry'] : false;
 
-if ( ! in_array( $title_tag, $allowed_tags, true ) ) {
+if ( ! in_array( $title_tag, $allowed_tags, true ) || $is_entry ) {
 	$title_tag = 'h1';
 }
 
-$start_tag = sprintf( '<%s%s class="prismleaf-content-title">', $title_tag, $title_id );
+$title_class = $is_entry ? 'prismleaf-entry-title entry-title entry-title' : 'prismleaf-content-title entry';
+$description_class = $is_entry ? 'prismleaf-entry-meta entry-meta entry-meta' : 'prismleaf-content-description';
+
+$start_tag = sprintf( '<%s%s class="%s">', $title_tag, $title_id, $title_class );
 $end_tag   = sprintf( '</%s>', $title_tag );
 $description_markup = '';
 
 if ( '' !== $description ) {
-	$description_markup = '<p class="prismleaf-content-description">' . wp_kses_post( $description ) . '</p>';
+	$description_markup = '<p class="' . esc_attr( $description_class ) . '">' . wp_kses_post( $description ) . '</p>';
 }
 ?>
 
