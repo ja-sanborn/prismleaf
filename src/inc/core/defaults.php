@@ -165,7 +165,6 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 				'result_navigation_background_color_source' => '',
 				'result_navigation_is_buttons' => false,
 				'result_navigation_shape' => 'Round',
-				'result_navigation_size' => 'Medium',
 				'result_show_author' => true,
 				'result_show_categories' => true,
 				'result_show_comments' => true,

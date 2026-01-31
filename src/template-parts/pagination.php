@@ -25,7 +25,6 @@ if ( isset( $args['type'] ) ) {
 $settings = array(
 	'is_buttons'        => false,
 	'shape'             => 'Round',
-	'size'              => 'Medium',
 	'show_page_numbers' => true,
 	'show_post_titles'  => true,
 );
@@ -41,7 +40,6 @@ switch ( $type ) {
 	default:
 		$settings['is_buttons'] = prismleaf_get_theme_mod_bool( 'prismleaf_result_navigation_is_buttons', false );
 		$settings['shape']      = prismleaf_get_theme_mod_pagination_shape( 'prismleaf_result_navigation_shape', 'result_navigation_shape', 'Round' );
-		$settings['size']       = prismleaf_get_theme_mod_pagination_size( 'prismleaf_result_navigation_size', 'result_navigation_size', 'Medium' );
 		break;
 }
 
@@ -60,10 +58,6 @@ if ( 'pagebreak' === $type ) {
 
 $classes[] = $settings['is_buttons'] ? 'prismleaf-pagination-buttons' : 'prismleaf-pagination-bar';
 $classes[] = 'prismleaf-pagination-shape-' . sanitize_title_with_dashes( strtolower( $settings['shape'] ) );
-
-if ( 'archive' === $type ) {
-	$classes[] = 'prismleaf-pagination-size-' . sanitize_title_with_dashes( strtolower( $settings['size'] ) );
-}
 
 $previous_post = '';
 $next_post     = '';
@@ -194,14 +188,8 @@ switch ( $type ) {
 			break;
 		}
 
-		$size_map = array(
-			'Small'  => 0,
-			'Medium' => 1,
-			'Large'  => 2,
-		);
-
-		$mid_size = isset( $size_map[ $settings['size'] ] ) ? $size_map[ $settings['size'] ] : 1;
-		$end_size = $mid_size;
+		$mid_size = 1;
+		$end_size = 1;
 		$big      = 999999999;
 
 		$links = paginate_links(

@@ -509,23 +509,6 @@ if ( ! function_exists( 'prismleaf_sanitize_menu_button_corners' ) ) {
 }
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_pagination_size' ) ) {
-	/**
-	 * Sanitize the pagination size selection.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value Value to sanitize.
-	 * @return string
-	 */
-	function prismleaf_sanitize_pagination_size( $value ) {
-		$value = trim( (string) $value );
-		$allowed = array( 'Small', 'Medium', 'Large' );
-
-		return in_array( $value, $allowed, true ) ? $value : 'Medium';
-	}
-}
-
 if ( ! function_exists( 'prismleaf_sanitize_pagination_shape' ) ) {
 	/**
 	 * Sanitize the pagination shape selection.
