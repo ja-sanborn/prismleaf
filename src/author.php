@@ -36,7 +36,7 @@ get_template_part(
 			<p><?php echo esc_html( $bio ); ?></p>
 		<?php endif; ?>
 	</div>
-	<?php get_template_part( 'template-parts/archive-results', null, array ( 'show_poem' => false ) ); ?>
+	<?php get_template_part( 'template-parts/archive-results', null, array( 'show_poem' => false, 'layout' => 'grid' ) ); ?>
 </section>
 
 <?php
