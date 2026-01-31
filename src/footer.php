@@ -20,8 +20,14 @@ $primary_contained   = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_primary_
 $secondary_show      = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_show', true );
 $secondary_contained = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_contained', true );
 $hide_sidebars_front = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_hide_on_front', false );
+$hide_sidebars_other = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_hide_on_other', false );
 
 if ( $hide_sidebars_front && is_front_page() ) {
+	$primary_show   = false;
+	$secondary_show = false;
+}
+
+if ( $hide_sidebars_other && ! is_front_page() ) {
 	$primary_show   = false;
 	$secondary_show = false;
 }

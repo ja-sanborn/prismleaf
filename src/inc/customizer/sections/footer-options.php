@@ -57,11 +57,39 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 		prismleaf_add_checkbox_control(
 			$wp_customize,
 			array(
+				'setting_id'       => 'prismleaf_footer_hide_widgets_on_front',
+				'section'          => 'prismleaf_footer_options',
+				'label'            => __( 'Hide footer widgets on front page', 'prismleaf' ),
+				'description'      => __( 'Prevents the footer widget row from rendering on the front page (the rest of the footer stays visible).', 'prismleaf' ),
+				'priority'         => 1020,
+				'default_key'      => 'footer_hide_widgets_on_front',
+				'default_fallback' => false,
+				'active_callback'  => 'prismleaf_is_footer_background_control_active',
+			)
+		);
+
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_footer_hide_widgets_on_other',
+				'section'          => 'prismleaf_footer_options',
+				'label'            => __( 'Hide footer widgets on other pages', 'prismleaf' ),
+				'description'      => __( 'Prevents the footer widget row from rendering on pages other than the front page.', 'prismleaf' ),
+				'priority'         => 1030,
+				'default_key'      => 'footer_hide_widgets_on_other',
+				'default_fallback' => false,
+				'active_callback'  => 'prismleaf_is_footer_background_control_active',
+			)
+		);
+
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
 				'setting_id'       => 'prismleaf_footer_contained',
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Contain footer', 'prismleaf' ),
 				'description'      => __( 'When enabled, the footer is rendered inside the inner frame.', 'prismleaf' ),
-				'priority'         => 1020,
+				'priority'         => 1040,
 				'default_key'      => 'footer_contained',
 				'default_fallback' => true,
 				'active_callback'  => 'prismleaf_is_footer_control_active',
@@ -75,7 +103,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Floating footer', 'prismleaf' ),
 				'description'      => __( 'When disabled, the footer stretches to the viewport edge on desktop layouts.', 'prismleaf' ),
-				'priority'         => 1030,
+				'priority'         => 1050,
 				'default_key'      => 'footer_floating',
 				'default_fallback' => true,
 				'active_callback'  => 'prismleaf_is_footer_control_active',
@@ -89,7 +117,7 @@ if ( ! function_exists( 'prismleaf_register_footer_options_section' ) ) {
 				'section'          => 'prismleaf_footer_options',
 				'label'            => __( 'Footer height', 'prismleaf' ),
 				'description'      => __( 'Specify a fixed height in pixels. Leave blank for automatic height.', 'prismleaf' ),
-				'priority'         => 1040,
+				'priority'         => 1060,
 				'default_key'      => 'footer_height',
 				'default_fallback' => '',
 				'sanitize_callback'=> 'prismleaf_sanitize_footer_height',

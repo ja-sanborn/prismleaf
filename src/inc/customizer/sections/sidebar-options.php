@@ -67,6 +67,19 @@ if ( ! function_exists( 'prismleaf_register_sidebar_options_section' ) ) {
 			)
 		);
 
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_sidebar_hide_on_other',
+				'section'          => 'prismleaf_sidebar_options',
+				'label'            => __( 'Hide sidebars on other pages', 'prismleaf' ),
+				'description'      => __( 'Prevents both sidebars from rendering on pages other than the front page.', 'prismleaf' ),
+				'priority'         => 1030,
+				'default_key'      => 'sidebar_hide_on_other',
+				'default_fallback' => false,
+			)
+		);
+
 		prismleaf_add_section_header_control(
 			$wp_customize,
 			array(

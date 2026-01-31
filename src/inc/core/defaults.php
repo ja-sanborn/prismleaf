@@ -61,6 +61,8 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 				'footer_floating' => true,
 				'footer_height' => '',
 				'footer_show' => true,
+				'footer_hide_widgets_on_front' => false,
+				'footer_hide_widgets_on_other' => false,
 				'footer_widget_alignment' => 'center',
 				'footer_widget_color_base' => '',
 				'footer_widget_color_palette' => '',
@@ -184,6 +186,7 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 				'secondary_menu_strip' => true,
 
 				'sidebar_hide_on_front' => false,
+				'sidebar_hide_on_other' => false,
 				'sidebar_primary_background_color_base' => '',
 				'sidebar_primary_background_color_palette' => '',
 				'sidebar_primary_background_color_source' => '',
