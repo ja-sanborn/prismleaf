@@ -903,10 +903,68 @@ if ( ! function_exists( 'prismleaf_get_archive_results_css_vars' ) ) {
 		$metadata_selected        = '' !== $metadata_palette;
 		$metadata_link_selected   = '' !== $metadata_link_palette;
 
+		$is_content_framed = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		$content_surface = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_content_background_color_palette',
+			'surface_1',
+			'--prismleaf-color-surface-2'
+		);
+		$content_elevation = prismleaf_get_theme_mod_elevation_value(
+			'prismleaf_content_elevation',
+			'',
+			$is_content_framed ? 'elevation-1' : 'elevation-2'
+		);
+
+		$normalize_css_value = static function ( $value ) {
+			$value = trim( (string) $value );
+
+			if ( '' === $value ) {
+				return '';
+			}
+
+			if ( preg_match( '/^var\\(([^)]+)\\)$/', $value, $matches ) ) {
+				$value = trim( $matches[1] );
+			}
+
+			return $value;
+		};
+
+		$normalized_content_surface = $normalize_css_value( $content_surface );
+		$normalized_content_elevation = $normalize_css_value( $content_elevation );
+
+		$surface_lookup = array(
+			'--prismleaf-color-surface-1' => array(
+				'palette'  => 'surface_2',
+				'fallback' => '--prismleaf-color-surface-2',
+				'elevation' => 'elevation-2',
+			),
+			'--prismleaf-color-surface-2' => array(
+				'palette'  => 'surface_3',
+				'fallback' => '--prismleaf-color-surface-3',
+				'elevation' => 'elevation-3',
+			),
+		);
+
+		$default_surface_info = array(
+			'palette'  => 'surface_2',
+			'fallback' => '--prismleaf-color-surface-2',
+			'elevation' => 'elevation-2',
+		);
+
+		if ( isset( $surface_lookup[ $normalized_content_surface ] ) ) {
+			$default_surface_info = $surface_lookup[ $normalized_content_surface ];
+		} elseif ( $is_content_framed ) {
+			$default_surface_info = $surface_lookup['--prismleaf-color-surface-1'];
+		} elseif ( 'elevation-2' === $normalized_content_elevation ) {
+			$default_surface_info = $surface_lookup['--prismleaf-color-surface-2'];
+		} elseif ( 'elevation-1' === $normalized_content_elevation ) {
+			$default_surface_info = $surface_lookup['--prismleaf-color-surface-1'];
+		}
+
 		$background = prismleaf_get_theme_mod_palette_source_value(
 			'prismleaf_result_background_color_palette',
-			'surface_2',
-			'--prismleaf-color-surface-2'
+			$default_surface_info['palette'],
+			$default_surface_info['fallback']
 		);
 		$foreground_key = $foreground_selected ? 'surface_1' : 'surface_on';
 		$foreground = prismleaf_get_theme_mod_palette_source_value(
@@ -962,7 +1020,7 @@ if ( ! function_exists( 'prismleaf_get_archive_results_css_vars' ) ) {
 
 		$border_radius = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_result_border_corners', 'result_border_corners', 'Round' );
 		$border_style  = prismleaf_get_theme_mod_border_style_value( 'prismleaf_result_border_style', 'result_border_style', 'solid' );
-		$elevation     = prismleaf_get_theme_mod_elevation_value( 'prismleaf_result_elevation', 'result_elevation', 'elevation-2' );
+		$elevation     = prismleaf_get_theme_mod_elevation_value( 'prismleaf_result_elevation', 'result_elevation', $default_surface_info['elevation'] );
 
 		$css  = '';
 		$css .= prismleaf_build_css_var( '--prismleaf-archive-card-background-color', $background );
