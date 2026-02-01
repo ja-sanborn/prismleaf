@@ -41,4 +41,36 @@
 
 .prismleaf-content-title {
 	color: var(--prismleaf-content-title-color);
+	font-size: var(--prismleaf-font-size-2xl);
+}
+
+.prismleaf-content-title-row {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: var(--prismleaf-space-2);
+	align-items: center;
+}
+
+.prismleaf-content-title-end {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.prismleaf-content-title-edit {
+	width: var(--prismleaf-space-5);
+	height: var(--prismleaf-space-5);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--prismleaf-color-tertiary-surface-1);
+	mask: url(../images/edit.svg) center/contain no-repeat;
+	-webkit-mask: url(../images/edit.svg) center/contain no-repeat;
+	border: none;
+	text-decoration: none;
+	transition: background-color 0.2s ease;
+}
+
+.prismleaf-content-title-edit:hover,
+.prismleaf-content-title-edit:focus-visible {
+	background-color: var(--prismleaf-color-tertiary-surface-5);
 }

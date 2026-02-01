@@ -24,6 +24,7 @@ while ( have_posts() ) :
 	$entry_title     = get_the_title();
 	$parent          = get_post()->post_parent;
 	$attachment_meta = wp_get_attachment_metadata();
+	$edit_link       = get_edit_post_link( get_the_ID(), 'raw', false );
 
 	get_template_part(
 		'template-parts/content-title',
@@ -32,7 +33,7 @@ while ( have_posts() ) :
 			'title_id'      => $title_id,
 			'title_tag'     => 'h1',
 			'content_title' => $entry_title,
-			'is_entry'      => true,
+			'edit_link'     => $edit_link,
 		)
 	);
 	?>

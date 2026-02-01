@@ -29,6 +29,7 @@ while ( have_posts() ) :
 	$author_image  = get_avatar( $author_id, 64 );
 	$category_list = get_the_category_list( ', ' );
 	$tag_list      = get_the_tag_list( '', ', ' );
+	$edit_link     = get_edit_post_link( get_the_ID(), 'raw', false );
 
 	get_template_part(
 		'template-parts/content-title',
@@ -37,7 +38,7 @@ while ( have_posts() ) :
 			'title_id'      => $title_id,
 			'title_tag'     => 'h1',
 			'content_title' => $entry_title,
-			'is_entry'      => true,
+			'edit_link'     => $edit_link,
 		)
 	);
 	?>

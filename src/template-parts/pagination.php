@@ -62,8 +62,8 @@ $classes[] = 'prismleaf-pagination-shape-' . sanitize_title_with_dashes( strtolo
 $previous_post = '';
 $next_post     = '';
 if ( 'post' === $pagination_type ) {
-	$previous_post = get_previous_post( true, '', 'category' );
-	$next_post     = get_next_post( true, '', 'category' );
+		$previous_post = get_previous_post( false );
+		$next_post     = get_next_post( false );
 	if ( $previous_post && $next_post ) {
 		$classes[] = 'prismleaf-pagination-post-has-both';
 	}
