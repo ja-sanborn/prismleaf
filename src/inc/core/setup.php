@@ -24,6 +24,7 @@ if ( ! function_exists( 'prismleaf_setup' ) ) {
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'post-thumbnails' );
 		add_image_size( 'prismleaf-archive-card', 300, 0, false );
+		add_image_size( 'prismleaf-featured-image', 800, 0, false );
 
 		add_theme_support(
 			'html5',

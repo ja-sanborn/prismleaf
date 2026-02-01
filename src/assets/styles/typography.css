@@ -79,7 +79,6 @@ kbd,
 samp,
 pre {
 	font-family: var(--prismleaf-font-mono);
-	font-size: 0.9375em;
 }
 
 /* Blockquote typography. */
@@ -136,6 +135,13 @@ i {
 u {
 	text-decoration: underline;
 	text-underline-offset: 0.18em;
+}
+
+/* Strikethrough typography. */
+del,
+strike {
+	text-decoration: line-through;
+	text-decoration-thickness: from-font;
 }
 
 /* Subscript and superscript typography. */

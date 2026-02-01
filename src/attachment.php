@@ -39,8 +39,8 @@ while ( have_posts() ) :
 	?>
 
 	<section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
-		<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-entry prismleaf-entry-attachment' ); ?>>
-			<figure class="prismleaf-entry-featured prismleaf-entry-featured-attachment attachment-media">
+		<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-entry' ); ?>>
+			<figure class="prismleaf-entry-attachment attachment-media">
 				<?php
 				if ( wp_attachment_is_image() ) :
 					echo wp_get_attachment_image( get_the_ID(), 'large' );

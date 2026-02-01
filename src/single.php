@@ -44,10 +44,18 @@ while ( have_posts() ) :
 	?>
 
 	<section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
-		<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-entry prismleaf-entry-single' ); ?>>
+		<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-entry' ); ?>>
 			<?php if ( has_post_thumbnail() ) : ?>
 				<figure class="prismleaf-entry-featured-image">
-					<?php the_post_thumbnail( 'large', array( 'class' => 'prismleaf-entry-featured-image' ) ); ?>
+					<?php
+					the_post_thumbnail(
+						'prismleaf-featured-image',
+						array(
+							'loading' => 'lazy',
+							'sizes'   => '(max-width: 800px) 100vw, 800px',
+						)
+					);
+					?>
 				</figure>
 			<?php endif; ?>
 
