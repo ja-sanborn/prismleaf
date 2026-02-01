@@ -17,5 +17,70 @@ if ( ! have_posts() ) {
 }
 
 get_header();
-get_template_part( 'template-parts/entry-content', null, array( 'context' => 'attachment' ) );
+while ( have_posts() ) :
+	the_post();
+
+	$title_id        = 'content-title-' . wp_unique_id();
+	$entry_title     = get_the_title();
+	$parent          = get_post()->post_parent;
+	$attachment_meta = wp_get_attachment_metadata();
+
+	get_template_part(
+		'template-parts/content-title',
+		null,
+		array(
+			'title_id'      => $title_id,
+			'title_tag'     => 'h1',
+			'content_title' => $entry_title,
+			'is_entry'      => true,
+		)
+	);
+	?>
+
+	<section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
+		<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-entry prismleaf-entry-attachment' ); ?>>
+			<figure class="prismleaf-entry-featured prismleaf-entry-featured-attachment attachment-media">
+				<?php
+				if ( wp_attachment_is_image() ) :
+					echo wp_get_attachment_image( get_the_ID(), 'large' );
+				else :
+					echo wp_get_attachment_link( get_the_ID(), 'large', false );
+				endif;
+				?>
+			</figure>
+
+			<div class="prismleaf-entry-content entry-content">
+				<?php
+				the_content();
+				get_template_part(
+					'template-parts/pagination',
+					null,
+					array(
+						'type' => 'pagebreak',
+					)
+				);
+				?>
+			</div>
+
+			<?php
+			if ( $parent ) :
+				printf(
+					/* translators: %s: parent post title. */
+					esc_html__( 'Return to %s', 'prismleaf' ),
+					'<div class="prismleaf-entry-parent-link"><a href="' . esc_url( get_permalink( $parent ) ) . '">' . esc_html( get_the_title( $parent ) ) . '</a></div>'
+				);
+			endif;
+
+			if ( $attachment_meta ) :
+				printf(
+					/* translators: %s: dimensions. */
+					esc_html_e( 'Dimensions', 'prismleaf' ),
+					'<div class="prismleaf-entry-dimensions">' . esc_html( sprintf( '%dx%d', $attachment_meta['width'], $attachment_meta['height'] ) ) . '</div>'
+				);
+			endif;
+			?>
+		</article>
+	</section>
+	<?php
+endwhile;
 get_footer();
