@@ -50,6 +50,7 @@ if ( ! function_exists( 'prismleaf_rgba_from_hex' ) ) {
 	 * @return string Empty string on failure.
 	 */
 	function prismleaf_rgba_from_hex( $hex, $alpha ) {
+
 		$rgb = prismleaf_hex_to_rgb( $hex );
 		if ( ! $rgb ) {
 			return '';
@@ -72,6 +73,7 @@ if ( ! function_exists( 'prismleaf_mix_hex_colors' ) ) {
 	 * @return string Empty string when mixing fails.
 	 */
 	function prismleaf_mix_hex_colors( $hex_a, $hex_b, $weight = 0.5 ) {
+
 		$hex_a = sanitize_hex_color( $hex_a );
 		$hex_b = sanitize_hex_color( $hex_b );
 
@@ -108,6 +110,7 @@ if ( ! function_exists( 'prismleaf_find_contrast_midpoint' ) ) {
 	 * @return string
 	 */
 	function prismleaf_find_contrast_midpoint( $on_color, $base_color, $min_ratio = 4.5 ) {
+
 		$on_color   = sanitize_hex_color( $on_color );
 		$base_color = sanitize_hex_color( $base_color );
 
@@ -126,7 +129,7 @@ if ( ! function_exists( 'prismleaf_find_contrast_midpoint' ) ) {
 
 		for ( $i = 0; $i < 10; $i++ ) {
 			$mid_candidate = ( $low + $high ) / 2;
-			$candidate = prismleaf_mix_hex_colors( $on_color, $base_color, $mid_candidate );
+			$candidate     = prismleaf_mix_hex_colors( $on_color, $base_color, $mid_candidate );
 
 			if ( '' === $candidate ) {
 				$high = $mid_candidate;
@@ -146,7 +149,6 @@ if ( ! function_exists( 'prismleaf_find_contrast_midpoint' ) ) {
 		return $best;
 	}
 }
-
 if ( ! function_exists( 'prismleaf_rgb_to_hex' ) ) {
 	/**
 	 * Convert RGB to a hex color.
@@ -391,8 +393,8 @@ if ( ! function_exists( 'prismleaf_shift_to_lightness' ) ) {
 		}
 
 		$target_l = prismleaf_clamp_float( (float) $target_l, 0.0, 1.0 );
-		$min_l = prismleaf_clamp_float( (float) $min_l, 0.0, 1.0 );
-		$max_l = prismleaf_clamp_float( (float) $max_l, 0.0, 1.0 );
+		$min_l    = prismleaf_clamp_float( (float) $min_l, 0.0, 1.0 );
+		$max_l    = prismleaf_clamp_float( (float) $max_l, 0.0, 1.0 );
 
 		$delta = $target_l - (float) $hsl[2];
 		return prismleaf_adjust_lightness_safe( $hex, $delta, $min_l, $max_l );
@@ -434,8 +436,8 @@ if ( ! function_exists( 'prismleaf_pick_on_color_from_tones' ) ) {
 		);
 
 		$best_candidate = '';
-		$best_ratio = 0.0;
-		$best_distance = null;
+		$best_ratio     = 0.0;
+		$best_distance  = null;
 
 		foreach ( $targets as $candidate ) {
 			if ( ! $candidate ) {
@@ -448,18 +450,18 @@ if ( ! function_exists( 'prismleaf_pick_on_color_from_tones' ) ) {
 			}
 
 			$meets_min = ( $min_ratio >= 4.5 );
-			$distance = abs( 7.0 - $min_ratio );
+			$distance  = abs( 7.0 - $min_ratio );
 
 			if ( $meets_min ) {
 				if ( null === $best_distance || $distance < $best_distance ) {
 					$best_candidate = $candidate;
-					$best_ratio = $min_ratio;
-					$best_distance = $distance;
+					$best_ratio     = $min_ratio;
+					$best_distance  = $distance;
 				}
 			} elseif ( $best_ratio < 4.5 && $min_ratio > $best_ratio ) {
 				$best_candidate = $candidate;
-				$best_ratio = $min_ratio;
-				$best_distance = $distance;
+				$best_ratio     = $min_ratio;
+				$best_distance  = $distance;
 			}
 		}
 
@@ -553,18 +555,18 @@ if ( ! function_exists( 'prismleaf_generate_palette_from_base' ) ) {
 		$step = prismleaf_clamp_float( $step, 0.0, 0.06 );
 
 		$deltas = array_fill( 0, 9, $step * $direction );
-		$ramp = prismleaf_build_lightness_ramp( $base_hex, $deltas, 0.05, 0.95 );
+		$ramp   = prismleaf_build_lightness_ramp( $base_hex, $deltas, 0.05, 0.95 );
 		if ( count( $ramp ) !== 10 ) {
 			return array();
 		}
 
-		$tones = array_slice( $ramp, 0, 5 );
+		$tones           = array_slice( $ramp, 0, 5 );
 		$container_tones = array_slice( $ramp, 5, 5 );
-		$on_color = prismleaf_pick_on_color_from_tones( $ramp[0], $tones );
-		$container_on = prismleaf_pick_on_color_from_tones( $ramp[5], $container_tones );
+		$on_color        = prismleaf_pick_on_color_from_tones( $ramp[0], $tones );
+		$container_on    = prismleaf_pick_on_color_from_tones( $ramp[5], $container_tones );
 
 		$opacity_base = $ramp[0];
-		$palette = array(
+		$palette      = array(
 			'surface_1'           => $ramp[0],
 			'surface_2'           => $ramp[1],
 			'surface_3'           => $ramp[2],
@@ -608,7 +610,6 @@ if ( ! function_exists( 'prismleaf_generate_palette_from_base' ) ) {
 		$palette['surface_on_faded']   = $surface_on_faded;
 		$palette['container_on_muted'] = $container_on_muted;
 		$palette['container_on_faded'] = $container_on_faded;
-
 		foreach ( $palette as $key => $value ) {
 			$palette[ $key ] = is_string( $value ) ? $value : '';
 		}
@@ -623,7 +624,7 @@ if ( ! function_exists( 'prismleaf_build_lightness_ramp' ) ) {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $start_hex Starting hex color.
+	 * @param string  $start_hex Starting hex color.
 	 * @param float[] $deltas Lightness deltas to apply in order.
 	 * @param float   $min_l  Minimum lightness.
 	 * @param float   $max_l  Maximum lightness.
@@ -639,7 +640,7 @@ if ( ! function_exists( 'prismleaf_build_lightness_ramp' ) ) {
 		$min_l = prismleaf_clamp_float( (float) $min_l, 0.0, 1.0 );
 		$max_l = prismleaf_clamp_float( (float) $max_l, 0.0, 1.0 );
 
-		$ramp = array( $start_hex );
+		$ramp    = array( $start_hex );
 		$current = $start_hex;
 
 		foreach ( $deltas as $delta ) {

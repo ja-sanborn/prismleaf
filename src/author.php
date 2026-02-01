@@ -53,7 +53,16 @@ get_template_part(
 ?>
 
 <section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
-	<?php get_template_part( 'template-parts/archive-results', null, array( 'show_poem' => false, 'layout' => 'grid' ) ); ?>
+	<?php
+	get_template_part(
+		'template-parts/archive-results',
+		null,
+		array(
+			'show_poem' => false,
+			'layout'    => 'grid',
+		)
+	);
+	?>
 </section>
 
 <?php

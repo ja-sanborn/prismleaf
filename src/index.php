@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $title_id    = 'content-title-' . wp_unique_id();
-$title       = __( 'Welcome', 'prismleaf' );
+$index_title = __( 'Welcome', 'prismleaf' );
 $description = __( 'This template owns the hero narrative, featured blocks, and introductory statements that welcome new visitors.', 'prismleaf' );
 
 get_header();
@@ -22,14 +22,23 @@ get_template_part(
 	array(
 		'title_id'      => $title_id,
 		'title_tag'     => is_front_page() || is_home() ? 'h2' : 'h1',
-		'content_title' => $title,
+		'content_title' => $index_title,
 		'description'   => $description,
 	)
 );
 ?>
 
 <section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
-	<?php get_template_part( 'template-parts/archive-results', null, array( 'show_poem' => false, 'layout' => 'grid' ) ); ?>
+	<?php
+	get_template_part(
+		'template-parts/archive-results',
+		null,
+		array(
+			'show_poem' => false,
+			'layout'    => 'grid',
+		)
+	);
+	?>
 </section>
 
 <?php

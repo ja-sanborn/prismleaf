@@ -65,15 +65,15 @@ if ( ! function_exists( 'prismleaf_register_widget_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_widget_border_corners',
-				'section'          => 'prismleaf_widget_options',
-				'label'            => __( 'Border corners', 'prismleaf' ),
-				'description'      => __( 'Controls the roundness of widget corners.', 'prismleaf' ),
-				'priority'         => 1020,
-				'default_key'      => 'widget_border_corners',
-				'default_fallback' => 'Round',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_widget_border_corners',
+				'section'           => 'prismleaf_widget_options',
+				'label'             => __( 'Border corners', 'prismleaf' ),
+				'description'       => __( 'Controls the roundness of widget corners.', 'prismleaf' ),
+				'priority'          => 1020,
+				'default_key'       => 'widget_border_corners',
+				'default_fallback'  => 'Round',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_border_corners',
+				'choices'           => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 				),
@@ -83,15 +83,15 @@ if ( ! function_exists( 'prismleaf_register_widget_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_widget_border_style',
-				'section'          => 'prismleaf_widget_options',
-				'label'            => __( 'Border style', 'prismleaf' ),
-				'description'      => __( 'Sets the widget border line style.', 'prismleaf' ),
-				'priority'         => 1030,
-				'default_key'      => 'widget_border_style',
-				'default_fallback' => 'solid',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_widget_border_style',
+				'section'           => 'prismleaf_widget_options',
+				'label'             => __( 'Border style', 'prismleaf' ),
+				'description'       => __( 'Sets the widget border line style.', 'prismleaf' ),
+				'priority'          => 1030,
+				'default_key'       => 'widget_border_style',
+				'default_fallback'  => 'solid',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_border_style',
+				'choices'           => array(
 					'none'   => __( 'None', 'prismleaf' ),
 					'solid'  => __( 'Solid', 'prismleaf' ),
 					'dotted' => __( 'Dotted', 'prismleaf' ),
@@ -122,15 +122,15 @@ if ( ! function_exists( 'prismleaf_register_widget_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_widget_elevation',
-				'section'          => 'prismleaf_widget_options',
-				'label'            => __( 'Elevation', 'prismleaf' ),
-				'description'      => __( 'Sets the elevation level for widgets.', 'prismleaf' ),
-				'priority'         => 1050,
-				'default_key'      => 'widget_elevation',
-				'default_fallback' => 'elevation-3',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_widget_elevation',
+				'section'           => 'prismleaf_widget_options',
+				'label'             => __( 'Elevation', 'prismleaf' ),
+				'description'       => __( 'Sets the elevation level for widgets.', 'prismleaf' ),
+				'priority'          => 1050,
+				'default_key'       => 'widget_elevation',
+				'default_fallback'  => 'elevation-3',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_elevation',
+				'choices'           => array(
 					'none'        => __( 'None', 'prismleaf' ),
 					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
 					'elevation-2' => __( 'Elevation 2', 'prismleaf' ),
@@ -154,18 +154,18 @@ if ( ! function_exists( 'prismleaf_register_widget_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_widget_title_alignment',
-				'section'          => 'prismleaf_widget_options',
-				'label'            => __( 'Alignment', 'prismleaf' ),
-				'description'      => __( 'Text alignment for widget titles.', 'prismleaf' ),
-				'priority'         => 2010,
-				'default_key'      => 'widget_title_alignment',
-				'default_fallback' => 'left',
-				'sanitize_callback'=> 'prismleaf_sanitize_widget_title_alignment',
-				'choices'          => array(
-					'left'      => __( 'Left', 'prismleaf' ),
-					'center'    => __( 'Center', 'prismleaf' ),
-					'right'     => __( 'Right', 'prismleaf' ),
+				'setting_id'        => 'prismleaf_widget_title_alignment',
+				'section'           => 'prismleaf_widget_options',
+				'label'             => __( 'Alignment', 'prismleaf' ),
+				'description'       => __( 'Text alignment for widget titles.', 'prismleaf' ),
+				'priority'          => 2010,
+				'default_key'       => 'widget_title_alignment',
+				'default_fallback'  => 'left',
+				'sanitize_callback' => 'prismleaf_sanitize_widget_title_alignment',
+				'choices'           => array(
+					'left'   => __( 'Left', 'prismleaf' ),
+					'center' => __( 'Center', 'prismleaf' ),
+					'right'  => __( 'Right', 'prismleaf' ),
 				),
 			)
 		);

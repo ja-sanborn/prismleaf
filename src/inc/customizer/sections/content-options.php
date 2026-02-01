@@ -65,15 +65,15 @@ if ( ! function_exists( 'prismleaf_register_content_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_content_border_corners',
-				'section'          => 'prismleaf_content_options',
-				'label'            => __( 'Border corners', 'prismleaf' ),
-				'description'      => __( 'Controls the roundness of the content corners.', 'prismleaf' ),
-				'priority'         => 1020,
-				'default_key'      => 'content_border_corners',
-				'default_fallback' => 'Round',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_content_border_corners',
+				'section'           => 'prismleaf_content_options',
+				'label'             => __( 'Border corners', 'prismleaf' ),
+				'description'       => __( 'Controls the roundness of the content corners.', 'prismleaf' ),
+				'priority'          => 1020,
+				'default_key'       => 'content_border_corners',
+				'default_fallback'  => 'Round',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_border_corners',
+				'choices'           => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 				),
@@ -83,15 +83,15 @@ if ( ! function_exists( 'prismleaf_register_content_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_content_border_style',
-				'section'          => 'prismleaf_content_options',
-				'label'            => __( 'Border style', 'prismleaf' ),
-				'description'      => __( 'Sets the content border line style.', 'prismleaf' ),
-				'priority'         => 1030,
-				'default_key'      => 'content_border_style',
-				'default_fallback' => 'solid',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_content_border_style',
+				'section'           => 'prismleaf_content_options',
+				'label'             => __( 'Border style', 'prismleaf' ),
+				'description'       => __( 'Sets the content border line style.', 'prismleaf' ),
+				'priority'          => 1030,
+				'default_key'       => 'content_border_style',
+				'default_fallback'  => 'solid',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_border_style',
+				'choices'           => array(
 					'none'   => __( 'None', 'prismleaf' ),
 					'solid'  => __( 'Solid', 'prismleaf' ),
 					'dotted' => __( 'Dotted', 'prismleaf' ),
@@ -122,15 +122,15 @@ if ( ! function_exists( 'prismleaf_register_content_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_content_elevation',
-				'section'          => 'prismleaf_content_options',
-				'label'            => __( 'Elevation', 'prismleaf' ),
-				'description'      => __( 'Sets the elevation level for the content area.', 'prismleaf' ),
-				'priority'         => 1050,
-				'default_key'      => 'content_elevation',
-				'default_fallback' => 'elevation-2',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_content_elevation',
+				'section'           => 'prismleaf_content_options',
+				'label'             => __( 'Elevation', 'prismleaf' ),
+				'description'       => __( 'Sets the elevation level for the content area.', 'prismleaf' ),
+				'priority'          => 1050,
+				'default_key'       => 'content_elevation',
+				'default_fallback'  => 'elevation-2',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_elevation',
+				'choices'           => array(
 					'none'        => __( 'None', 'prismleaf' ),
 					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
 					'elevation-2' => __( 'Elevation 2', 'prismleaf' ),
@@ -203,15 +203,15 @@ if ( ! function_exists( 'prismleaf_register_content_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_entry_navigation_shape',
-				'section'          => 'prismleaf_content_options',
-				'label'            => __( 'Button shape', 'prismleaf' ),
-				'description'      => __( 'Sets the border radius applied when borders or buttons are used in entry navigation.', 'prismleaf' ),
-				'priority'         => 3050,
-				'default_key'      => 'entry_navigation_shape',
-				'default_fallback' => 'Round',
-				'sanitize_callback'=> 'prismleaf_sanitize_pagination_shape',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_entry_navigation_shape',
+				'section'           => 'prismleaf_content_options',
+				'label'             => __( 'Button shape', 'prismleaf' ),
+				'description'       => __( 'Sets the border radius applied when borders or buttons are used in entry navigation.', 'prismleaf' ),
+				'priority'          => 3050,
+				'default_key'       => 'entry_navigation_shape',
+				'default_fallback'  => 'Round',
+				'sanitize_callback' => 'prismleaf_sanitize_pagination_shape',
+				'choices'           => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 					'Pill'   => __( 'Pill', 'prismleaf' ),
@@ -251,15 +251,15 @@ if ( ! function_exists( 'prismleaf_register_content_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_author_avatar_shape',
-				'section'          => 'prismleaf_content_options',
-				'label'            => __( 'Avatar shape', 'prismleaf' ),
-				'description'      => __( 'Control how author avatars are rounded.', 'prismleaf' ),
-				'priority'         => 4010,
-				'default_key'      => 'author_avatar_shape',
-				'default_fallback' => 'Circle',
-				'sanitize_callback'=> 'prismleaf_sanitize_author_avatar_shape',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_author_avatar_shape',
+				'section'           => 'prismleaf_content_options',
+				'label'             => __( 'Avatar shape', 'prismleaf' ),
+				'description'       => __( 'Control how author avatars are rounded.', 'prismleaf' ),
+				'priority'          => 4010,
+				'default_key'       => 'author_avatar_shape',
+				'default_fallback'  => 'Circle',
+				'sanitize_callback' => 'prismleaf_sanitize_author_avatar_shape',
+				'choices'           => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 					'Circle' => __( 'Circle', 'prismleaf' ),

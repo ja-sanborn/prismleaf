@@ -11,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$title_id    = 'content-title-' . wp_unique_id();
-$title       = get_the_archive_title();
-$description = get_the_archive_description();
+$title_id      = 'content-title-' . wp_unique_id();
+$archive_title = get_the_archive_title();
+$description   = get_the_archive_description();
 
 get_header();
 get_template_part(
@@ -22,7 +22,7 @@ get_template_part(
 	array(
 		'title_id'      => $title_id,
 		'title_tag'     => 'h1',
-		'content_title' => $title,
+		'content_title' => $archive_title,
 		'description'   => $description,
 	)
 );

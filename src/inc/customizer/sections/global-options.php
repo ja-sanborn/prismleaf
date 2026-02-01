@@ -57,15 +57,15 @@ if ( ! function_exists( 'prismleaf_register_global_options_section' ) ) {
 		prismleaf_add_number_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_frame_max_width',
-				'section'          => 'prismleaf_global_options',
-				'label'            => __( 'Max width', 'prismleaf' ),
-				'description'      => __( 'Sets the maximum content width for the frame.', 'prismleaf' ),
-				'priority'         => 1020,
-				'default_key'      => 'frame_max_width',
-				'default_fallback' => '1480',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_max_width',
-				'input_attrs'      => array(
+				'setting_id'        => 'prismleaf_frame_max_width',
+				'section'           => 'prismleaf_global_options',
+				'label'             => __( 'Max width', 'prismleaf' ),
+				'description'       => __( 'Sets the maximum content width for the frame.', 'prismleaf' ),
+				'priority'          => 1020,
+				'default_key'       => 'frame_max_width',
+				'default_fallback'  => '1480',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_max_width',
+				'input_attrs'       => array(
 					'min'  => 1000,
 					'max'  => 2000,
 					'step' => 1,
@@ -76,10 +76,10 @@ if ( ! function_exists( 'prismleaf_register_global_options_section' ) ) {
 		prismleaf_add_section_header_control(
 			$wp_customize,
 			array(
-				'setting_id' => 'prismleaf_frame_heading_style',
-				'label'      => __( 'Style', 'prismleaf' ),
-				'section'    => 'prismleaf_global_options',
-				'priority'   => 2000,
+				'setting_id'      => 'prismleaf_frame_heading_style',
+				'label'           => __( 'Style', 'prismleaf' ),
+				'section'         => 'prismleaf_global_options',
+				'priority'        => 2000,
 				'active_callback' => 'prismleaf_is_frame_layout_control_active',
 			)
 		);
@@ -121,40 +121,40 @@ if ( ! function_exists( 'prismleaf_register_global_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_frame_border_corners',
-				'section'          => 'prismleaf_global_options',
-				'label'            => __( 'Border corners', 'prismleaf' ),
-				'description'      => __( 'Controls the roundness of the frame corners.', 'prismleaf' ),
-				'priority'         => 2030,
-				'default_key'      => 'frame_border_corners',
-				'default_fallback' => 'Round',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_frame_border_corners',
+				'section'           => 'prismleaf_global_options',
+				'label'             => __( 'Border corners', 'prismleaf' ),
+				'description'       => __( 'Controls the roundness of the frame corners.', 'prismleaf' ),
+				'priority'          => 2030,
+				'default_key'       => 'frame_border_corners',
+				'default_fallback'  => 'Round',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_border_corners',
+				'choices'           => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_frame_background_control_active',
+				'active_callback'   => 'prismleaf_is_frame_background_control_active',
 			)
 		);
 
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_frame_border_style',
-				'section'          => 'prismleaf_global_options',
-				'label'            => __( 'Border style', 'prismleaf' ),
-				'description'      => __( 'Sets the frame border line style.', 'prismleaf' ),
-				'priority'         => 2040,
-				'default_key'      => 'frame_border_style',
-				'default_fallback' => 'solid',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_frame_border_style',
+				'section'           => 'prismleaf_global_options',
+				'label'             => __( 'Border style', 'prismleaf' ),
+				'description'       => __( 'Sets the frame border line style.', 'prismleaf' ),
+				'priority'          => 2040,
+				'default_key'       => 'frame_border_style',
+				'default_fallback'  => 'solid',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_border_style',
+				'choices'           => array(
 					'none'   => __( 'None', 'prismleaf' ),
 					'solid'  => __( 'Solid', 'prismleaf' ),
 					'dotted' => __( 'Dotted', 'prismleaf' ),
 					'dashed' => __( 'Dashed', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_frame_background_control_active',
+				'active_callback'   => 'prismleaf_is_frame_background_control_active',
 			)
 		);
 
@@ -181,15 +181,15 @@ if ( ! function_exists( 'prismleaf_register_global_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_frame_elevation',
-				'section'          => 'prismleaf_global_options',
-				'label'            => __( 'Elevation', 'prismleaf' ),
-				'description'      => __( 'Sets the elevation level for the frame background.', 'prismleaf' ),
-				'priority'         => 2060,
-				'default_key'      => 'frame_elevation',
-				'default_fallback' => 'elevation-1',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_frame_elevation',
+				'section'           => 'prismleaf_global_options',
+				'label'             => __( 'Elevation', 'prismleaf' ),
+				'description'       => __( 'Sets the elevation level for the frame background.', 'prismleaf' ),
+				'priority'          => 2060,
+				'default_key'       => 'frame_elevation',
+				'default_fallback'  => 'elevation-1',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_elevation',
+				'choices'           => array(
 					'none'        => __( 'None', 'prismleaf' ),
 					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
 					'elevation-2' => __( 'Elevation 2', 'prismleaf' ),
@@ -197,7 +197,7 @@ if ( ! function_exists( 'prismleaf_register_global_options_section' ) ) {
 					'elevation-4' => __( 'Elevation 4', 'prismleaf' ),
 					'elevation-5' => __( 'Elevation 5', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_frame_background_control_active',
+				'active_callback'   => 'prismleaf_is_frame_background_control_active',
 			)
 		);
 	}

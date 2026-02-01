@@ -114,8 +114,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_theme_mode' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_theme_mode( $setting_id, $default_key = '', $default_value = 'system' ) {
-		$setting_id = prismleaf_sanitize_text( $setting_id );
-		$default_key = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = prismleaf_sanitize_theme_mode( $default_value );
 
 		if ( '' !== $default_key ) {
@@ -160,7 +160,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_palette_source_value' ) ) {
 	 */
 	function prismleaf_get_theme_mod_palette_source_value( $setting_id, $key, $default_value = '' ) {
 		$setting_id = prismleaf_sanitize_text( $setting_id );
-		$key = prismleaf_sanitize_text( $key );
+		$key        = prismleaf_sanitize_text( $key );
 
 		if ( '' === $setting_id || '' === $key ) {
 			return prismleaf_sanitize_palette_value( $default_value );
@@ -172,8 +172,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_palette_source_value' ) ) {
 		}
 
 		$palette = prismleaf_sanitize_palette_source_json( prismleaf_get_theme_mod( $setting_id, '' ) );
-		$values = prismleaf_decode_json_with_keys( $palette, $expected_keys );
-		$value = ( is_array( $values ) && isset( $values[ $key ] ) ) ? $values[ $key ] : '';
+		$values  = prismleaf_decode_json_with_keys( $palette, $expected_keys );
+		$value   = ( is_array( $values ) && isset( $values[ $key ] ) ) ? $values[ $key ] : '';
 
 		return prismleaf_sanitize_palette_value( $value, $default_value );
 	}
@@ -191,8 +191,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_elevation_value' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_elevation_value( $setting_id, $default_key, $default_fallback = '' ) {
-		$setting_id = prismleaf_sanitize_text( $setting_id );
-		$default_key = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key )
 			? prismleaf_get_default_option( $default_key, $default_fallback )
 			: $default_fallback;
@@ -201,7 +201,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_elevation_value' ) ) {
 			return prismleaf_sanitize_elevation_value( '', $default_value );
 		}
 
-		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
+		$raw   = prismleaf_get_theme_mod( $setting_id, $default_value );
 		$token = prismleaf_sanitize_frame_elevation( $raw );
 
 		return prismleaf_sanitize_elevation_value( $token, $default_value );
@@ -220,8 +220,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_border_radius_value' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_border_radius_value( $setting_id, $default_key, $default_fallback = '' ) {
-		$setting_id = prismleaf_sanitize_text( $setting_id );
-		$default_key = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key )
 			? prismleaf_get_default_option( $default_key, $default_fallback )
 			: $default_fallback;
@@ -258,8 +258,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_border_style_value' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_border_style_value( $setting_id, $default_key, $default_fallback = '' ) {
-		$setting_id = prismleaf_sanitize_text( $setting_id );
-		$default_key = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key )
 			? prismleaf_get_default_option( $default_key, $default_fallback )
 			: $default_fallback;
@@ -289,8 +289,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_size_value' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_size_value( $setting_id, $default_key, $default_fallback = '' ) {
-		$setting_id = prismleaf_sanitize_text( $setting_id );
-		$default_key = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key )
 			? prismleaf_get_default_option( $default_key, $default_fallback )
 			: $default_fallback;
@@ -371,21 +371,21 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_image_url' ) ) {
 	 * @param string $default_fallback Default fallback.
 	 * @return string
 	 */
-function prismleaf_get_theme_mod_background_image_url( $setting_id, $default_key, $default_fallback = '' ) {
-		$id = prismleaf_get_theme_mod_background_image_id( $setting_id, $default_key, '' );
+	function prismleaf_get_theme_mod_background_image_url( $setting_id, $default_key, $default_fallback = '' ) {
+
+		$id  = prismleaf_get_theme_mod_background_image_id( $setting_id, $default_key, '' );
 		$url = '';
 
 		if ( '' !== $id ) {
 			$url = wp_get_attachment_image_url( $id, 'full' );
 			if ( '' === $url ) {
-				$url = wp_get_attachment_url( $id );
+					$url = wp_get_attachment_url( $id );
 			}
 		}
 
 		if ( '' === $url ) {
-			$url = $default_fallback;
+				$url = $default_fallback;
 		}
-
 		$url = prismleaf_sanitize_text( $url );
 		return '' === $url ? 'none' : "url('" . esc_url_raw( $url ) . "')";
 	}
@@ -403,8 +403,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_repeat' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_background_repeat( $setting_id, $default_key, $default_fallback = 'repeat' ) {
-		$setting_id   = prismleaf_sanitize_text( $setting_id );
-		$default_key  = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
 
 		if ( '' === $setting_id ) {
@@ -428,8 +428,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_position_x' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_background_position_x( $setting_id, $default_key, $default_fallback = 'center' ) {
-		$setting_id   = prismleaf_sanitize_text( $setting_id );
-		$default_key  = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
 
 		if ( '' === $setting_id ) {
@@ -453,8 +453,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_position_y' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_background_position_y( $setting_id, $default_key, $default_fallback = 'center' ) {
-		$setting_id   = prismleaf_sanitize_text( $setting_id );
-		$default_key  = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
 
 		if ( '' === $setting_id ) {
@@ -498,8 +498,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_preset' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_background_preset( $setting_id, $default_key, $default_fallback = 'default' ) {
-		$setting_id   = prismleaf_sanitize_text( $setting_id );
-		$default_key  = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
 
 		if ( '' === $setting_id ) {
@@ -523,8 +523,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_size' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_background_size( $setting_id, $default_key, $default_fallback = 'auto' ) {
-		$setting_id   = prismleaf_sanitize_text( $setting_id );
-		$default_key  = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
 
 		if ( '' === $setting_id ) {
@@ -548,8 +548,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_background_attachment' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_background_attachment( $setting_id, $default_key, $default_fallback = 'scroll' ) {
-		$setting_id   = prismleaf_sanitize_text( $setting_id );
-		$default_key  = prismleaf_sanitize_text( $default_key );
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = ( '' !== $default_key ) ? prismleaf_get_default_option( $default_key, $default_fallback ) : $default_fallback;
 
 		if ( '' === $setting_id ) {
@@ -572,7 +572,8 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_header_height' ) ) {
 	 * @param string $default_fallback Default fallback value.
 	 * @return string
 	 */
-function prismleaf_get_theme_mod_header_height( $setting_id, $default_key, $default_fallback = '' ) {
+	function prismleaf_get_theme_mod_header_height( $setting_id, $default_key, $default_fallback = '' ) {
+
 		$default_value = '' !== $default_fallback ? $default_fallback : 'auto';
 		return prismleaf_get_theme_mod_dimension_value( $setting_id, $default_key, $default_value, 32, 300, true );
 	}
@@ -590,6 +591,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_header_icon_position' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_header_icon_position( $setting_id = 'prismleaf_header_icon_position', $default_key = 'header_icon_position', $default_value = 'left' ) {
+
 		$default_value = prismleaf_get_default_option( $default_key, $default_value );
 
 		if ( '' === $setting_id ) {
@@ -613,6 +615,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_header_icon_size' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_header_icon_size( $setting_id = 'prismleaf_header_icon_size', $default_key = 'header_icon_size', $default_value = 'medium' ) {
+
 		$default_value = prismleaf_get_default_option( $default_key, $default_value );
 
 		if ( '' === $setting_id ) {
@@ -636,6 +639,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_header_icon_shape' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_header_icon_shape( $setting_id = 'prismleaf_header_icon_shape', $default_key = 'header_icon_shape', $default_value = 'circle' ) {
+
 		$default_value = prismleaf_get_default_option( $default_key, $default_value );
 
 		if ( '' === $setting_id ) {
@@ -659,6 +663,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_header_title_position' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_header_title_position( $setting_id = 'prismleaf_header_title_position', $default_key = 'header_title_position', $default_value = 'left' ) {
+
 		$default_value = prismleaf_get_default_option( $default_key, $default_value );
 
 		if ( '' === $setting_id ) {
@@ -682,6 +687,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_header_title_color' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_header_title_color( $setting_id = 'prismleaf_header_title_color', $default_key = 'header_title_color', $default_value = '' ) {
+
 		$default_value = prismleaf_get_default_option( $default_key, $default_value );
 
 		$value = ( '' === $setting_id ) ? $default_value : prismleaf_get_theme_mod( $setting_id, $default_value );
@@ -703,6 +709,7 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_header_tagline_position' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_header_tagline_position( $setting_id = 'prismleaf_header_tagline_position', $default_key = 'header_tagline_position', $default_value = 'inline' ) {
+
 		$default_value = prismleaf_get_default_option( $default_key, $default_value );
 
 		if ( '' === $setting_id ) {
@@ -725,14 +732,15 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_header_tagline_color' ) ) {
 	 * @param string $default_value Default fallback.
 	 * @return string
 	 */
-function prismleaf_get_theme_mod_header_tagline_color( $setting_id = 'prismleaf_header_tagline_color', $default_key = 'header_tagline_color', $default_value = '' ) {
-	$default_value = prismleaf_get_default_option( $default_key, $default_value );
+	function prismleaf_get_theme_mod_header_tagline_color( $setting_id = 'prismleaf_header_tagline_color', $default_key = 'header_tagline_color', $default_value = '' ) {
 
-	$value = ( '' === $setting_id ) ? $default_value : prismleaf_get_theme_mod( $setting_id, $default_value );
-	$color = sanitize_hex_color( $value );
+		$default_value = prismleaf_get_default_option( $default_key, $default_value );
 
-	return $color ? $color : '';
-}
+		$value = ( '' === $setting_id ) ? $default_value : prismleaf_get_theme_mod( $setting_id, $default_value );
+		$color = sanitize_hex_color( $value );
+
+		return $color ? $color : '';
+	}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_menu_button_corners' ) ) {
@@ -746,10 +754,11 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_menu_button_corners' ) ) {
 	 * @param string $default_value Default fallback.
 	 * @return string
 	 */
-function prismleaf_get_theme_mod_menu_button_corners( $setting_id, $default_key = '', $default_value = 'Square' ) {
-	$setting_id = prismleaf_sanitize_text( $setting_id );
-	$default_key = prismleaf_sanitize_text( $default_key );
-	$default_value = prismleaf_sanitize_menu_button_corners( $default_value );
+	function prismleaf_get_theme_mod_menu_button_corners( $setting_id, $default_key = '', $default_value = 'Square' ) {
+
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
+		$default_value = prismleaf_sanitize_menu_button_corners( $default_value );
 
 		if ( '' !== $default_key ) {
 			$default_value = prismleaf_get_default_option( $default_key, $default_value );
@@ -760,8 +769,8 @@ function prismleaf_get_theme_mod_menu_button_corners( $setting_id, $default_key 
 		}
 
 		$raw = prismleaf_get_theme_mod( $setting_id, $default_value );
-	return prismleaf_sanitize_menu_button_corners( $raw );
-}
+		return prismleaf_sanitize_menu_button_corners( $raw );
+	}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_pagination_shape' ) ) {
@@ -776,8 +785,9 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_pagination_shape' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_pagination_shape( $setting_id, $default_key = '', $default_value = 'Round' ) {
-		$setting_id = prismleaf_sanitize_text( $setting_id );
-		$default_key = prismleaf_sanitize_text( $default_key );
+
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = prismleaf_sanitize_pagination_shape( $default_value );
 
 		if ( '' !== $default_key ) {
@@ -805,8 +815,9 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_author_avatar_shape' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_author_avatar_shape( $setting_id, $default_key, $default_value = 'Circle' ) {
-		$setting_id   = prismleaf_sanitize_text( $setting_id );
-		$default_key  = prismleaf_sanitize_text( $default_key );
+
+		$setting_id    = prismleaf_sanitize_text( $setting_id );
+		$default_key   = prismleaf_sanitize_text( $default_key );
 		$default_value = prismleaf_sanitize_author_avatar_shape( $default_value );
 
 		if ( '' !== $default_key ) {

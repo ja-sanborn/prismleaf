@@ -21,7 +21,6 @@ $secondary_show      = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondar
 $secondary_contained = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_secondary_contained', true );
 $hide_sidebars_front = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_hide_on_front', false );
 $hide_sidebars_other = prismleaf_get_theme_mod_bool( 'prismleaf_sidebar_hide_on_other', false );
-
 if ( $hide_sidebars_front && is_front_page() ) {
 	$primary_show   = false;
 	$secondary_show = false;
@@ -31,7 +30,6 @@ if ( $hide_sidebars_other && ! is_front_page() ) {
 	$primary_show   = false;
 	$secondary_show = false;
 }
-
 $primary_has_widgets   = is_active_sidebar( 'sidebar-primary' );
 $secondary_has_widgets = is_active_sidebar( 'sidebar-secondary' );
 
@@ -50,8 +48,8 @@ if ( $swap_sidebars ) {
 	$outer_right_sidebar = $primary_show && $primary_has_widgets && ( $is_framed || ! $primary_contained );
 	$inner_left_sidebar  = $secondary_show && $secondary_has_widgets && ! $outer_left_sidebar;
 	$inner_right_sidebar = $primary_show && $primary_has_widgets && ! $outer_right_sidebar;
-	$left_sidebar		 = array( 'sidebar' => 'secondary' );
-	$right_sidebar		 = array( 'sidebar' => 'primary' );
+	$left_sidebar        = array( 'sidebar' => 'secondary' );
+	$right_sidebar       = array( 'sidebar' => 'primary' );
 }
 
 if ( ( $outer_left_sidebar || $outer_right_sidebar ) && $inner_footer ) {

@@ -11,29 +11,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$show_poem = isset( $args['show_poem'] ) ? (bool) $args['show_poem'] : true;
+$show_poem           = isset( $args['show_poem'] ) ? (bool) $args['show_poem'] : true;
 $show_featured_image = prismleaf_get_theme_mod_bool(
 	'prismleaf_result_show_featured_image',
 	prismleaf_get_default_option( 'result_show_featured_image', true )
 );
-$show_categories = prismleaf_get_theme_mod_bool(
+$show_categories     = prismleaf_get_theme_mod_bool(
 	'prismleaf_result_show_categories',
 	prismleaf_get_default_option( 'result_show_categories', true )
 );
-$show_author = prismleaf_get_theme_mod_bool(
+$show_author         = prismleaf_get_theme_mod_bool(
 	'prismleaf_result_show_author',
 	prismleaf_get_default_option( 'result_show_author', true )
 );
-$show_date = prismleaf_get_theme_mod_bool(
+$show_date           = prismleaf_get_theme_mod_bool(
 	'prismleaf_result_show_date',
 	prismleaf_get_default_option( 'result_show_date', true )
 );
-$show_comments = prismleaf_get_theme_mod_bool(
+$show_comments       = prismleaf_get_theme_mod_bool(
 	'prismleaf_result_show_comments',
 	prismleaf_get_default_option( 'result_show_comments', true )
 );
 
-$layout = isset( $args['layout'] ) ? sanitize_key( $args['layout'] ) : 'list';
+$layout          = isset( $args['layout'] ) ? sanitize_key( $args['layout'] ) : 'list';
 $allowed_layouts = array( 'grid', 'list' );
 if ( ! in_array( $layout, $allowed_layouts, true ) ) {
 	$layout = 'list';
@@ -60,15 +60,15 @@ if ( have_posts() ) :
 		<?php
 		while ( have_posts() ) :
 			the_post();
-			$author_url = get_author_posts_url( get_the_author_meta( 'ID' ) );
-			$author_name = get_the_author();
-			$author_link = sprintf(
+			$author_url     = get_author_posts_url( get_the_author_meta( 'ID' ) );
+			$author_name    = get_the_author();
+			$author_link    = sprintf(
 				'<a class="prismleaf-archive-author-link" href="%1$s">%2$s</a>',
 				esc_url( $author_url ),
 				esc_html( $author_name )
 			);
 			$published_date = get_the_date( 'F j, Y' );
-			$meta_parts = array();
+			$meta_parts     = array();
 
 			if ( $show_author ) {
 				$meta_parts[] = sprintf(
@@ -91,8 +91,8 @@ if ( have_posts() ) :
 				$posted_by_label = esc_html__( 'Posted', 'prismleaf' ) . ' ' . implode( ' ', $meta_parts );
 			}
 			$categories_list = get_the_category_list( ', ' );
-			$comments_count = get_comments_number();
-			$comment_text = sprintf(
+			$comments_count  = get_comments_number();
+			$comment_text    = sprintf(
 				/* translators: %s: comment count. */
 				_n( '%s comment', '%s comments', $comments_count, 'prismleaf' ),
 				number_format_i18n( $comments_count )
@@ -110,7 +110,15 @@ if ( have_posts() ) :
 					<?php if ( $has_thumbnail ) : ?>
 						<figure class="prismleaf-archive-card-thumbnail">
 							<a class="prismleaf-archive-card-thumbnail-link" href="<?php echo esc_url( get_permalink() ); ?>">
-								<?php the_post_thumbnail( 'prismleaf-archive-card', array( 'loading' => 'lazy', 'sizes' => '(max-width: 300px) 100vw, 300px' ) ); ?>
+								<?php
+								the_post_thumbnail(
+									'prismleaf-archive-card',
+									array(
+										'loading' => 'lazy',
+										'sizes'   => '(max-width: 300px) 100vw, 300px',
+									)
+								);
+								?>
 							</a>
 						</figure>
 					<?php endif; ?>
@@ -118,7 +126,7 @@ if ( have_posts() ) :
 						<?php the_title( sprintf( '<h2 class="prismleaf-archive-card-title entry-title"><a class="prismleaf-archive-card-title-link entry-title-link" href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 						<?php if ( '' !== $posted_by_label ) : ?>
 							<p class="prismleaf-archive-card-meta entry-meta">
-								<?php echo $posted_by_label; ?>
+								<?php echo wp_kses_post( $posted_by_label ); ?>
 							</p>
 						<?php endif; ?>
 						<?php if ( $categories_list && $show_categories ) : ?>
@@ -154,7 +162,15 @@ if ( have_posts() ) :
 						<?php if ( $has_thumbnail ) : ?>
 							<figure class="prismleaf-archive-card-thumbnail prismleaf-archive-card-thumbnail-list">
 								<a class="prismleaf-archive-card-thumbnail-link" href="<?php echo esc_url( get_permalink() ); ?>">
-									<?php the_post_thumbnail( 'prismleaf-archive-card', array( 'loading' => 'lazy', 'sizes' => '(max-width: 300px) 100vw, 300px' ) ); ?>
+									<?php
+									the_post_thumbnail(
+										'prismleaf-archive-card',
+										array(
+											'loading' => 'lazy',
+											'sizes'   => '(max-width: 300px) 100vw, 300px',
+										)
+									);
+									?>
 								</a>
 							</figure>
 						<?php endif; ?>
@@ -170,7 +186,7 @@ if ( have_posts() ) :
 					<div class="prismleaf-archive-card-list-meta-row">
 						<?php if ( '' !== $posted_by_label ) : ?>
 							<p class="prismleaf-archive-card-meta prismleaf-archive-card-meta-list entry-meta">
-								<?php echo $posted_by_label; ?>
+								<?php echo wp_kses_post( $posted_by_label ); ?>
 							</p>
 						<?php endif; ?>
 						<?php if ( $show_comments ) : ?>

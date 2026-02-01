@@ -21,7 +21,7 @@ if ( ! $site_icon_url ) {
 }
 
 $site_title = get_bloginfo( 'name' );
-$home_url  = home_url( '/' );
+$home_url   = home_url( '/' );
 ?>
 <a
 	href="<?php echo esc_url( $home_url ); ?>"

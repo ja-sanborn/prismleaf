@@ -43,7 +43,6 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Prismleaf_Custom
 			if ( '' !== $label ) {
 				echo '<span class="customize-control-title">' . esc_html( $label ) . '</span>';
 			}
-
 			if ( '' !== $description ) {
 				echo '<p class="description customize-control-description">' . wp_kses_post( $description ) . '</p>';
 			}

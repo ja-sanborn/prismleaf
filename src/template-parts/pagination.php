@@ -12,13 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$allowed_types = array( 'archive', 'pagebreak', 'post' );
-$type = 'archive';
+$allowed_types   = array( 'archive', 'pagebreak', 'post' );
+$pagination_type = 'archive';
 
 if ( isset( $args['type'] ) ) {
 	$type_candidate = sanitize_key( $args['type'] );
 	if ( in_array( $type_candidate, $allowed_types, true ) ) {
-		$type = $type_candidate;
+		$pagination_type = $type_candidate;
 	}
 }
 
@@ -29,7 +29,7 @@ $settings = array(
 	'show_post_titles'  => true,
 );
 
-switch ( $type ) {
+switch ( $pagination_type ) {
 	case 'pagebreak':
 	case 'post':
 		$settings['is_buttons']        = prismleaf_get_theme_mod_bool( 'prismleaf_entry_navigation_is_buttons', false );
@@ -46,14 +46,14 @@ switch ( $type ) {
 
 $classes = array(
 	'prismleaf-pagination',
-	'prismleaf-pagination-type-' . $type,
+	'prismleaf-pagination-type-' . $pagination_type,
 );
 
-$aria_label = esc_attr__( 'Archive pagination', 'prismleaf' );
-if ( 'pagebreak' === $type ) {
-	$aria_label = esc_attr__( 'Page navigation', 'prismleaf' );
-} elseif ( 'post' === $type ) {
-	$aria_label = esc_attr__( 'Post navigation', 'prismleaf' );
+$aria_label = __( 'Archive pagination', 'prismleaf' );
+if ( 'pagebreak' === $pagination_type ) {
+	$aria_label = __( 'Page navigation', 'prismleaf' );
+} elseif ( 'post' === $pagination_type ) {
+	$aria_label = __( 'Post navigation', 'prismleaf' );
 }
 
 $classes[] = $settings['is_buttons'] ? 'prismleaf-pagination-buttons' : 'prismleaf-pagination-bar';
@@ -61,7 +61,7 @@ $classes[] = 'prismleaf-pagination-shape-' . sanitize_title_with_dashes( strtolo
 
 $previous_post = '';
 $next_post     = '';
-if ( 'post' === $type ) {
+if ( 'post' === $pagination_type ) {
 	$previous_post = get_previous_post( true, '', 'category' );
 	$next_post     = get_next_post( true, '', 'category' );
 	if ( $previous_post && $next_post ) {
@@ -70,17 +70,6 @@ if ( 'post' === $type ) {
 	if ( $settings['show_post_titles'] ) {
 		$classes[] = 'prismleaf-pagination-post-has-titles';
 	}
-}
-
-$attributes = array(
-	'class'      => implode( ' ', $classes ),
-	'role'       => 'navigation',
-	'aria-label' => $aria_label,
-);
-
-$attribute_strings = array();
-foreach ( $attributes as $key => $value ) {
-	$attribute_strings[] = $key . '="' . esc_attr( $value ) . '"';
 }
 
 $nav_args = array(
@@ -98,7 +87,7 @@ $nav_args = array(
 
 ob_start();
 
-switch ( $type ) {
+switch ( $pagination_type ) {
 	case 'pagebreak':
 		global $page, $numpages, $multipage;
 
@@ -108,7 +97,7 @@ switch ( $type ) {
 
 		$prev = '';
 		if ( $page > 1 ) {
-			$prev = _wp_link_page( $page - 1 );
+			$prev  = _wp_link_page( $page - 1 );
 			$prev .= sprintf(
 				'<span aria-hidden="true">❮</span><span class="screen-reader-text">%s</span>',
 				esc_html__( 'Previous page', 'prismleaf' )
@@ -118,7 +107,7 @@ switch ( $type ) {
 
 		$next = '';
 		if ( $page < $numpages ) {
-			$next = _wp_link_page( $page + 1 );
+			$next  = _wp_link_page( $page + 1 );
 			$next .= sprintf(
 				'<span class="screen-reader-text">%s</span><span aria-hidden="true">❯</span>',
 				esc_html__( 'Next page', 'prismleaf' )
@@ -131,7 +120,14 @@ switch ( $type ) {
 		if ( $settings['show_page_numbers'] ) {
 			printf(
 				'<span class="prismleaf-pagination-page-count">%s</span>',
-				esc_html( sprintf( __( 'Page %1$d of %2$d', 'prismleaf' ), $page, $numpages ) )
+				esc_html(
+					sprintf(
+						/* translators: %1$d: current page number, %2$d: total pages. */
+						__( 'Page %1$d of %2$d', 'prismleaf' ),
+						$page,
+						$numpages
+					)
+				)
 			);
 		}
 
@@ -221,8 +217,12 @@ if ( '' === $content ) {
 }
 ?>
 
-<nav <?php echo implode( ' ', $attribute_strings ); ?>>
+<nav
+	class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"
+	role="navigation"
+	aria-label="<?php echo esc_attr( $aria_label ); ?>"
+>
 	<div class="prismleaf-pagination-links">
-		<?php echo $content; ?>
+		<?php echo wp_kses_post( $content ); ?>
 	</div>
 </nav>

@@ -11,9 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$title_id    = 'content-title-' . wp_unique_id();
-$title       = __( 'Search Results', 'prismleaf' );
-$description = sprintf( esc_html__( 'You searched for "%s".', 'prismleaf' ), esc_html( get_search_query() ) );
+$title_id     = 'content-title-' . wp_unique_id();
+$search_title = __( 'Search Results', 'prismleaf' );
+$description  = sprintf(
+	/* translators: %s: search query. */
+	esc_html__( 'You searched for "%s".', 'prismleaf' ),
+	esc_html( get_search_query() )
+);
 
 get_header();
 get_template_part(
@@ -22,7 +26,7 @@ get_template_part(
 	array(
 		'title_id'      => $title_id,
 		'title_tag'     => 'h1',
-		'content_title' => $title,
+		'content_title' => $search_title,
 		'description'   => $description,
 	)
 );

@@ -29,12 +29,12 @@ if ( ! function_exists( 'prismleaf_enqueue_style' ) ) {
 				return;
 			}
 
-			$uri  = trailingslashit( get_stylesheet_directory_uri() ) . $relative_path;
+			$uri = trailingslashit( get_stylesheet_directory_uri() ) . $relative_path;
 			wp_enqueue_style( $handle, $uri, $deps, $ver );
 			return;
 		}
 
-		$uri  = PRISMLEAF_URI . $relative_path;
+		$uri = PRISMLEAF_URI . $relative_path;
 		wp_enqueue_style( $handle, $uri, $deps, $ver );
 	}
 }
@@ -272,40 +272,40 @@ if ( ! function_exists( 'prismleaf_enqueue_scripts' ) ) {
 	 * @return void
 	 */
 	function prismleaf_enqueue_scripts() {
-	wp_enqueue_script(
-		'prismleaf-theme-switch',
-		PRISMLEAF_URI . 'assets/scripts/theme-switch.js',
-		array(),
-		PRISMLEAF_VERSION,
-		true
-	);
+		wp_enqueue_script(
+			'prismleaf-theme-switch',
+			PRISMLEAF_URI . 'assets/scripts/theme-switch.js',
+			array(),
+			PRISMLEAF_VERSION,
+			true
+		);
 
-	wp_localize_script(
-		'prismleaf-theme-switch',
-		'prismleafThemeSwitchStrings',
-		array(
-				'labels' => array(
+		wp_localize_script(
+			'prismleaf-theme-switch',
+			'prismleafThemeSwitchStrings',
+			array(
+				'labels'     => array(
 					'auto'  => __( 'Automatic (system preference)', 'prismleaf' ),
 					'dark'  => __( 'Dark appearance override', 'prismleaf' ),
 					'light' => __( 'Light appearance override', 'prismleaf' ),
 				),
-			'actions' => array(
-				'auto'  => __( 'Switch to light override', 'prismleaf' ),
-				'light' => __( 'Switch to dark override', 'prismleaf' ),
-				'dark'  => __( 'Switch to automatic system control', 'prismleaf' ),
-			),
-			'storageKey' => 'prismleaf_theme_switch_mode',
-		)
-	);
+				'actions'    => array(
+					'auto'  => __( 'Switch to light override', 'prismleaf' ),
+					'light' => __( 'Switch to dark override', 'prismleaf' ),
+					'dark'  => __( 'Switch to automatic system control', 'prismleaf' ),
+				),
+				'storageKey' => 'prismleaf_theme_switch_mode',
+			)
+		);
 
-	wp_enqueue_script(
-		'prismleaf-mobile-menu',
-		PRISMLEAF_URI . 'assets/scripts/mobile-menu.js',
-		array(),
-		PRISMLEAF_VERSION,
-		true
-	);
-}
+		wp_enqueue_script(
+			'prismleaf-mobile-menu',
+			PRISMLEAF_URI . 'assets/scripts/mobile-menu.js',
+			array(),
+			PRISMLEAF_VERSION,
+			true
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'prismleaf_enqueue_scripts' );
 

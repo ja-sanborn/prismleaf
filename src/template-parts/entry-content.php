@@ -96,10 +96,13 @@ while ( have_posts() ) :
 						</p>
 					<?php endif; ?>
 
-					<?php if ( $meta = wp_get_attachment_metadata() ) : ?>
+					<?php
+					$attachment_meta = wp_get_attachment_metadata();
+					if ( $attachment_meta ) :
+						?>
 						<p>
 							<?php esc_html_e( 'Dimensions', 'prismleaf' ); ?>:
-							<?php echo esc_html( sprintf( '%dx%d', $meta['width'], $meta['height'] ) ); ?>
+							<?php echo esc_html( sprintf( '%dx%d', $attachment_meta['width'], $attachment_meta['height'] ) ); ?>
 						</p>
 					<?php endif; ?>
 				<?php else : ?>

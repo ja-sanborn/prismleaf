@@ -138,15 +138,15 @@ if ( ! function_exists( 'prismleaf_register_search_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_result_border_corners',
-				'section'          => 'prismleaf_search_options',
-				'label'            => __( 'Border corners', 'prismleaf' ),
-				'description'      => __( 'Roundness of the archive cards.', 'prismleaf' ),
-				'priority'         => 2020,
-				'default_key'      => 'result_border_corners',
-				'default_fallback' => 'Round',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_corners',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_result_border_corners',
+				'section'           => 'prismleaf_search_options',
+				'label'             => __( 'Border corners', 'prismleaf' ),
+				'description'       => __( 'Roundness of the archive cards.', 'prismleaf' ),
+				'priority'          => 2020,
+				'default_key'       => 'result_border_corners',
+				'default_fallback'  => 'Round',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_border_corners',
+				'choices'           => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 				),
@@ -156,15 +156,15 @@ if ( ! function_exists( 'prismleaf_register_search_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_result_border_style',
-				'section'          => 'prismleaf_search_options',
-				'label'            => __( 'Border style', 'prismleaf' ),
-				'description'      => __( 'Sets the archive card border line style.', 'prismleaf' ),
-				'priority'         => 2030,
-				'default_key'      => 'result_border_style',
-				'default_fallback' => 'solid',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_border_style',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_result_border_style',
+				'section'           => 'prismleaf_search_options',
+				'label'             => __( 'Border style', 'prismleaf' ),
+				'description'       => __( 'Sets the archive card border line style.', 'prismleaf' ),
+				'priority'          => 2030,
+				'default_key'       => 'result_border_style',
+				'default_fallback'  => 'solid',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_border_style',
+				'choices'           => array(
 					'none'   => __( 'None', 'prismleaf' ),
 					'solid'  => __( 'Solid', 'prismleaf' ),
 					'dotted' => __( 'Dotted', 'prismleaf' ),
@@ -195,15 +195,15 @@ if ( ! function_exists( 'prismleaf_register_search_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_result_elevation',
-				'section'          => 'prismleaf_search_options',
-				'label'            => __( 'Elevation', 'prismleaf' ),
-				'description'      => __( 'Sets the drop shadow for archive cards.', 'prismleaf' ),
-				'priority'         => 2050,
-				'default_key'      => 'result_elevation',
-				'default_fallback' => 'elevation-2',
-				'sanitize_callback'=> 'prismleaf_sanitize_frame_elevation',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_result_elevation',
+				'section'           => 'prismleaf_search_options',
+				'label'             => __( 'Elevation', 'prismleaf' ),
+				'description'       => __( 'Sets the drop shadow for archive cards.', 'prismleaf' ),
+				'priority'          => 2050,
+				'default_key'       => 'result_elevation',
+				'default_fallback'  => 'elevation-2',
+				'sanitize_callback' => 'prismleaf_sanitize_frame_elevation',
+				'choices'           => array(
 					'none'        => __( 'None', 'prismleaf' ),
 					'elevation-1' => __( 'Elevation 1', 'prismleaf' ),
 					'elevation-2' => __( 'Elevation 2', 'prismleaf' ),
@@ -326,15 +326,15 @@ if ( ! function_exists( 'prismleaf_register_search_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_result_navigation_shape',
-				'section'          => 'prismleaf_search_options',
-				'label'            => __( 'Button shape', 'prismleaf' ),
-				'description'      => __( 'Sets the border radius used for the navigation container and buttons.', 'prismleaf' ),
-				'priority'         => 4020,
-				'default_key'      => 'result_navigation_shape',
-				'default_fallback' => 'Round',
-				'sanitize_callback'=> 'prismleaf_sanitize_pagination_shape',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_result_navigation_shape',
+				'section'           => 'prismleaf_search_options',
+				'label'             => __( 'Button shape', 'prismleaf' ),
+				'description'       => __( 'Sets the border radius used for the navigation container and buttons.', 'prismleaf' ),
+				'priority'          => 4020,
+				'default_key'       => 'result_navigation_shape',
+				'default_fallback'  => 'Round',
+				'sanitize_callback' => 'prismleaf_sanitize_pagination_shape',
+				'choices'           => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 					'Pill'   => __( 'Pill', 'prismleaf' ),
@@ -360,7 +360,6 @@ if ( ! function_exists( 'prismleaf_register_search_options_section' ) ) {
 				'palette_default_fallback' => '',
 			)
 		);
-
 	}
 }
 

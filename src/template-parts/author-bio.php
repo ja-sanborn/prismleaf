@@ -9,17 +9,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$author_name = isset( $args['author_name'] ) ? trim( (string) $args['author_name'] ) : '';
-$author_bio = isset( $args['author_bio'] ) ? trim( (string) $args['author_bio'] ) : '';
+$author_name  = isset( $args['author_name'] ) ? trim( (string) $args['author_name'] ) : '';
+$author_bio   = isset( $args['author_bio'] ) ? trim( (string) $args['author_bio'] ) : '';
 $author_image = isset( $args['author_image'] ) ? (string) $args['author_image'] : '';
-$author_link = isset( $args['author_link'] ) ? (string) $args['author_link'] : '';
-$author_id = isset( $args['author_id'] ) ? absint( $args['author_id'] ) : 0;
+$author_link  = isset( $args['author_link'] ) ? (string) $args['author_link'] : '';
+$author_id    = isset( $args['author_id'] ) ? absint( $args['author_id'] ) : 0;
 if ( ! $author_id ) {
 	$author_id = get_the_author_meta( 'ID' );
 }
 
-$has_name = '' !== $author_name;
-$has_bio = '' !== $author_bio;
+$has_name  = '' !== $author_name;
+$has_bio   = '' !== $author_bio;
 $has_image = '' !== $author_image;
 
 if ( ! $has_name && ! $has_bio && ! $has_image ) {
