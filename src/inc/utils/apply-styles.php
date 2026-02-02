@@ -837,12 +837,23 @@ if ( ! function_exists( 'prismleaf_get_content_css_vars' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_content_css_vars() {
-		$is_framed     = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
-		$surface       = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_background_color_palette', 'surface_1', '--prismleaf-color-surface-2' );
-		$border_color  = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_border_color_palette', 'outline', '--prismleaf-color-outline' );
-		$border_radius = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_content_border_corners', 'content_border_corners', 'Round' );
-		$border_style  = prismleaf_get_theme_mod_border_style_value( 'prismleaf_content_border_style', 'content_border_style', 'solid' );
-		$elevation     = prismleaf_get_theme_mod_elevation_value( 'prismleaf_content_elevation', '', $is_framed ? 'elevation-1' : 'elevation-2' );
+		$is_framed      = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		$surface        = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_background_color_palette', 'surface_1', '--prismleaf-color-surface-2' );
+		$border_color   = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_border_color_palette', 'outline', '--prismleaf-color-outline' );
+		$border_radius  = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_content_border_corners', 'content_border_corners', 'Round' );
+		$border_style   = prismleaf_get_theme_mod_border_style_value( 'prismleaf_content_border_style', 'content_border_style', 'solid' );
+		$elevation      = prismleaf_get_theme_mod_elevation_value( 'prismleaf_content_elevation', '', $is_framed ? 'elevation-1' : 'elevation-2' );
+		$title_color    = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_title_color_palette', 'surface_1', '' );
+		$meta_color     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_metadata_text_color_palette', 'surface_1', '' );
+		$link_color     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_metadata_link_color_palette', 'surface_1', '' );
+		$link_hover     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_metadata_link_color_palette', 'surface_5', '' );
+		$featured_shape = prismleaf_sanitize_frame_border_corners(
+			prismleaf_get_theme_mod(
+				'prismleaf_content_featured_image_corners',
+				prismleaf_get_default_option( 'content_featured_image_corners', 'Round' )
+			)
+		);
+		$featured_radius = ( 'Square' === $featured_shape ) ? '0' : '--prismleaf-radius-large';
 
 		$css  = '';
 		$css .= prismleaf_build_css_var( '--prismleaf-content-background-color', $surface );
@@ -850,6 +861,19 @@ if ( ! function_exists( 'prismleaf_get_content_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-content-border-radius', $border_radius );
 		$css .= prismleaf_build_css_var( '--prismleaf-content-border-style', $border_style );
 		$css .= prismleaf_build_css_var( '--prismleaf-content-elevation', $elevation );
+		if ( '' !== $title_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-content-title-color', $title_color );
+		}
+		if ( '' !== $meta_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-content-meta-text-color', $meta_color );
+		}
+		if ( '' !== $link_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-content-meta-link-color', $link_color );
+		}
+		if ( '' !== $link_hover ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-content-meta-link-hover-color', $link_hover );
+		}
+		$css .= prismleaf_build_css_var( '--prismleaf-entry-featured-radius', $featured_radius );
 
 		return $css;
 	}

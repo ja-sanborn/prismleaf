@@ -153,18 +153,12 @@ switch ( $pagination_type ) {
 
 		$prev_link = get_previous_post_link(
 			'%link',
-			$prev_text,
-			true,
-			'',
-			'category'
+			$prev_text
 		);
 
 		$next_link = get_next_post_link(
 			'%link',
-			$next_text,
-			true,
-			'',
-			'category'
+			$next_text
 		);
 
 		if ( '' !== $prev_link ) {

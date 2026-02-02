@@ -19,6 +19,14 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 	 */
 	function prismleaf_get_default_options() {
 		$defaults = array(
+			'author_avatar_shape'                        => 'Circle',
+			'author_name_color_base'                     => '',
+			'author_name_color_palette'                  => '',
+			'author_name_color_source'                   => '',
+			'author_text_color_base'                     => '',
+			'author_text_color_palette'                  => '',
+			'author_text_color_source'                   => '',
+
 			'content_background_color_base'              => '',
 			'content_background_color_palette'           => '',
 			'content_background_color_source'            => '',
@@ -28,6 +36,19 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 			'content_border_corners'                     => 'Round',
 			'content_border_style'                       => 'solid',
 			'content_elevation'                          => 'elevation-2',
+			'content_featured_image_corners'             => 'Round',
+			'content_metadata_link_color_base'           => '',
+			'content_metadata_link_color_palette'        => '',
+			'content_metadata_link_color_source'         => '',
+			'content_metadata_text_color_base'           => '',
+			'content_metadata_text_color_palette'        => '',
+			'content_metadata_text_color_source'         => '',
+			'content_show_author'                        => true,
+			'content_show_featured_image'                => true,
+			'content_show_metadata'                      => true,
+			'content_title_color_base'                   => '',
+			'content_title_color_palette'                => '',
+			'content_title_color_source'                 => '',
 
 			'entry_navigation_background_color_base'     => '',
 			'entry_navigation_background_color_palette'  => '',
@@ -173,13 +194,6 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 			'result_title_color_base'                    => '',
 			'result_title_color_palette'                 => '',
 			'result_title_color_source'                  => '',
-			'author_avatar_shape'                        => 'Circle',
-			'author_name_color_base'                     => '',
-			'author_name_color_palette'                  => '',
-			'author_name_color_source'                   => '',
-			'author_text_color_base'                     => '',
-			'author_text_color_palette'                  => '',
-			'author_text_color_source'                   => '',
 
 			'secondary_menu_background_color_base'       => '',
 			'secondary_menu_background_color_palette'    => '',

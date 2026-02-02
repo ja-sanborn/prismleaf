@@ -18,6 +18,9 @@
 	--prismleaf-content-padding: var(--prismleaf-space-3);
 	--prismleaf-content-margin: var(--prismleaf-space-2);
 	--prismleaf-content-title-color: var(--prismleaf-color-primary-surface-1);
+	--prismleaf-content-meta-text-color: var(--prismleaf-color-surface-on-muted);
+	--prismleaf-content-meta-link-color: var(--prismleaf-color-tertiary-surface-1);
+	--prismleaf-content-meta-link-hover-color: var(--prismleaf-color-tertiary-surface-5);
 	--prismleaf-entry-featured-radius: var(--prismleaf-radius-large);
 }
 
@@ -122,7 +125,7 @@
 .prismleaf-entry-author,
 .prismleaf-entry-categories,
 .prismleaf-entry-tags {
-	color: var(--prismleaf-color-surface-on-faded);
+	color: var(--prismleaf-content-meta-text-color);
 	display: flex;
 	align-items: center;
 	gap: var(--prismleaf-space-2);
@@ -149,13 +152,13 @@
 .prismleaf-entry-author a,
 .prismleaf-entry-categories a,
 .prismleaf-entry-tags a {
-	color: var(--prismleaf-color-tertiary-surface-1);
+	color: var(--prismleaf-content-meta-link-color);
 }
 
 .prismleaf-entry-author a:hover,
 .prismleaf-entry-categories a:hover,
 .prismleaf-entry-tags a:hover {
-	color: var(--prismleaf-color-tertiary-surface-5);
+	color: var(--prismleaf-content-meta-link-hover-color);
 }
 
 .prismleaf-entry-content hr,

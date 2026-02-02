@@ -17,12 +17,13 @@ if ( ! have_posts() ) {
 }
 
 get_header();
-while ( have_posts() ) :
-	the_post();
+	while ( have_posts() ) :
+		the_post();
 
-	$title_id    = 'content-title-' . wp_unique_id();
-	$entry_title = get_the_title();
-	$edit_link   = get_edit_post_link( get_the_ID(), 'raw', false );
+		$title_id    = 'content-title-' . wp_unique_id();
+		$entry_title = get_the_title();
+		$edit_link   = get_edit_post_link( get_the_ID(), 'raw', false );
+		$show_featured_image = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_featured_image', true );
 
 	get_template_part(
 		'template-parts/content-title',
@@ -38,7 +39,7 @@ while ( have_posts() ) :
 
 	<section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
 		<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-entry' ); ?>>
-			<?php if ( has_post_thumbnail() ) : ?>
+			<?php if ( $show_featured_image && has_post_thumbnail() ) : ?>
 				<figure class="prismleaf-entry-featured-image">
 					<?php
 					the_post_thumbnail(

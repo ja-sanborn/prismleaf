@@ -12,8 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $title_id    = 'content-title-' . wp_unique_id();
-$index_title = __( 'Welcome', 'prismleaf' );
-$description = __( 'This template owns the hero narrative, featured blocks, and introductory statements that welcome new visitors.', 'prismleaf' );
+$index_title = __( 'Latest Posts', 'prismleaf' );
 
 get_header();
 get_template_part(
@@ -23,7 +22,6 @@ get_template_part(
 		'title_id'      => $title_id,
 		'title_tag'     => is_front_page() || is_home() ? 'h2' : 'h1',
 		'content_title' => $index_title,
-		'description'   => $description,
 	)
 );
 ?>
