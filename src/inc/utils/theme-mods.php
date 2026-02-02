@@ -61,8 +61,135 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_string' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_theme_mod_string( $setting_id, $default_value = '' ) {
-		return prismleaf_sanitize_text( prismleaf_get_theme_mod( $setting_id, $default_value ) );
+	return prismleaf_sanitize_text( prismleaf_get_theme_mod( $setting_id, $default_value ) );
+}
+
+if ( ! function_exists( 'prismleaf_get_home_title' ) ) {
+	/**
+	 * Get the homepage title with fallback to the default.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
+	function prismleaf_get_home_title( $setting_id = 'prismleaf_home_title', $default_key = 'home_title', $default_fallback = 'Welcome' ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_fallback );
+		$value         = prismleaf_get_theme_mod_string( $setting_id, $default_value );
+		$trimmed       = trim( $value );
+
+		if ( '' === $trimmed ) {
+			return $default_value;
+		}
+
+		return $trimmed;
 	}
+}
+
+if ( ! function_exists( 'prismleaf_get_home_description' ) ) {
+	/**
+	 * Get the homepage description with safe HTML.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param string $default_fallback Default fallback value.
+	 * @return string
+	 */
+	function prismleaf_get_home_description( $setting_id = 'prismleaf_home_description', $default_key = 'home_description', $default_fallback = '' ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_fallback );
+		$raw           = prismleaf_get_theme_mod( $setting_id, $default_value );
+	return wp_kses_post( $raw );
+}
+
+if ( ! function_exists( 'prismleaf_get_home_show_latest_posts' ) ) {
+	/**
+	 * Get the homepage show latest posts setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param bool   $default_fallback Default fallback value.
+	 * @return bool
+	 */
+	function prismleaf_get_home_show_latest_posts( $setting_id = 'prismleaf_home_show_latest_posts', $default_key = 'home_show_latest_posts', $default_fallback = true ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_fallback );
+		return prismleaf_get_theme_mod_bool( $setting_id, $default_value );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_home_show_widget_area' ) ) {
+	/**
+	 * Get the homepage show widget area setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param bool   $default_fallback Default fallback value.
+	 * @return bool
+	 */
+	function prismleaf_get_home_show_widget_area( $setting_id = 'prismleaf_home_show_widget_area', $default_key = 'home_show_widget_area', $default_fallback = false ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_fallback );
+		return prismleaf_get_theme_mod_bool( $setting_id, $default_value );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_home_show_page_title' ) ) {
+	/**
+	 * Get the homepage show page title setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param bool   $default_fallback Default fallback value.
+	 * @return bool
+	 */
+	function prismleaf_get_home_show_page_title( $setting_id = 'prismleaf_home_show_page_title', $default_key = 'home_show_page_title', $default_fallback = true ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_fallback );
+		return prismleaf_get_theme_mod_bool( $setting_id, $default_value );
+	}
+}
+}
+
+if ( ! function_exists( 'prismleaf_get_home_show_latest_posts' ) ) {
+	/**
+	 * Get the homepage show latest posts setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param bool   $default_fallback Default fallback value.
+	 * @return bool
+	 */
+	function prismleaf_get_home_show_latest_posts( $setting_id = 'prismleaf_home_show_latest_posts', $default_key = 'home_show_latest_posts', $default_fallback = true ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_fallback );
+		return prismleaf_get_theme_mod_bool( $setting_id, $default_value );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_home_show_widget_area' ) ) {
+	/**
+	 * Get the homepage show widget area setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $setting_id Theme mod ID.
+	 * @param string $default_key Default option key.
+	 * @param bool   $default_fallback Default fallback value.
+	 * @return bool
+	 */
+	function prismleaf_get_home_show_widget_area( $setting_id = 'prismleaf_home_show_widget_area', $default_key = 'home_show_widget_area', $default_fallback = false ) {
+		$default_value = prismleaf_get_default_option( $default_key, $default_fallback );
+		return prismleaf_get_theme_mod_bool( $setting_id, $default_value );
+	}
+}
 }
 
 if ( ! function_exists( 'prismleaf_get_theme_mod_alignment' ) ) {

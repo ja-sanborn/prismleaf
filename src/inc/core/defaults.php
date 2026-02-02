@@ -132,6 +132,12 @@ if ( ! function_exists( 'prismleaf_get_default_options' ) ) {
 			'header_title_color'                         => '',
 			'header_title_position'                      => 'left',
 
+			'home_title'                                 => 'Welcome',
+			'home_description'                           => '',
+			'home_show_page_title'                       => true,
+			'home_show_latest_posts'                     => true,
+			'home_show_widget_area'                      => false,
+
 			'mobile_menu_background_color_base'          => '',
 			'mobile_menu_background_color_palette'       => '',
 			'mobile_menu_background_color_source'        => 'default',

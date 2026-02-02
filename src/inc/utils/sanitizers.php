@@ -102,9 +102,9 @@ if ( ! function_exists( 'prismleaf_sanitize_css_value' ) ) {
 	 * @param mixed $value Value to sanitize.
 	 * @return string
 	 */
-	function prismleaf_sanitize_css_value( $value ) {
-		$value = (string) $value;
-		$value = trim( $value );
+function prismleaf_sanitize_css_value( $value ) {
+	$value = (string) $value;
+	$value = trim( $value );
 
 		if ( '' === $value ) {
 			return '';
@@ -116,8 +116,26 @@ if ( ! function_exists( 'prismleaf_sanitize_css_value' ) ) {
 
 		// Allow characters used in CSS functions, units, URLs, and color tokens.
 		$value = preg_replace( "/[^a-zA-Z0-9_\\-\\.\\,%\\(\\)#:'\"\\s\\/\\?=]/", '', $value );
-		return trim( $value );
+	return trim( $value );
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_safe_html' ) ) {
+	/**
+	 * Sanitize a value while allowing safe HTML.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_safe_html( $value ) {
+		if ( is_array( $value ) ) {
+			return '';
+		}
+
+		return wp_kses_post( (string) $value );
 	}
+}
 }
 
 if ( ! function_exists( 'prismleaf_sanitize_int' ) ) {

@@ -110,6 +110,12 @@ if ( ! function_exists( 'prismleaf_widgets_init' ) ) {
 				'description' => __( 'Fourth footer widget area.', 'prismleaf' ),
 			),
 			array(
+				/* translators: Homepage widget area name. */
+				'name'        => __( 'Homepage Widgets', 'prismleaf' ),
+				'id'          => 'homepage-widgets',
+				'description' => __( 'Widget area that appears on the homepage before the latest posts.', 'prismleaf' ),
+			),
+			array(
 				/* translators: Sidebar area name. */
 				'name'        => __( 'Primary Sidebar', 'prismleaf' ),
 				'id'          => 'sidebar-primary',
