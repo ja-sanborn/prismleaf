@@ -190,10 +190,10 @@ if ( ! function_exists( 'prismleaf_is_frame_background_control_active' ) ) {
 	 *
 	 * @return bool
 	 */
-function prismleaf_is_frame_background_control_active() {
-	return ! prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false )
+	function prismleaf_is_frame_background_control_active() {
+		return ! prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false )
 		&& prismleaf_get_theme_mod_bool( 'prismleaf_frame_show_background', true );
-}
+	}
 }
 
 if ( ! function_exists( 'prismleaf_is_primary_menu_button_corners_active' ) ) {

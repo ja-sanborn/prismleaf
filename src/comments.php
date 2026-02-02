@@ -16,11 +16,15 @@ if ( post_password_required() ) {
 		?>
 		<h2 class="comments-title">
 			<?php
+			$comment_count = number_format_i18n( get_comments_number() );
+
 			printf(
-				/* translators: %1$s: number of comments, %2$s: post title. */
-				_n( '%1$s comment on “%2$s”', '%1$s comments on “%2$s”', get_comments_number(), 'prismleaf' ),
-				number_format_i18n( get_comments_number() ),
-				'<span>' . get_the_title() . '</span>'
+				esc_html(
+					/* translators: %1$s: number of comments, %2$s: post title. */
+					_n( '%1$s comment on “%2$s”', '%1$s comments on “%2$s”', get_comments_number(), 'prismleaf' )
+				),
+				esc_html( $comment_count ),
+				wp_kses_post( sprintf( '<span>%s</span>', esc_html( get_the_title() ) ) )
 			);
 			?>
 		</h2>
@@ -29,9 +33,9 @@ if ( post_password_required() ) {
 			<?php
 			wp_list_comments(
 				array(
-					'style'      => 'ol',
-					'short_ping' => true,
-					'avatar_size'=> 48,
+					'style'       => 'ol',
+					'short_ping'  => true,
+					'avatar_size' => 48,
 				)
 			);
 			?>

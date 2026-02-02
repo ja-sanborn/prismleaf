@@ -21,7 +21,7 @@ $widget_areas = array(
 	'footer-4',
 );
 
-$has_footer_widgets = false;
+	$has_footer_widgets = false;
 foreach ( $widget_areas as $area ) {
 	if ( is_active_sidebar( $area ) ) {
 		$has_footer_widgets = true;
@@ -29,17 +29,24 @@ foreach ( $widget_areas as $area ) {
 	}
 }
 
-$copyright_default = sprintf(
-	/* translators: 1: Year, 2: Site name. */
-	__( 'Copyright &copy; %1$d %2$s. All rights reserved.', 'prismleaf' ),
-	(int) current_time( 'Y' ),
-	get_bloginfo( 'name' )
-);
+	$hide_footer_widgets_front = prismleaf_get_theme_mod_bool( 'prismleaf_footer_hide_widgets_on_front', false );
+	$hide_footer_widgets_other = prismleaf_get_theme_mod_bool( 'prismleaf_footer_hide_widgets_on_other', false );
+	$is_front_page             = is_front_page();
+	$show_footer_widgets       = $has_footer_widgets
+		&& ( ! ( $hide_footer_widgets_front && $is_front_page ) )
+		&& ( ! ( $hide_footer_widgets_other && ! $is_front_page ) );
 
-$copyright_text = prismleaf_get_theme_mod_string( 'prismleaf_footer_copyright_text', $copyright_default );
-?>
+	$copyright_default = sprintf(
+		/* translators: 1: Year, 2: Site name. */
+		__( 'Copyright &copy; %1$d %2$s. All rights reserved.', 'prismleaf' ),
+		(int) current_time( 'Y' ),
+		get_bloginfo( 'name' )
+	);
 
-<?php if ( $has_footer_widgets ) : ?>
+	$copyright_text = prismleaf_get_theme_mod_string( 'prismleaf_footer_copyright_text', $copyright_default );
+	?>
+
+<?php if ( $show_footer_widgets ) : ?>
 	<div class="prismleaf-footer-row prismleaf-footer-row-widgets">
 		<div class="prismleaf-footer-widgets">
 			<?php foreach ( $widget_areas as $index => $area ) : ?>

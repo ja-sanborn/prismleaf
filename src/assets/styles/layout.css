@@ -76,6 +76,7 @@ ol {
 blockquote {
 	margin-bottom: var(--prismleaf-space-3);
 	padding-left: var(--prismleaf-space-7);
+	padding-right: var(--prismleaf-space-7);
 	position: relative;
 }
 
@@ -96,6 +97,8 @@ blockquote cite {
 hr {
 	height: var(--prismleaf-border-width-thin);
 	border: 0;
+	margin-block: var(--prismleaf-space-1);
+	display: block;
 }
 
 /* Offset anchored targets for fixed UI. */
@@ -145,16 +148,6 @@ textarea:disabled {
 	cursor: not-allowed;
 }
 
-/* Focus-visible border styling. */
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-	outline: none;
-	box-shadow: none;
-	border-style: var(--prismleaf-border-style);
-	border-color: var(--prismleaf-color-primary-1);
-}
 
 /* Normalize WebKit search inputs. */
 input[type="search"] {
@@ -219,7 +212,6 @@ pre {
 	line-height: 1.5;
 	overflow: auto;
 	padding: var(--prismleaf-space-4);
-	border-radius: var(--prismleaf-radius-medium);
 	border-style: var(--prismleaf-border-style);
 	border-width: var(--prismleaf-border-width-thin);
 }

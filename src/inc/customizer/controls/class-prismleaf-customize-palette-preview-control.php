@@ -51,7 +51,7 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Prismleaf_Custom
 		 */
 		public function to_json() {
 			parent::to_json();
-			$this->json['paletteLabels'] = $this->palette_labels;
+			$this->json['paletteLabels']  = $this->palette_labels;
 			$this->json['paletteSetting'] = isset( $this->settings['palette'] ) ? $this->settings['palette']->id : '';
 		}
 
@@ -106,9 +106,9 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Prismleaf_Custom
 		 * @return void
 		 */
 		protected function render_color_input( $setting_key, $id, $class, $label = '', $label_class = '' ) {
-			$id = trim( (string) $id );
-			$class = trim( (string) $class );
-			$label = (string) $label;
+			$id          = trim( (string) $id );
+			$class       = trim( (string) $class );
+			$label       = (string) $label;
 			$label_class = trim( (string) $label_class );
 
 			if ( '' !== $label ) {
@@ -157,11 +157,11 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Prismleaf_Custom
 		 * @return void
 		 */
 		public function render_content() {
-			$label       = (string) $this->label;
-			$description = (string) $this->description;
+			$label           = (string) $this->label;
+			$description     = (string) $this->description;
 			$palette_setting = isset( $this->settings['palette'] ) ? $this->settings['palette'] : null;
-			$base_value = sanitize_hex_color( $this->value() );
-			$palette_json = '';
+			$base_value      = sanitize_hex_color( $this->value() );
+			$palette_json    = '';
 
 			if ( $palette_setting && $base_value ) {
 				$palette_json = prismleaf_build_palette_json_from_base( $base_value );

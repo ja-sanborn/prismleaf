@@ -15,9 +15,13 @@
 	--prismleaf-content-border-width: var(--prismleaf-border-width-thin);
 	--prismleaf-content-elevation: var(--prismleaf-shadow-elevation-2);
 	--prismleaf-content-foreground-color: var(--prismleaf-color-surface-on);
-	--prismleaf-content-padding: var(--prismleaf-space-2);
+	--prismleaf-content-padding: var(--prismleaf-space-3);
 	--prismleaf-content-margin: var(--prismleaf-space-2);
 	--prismleaf-content-title-color: var(--prismleaf-color-primary-surface-1);
+	--prismleaf-content-meta-text-color: var(--prismleaf-color-surface-on-muted);
+	--prismleaf-content-meta-link-color: var(--prismleaf-color-tertiary-surface-1);
+	--prismleaf-content-meta-link-hover-color: var(--prismleaf-color-tertiary-surface-5);
+	--prismleaf-entry-featured-radius: var(--prismleaf-radius-large);
 }
 
 /* Content region styling. */
@@ -35,10 +39,137 @@
 	overflow: hidden;
 }
 
-.prismleaf-content-title {
+.prismleaf-content-header {
 	margin-bottom: var(--prismleaf-space-4);
 }
 
-.prismleaf-content-title-text {
+.prismleaf-content-title {
 	color: var(--prismleaf-content-title-color);
+	font-size: var(--prismleaf-font-size-2xl);
+}
+
+.prismleaf-content-title-row {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: var(--prismleaf-space-2);
+	align-items: center;
+}
+
+.prismleaf-content-title-end {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.prismleaf-content-title-edit {
+	width: var(--prismleaf-space-5);
+	height: var(--prismleaf-space-5);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--prismleaf-color-tertiary-surface-1);
+	mask: url(../images/edit.svg) center/contain no-repeat;
+	-webkit-mask: url(../images/edit.svg) center/contain no-repeat;
+	border: none;
+	text-decoration: none;
+	transition: background-color 0.2s ease;
+}
+
+.prismleaf-content-title-edit:hover,
+.prismleaf-content-title-edit:focus-visible {
+	background-color: var(--prismleaf-color-tertiary-surface-5);
+}
+
+.prismleaf-entry-content {
+	text-align: justify;
+}
+
+.prismleaf-entry-featured-image {
+	margin-inline: auto;
+	border-radius: var(--prismleaf-entry-featured-radius);
+	overflow: hidden;
+	display: block;
+	max-width: min(100%, 60rem);
+}
+
+.prismleaf-entry-featured-image img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: inherit;
+}
+
+.prismleaf-entry-content ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.prismleaf-entry-content ul li {
+	position: relative;
+	padding-inline-start: calc(var(--prismleaf-space-4) + var(--prismleaf-space-1));
+}
+
+.prismleaf-entry-content ul li::before {
+	content: "";
+	position: absolute;
+	inset-inline-start: 0;
+	top: 50%;
+	width: var(--prismleaf-space-4);
+	height: var(--prismleaf-space-4);
+	transform: translateY(-50%);
+	background-color: currentcolor;
+	-webkit-mask: url(../images/leaf.svg) center / contain no-repeat;
+	mask: url(../images/leaf.svg) center / contain no-repeat;
+}
+
+.prismleaf-entry-author,
+.prismleaf-entry-categories,
+.prismleaf-entry-tags {
+	color: var(--prismleaf-content-meta-text-color);
+	display: flex;
+	align-items: center;
+	gap: var(--prismleaf-space-2);
+	margin-bottom: var(--prismleaf-space-1);
+	font-size: var(--prismleaf-font-size-sm);
+}
+
+.prismleaf-entry-author::before,
+.prismleaf-entry-categories::before,
+.prismleaf-entry-tags::before {
+	content: "";
+	inline-size: var(--prismleaf-space-3);
+	block-size: var(--prismleaf-space-3);
+	background-color: currentcolor;
+	-webkit-mask: url(../images/leaf.svg) center / contain no-repeat;
+	mask: url(../images/leaf.svg) center / contain no-repeat;
+}
+
+.prismleaf-entry-categories strong,
+.prismleaf-entry-tags strong {
+	font-weight: var(--prismleaf-font-weight-semibold);
+}
+
+.prismleaf-entry-author a,
+.prismleaf-entry-categories a,
+.prismleaf-entry-tags a {
+	color: var(--prismleaf-content-meta-link-color);
+}
+
+.prismleaf-entry-author a:hover,
+.prismleaf-entry-categories a:hover,
+.prismleaf-entry-tags a:hover {
+	color: var(--prismleaf-content-meta-link-hover-color);
+}
+
+.prismleaf-entry-content hr,
+.prismleaf-entry-content h1,
+.prismleaf-entry-content h2,
+.prismleaf-entry-content h3,
+.prismleaf-entry-content h4,
+.prismleaf-entry-content h5,
+.prismleaf-entry-content h6,
+.prismleaf-entry-content ol,
+.prismleaf-entry-content ul,
+.prismleaf-entry-content p {
+	margin-bottom: var(--prismleaf-space-3);
 }

@@ -17,43 +17,46 @@ if ( ! function_exists( 'prismleaf_output_customizer_styles' ) ) {
 	 *
 	 * @since 1.0.0
 	 *
+	 * @param string $handle Style handle to attach inline CSS.
 	 * @return void
 	 */
-function prismleaf_output_customizer_styles( $handle = 'prismleaf-style' ) {
-	$css = '';
-	$css .= prismleaf_get_palette_css_vars();
-	$css .= prismleaf_get_framed_css_vars();
-	$css .= prismleaf_get_header_css_vars();
-$css .= prismleaf_get_header_icon_css_vars();
-	$css .= prismleaf_get_site_title_css_vars();
-	$css .= prismleaf_get_footer_css_vars();
-	$css .= prismleaf_get_sidebar_css_vars();
-	$css .= prismleaf_get_content_css_vars();
-	$css .= prismleaf_get_widget_css_vars();
+	function prismleaf_output_customizer_styles( $handle = 'prismleaf-style' ) {
+		$css  = '';
+		$css .= prismleaf_get_palette_css_vars();
+		$css .= prismleaf_get_framed_css_vars();
+		$css .= prismleaf_get_header_css_vars();
+		$css .= prismleaf_get_header_icon_css_vars();
+		$css .= prismleaf_get_site_title_css_vars();
+		$css .= prismleaf_get_footer_css_vars();
+		$css .= prismleaf_get_sidebar_css_vars();
+		$css .= prismleaf_get_content_css_vars();
+		$css .= prismleaf_get_widget_css_vars();
+		$css .= prismleaf_get_archive_results_css_vars();
+		$css .= prismleaf_get_author_css_vars();
+		$css .= prismleaf_get_pagination_css_vars();
+		if ( '' === $css ) {
+			return;
+		}
 
-	if ( '' === $css ) {
-		return;
+		$menu_css   = prismleaf_get_menu_css_vars();
+		$inline_css = '';
+
+		if ( '' !== $menu_css ) {
+			$inline_css .= ':root{' . $menu_css . '}';
+		}
+
+		if ( '' === $css && '' === $inline_css ) {
+			return;
+		}
+
+		if ( '' !== $css ) {
+			$inline_css .= '@media(min-width: 768px){:root{' . $css . '}}';
+		}
+
+		if ( '' !== $inline_css ) {
+			wp_add_inline_style( $handle, $inline_css );
+		}
 	}
-
-	$menu_css = prismleaf_get_menu_css_vars();
-	$inline_css = '';
-
-	if ( '' !== $menu_css ) {
-		$inline_css .= ':root{' . $menu_css . '}';
-	}
-
-	if ( '' === $css && '' === $inline_css ) {
-		return;
-	}
-
-	if ( '' !== $css ) {
-		$inline_css .= '@media(min-width: 768px){:root{' . $css . '}}';
-	}
-
-	if ( '' !== $inline_css ) {
-		wp_add_inline_style( $handle, $inline_css );
-	}
-}
 }
 
 if ( ! function_exists( 'prismleaf_build_css_var' ) ) {
@@ -143,12 +146,12 @@ if ( ! function_exists( 'prismleaf_get_customizer_css_mappings' ) ) {
 	function prismleaf_get_customizer_css_mappings() {
 		return array(
 			array(
-				'getter'   => 'prismleaf_get_theme_mod_palette_json',
-				'setting'  => null,
-				'keys'     => prismleaf_get_palette_keys(),
-				'key_map'  => array(),
-				'build'    => 'prismleaf_build_palette_css_vars',
-				'type'     => 'palette',
+				'getter'  => 'prismleaf_get_theme_mod_palette_json',
+				'setting' => null,
+				'keys'    => prismleaf_get_palette_keys(),
+				'key_map' => array(),
+				'build'   => 'prismleaf_build_palette_css_vars',
+				'type'    => 'palette',
 			),
 		);
 	}
@@ -170,27 +173,27 @@ if ( ! function_exists( 'prismleaf_build_palette_css_key_map' ) ) {
 		}
 
 		return array(
-			"--prismleaf-color-{$slug}-surface-on"           => 'surface_on',
-			"--prismleaf-color-{$slug}-surface-on-muted"     => 'surface_on_muted',
-			"--prismleaf-color-{$slug}-surface-on-faded"     => 'surface_on_faded',
-			"--prismleaf-color-{$slug}-surface-1"            => 'surface_1',
-			"--prismleaf-color-{$slug}-surface-2"            => 'surface_2',
-			"--prismleaf-color-{$slug}-surface-3"            => 'surface_3',
-			"--prismleaf-color-{$slug}-surface-4"            => 'surface_4',
-			"--prismleaf-color-{$slug}-surface-5"            => 'surface_5',
-			"--prismleaf-color-{$slug}-outline"              => 'outline',
-			"--prismleaf-color-{$slug}-outline-variant"      => 'outline_variant',
-			"--prismleaf-color-{$slug}-muted"                => 'muted',
-			"--prismleaf-color-{$slug}-disabled-foreground"  => 'disabled_foreground',
-			"--prismleaf-color-{$slug}-disabled-surface"     => 'disabled_surface',
-			"--prismleaf-color-{$slug}-container-on"         => 'container_on',
-			"--prismleaf-color-{$slug}-container-on-muted"   => 'container_on_muted',
-			"--prismleaf-color-{$slug}-container-on-faded"   => 'container_on_faded',
-			"--prismleaf-color-{$slug}-container-1"          => 'container_1',
-			"--prismleaf-color-{$slug}-container-2"          => 'container_2',
-			"--prismleaf-color-{$slug}-container-3"          => 'container_3',
-			"--prismleaf-color-{$slug}-container-4"          => 'container_4',
-			"--prismleaf-color-{$slug}-container-5"          => 'container_5',
+			"--prismleaf-color-{$slug}-surface-on"         => 'surface_on',
+			"--prismleaf-color-{$slug}-surface-on-muted"   => 'surface_on_muted',
+			"--prismleaf-color-{$slug}-surface-on-faded"   => 'surface_on_faded',
+			"--prismleaf-color-{$slug}-surface-1"          => 'surface_1',
+			"--prismleaf-color-{$slug}-surface-2"          => 'surface_2',
+			"--prismleaf-color-{$slug}-surface-3"          => 'surface_3',
+			"--prismleaf-color-{$slug}-surface-4"          => 'surface_4',
+			"--prismleaf-color-{$slug}-surface-5"          => 'surface_5',
+			"--prismleaf-color-{$slug}-outline"            => 'outline',
+			"--prismleaf-color-{$slug}-outline-variant"    => 'outline_variant',
+			"--prismleaf-color-{$slug}-muted"              => 'muted',
+			"--prismleaf-color-{$slug}-disabled-foreground" => 'disabled_foreground',
+			"--prismleaf-color-{$slug}-disabled-surface"   => 'disabled_surface',
+			"--prismleaf-color-{$slug}-container-on"       => 'container_on',
+			"--prismleaf-color-{$slug}-container-on-muted" => 'container_on_muted',
+			"--prismleaf-color-{$slug}-container-on-faded" => 'container_on_faded',
+			"--prismleaf-color-{$slug}-container-1"        => 'container_1',
+			"--prismleaf-color-{$slug}-container-2"        => 'container_2',
+			"--prismleaf-color-{$slug}-container-3"        => 'container_3',
+			"--prismleaf-color-{$slug}-container-4"        => 'container_4',
+			"--prismleaf-color-{$slug}-container-5"        => 'container_5',
 		);
 	}
 }
@@ -245,7 +248,7 @@ if ( ! function_exists( 'prismleaf_get_palette_css_vars' ) ) {
 	 */
 	function prismleaf_get_palette_css_vars() {
 		$palette_map = array(
-			'primary' => array(
+			'primary'   => array(
 				'base_setting'   => 'prismleaf_palette_primary_base',
 				'values_setting' => 'prismleaf_palette_primary_values',
 			),
@@ -253,33 +256,33 @@ if ( ! function_exists( 'prismleaf_get_palette_css_vars' ) ) {
 				'base_setting'   => 'prismleaf_palette_secondary_base',
 				'values_setting' => 'prismleaf_palette_secondary_values',
 			),
-			'tertiary' => array(
+			'tertiary'  => array(
 				'base_setting'   => 'prismleaf_palette_tertiary_base',
 				'values_setting' => 'prismleaf_palette_tertiary_values',
 			),
-			'error' => array(
+			'error'     => array(
 				'base_setting'   => 'prismleaf_palette_error_base',
 				'values_setting' => 'prismleaf_palette_error_values',
 			),
-			'warning' => array(
+			'warning'   => array(
 				'base_setting'   => 'prismleaf_palette_warning_base',
 				'values_setting' => 'prismleaf_palette_warning_values',
 			),
-			'info' => array(
+			'info'      => array(
 				'base_setting'   => 'prismleaf_palette_info_base',
 				'values_setting' => 'prismleaf_palette_info_values',
 			),
-			'light' => array(
+			'light'     => array(
 				'base_setting'   => 'prismleaf_palette_neutral_light_base',
 				'values_setting' => 'prismleaf_palette_neutral_light_values',
 			),
-			'dark' => array(
+			'dark'      => array(
 				'base_setting'   => 'prismleaf_palette_neutral_dark_base',
 				'values_setting' => 'prismleaf_palette_neutral_dark_values',
 			),
 		);
 
-		$css = '';
+		$css      = '';
 		$mappings = prismleaf_get_customizer_css_mappings();
 
 		foreach ( $palette_map as $slug => $settings ) {
@@ -342,14 +345,14 @@ if ( ! function_exists( 'prismleaf_get_framed_css_vars' ) ) {
 		$region_overflow = $is_framed ? 'auto' : 'hidden';
 
 		if ( $is_framed || ! $show_background ) {
-			$surface = 'transparent';
+			$surface       = 'transparent';
 			$border_radius = '0';
-			$border_style = 'none';
-			$elevation = 'none';
-			$border_color = 'transparent';
+			$border_style  = 'none';
+			$elevation     = 'none';
+			$border_color  = 'transparent';
 		}
 
-		$css = '';
+		$css  = '';
 		$css .= prismleaf_build_css_var( '--prismleaf-content-max', $max_width );
 		$css .= prismleaf_build_css_var( '--prismleaf-view-height', $view_height );
 		$css .= prismleaf_build_css_var( '--prismleaf-region-overflow', $region_overflow );
@@ -395,10 +398,10 @@ if ( ! function_exists( 'prismleaf_get_header_css_vars' ) ) {
 		$background_position   = prismleaf_get_theme_mod_background_position( 'prismleaf_header_background_position_x', 'header_background_image_position_x', 'prismleaf_header_background_position_y', 'header_background_image_position_y' );
 
 		if ( $is_framed ) {
-			$surface       = '--prismleaf-color-surface-1';
-			$border_color  = 'none';
-			$border_style  = 'none';
-			$elevation     = 'none';
+			$surface      = '--prismleaf-color-surface-1';
+			$border_color = 'none';
+			$border_style = 'none';
+			$elevation    = 'none';
 		}
 
 		if ( $is_framed || ! $is_floating ) {
@@ -425,8 +428,8 @@ if ( ! function_exists( 'prismleaf_get_header_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-header-margin', $margin );
 		$css .= prismleaf_build_css_var( '--prismleaf-header-max-height', $max_height );
 
-	return $css;
-}
+		return $css;
+	}
 }
 
 if ( ! function_exists( 'prismleaf_get_header_icon_css_vars' ) ) {
@@ -478,8 +481,8 @@ if ( ! function_exists( 'prismleaf_get_header_icon_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-site-icon-size', $size_value );
 		$css .= prismleaf_build_css_var( '--prismleaf-site-icon-border-radius', $radius_value );
 
-	return $css;
-}
+		return $css;
+	}
 }
 
 if ( ! function_exists( 'prismleaf_get_site_title_css_vars' ) ) {
@@ -490,12 +493,12 @@ if ( ! function_exists( 'prismleaf_get_site_title_css_vars' ) ) {
 	 *
 	 * @return string
 	 */
-function prismleaf_get_site_title_css_vars() {
-	$title_color   = prismleaf_get_theme_mod_header_title_color();
-	$tagline_color = prismleaf_get_theme_mod_header_tagline_color();
-	$tagline_position = prismleaf_get_theme_mod_header_tagline_position();
+	function prismleaf_get_site_title_css_vars() {
+		$title_color      = prismleaf_get_theme_mod_header_title_color();
+		$tagline_color    = prismleaf_get_theme_mod_header_tagline_color();
+		$tagline_position = prismleaf_get_theme_mod_header_tagline_position();
 
-	$css  = '';
+		$css = '';
 
 		if ( '' !== $title_color ) {
 			$css .= prismleaf_build_css_var( '--prismleaf-header-title-color', $title_color );
@@ -505,13 +508,13 @@ function prismleaf_get_site_title_css_vars() {
 			$css .= prismleaf_build_css_var( '--prismleaf-header-tagline-color', $tagline_color );
 		}
 
-	$flex_direction = 'inline' === $tagline_position ? 'row' : 'column';
-	$css .= prismleaf_build_css_var( '--prismleaf-site-title-flex-direction', $flex_direction );
-	$css .= prismleaf_build_css_var( '--prismleaf-site-title-link-color', 'var(--prismleaf-color-primary-surface-1)' );
-	$css .= prismleaf_build_css_var( '--prismleaf-site-title-link-hover-color', 'var(--prismleaf-color-primary-surface-5)' );
+		$flex_direction = 'inline' === $tagline_position ? 'row' : 'column';
+		$css           .= prismleaf_build_css_var( '--prismleaf-site-title-flex-direction', $flex_direction );
+		$css           .= prismleaf_build_css_var( '--prismleaf-site-title-link-color', 'var(--prismleaf-color-primary-surface-1)' );
+		$css           .= prismleaf_build_css_var( '--prismleaf-site-title-link-hover-color', 'var(--prismleaf-color-primary-surface-5)' );
 
-	return $css;
-}
+		return $css;
+	}
 }
 
 if ( ! function_exists( 'prismleaf_get_menu_css_vars' ) ) {
@@ -586,19 +589,19 @@ if ( ! function_exists( 'prismleaf_get_menu_css_vars' ) ) {
 			'Pill'   => '--prismleaf-radius-pill',
 		);
 
-		$primary_strip     = prismleaf_get_theme_mod_bool( 'prismleaf_menu_primary_strip', true );
-		$primary_divider   = prismleaf_get_theme_mod_bool( 'prismleaf_menu_primary_divider', true );
-		$primary_corners   = prismleaf_get_theme_mod_menu_button_corners( 'prismleaf_menu_primary_button_corners', 'primary_menu_button_corners' );
-		$primary_radius    = isset( $corner_map[ $primary_corners ] ) ? $corner_map[ $primary_corners ] : '--prismleaf-radius-medium';
+		$primary_strip   = prismleaf_get_theme_mod_bool( 'prismleaf_menu_primary_strip', true );
+		$primary_divider = prismleaf_get_theme_mod_bool( 'prismleaf_menu_primary_divider', true );
+		$primary_corners = prismleaf_get_theme_mod_menu_button_corners( 'prismleaf_menu_primary_button_corners', 'primary_menu_button_corners' );
+		$primary_radius  = isset( $corner_map[ $primary_corners ] ) ? $corner_map[ $primary_corners ] : '--prismleaf-radius-medium';
 
 		$primary_button_bg      = $primary_background;
 		$primary_divider_active = $primary_strip && $primary_divider;
 		$primary_gap_zero       = $primary_strip;
 
-		$secondary_strip     = prismleaf_get_theme_mod_bool( 'prismleaf_menu_secondary_strip', true );
-		$secondary_divider   = prismleaf_get_theme_mod_bool( 'prismleaf_menu_secondary_divider', true );
-		$secondary_corners   = prismleaf_get_theme_mod_menu_button_corners( 'prismleaf_menu_secondary_button_corners', 'secondary_menu_button_corners' );
-		$secondary_radius    = isset( $corner_map[ $secondary_corners ] ) ? $corner_map[ $secondary_corners ] : '--prismleaf-radius-medium';
+		$secondary_strip   = prismleaf_get_theme_mod_bool( 'prismleaf_menu_secondary_strip', true );
+		$secondary_divider = prismleaf_get_theme_mod_bool( 'prismleaf_menu_secondary_divider', true );
+		$secondary_corners = prismleaf_get_theme_mod_menu_button_corners( 'prismleaf_menu_secondary_button_corners', 'secondary_menu_button_corners' );
+		$secondary_radius  = isset( $corner_map[ $secondary_corners ] ) ? $corner_map[ $secondary_corners ] : '--prismleaf-radius-medium';
 
 		$secondary_button_bg      = $secondary_background;
 		$secondary_divider_active = $secondary_strip && $secondary_divider;
@@ -687,10 +690,10 @@ if ( ! function_exists( 'prismleaf_get_footer_css_vars' ) ) {
 		}
 
 		if ( $is_framed ) {
-			$surface       = '--prismleaf-color-surface-1';
-			$border_color  = 'none';
-			$border_style  = 'none';
-			$elevation     = 'none';
+			$surface      = '--prismleaf-color-surface-1';
+			$border_color = 'none';
+			$border_style = 'none';
+			$elevation    = 'none';
 		}
 
 		if ( $is_framed || ! $is_floating ) {
@@ -706,7 +709,7 @@ if ( ! function_exists( 'prismleaf_get_footer_css_vars' ) ) {
 			'stretch' => 'space-between',
 		);
 
-		$justify = isset( $justify_map[ $alignment ] ) ? $justify_map[ $alignment ] : 'center';
+		$justify         = isset( $justify_map[ $alignment ] ) ? $justify_map[ $alignment ] : 'center';
 		$container_width = '100%';
 
 		$css  = '';
@@ -786,8 +789,8 @@ if ( ! function_exists( 'prismleaf_get_current_sidebar_css_vars' ) ) {
 	 * @return array<string,mixed>
 	 */
 	function prismleaf_get_current_sidebar_css_vars( $sidebar ) {
-		$is_framed        = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false);
-		$is_floating      = prismleaf_get_theme_mod_bool( "prismleaf_sidebar_{$sidebar}_floating", true);
+		$is_framed        = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		$is_floating      = prismleaf_get_theme_mod_bool( "prismleaf_sidebar_{$sidebar}_floating", true );
 		$margin           = '--prismleaf-space-2';
 		$default_width    = ( 'primary' === $sidebar ) ? '260' : '200';
 		$width            = prismleaf_get_theme_mod_sidebar_width_value( "prismleaf_sidebar_{$sidebar}_width", "sidebar_{$sidebar}_width", $default_width );
@@ -796,31 +799,31 @@ if ( ! function_exists( 'prismleaf_get_current_sidebar_css_vars' ) ) {
 		$border_radius    = prismleaf_get_theme_mod_border_radius_value( "prismleaf_sidebar_{$sidebar}_border_corners", "sidebar_{$sidebar}_border_corners", 'Round' );
 		$border_style     = prismleaf_get_theme_mod_border_style_value( "prismleaf_sidebar_{$sidebar}_border_style", "sidebar_{$sidebar}_border_style", 'solid' );
 		$border_style_alt = $border_style;
-		$elevation        = prismleaf_get_theme_mod_elevation_value( "prismleaf_sidebar_{$sidebar}_elevation", 'none', '--prismleaf-elevation-2');
+		$elevation        = prismleaf_get_theme_mod_elevation_value( "prismleaf_sidebar_{$sidebar}_elevation", 'none', '--prismleaf-elevation-2' );
 
-		if ($is_framed) {
-			$surface       = '--prismleaf-color-surface-1';
-			$border_color  = 'none';
-			$border_style  = 'none';
-			$elevation     = 'none';
+		if ( $is_framed ) {
+			$surface      = '--prismleaf-color-surface-1';
+			$border_color = 'none';
+			$border_style = 'none';
+			$elevation    = 'none';
 		}
 
-		if ($is_framed || ! $is_floating) {
+		if ( $is_framed || ! $is_floating ) {
 			$margin           = '0';
 			$border_radius    = 'Square';
 			$border_style_alt = 'none';
 		}
 
 		return array(
-			'margin'            => $margin,
-			'default_width'     => $default_width,
-			'surface'           => $surface,
-			'border_color'      => $border_color,
-			'border_radius'     => $border_radius,
-			'border_style'      => $border_style,
-			'border_style_alt'  => $border_style_alt,
-			'elevation'         => $elevation,
-			'width'             => $width,
+			'margin'           => $margin,
+			'default_width'    => $default_width,
+			'surface'          => $surface,
+			'border_color'     => $border_color,
+			'border_radius'    => $border_radius,
+			'border_style'     => $border_style,
+			'border_style_alt' => $border_style_alt,
+			'elevation'        => $elevation,
+			'width'            => $width,
 		);
 	}
 }
@@ -834,12 +837,23 @@ if ( ! function_exists( 'prismleaf_get_content_css_vars' ) ) {
 	 * @return string
 	 */
 	function prismleaf_get_content_css_vars() {
-		$is_framed     = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
-		$surface       = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_background_color_palette', 'surface_1', '--prismleaf-color-surface-2' );
-		$border_color  = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_border_color_palette', 'outline', '--prismleaf-color-outline' );
-		$border_radius = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_content_border_corners', 'content_border_corners', 'Round' );
-		$border_style  = prismleaf_get_theme_mod_border_style_value( 'prismleaf_content_border_style', 'content_border_style', 'solid' );
-		$elevation     = prismleaf_get_theme_mod_elevation_value( 'prismleaf_content_elevation', '', $is_framed ? 'elevation-1' : 'elevation-2' );
+		$is_framed      = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		$surface        = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_background_color_palette', 'surface_1', '--prismleaf-color-surface-2' );
+		$border_color   = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_border_color_palette', 'outline', '--prismleaf-color-outline' );
+		$border_radius  = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_content_border_corners', 'content_border_corners', 'Round' );
+		$border_style   = prismleaf_get_theme_mod_border_style_value( 'prismleaf_content_border_style', 'content_border_style', 'solid' );
+		$elevation      = prismleaf_get_theme_mod_elevation_value( 'prismleaf_content_elevation', '', $is_framed ? 'elevation-1' : 'elevation-2' );
+		$title_color    = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_title_color_palette', 'surface_1', '' );
+		$meta_color     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_metadata_text_color_palette', 'surface_1', '' );
+		$link_color     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_metadata_link_color_palette', 'surface_1', '' );
+		$link_hover     = prismleaf_get_theme_mod_palette_source_value( 'prismleaf_content_metadata_link_color_palette', 'surface_5', '' );
+		$featured_shape = prismleaf_sanitize_frame_border_corners(
+			prismleaf_get_theme_mod(
+				'prismleaf_content_featured_image_corners',
+				prismleaf_get_default_option( 'content_featured_image_corners', 'Round' )
+			)
+		);
+		$featured_radius = ( 'Square' === $featured_shape ) ? '0' : '--prismleaf-radius-large';
 
 		$css  = '';
 		$css .= prismleaf_build_css_var( '--prismleaf-content-background-color', $surface );
@@ -847,6 +861,19 @@ if ( ! function_exists( 'prismleaf_get_content_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-content-border-radius', $border_radius );
 		$css .= prismleaf_build_css_var( '--prismleaf-content-border-style', $border_style );
 		$css .= prismleaf_build_css_var( '--prismleaf-content-elevation', $elevation );
+		if ( '' !== $title_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-content-title-color', $title_color );
+		}
+		if ( '' !== $meta_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-content-meta-text-color', $meta_color );
+		}
+		if ( '' !== $link_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-content-meta-link-color', $link_color );
+		}
+		if ( '' !== $link_hover ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-content-meta-link-hover-color', $link_hover );
+		}
+		$css .= prismleaf_build_css_var( '--prismleaf-entry-featured-radius', $featured_radius );
 
 		return $css;
 	}
@@ -877,6 +904,263 @@ if ( ! function_exists( 'prismleaf_get_widget_css_vars' ) ) {
 		$css .= prismleaf_build_css_var( '--prismleaf-widget-elevation', $elevation );
 		$css .= prismleaf_build_css_var( '--prismleaf-widget-title-color', $title_color );
 		$css .= prismleaf_build_css_var( '--prismleaf-widget-title-alignment', $title_alignment );
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_archive_results_css_vars' ) ) {
+	/**
+	 * Generate CSS overrides for archive result cards.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_archive_results_css_vars() {
+
+		$background_palette     = trim( (string) prismleaf_get_theme_mod( 'prismleaf_result_background_color_palette', '' ) );
+		$foreground_palette     = trim( (string) prismleaf_get_theme_mod( 'prismleaf_result_foreground_color_palette', '' ) );
+		$foreground_selected    = '' !== $foreground_palette;
+		$title_palette          = trim( (string) prismleaf_get_theme_mod( 'prismleaf_result_title_color_palette', '' ) );
+		$metadata_palette       = trim( (string) prismleaf_get_theme_mod( 'prismleaf_result_metadata_color_palette', '' ) );
+		$metadata_link_palette  = trim( (string) prismleaf_get_theme_mod( 'prismleaf_result_metadata_link_color_palette', '' ) );
+		$title_selected         = '' !== $title_palette;
+		$metadata_selected      = '' !== $metadata_palette;
+		$metadata_link_selected = '' !== $metadata_link_palette;
+
+		$is_content_framed = prismleaf_get_theme_mod_bool( 'prismleaf_global_framed_layout', false );
+		$content_surface   = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_content_background_color_palette',
+			'surface_1',
+			'--prismleaf-color-surface-2'
+		);
+		$content_elevation = prismleaf_get_theme_mod_elevation_value(
+			'prismleaf_content_elevation',
+			'',
+			$is_content_framed ? 'elevation-1' : 'elevation-2'
+		);
+
+		$normalize_css_value = static function ( $value ) {
+
+			$value = trim( (string) $value );
+
+			if ( '' === $value ) {
+				return '';
+			}
+
+			if ( preg_match( '/^var\\(([^)]+)\\)$/', $value, $matches ) ) {
+				$value = trim( $matches[1] );
+			}
+
+			return $value;
+		};
+
+		$normalized_content_surface   = $normalize_css_value( $content_surface );
+		$normalized_content_elevation = $normalize_css_value( $content_elevation );
+
+		$surface_lookup = array(
+			'--prismleaf-color-surface-1' => array(
+				'palette'   => 'surface_2',
+				'fallback'  => '--prismleaf-color-surface-2',
+				'elevation' => 'elevation-2',
+			),
+			'--prismleaf-color-surface-2' => array(
+				'palette'   => 'surface_3',
+				'fallback'  => '--prismleaf-color-surface-3',
+				'elevation' => 'elevation-3',
+			),
+		);
+
+		$default_surface_info = array(
+			'palette'   => 'surface_2',
+			'fallback'  => '--prismleaf-color-surface-2',
+			'elevation' => 'elevation-2',
+		);
+
+		if ( isset( $surface_lookup[ $normalized_content_surface ] ) ) {
+			$default_surface_info = $surface_lookup[ $normalized_content_surface ];
+		} elseif ( $is_content_framed ) {
+			$default_surface_info = $surface_lookup['--prismleaf-color-surface-1'];
+		} elseif ( 'elevation-2' === $normalized_content_elevation ) {
+			$default_surface_info = $surface_lookup['--prismleaf-color-surface-2'];
+		} elseif ( 'elevation-1' === $normalized_content_elevation ) {
+			$default_surface_info = $surface_lookup['--prismleaf-color-surface-1'];
+		}
+
+		$background     = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_result_background_color_palette',
+			$default_surface_info['palette'],
+			$default_surface_info['fallback']
+		);
+		$foreground_key = $foreground_selected ? 'surface_1' : 'surface_on';
+		$foreground     = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_result_foreground_color_palette',
+			$foreground_key,
+			'--prismleaf-color-on-surface'
+		);
+
+		if ( ! $foreground_selected && '' !== $background_palette ) {
+			$foreground = prismleaf_get_theme_mod_palette_source_value(
+				'prismleaf_result_background_color_palette',
+				'surface_on',
+				'--prismleaf-color-on-surface'
+			);
+		}
+
+		$border_color    = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_result_border_color_palette',
+			'outline',
+			'--prismleaf-color-outline'
+		);
+		$title_color_key = $title_selected ? 'surface_1' : 'surface_on';
+		$title_hover_key = $title_selected ? 'surface_5' : 'surface_on';
+
+		$title_color               = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_result_title_color_palette',
+			$title_color_key,
+			'--prismleaf-color-secondary-surface-1'
+		);
+		$title_hover_color         = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_result_title_color_palette',
+			$title_hover_key,
+			'--prismleaf-color-secondary-surface-5'
+		);
+		$metadata_color_key        = $metadata_selected ? 'surface_1' : 'surface_on_muted';
+		$metadata_color            = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_result_metadata_color_palette',
+			$metadata_color_key,
+			'--prismleaf-color-surface-on-muted'
+		);
+		$metadata_link_color_key   = $metadata_link_selected ? 'surface_1' : 'surface_on';
+		$metadata_link_hover_key   = $metadata_link_selected ? 'surface_5' : 'surface_on';
+		$metadata_link_color       = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_result_metadata_link_color_palette',
+			$metadata_link_color_key,
+			'--prismleaf-color-secondary-surface-1'
+		);
+		$metadata_link_hover_color = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_result_metadata_link_color_palette',
+			$metadata_link_hover_key,
+			'--prismleaf-color-secondary-surface-5'
+		);
+
+		$border_radius = prismleaf_get_theme_mod_border_radius_value( 'prismleaf_result_border_corners', 'result_border_corners', 'Round' );
+		$border_style  = prismleaf_get_theme_mod_border_style_value( 'prismleaf_result_border_style', 'result_border_style', 'solid' );
+		$elevation     = prismleaf_get_theme_mod_elevation_value( 'prismleaf_result_elevation', 'result_elevation', $default_surface_info['elevation'] );
+		$css           = '';
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-background-color', $background );
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-foreground-color', $foreground );
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-border-color', $border_color );
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-border-radius', $border_radius );
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-border-style', $border_style );
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-elevation', $elevation );
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-title-color', $title_color );
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-title-hover-color', $title_hover_color );
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-meta-color', $metadata_color );
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-meta-link-color', $metadata_link_color );
+		$css          .= prismleaf_build_css_var( '--prismleaf-archive-card-meta-link-hover-color', $metadata_link_hover_color );
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_author_css_vars' ) ) {
+	/**
+	 * Generate CSS overrides for author bio styling.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_author_css_vars() {
+
+		$shape      = prismleaf_get_theme_mod_author_avatar_shape( 'prismleaf_author_avatar_shape', 'author_avatar_shape', 'Circle' );
+		$radius_map = array(
+			'Square' => '0',
+			'Round'  => 'var(--prismleaf-radius-medium)',
+			'Circle' => 'var(--prismleaf-radius-full)',
+		);
+		$radius     = isset( $radius_map[ $shape ] ) ? $radius_map[ $shape ] : 'var(--prismleaf-radius-full)';
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-author-image-radius', $radius );
+
+		$author_name_color = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_author_name_color_palette',
+			'surface_1',
+			''
+		);
+
+		if ( '' !== $author_name_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-author-name-color', $author_name_color );
+		}
+
+		$author_name_hover = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_author_name_color_palette',
+			'surface_5',
+			''
+		);
+
+		if ( '' !== $author_name_hover ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-author-name-hover-color', $author_name_hover );
+		}
+
+		$author_text_color = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_author_text_color_palette',
+			'surface_1',
+			''
+		);
+
+		if ( '' !== $author_text_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-author-bio-color', $author_text_color );
+		}
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_pagination_css_vars' ) ) {
+	/**
+	 * Build CSS variables for pagination overrides from the Customizer.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_pagination_css_vars() {
+		$archive_background = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_result_navigation_background_color_palette',
+			'surface_1',
+			'--prismleaf-color-secondary-surface-1'
+		);
+
+		$entry_background = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_entry_navigation_background_color_palette',
+			'surface_1',
+			'--prismleaf-color-secondary-surface-1'
+		);
+
+		$normalize = static function ( $value ) {
+			$value = trim( (string) $value );
+			if ( '' === $value ) {
+				return '';
+			}
+			if ( 0 === strpos( $value, 'var(' ) ) {
+				return $value;
+			}
+			if ( 0 === strpos( $value, '--' ) ) {
+				return 'var(' . $value . ')';
+			}
+			return $value;
+		};
+
+		$archive_background = $normalize( $archive_background );
+		$entry_background   = $normalize( $entry_background );
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-pagination-archive-background-color', $archive_background );
+		$css .= prismleaf_build_css_var( '--prismleaf-pagination-pagebreak-background-color', $entry_background );
+		$css .= prismleaf_build_css_var( '--prismleaf-pagination-post-background-color', $entry_background );
 
 		return $css;
 	}

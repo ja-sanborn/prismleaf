@@ -11,50 +11,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$title_id     = 'content-title-' . wp_unique_id();
+$search_title = __( 'Search Results', 'prismleaf' );
+$description  = sprintf(
+	/* translators: %s: search query. */
+	esc_html__( 'You searched for "%s".', 'prismleaf' ),
+	esc_html( get_search_query() )
+);
+
 get_header();
+get_template_part(
+	'template-parts/content-title',
+	null,
+	array(
+		'title_id'      => $title_id,
+		'title_tag'     => 'h1',
+		'content_title' => $search_title,
+		'description'   => $description,
+	)
+);
+?>
 
-if ( have_posts() ) :
-	?>
-	<section aria-labelledby="search-title">
-		<header>
-			<h1 id="search-title"><?php esc_html_e( 'Search Results', 'prismleaf' ); ?></h1>
-			<p><?php printf( esc_html__( 'You searched for "%s".', 'prismleaf' ), esc_html( get_search_query() ) ); ?></p>
-		</header>
+<section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
+	<?php get_template_part( 'template-parts/archive-results', null, array( 'layout' => 'list' ) ); ?>
+</section>
 
-		<div class="prismleaf-post-list">
-			<?php
-			while ( have_posts() ) :
-				the_post();
-				?>
-				<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
-					<header class="entry-header">
-						<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-					</header>
-					<div class="entry-summary">
-						<?php the_excerpt(); ?>
-					</div>
-				</article>
-			<?php endwhile; ?>
-		</div>
-		<?php
-		the_posts_pagination(
-			array(
-				'prev_text' => esc_html__( 'Previous', 'prismleaf' ),
-				'next_text' => esc_html__( 'Next', 'prismleaf' ),
-			)
-		);
-		?>
-	</section>
-	<?php
-else :
-	get_template_part(
-		'template-parts/not-found',
-		null,
-		array(
-			'context'      => 'search',
-			'search_query' => get_search_query(),
-		)
-	);
-endif;
-
+<?php
 get_footer();

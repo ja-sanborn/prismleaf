@@ -11,60 +11,62 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! have_posts() ) {
+	get_template_part( '404' );
+	return;
+}
+
 get_header();
+	while ( have_posts() ) :
+		the_post();
 
-if ( have_posts() ) :
-	?>
-	<section aria-labelledby="page-template-title">
-		<header>
-			<h1 id="page-template-title"><?php esc_html_e( 'Static Page Layout', 'prismleaf' ); ?></h1>
-			<p><?php esc_html_e( 'Page.php renders custom pages when no specialized template is provided.', 'prismleaf' ); ?></p>
-		</header>
+		$title_id    = 'content-title-' . wp_unique_id();
+		$entry_title = get_the_title();
+		$edit_link   = get_edit_post_link( get_the_ID(), 'raw', false );
+		$show_featured_image = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_featured_image', true );
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
-			?>
-			<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
-				<header class="entry-header">
-					<?php the_title( '<h2 class="entry-title">', '</h2>' ); ?>
-				</header>
-				<div class="entry-content">
-					<?php the_content(); ?>
-				</div>
-				<footer class="entry-footer">
-					<?php
-					wp_link_pages(
-						array(
-							'before' => '<nav class="page-links">' . esc_html__( 'Continue reading:', 'prismleaf' ),
-							'after'  => '</nav>',
-						)
-					);
-					edit_post_link(
-						sprintf(
-							/* translators: %s: post title. */
-							esc_html__( 'Edit %s', 'prismleaf' ),
-							the_title( '<span class="screen-reader-text">"', '"</span>', false )
-						),
-						'<span class="edit-link">',
-						'</span>'
-					);
-					?>
-				</footer>
-			</article>
-			<?php
-		endwhile;
-		?>
-	</section>
-	<?php
-else :
 	get_template_part(
-		'template-parts/not-found',
+		'template-parts/content-title',
 		null,
 		array(
-			'context' => 'entries',
+			'title_id'      => $title_id,
+			'title_tag'     => 'h1',
+			'content_title' => $entry_title,
+			'edit_link'     => $edit_link,
 		)
 	);
-endif;
+	?>
 
+	<section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
+		<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-entry' ); ?>>
+			<?php if ( $show_featured_image && has_post_thumbnail() ) : ?>
+				<figure class="prismleaf-entry-featured-image">
+					<?php
+					the_post_thumbnail(
+						'prismleaf-featured-image',
+						array(
+							'loading' => 'lazy',
+							'sizes'   => '(max-width: 800px) 100vw, 800px',
+						)
+					);
+					?>
+				</figure>
+			<?php endif; ?>
+
+			<div class="prismleaf-entry-content entry-content">
+				<?php
+				the_content();
+				get_template_part(
+					'template-parts/pagination',
+					null,
+					array(
+						'type' => 'pagebreak',
+					)
+				);
+				?>
+			</div>
+		</article>
+	</section>
+	<?php
+endwhile;
 get_footer();

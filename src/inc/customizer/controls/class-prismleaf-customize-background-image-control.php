@@ -71,8 +71,8 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Prismleaf_Custom
 			$repeat     = isset( $this->settings['repeat'] ) ? (string) $this->settings['repeat']->value() : 'repeat';
 			$attachment = isset( $this->settings['attachment'] ) ? (string) $this->settings['attachment']->value() : 'scroll';
 
-			$has_image    = $image_id > 0;
-			$preview_html = '';
+			$has_image     = $image_id > 0;
+			$preview_html  = '';
 			$preview_class = 'prismleaf-background-image-preview' . ( $has_image ? ' has-image' : ' is-empty' );
 			if ( $has_image ) {
 				$preview_url = wp_get_attachment_image_url( $image_id, 'medium' );
@@ -234,27 +234,54 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Prismleaf_Custom
 		 */
 		protected function get_position_buttons() {
 			$labels = array(
-				'top-left'     => '↖',
-				'top-center'   => '↑',
-				'top-right'    => '↗',
-				'middle-left'  => '←',
-				'middle-center'=> '•',
-				'middle-right' => '→',
-				'bottom-left'  => '↙',
-				'bottom-center'=> '↓',
-				'bottom-right' => '↘',
+				'top-left'      => '↖',
+				'top-center'    => '↑',
+				'top-right'     => '↗',
+				'middle-left'   => '←',
+				'middle-center' => '•',
+				'middle-right'  => '→',
+				'bottom-left'   => '↙',
+				'bottom-center' => '↓',
+				'bottom-right'  => '↘',
 			);
 
 			$mapping = array(
-				'top-left'      => array( 'x' => 'left',   'y' => 'top' ),
-				'top-center'    => array( 'x' => 'center', 'y' => 'top' ),
-				'top-right'     => array( 'x' => 'right',  'y' => 'top' ),
-				'middle-left'   => array( 'x' => 'left',   'y' => 'center' ),
-				'middle-center' => array( 'x' => 'center', 'y' => 'center' ),
-				'middle-right'  => array( 'x' => 'right',  'y' => 'center' ),
-				'bottom-left'   => array( 'x' => 'left',   'y' => 'bottom' ),
-				'bottom-center' => array( 'x' => 'center', 'y' => 'bottom' ),
-				'bottom-right'  => array( 'x' => 'right',  'y' => 'bottom' ),
+				'top-left'      => array(
+					'x' => 'left',
+					'y' => 'top',
+				),
+				'top-center'    => array(
+					'x' => 'center',
+					'y' => 'top',
+				),
+				'top-right'     => array(
+					'x' => 'right',
+					'y' => 'top',
+				),
+				'middle-left'   => array(
+					'x' => 'left',
+					'y' => 'center',
+				),
+				'middle-center' => array(
+					'x' => 'center',
+					'y' => 'center',
+				),
+				'middle-right'  => array(
+					'x' => 'right',
+					'y' => 'center',
+				),
+				'bottom-left'   => array(
+					'x' => 'left',
+					'y' => 'bottom',
+				),
+				'bottom-center' => array(
+					'x' => 'center',
+					'y' => 'bottom',
+				),
+				'bottom-right'  => array(
+					'x' => 'right',
+					'y' => 'bottom',
+				),
 			);
 
 			$buttons = array();

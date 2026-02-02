@@ -62,9 +62,9 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Prismleaf_Custom
 				echo '<span class="description customize-control-description">' . wp_kses_post( $this->description ) . '</span>';
 			}
 
-			$control_id = esc_attr( $this->id );
+			$control_id = $this->id;
 			?>
-			<div class="prismleaf-palette-role-control" data-control-id="<?php echo $control_id; ?>">
+			<div class="prismleaf-palette-role-control" data-control-id="<?php echo esc_attr( $control_id ); ?>">
 				<select class="prismleaf-palette-role-select" <?php $this->link( 'role' ); ?>>
 					<?php foreach ( (array) $this->choices as $value => $label ) : ?>
 						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( (string) $role_value, (string) $value ); ?>>

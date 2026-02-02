@@ -95,20 +95,20 @@ if ( ! function_exists( 'prismleaf_register_menu_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_menu_primary_button_corners',
-				'section'          => 'prismleaf_menu_options',
-				'label'            => __( 'Button corners', 'prismleaf' ),
-				'description'      => __( 'Adjust the button treatment when the strip is not displayed.', 'prismleaf' ),
-				'priority'         => 1040,
-				'default_key'      => 'primary_menu_button_corners',
-				'default_fallback' => 'Square',
-				'sanitize_callback'=> 'prismleaf_sanitize_menu_button_corners',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_menu_primary_button_corners',
+				'section'           => 'prismleaf_menu_options',
+				'label'             => __( 'Button corners', 'prismleaf' ),
+				'description'       => __( 'Adjust the button treatment when the strip is not displayed.', 'prismleaf' ),
+				'priority'          => 1040,
+				'default_key'       => 'primary_menu_button_corners',
+				'default_fallback'  => 'Square',
+				'sanitize_callback' => 'prismleaf_sanitize_menu_button_corners',
+				'choices'           => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 					'Pill'   => __( 'Pill', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_primary_menu_button_corners_active',
+				'active_callback'   => 'prismleaf_is_primary_menu_button_corners_active',
 			)
 		);
 
@@ -190,20 +190,20 @@ if ( ! function_exists( 'prismleaf_register_menu_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_menu_secondary_button_corners',
-				'section'          => 'prismleaf_menu_options',
-				'label'            => __( 'Button corners', 'prismleaf' ),
-				'description'      => __( 'Adjust the button treatment when the strip is not displayed.', 'prismleaf' ),
-				'priority'         => 1240,
-				'default_key'      => 'secondary_menu_button_corners',
-				'default_fallback' => 'Square',
-				'sanitize_callback'=> 'prismleaf_sanitize_menu_button_corners',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_menu_secondary_button_corners',
+				'section'           => 'prismleaf_menu_options',
+				'label'             => __( 'Button corners', 'prismleaf' ),
+				'description'       => __( 'Adjust the button treatment when the strip is not displayed.', 'prismleaf' ),
+				'priority'          => 1240,
+				'default_key'       => 'secondary_menu_button_corners',
+				'default_fallback'  => 'Square',
+				'sanitize_callback' => 'prismleaf_sanitize_menu_button_corners',
+				'choices'           => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 					'Pill'   => __( 'Pill', 'prismleaf' ),
 				),
-				'active_callback'  => 'prismleaf_is_secondary_menu_button_corners_active',
+				'active_callback'   => 'prismleaf_is_secondary_menu_button_corners_active',
 			)
 		);
 
@@ -224,11 +224,11 @@ if ( ! function_exists( 'prismleaf_register_menu_options_section' ) ) {
 		prismleaf_add_section_header_control(
 			$wp_customize,
 			array(
-				'setting_id'      => 'prismleaf_menu_mobile_heading',
-				'label'           => __( 'Mobile Menu', 'prismleaf' ),
-				'section'         => 'prismleaf_menu_options',
-				'priority'        => 3000,
-				'description'     => __( 'Controls the mobile flyout menu.', 'prismleaf' ),
+				'setting_id'  => 'prismleaf_menu_mobile_heading',
+				'label'       => __( 'Mobile Menu', 'prismleaf' ),
+				'section'     => 'prismleaf_menu_options',
+				'priority'    => 3000,
+				'description' => __( 'Controls the mobile flyout menu.', 'prismleaf' ),
 			)
 		);
 
@@ -286,15 +286,15 @@ if ( ! function_exists( 'prismleaf_register_menu_options_section' ) ) {
 		prismleaf_add_select_control(
 			$wp_customize,
 			array(
-				'setting_id'       => 'prismleaf_menu_mobile_button_corners',
-				'section'          => 'prismleaf_menu_options',
-				'label'            => __( 'Button corners', 'prismleaf' ),
-				'description'      => __( 'Adjust the button treatment when the panel is not displayed.', 'prismleaf' ),
-				'priority'         => 3040,
-				'default_key'      => 'mobile_menu_button_corners',
-				'default_fallback' => 'Square',
-				'sanitize_callback'=> 'prismleaf_sanitize_menu_button_corners',
-				'choices'          => array(
+				'setting_id'        => 'prismleaf_menu_mobile_button_corners',
+				'section'           => 'prismleaf_menu_options',
+				'label'             => __( 'Button corners', 'prismleaf' ),
+				'description'       => __( 'Adjust the button treatment when the panel is not displayed.', 'prismleaf' ),
+				'priority'          => 3040,
+				'default_key'       => 'mobile_menu_button_corners',
+				'default_fallback'  => 'Square',
+				'sanitize_callback' => 'prismleaf_sanitize_menu_button_corners',
+				'choices'           => array(
 					'Square' => __( 'Square', 'prismleaf' ),
 					'Round'  => __( 'Round', 'prismleaf' ),
 					'Pill'   => __( 'Pill', 'prismleaf' ),

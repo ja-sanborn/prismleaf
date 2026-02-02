@@ -23,6 +23,8 @@ if ( ! function_exists( 'prismleaf_setup' ) ) {
 		add_theme_support( 'automatic-feed-links' );
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'post-thumbnails' );
+		add_image_size( 'prismleaf-archive-card', 300, 0, false );
+		add_image_size( 'prismleaf-featured-image', 800, 0, false );
 
 		add_theme_support(
 			'html5',
@@ -106,6 +108,12 @@ if ( ! function_exists( 'prismleaf_widgets_init' ) ) {
 				'name'        => __( 'Footer 4', 'prismleaf' ),
 				'id'          => 'footer-4',
 				'description' => __( 'Fourth footer widget area.', 'prismleaf' ),
+			),
+			array(
+				/* translators: Homepage widget area name. */
+				'name'        => __( 'Homepage Widgets', 'prismleaf' ),
+				'id'          => 'homepage-widgets',
+				'description' => __( 'Widget area that appears on the homepage before the latest posts.', 'prismleaf' ),
 			),
 			array(
 				/* translators: Sidebar area name. */

@@ -43,13 +43,13 @@
 	--prismleaf-color-disabled-surface: var(--prismleaf-color-light-disabled-surface);
 	--prismleaf-color-scrim: var(--prismleaf-color-light-scrim);
 
-	/* Derived colors: code area. */
-	--prismleaf-color-code-background: var(--prismleaf-color-container-1);
-	--prismleaf-color-code-foreground: var(--prismleaf-color-container-on);
-
 	/* Derived colors: blockquote area. */
 	--prismleaf-color-blockquote-accent: var(--prismleaf-color-secondary-surface-1);
 	--prismleaf-color-blockquote-foreground: var(--prismleaf-color-on-surface-faded);
+
+	/* Derived colors: code area. */
+	--prismleaf-color-code-background: var(--prismleaf-color-surface-1);
+	--prismleaf-color-code-foreground: var(--prismleaf-color-surface-on);
 
 	/* Derived colors: hyperlink defaults. */
 	--prismleaf-color-link: var(--prismleaf-color-secondary-surface-1);
@@ -282,7 +282,7 @@ mark,
 
 /* Divider color. */
 hr {
-	background-color: var(--prismleaf-color-outline);
+	background-color: var(--prismleaf-color-surface-on-muted);
 }
 
 /* Link colors. */

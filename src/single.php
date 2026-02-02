@@ -11,80 +11,132 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! have_posts() ) {
+	get_template_part( '404' );
+	return;
+}
+
 get_header();
+while ( have_posts() ) :
+	the_post();
 
-if ( have_posts() ) :
+	$title_id      = 'content-title-' . wp_unique_id();
+	$entry_title   = get_the_title();
+	$author_id     = get_the_author_meta( 'ID' );
+	$author_name   = get_the_author_meta( 'display_name', $author_id );
+	$author_bio    = get_the_author_meta( 'description', $author_id );
+	$author_link   = get_author_posts_url( $author_id );
+	$author_image  = get_avatar( $author_id, 64 );
+	$category_list = get_the_category_list( ', ' );
+	$tag_list      = get_the_tag_list( '', ', ' );
+	$edit_link     = get_edit_post_link( get_the_ID(), 'raw', false );
+	$show_featured_image = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_featured_image', true );
+	$show_metadata       = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_metadata', true );
+	$show_author         = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_author', true );
+
+	get_template_part(
+		'template-parts/content-title',
+		null,
+		array(
+			'title_id'      => $title_id,
+			'title_tag'     => 'h1',
+			'content_title' => $entry_title,
+			'edit_link'     => $edit_link,
+		)
+	);
 	?>
-	<section aria-labelledby="single-title">
-		<header>
-			<h2 id="single-title"><?php esc_html_e( 'Single Post', 'prismleaf' ); ?></h2>
-			<p><?php esc_html_e( 'Single.php renders the full story, metadata, and navigation for an individual post.', 'prismleaf' ); ?></p>
-		</header>
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
-			?>
-			<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-post' ); ?>>
-				<header class="entry-header">
-					<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-					<p class="entry-meta">
+	<section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
+		<article id="post-<?php the_ID(); ?>" <?php post_class( 'prismleaf-entry' ); ?>>
+			<?php if ( $show_featured_image && has_post_thumbnail() ) : ?>
+				<figure class="prismleaf-entry-featured-image">
+					<?php
+					the_post_thumbnail(
+						'prismleaf-featured-image',
+						array(
+							'loading' => 'lazy',
+							'sizes'   => '(max-width: 800px) 100vw, 800px',
+						)
+					);
+					?>
+				</figure>
+			<?php endif; ?>
+
+			<div class="prismleaf-entry-content entry-content">
+				<?php
+				the_content();
+				get_template_part(
+					'template-parts/pagination',
+					null,
+					array(
+						'type' => 'pagebreak',
+					)
+				);
+				?>
+			</div>
+
+			<?php if ( $show_metadata ) : ?>
+				<div class="prismleaf-entry-meta">
+					<div class="prismleaf-entry-author">
 						<?php
-						printf(
-							/* translators: %s: post date. */
-							esc_html__( 'Published on %s', 'prismleaf' ),
-							esc_html( get_the_date() )
+						echo wp_kses_post(
+							sprintf(
+								/* translators: 1: date, 2: time. */
+								__( 'Posted on %1$s at %2$s', 'prismleaf' ),
+								esc_html( get_the_date() ),
+								esc_html( get_the_time() )
+							)
 						);
 						?>
-					</p>
-				</header>
-				<div class="entry-content">
-					<?php the_content(); ?>
-					<?php
-					wp_link_pages(
-						array(
-							'before' => '<nav class="page-links">' . esc_html__( 'Continue reading:', 'prismleaf' ),
-							'after'  => '</nav>',
-						)
-					);
-					?>
+					</div>
+
+					<?php if ( $category_list ) : ?>
+						<div class="prismleaf-entry-categories entry-categories">
+							<?php
+							esc_html_e( 'Categories: ', 'prismleaf' );
+							echo wp_kses_post( $category_list );
+							?>
+						</div>
+					<?php endif; ?>
+
+					<?php if ( $tag_list ) : ?>
+						<div class="prismleaf-entry-tags entry-tags">
+							<?php
+							esc_html_e( 'Tags: ', 'prismleaf' );
+							echo wp_kses_post( $tag_list );
+							?>
+						</div>
+					<?php endif; ?>
 				</div>
-				<footer class="entry-footer">
-					<?php
-					the_post_navigation(
-						array(
-							'prev_text' => esc_html__( 'Previous post', 'prismleaf' ),
-							'next_text' => esc_html__( 'Next post', 'prismleaf' ),
-						)
-					);
-					?>
-					<?php
-					edit_post_link(
-						sprintf(
-							/* translators: %s: post title. */
-							esc_html__( 'Edit %s', 'prismleaf' ),
-							the_title( '<span class="screen-reader-text">"', '"</span>', false )
-						),
-						'<span class="edit-link">',
-						'</span>'
-					);
-					?>
-				</footer>
-			</article>
-			<?php
-			comments_template();
-		endwhile;
+			<?php endif; ?>
+		</article>
+
+		<?php
+		if ( $show_author ) {
+			get_template_part(
+				'template-parts/author-bio',
+				null,
+				array(
+					'author_name'  => $author_name,
+					'author_bio'   => $author_bio,
+					'author_link'  => $author_link,
+					'author_image' => $author_image,
+					'author_id'    => $author_id,
+				)
+			);
+		}
+
+		get_template_part(
+			'template-parts/pagination',
+			null,
+			array(
+				'type' => 'post',
+			)
+		);
+
+		comments_template();
 		?>
 	</section>
 	<?php
-else :
-	get_template_part(
-		'template-parts/not-found',
-		null,
-		array(
-			'context' => 'entries',
-		)
-	);
-endif;
-
+endwhile;
 get_footer();
