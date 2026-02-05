@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Redaction processor.
+ *
+ * @since 1.0.0
  */
 class Prismleaf_Redact_Redactor {
 	/**
@@ -51,6 +53,7 @@ class Prismleaf_Redact_Redactor {
 	/**
 	 * Constructor.
 	 *
+	 * @since 1.0.0
 	 * @param Prismleaf_Redact_Dictionary $dictionary Dictionary manager.
 	 */
 	public function __construct( Prismleaf_Redact_Dictionary $dictionary ) {
@@ -60,6 +63,7 @@ class Prismleaf_Redact_Redactor {
 	/**
 	 * Redact plain text.
 	 *
+	 * @since 1.0.0
 	 * @param string $text     Text to redact.
 	 * @param array  $settings Redaction settings.
 	 * @return string
@@ -100,6 +104,7 @@ class Prismleaf_Redact_Redactor {
 	/**
 	 * Redact HTML while preserving tags and attributes.
 	 *
+	 * @since 1.0.0
 	 * @param string $html     HTML string.
 	 * @param array  $settings Redaction settings.
 	 * @return string
@@ -149,6 +154,7 @@ class Prismleaf_Redact_Redactor {
 	/**
 	 * Walk DOM nodes and redact text nodes.
 	 *
+	 * @since 1.0.0
 	 * @param DOMNode $node     Node to process.
 	 * @param string  $pattern  Regex pattern.
 	 * @param array   $terms    Dictionary terms.
@@ -195,6 +201,7 @@ class Prismleaf_Redact_Redactor {
 	/**
 	 * Build a redaction mask.
 	 *
+	 * @since 1.0.0
 	 * @param string $matched  Matched word.
 	 * @param array  $settings Redaction settings.
 	 * @return string
@@ -225,6 +232,7 @@ class Prismleaf_Redact_Redactor {
 	/**
 	 * Build or reuse the regex pattern.
 	 *
+	 * @since 1.0.0
 	 * @param array $terms Dictionary terms.
 	 * @return string|null
 	 */
@@ -254,6 +262,7 @@ class Prismleaf_Redact_Redactor {
 	/**
 	 * Lowercase with UTF-8 support.
 	 *
+	 * @since 1.0.0
 	 * @param string $value Input string.
 	 * @return string
 	 */
@@ -268,6 +277,7 @@ class Prismleaf_Redact_Redactor {
 	/**
 	 * Get string length with UTF-8 support.
 	 *
+	 * @since 1.0.0
 	 * @param string $value Input string.
 	 * @return int
 	 */
@@ -282,6 +292,7 @@ class Prismleaf_Redact_Redactor {
 	/**
 	 * Substring with UTF-8 support.
 	 *
+	 * @since 1.0.0
 	 * @param string $value  Input string.
 	 * @param int    $start  Start position.
 	 * @param int    $length Length.

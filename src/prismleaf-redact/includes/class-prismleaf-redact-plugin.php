@@ -15,6 +15,8 @@ require_once PRISMLEAF_REDACT_PATH . 'includes/class-prismleaf-redact-admin.php'
 
 /**
  * Main plugin controller.
+ *
+ * @since 1.0.0
  */
 class Prismleaf_Redact_Plugin {
 	/**
@@ -41,6 +43,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Get the plugin instance.
 	 *
+	 * @since 1.0.0
 	 * @return Prismleaf_Redact_Plugin
 	 */
 	public static function instance() {
@@ -54,6 +57,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Plugin activation.
 	 *
+	 * @since 1.0.0
 	 * @param bool $network_wide Network activation flag.
 	 * @return void
 	 */
@@ -79,6 +83,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Ensure default settings are stored.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	private static function ensure_default_settings() {
@@ -96,6 +101,8 @@ class Prismleaf_Redact_Plugin {
 
 	/**
 	 * Constructor.
+	 *
+	 * @since 1.0.0
 	 */
 	private function __construct() {
 		$this->dictionary = new Prismleaf_Redact_Dictionary();
@@ -125,6 +132,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Load text domain.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	public function load_textdomain() {
@@ -134,6 +142,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Get default settings.
 	 *
+	 * @since 1.0.0
 	 * @return array
 	 */
 	public static function get_default_settings() {
@@ -149,6 +158,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Get settings with defaults.
 	 *
+	 * @since 1.0.0
 	 * @return array
 	 */
 	public function get_settings() {
@@ -165,6 +175,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Sanitize settings input.
 	 *
+	 * @since 1.0.0
 	 * @param array $input Raw input.
 	 * @return array
 	 */
@@ -195,6 +206,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Check if redaction is enabled.
 	 *
+	 * @since 1.0.0
 	 * @return bool
 	 */
 	public function is_enabled() {
@@ -206,6 +218,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Filter post titles.
 	 *
+	 * @since 1.0.0
 	 * @param string $title   Title.
 	 * @param int    $post_id Post ID.
 	 * @return string
@@ -225,6 +238,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Filter post content.
 	 *
+	 * @since 1.0.0
 	 * @param string $content Content.
 	 * @return string
 	 */
@@ -241,6 +255,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Filter post excerpts.
 	 *
+	 * @since 1.0.0
 	 * @param string $excerpt Excerpt.
 	 * @return string
 	 */
@@ -257,6 +272,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Filter post permalinks.
 	 *
+	 * @since 1.0.0
 	 * @param string  $permalink Permalink.
 	 * @param WP_Post $post      Post object.
 	 * @param bool    $leavename Leave name.
@@ -272,6 +288,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Filter page permalinks.
 	 *
+	 * @since 1.0.0
 	 * @param string $permalink Permalink.
 	 * @param int    $post_id   Post ID.
 	 * @param bool   $sample    Sample flag.
@@ -286,6 +303,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Filter post type permalinks.
 	 *
+	 * @since 1.0.0
 	 * @param string  $permalink Permalink.
 	 * @param WP_Post $post      Post object.
 	 * @param bool    $leavename Leave name.
@@ -301,6 +319,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Filter attachment links.
 	 *
+	 * @since 1.0.0
 	 * @param string $permalink Permalink.
 	 * @param int    $post_id   Post ID.
 	 * @return string
@@ -312,6 +331,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Filter canonical URL.
 	 *
+	 * @since 1.0.0
 	 * @param string  $canonical_url Canonical URL.
 	 * @param WP_Post $post          Post object.
 	 * @return string
@@ -336,6 +356,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Redirect requests for original permalinks to rewritten versions.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	public function maybe_redirect_original_permalink() {
@@ -349,7 +370,7 @@ class Prismleaf_Redact_Plugin {
 
 		global $post, $wp;
 
-		$request_uri   = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+		$request_uri   = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		$requested_url = '' !== $request_uri ? home_url( $request_uri ) : home_url( $wp->request );
 		$requested_url = esc_url_raw( $requested_url );
 
@@ -391,6 +412,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Resolve redacted permalinks that would otherwise 404.
 	 *
+	 * @since 1.0.0
 	 * @param bool     $preempt  Whether to short-circuit default handling.
 	 * @param WP_Query $wp_query Query instance.
 	 * @return bool
@@ -424,15 +446,15 @@ class Prismleaf_Redact_Plugin {
 			return $preempt;
 		}
 
-		$wp_query->is_404           = false;
-		$wp_query->is_singular      = true;
-		$wp_query->queried_object   = $post;
+		$wp_query->is_404            = false;
+		$wp_query->is_singular       = true;
+		$wp_query->queried_object    = $post;
 		$wp_query->queried_object_id = $post_id;
-		$wp_query->posts            = array( $post );
-		$wp_query->post             = $post;
-		$wp_query->found_posts      = 1;
-		$wp_query->post_count       = 1;
-		$wp_query->max_num_pages    = 1;
+		$wp_query->posts             = array( $post );
+		$wp_query->post              = $post;
+		$wp_query->found_posts       = 1;
+		$wp_query->post_count        = 1;
+		$wp_query->max_num_pages     = 1;
 		$wp_query->set( 'p', $post_id );
 		$wp_query->set( 'post_type', $post->post_type );
 
@@ -444,6 +466,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Resolve a post ID from the redacted request path.
 	 *
+	 * @since 1.0.0
 	 * @return int
 	 */
 	private function resolve_post_id_from_request() {
@@ -491,12 +514,13 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Get the normalized request path for comparison.
 	 *
+	 * @since 1.0.0
 	 * @return string
 	 */
 	private function get_request_path() {
 		global $wp;
 
-		$request_uri   = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+		$request_uri   = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		$requested_url = '' !== $request_uri ? home_url( $request_uri ) : home_url( $wp->request );
 		$path          = wp_parse_url( $requested_url, PHP_URL_PATH );
 
@@ -510,6 +534,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Parse redacted requests before WordPress resolves 404s.
 	 *
+	 * @since 1.0.0
 	 * @param WP $wp WordPress environment.
 	 * @return void
 	 */
@@ -548,6 +573,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Shared permalink filter logic.
 	 *
+	 * @since 1.0.0
 	 * @param string       $permalink Permalink.
 	 * @param WP_Post|null $post      Post object.
 	 * @return string
@@ -563,6 +589,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Rewrite permalink tokens based on dictionary.
 	 *
+	 * @since 1.0.0
 	 * @param string $permalink Permalink.
 	 * @param int    $post_id   Post ID.
 	 * @return string
@@ -612,6 +639,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Rewrite a slug segment using dictionary terms.
 	 *
+	 * @since 1.0.0
 	 * @param string $segment Segment.
 	 * @param array  $terms   Dictionary terms.
 	 * @param int    $post_id Post ID.
@@ -653,6 +681,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Resolve a slug token to a dictionary term key.
 	 *
+	 * @since 1.0.0
 	 * @param string $part  Slug token.
 	 * @param array  $terms Dictionary terms.
 	 * @return string|null
@@ -677,6 +706,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Determine whether to bypass redaction logic.
 	 *
+	 * @since 1.0.0
 	 * @return bool
 	 */
 	private function should_bypass() {
@@ -698,6 +728,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Get the unfiltered permalink for a post.
 	 *
+	 * @since 1.0.0
 	 * @param int $post_id Post ID.
 	 * @return string
 	 */
@@ -725,6 +756,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Get string length with UTF-8 support.
 	 *
+	 * @since 1.0.0
 	 * @param string $value Input string.
 	 * @return int
 	 */
@@ -739,6 +771,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Substring with UTF-8 support.
 	 *
+	 * @since 1.0.0
 	 * @param string $value  Input string.
 	 * @param int    $start  Start position.
 	 * @param int    $length Length.
@@ -755,6 +788,7 @@ class Prismleaf_Redact_Plugin {
 	/**
 	 * Lowercase with UTF-8 support.
 	 *
+	 * @since 1.0.0
 	 * @param string $value Input string.
 	 * @return string
 	 */

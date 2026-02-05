@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Dictionary storage handler.
+ *
+ * @since 1.0.0
  */
 class Prismleaf_Redact_Dictionary {
 	/**
@@ -23,6 +25,7 @@ class Prismleaf_Redact_Dictionary {
 	/**
 	 * Get the dictionary table name.
 	 *
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function get_table_name() {
@@ -34,6 +37,7 @@ class Prismleaf_Redact_Dictionary {
 	/**
 	 * Create the dictionary table.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	public function create_table() {
@@ -58,6 +62,7 @@ class Prismleaf_Redact_Dictionary {
 	/**
 	 * Normalize a raw term string into tokens.
 	 *
+	 * @since 1.0.0
 	 * @param string $raw_term Raw input.
 	 * @return string[]
 	 */
@@ -82,6 +87,7 @@ class Prismleaf_Redact_Dictionary {
 	/**
 	 * Get enabled terms keyed by lowercase term.
 	 *
+	 * @since 1.0.0
 	 * @return array
 	 */
 	public function get_enabled_terms() {
@@ -114,6 +120,7 @@ class Prismleaf_Redact_Dictionary {
 	/**
 	 * Get all dictionary entries.
 	 *
+	 * @since 1.0.0
 	 * @return array
 	 */
 	public function get_all_entries() {
@@ -127,6 +134,7 @@ class Prismleaf_Redact_Dictionary {
 	/**
 	 * Insert or update terms with a shared replacement and enabled state.
 	 *
+	 * @since 1.0.0
 	 * @param string[] $terms   Normalized terms.
 	 * @param string   $replace Replacement string.
 	 * @param int      $enabled Enabled flag.
@@ -169,6 +177,7 @@ class Prismleaf_Redact_Dictionary {
 	/**
 	 * Update existing dictionary entries by ID.
 	 *
+	 * @since 1.0.0
 	 * @param array $updates Updates keyed by ID.
 	 * @return int Number of rows updated.
 	 */
@@ -208,6 +217,7 @@ class Prismleaf_Redact_Dictionary {
 	/**
 	 * Delete a dictionary entry by ID.
 	 *
+	 * @since 1.0.0
 	 * @param int $id Entry ID.
 	 * @return int Rows deleted.
 	 */
@@ -231,6 +241,7 @@ class Prismleaf_Redact_Dictionary {
 	/**
 	 * Clear in-memory caches.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	public function clear_cache() {
@@ -241,6 +252,7 @@ class Prismleaf_Redact_Dictionary {
 	/**
 	 * Convert to lowercase with UTF-8 support when available.
 	 *
+	 * @since 1.0.0
 	 * @param string $value Input string.
 	 * @return string
 	 */

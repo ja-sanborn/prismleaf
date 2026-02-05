@@ -1,10 +1,15 @@
 <?php
 /**
  * Plugin Name: Prismleaf Redaction
+ * Plugin URI: https://github.com/ja-sanborn/prismleaf
  * Description: Redacts or replaces sensitive terms at display time without modifying stored content.
  * Version: 1.0.0
+ * Requires at least: 6.0
+ * Requires PHP: 7.4
  * Author: JA Sanborn
+ * Author URI: https://github.com/ja-sanborn/
  * License: GNU General Public License v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: prismleaf-redact
  *
  * @package prismleaf-redact

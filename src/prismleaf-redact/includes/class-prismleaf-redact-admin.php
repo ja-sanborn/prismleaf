@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Admin screen controller.
+ *
+ * @since 1.0.0
  */
 class Prismleaf_Redact_Admin {
 	/**
@@ -30,6 +32,7 @@ class Prismleaf_Redact_Admin {
 	/**
 	 * Constructor.
 	 *
+	 * @since 1.0.0
 	 * @param Prismleaf_Redact_Plugin     $plugin     Plugin instance.
 	 * @param Prismleaf_Redact_Dictionary $dictionary Dictionary manager.
 	 */
@@ -45,6 +48,7 @@ class Prismleaf_Redact_Admin {
 	/**
 	 * Register the settings page.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	public function register_menu() {
@@ -62,6 +66,7 @@ class Prismleaf_Redact_Admin {
 	/**
 	 * Register settings.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	public function register_settings() {
@@ -75,6 +80,7 @@ class Prismleaf_Redact_Admin {
 	/**
 	 * Handle admin form submissions.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	public function handle_actions() {
@@ -102,6 +108,7 @@ class Prismleaf_Redact_Admin {
 	/**
 	 * Render the admin page.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	public function render_page() {
@@ -248,6 +255,7 @@ class Prismleaf_Redact_Admin {
 	/**
 	 * Handle adding terms.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	private function handle_add_term() {
@@ -282,6 +290,7 @@ class Prismleaf_Redact_Admin {
 	/**
 	 * Handle updates.
 	 *
+	 * @since 1.0.0
 	 * @return void
 	 */
 	private function handle_update_terms() {
