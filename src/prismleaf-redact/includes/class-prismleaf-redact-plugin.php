@@ -117,6 +117,9 @@ class Prismleaf_Redact_Plugin {
 		add_filter( 'attachment_link', array( $this, 'filter_attachment_link' ), 10, 2 );
 
 		add_filter( 'wp_get_canonical_url', array( $this, 'filter_canonical_url' ), 20, 2 );
+		add_action( 'template_redirect', array( $this, 'maybe_redirect_original_permalink' ), 1 );
+		add_filter( 'pre_handle_404', array( $this, 'maybe_resolve_redacted_permalink' ), 10, 2 );
+		add_action( 'parse_request', array( $this, 'maybe_parse_redacted_request' ), 5 );
 	}
 
 	/**
@@ -260,7 +263,7 @@ class Prismleaf_Redact_Plugin {
 	 * @param bool    $sample    Sample flag.
 	 * @return string
 	 */
-	public function filter_post_link( $permalink, $post, $leavename, $sample ) {
+	public function filter_post_link( $permalink, $post, $leavename = false, $sample = false ) {
 		unset( $leavename, $sample );
 
 		return $this->filter_permalink_common( $permalink, $post );
@@ -328,6 +331,218 @@ class Prismleaf_Redact_Plugin {
 		}
 
 		return $this->rewrite_permalink( $raw_permalink, $post->ID );
+	}
+
+	/**
+	 * Redirect requests for original permalinks to rewritten versions.
+	 *
+	 * @return void
+	 */
+	public function maybe_redirect_original_permalink() {
+		if ( $this->should_bypass() || ! $this->is_enabled() ) {
+			return;
+		}
+
+		if ( is_preview() || is_feed() ) {
+			return;
+		}
+
+		global $post, $wp;
+
+		$request_uri   = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+		$requested_url = '' !== $request_uri ? home_url( $request_uri ) : home_url( $wp->request );
+		$requested_url = esc_url_raw( $requested_url );
+
+		$post_id = 0;
+		if ( is_singular() && $post instanceof WP_Post ) {
+			$post_id = (int) $post->ID;
+		} else {
+			$post_id = (int) url_to_postid( $requested_url );
+		}
+
+		if ( $post_id <= 0 ) {
+			return;
+		}
+
+		$original_permalink = $this->get_unfiltered_permalink( $post_id );
+		if ( ! $original_permalink ) {
+			return;
+		}
+
+		$rewritten_permalink = $this->rewrite_permalink( $original_permalink, $post_id );
+		if ( $rewritten_permalink === $original_permalink ) {
+			return;
+		}
+
+		$requested_path = wp_parse_url( $requested_url, PHP_URL_PATH );
+		$original_path  = wp_parse_url( $original_permalink, PHP_URL_PATH );
+		$rewritten_path = wp_parse_url( $rewritten_permalink, PHP_URL_PATH );
+
+		$requested_path = $requested_path ? untrailingslashit( rawurldecode( $requested_path ) ) : '';
+		$original_path  = $original_path ? untrailingslashit( rawurldecode( $original_path ) ) : '';
+		$rewritten_path = $rewritten_path ? untrailingslashit( rawurldecode( $rewritten_path ) ) : '';
+
+		if ( $requested_path === $original_path && $requested_path !== $rewritten_path ) {
+			wp_safe_redirect( $rewritten_permalink, 301 );
+			exit;
+		}
+	}
+
+	/**
+	 * Resolve redacted permalinks that would otherwise 404.
+	 *
+	 * @param bool     $preempt  Whether to short-circuit default handling.
+	 * @param WP_Query $wp_query Query instance.
+	 * @return bool
+	 */
+	public function maybe_resolve_redacted_permalink( $preempt, $wp_query ) {
+		if ( $this->should_bypass() || ! $this->is_enabled() ) {
+			return $preempt;
+		}
+
+		if ( ! $wp_query->is_404() ) {
+			return $preempt;
+		}
+
+		$post_id = $this->resolve_post_id_from_request();
+		if ( $post_id <= 0 ) {
+			return $preempt;
+		}
+
+		$post = get_post( $post_id );
+		if ( ! $post instanceof WP_Post ) {
+			return $preempt;
+		}
+
+		$original_permalink  = $this->get_unfiltered_permalink( $post_id );
+		$rewritten_permalink = $this->rewrite_permalink( $original_permalink, $post_id );
+
+		$request_path = $this->get_request_path();
+		$rewrite_path = wp_parse_url( $rewritten_permalink, PHP_URL_PATH );
+
+		if ( $request_path !== $rewrite_path ) {
+			return $preempt;
+		}
+
+		$wp_query->is_404           = false;
+		$wp_query->is_singular      = true;
+		$wp_query->queried_object   = $post;
+		$wp_query->queried_object_id = $post_id;
+		$wp_query->posts            = array( $post );
+		$wp_query->post             = $post;
+		$wp_query->found_posts      = 1;
+		$wp_query->post_count       = 1;
+		$wp_query->max_num_pages    = 1;
+		$wp_query->set( 'p', $post_id );
+		$wp_query->set( 'post_type', $post->post_type );
+
+		status_header( 200 );
+
+		return true;
+	}
+
+	/**
+	 * Resolve a post ID from the redacted request path.
+	 *
+	 * @return int
+	 */
+	private function resolve_post_id_from_request() {
+		$request_path = $this->get_request_path();
+		if ( '' === $request_path ) {
+			return 0;
+		}
+
+		$segments = explode( '/', trim( $request_path, '/' ) );
+		if ( empty( $segments ) ) {
+			return 0;
+		}
+
+		$slug = end( $segments );
+		if ( '' === $slug ) {
+			return 0;
+		}
+
+		$tokens = preg_split( '/[^\p{L}\p{N}]+/u', $slug, -1, PREG_SPLIT_NO_EMPTY );
+		if ( empty( $tokens ) ) {
+			return 0;
+		}
+
+		foreach ( $tokens as $token ) {
+			if ( ! ctype_digit( $token ) ) {
+				continue;
+			}
+
+			$post_id = (int) $token;
+			if ( $post_id <= 0 ) {
+				continue;
+			}
+
+			$post = get_post( $post_id );
+			if ( ! $post instanceof WP_Post ) {
+				continue;
+			}
+
+			return $post_id;
+		}
+
+		return 0;
+	}
+
+	/**
+	 * Get the normalized request path for comparison.
+	 *
+	 * @return string
+	 */
+	private function get_request_path() {
+		global $wp;
+
+		$request_uri   = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+		$requested_url = '' !== $request_uri ? home_url( $request_uri ) : home_url( $wp->request );
+		$path          = wp_parse_url( $requested_url, PHP_URL_PATH );
+
+		if ( ! $path ) {
+			return '';
+		}
+
+		return untrailingslashit( rawurldecode( $path ) );
+	}
+
+	/**
+	 * Parse redacted requests before WordPress resolves 404s.
+	 *
+	 * @param WP $wp WordPress environment.
+	 * @return void
+	 */
+	public function maybe_parse_redacted_request( $wp ) {
+		if ( $this->should_bypass() || ! $this->is_enabled() ) {
+			return;
+		}
+
+		$post_id = $this->resolve_post_id_from_request();
+		if ( $post_id <= 0 ) {
+			return;
+		}
+
+		$post = get_post( $post_id );
+		if ( ! $post instanceof WP_Post ) {
+			return;
+		}
+
+		$original_permalink  = $this->get_unfiltered_permalink( $post_id );
+		$rewritten_permalink = $this->rewrite_permalink( $original_permalink, $post_id );
+
+		$request_path = $this->get_request_path();
+		$rewrite_path = wp_parse_url( $rewritten_permalink, PHP_URL_PATH );
+		$rewrite_path = $rewrite_path ? untrailingslashit( rawurldecode( $rewrite_path ) ) : '';
+
+		if ( $request_path !== $rewrite_path ) {
+			return;
+		}
+
+		$wp->query_vars['p']         = $post_id;
+		$wp->query_vars['post_type'] = $post->post_type;
+		unset( $wp->query_vars['name'], $wp->query_vars['pagename'], $wp->query_vars['attachment'] );
+		unset( $wp->query_vars['error'] );
 	}
 
 	/**
@@ -417,8 +632,8 @@ class Prismleaf_Redact_Plugin {
 				continue;
 			}
 
-			$term_key = $this->to_lowercase( $part );
-			if ( ! isset( $terms[ $term_key ] ) ) {
+			$term_key = $this->resolve_term_key( $part, $terms );
+			if ( null === $term_key || ! isset( $terms[ $term_key ] ) ) {
 				continue;
 			}
 
@@ -433,6 +648,30 @@ class Prismleaf_Redact_Plugin {
 		}
 
 		return implode( '', $parts );
+	}
+
+	/**
+	 * Resolve a slug token to a dictionary term key.
+	 *
+	 * @param string $part  Slug token.
+	 * @param array  $terms Dictionary terms.
+	 * @return string|null
+	 */
+	private function resolve_term_key( $part, array $terms ) {
+		$term_key = $this->to_lowercase( $part );
+		if ( isset( $terms[ $term_key ] ) ) {
+			return $term_key;
+		}
+
+		// Handle possessive slugs where apostrophes are stripped (e.g., jason's -> jasons).
+		if ( 's' === substr( $term_key, -1 ) && strlen( $term_key ) > 1 ) {
+			$base = substr( $term_key, 0, -1 );
+			if ( isset( $terms[ $base ] ) ) {
+				return $base;
+			}
+		}
+
+		return null;
 	}
 
 	/**
