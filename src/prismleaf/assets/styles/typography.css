@@ -96,7 +96,7 @@ blockquote::before {
 }
 
 blockquote cite {
-	font-family: var(--prismleaf-font-sans-serif);
+	font-family: var(--prismleaf-font-sans);
 	font-size: var(--prismleaf-font-size-sm);
 	font-style: normal;
 	font-weight: var(--prismleaf-font-weight-semibold);

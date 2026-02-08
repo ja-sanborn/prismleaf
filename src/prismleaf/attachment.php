@@ -65,19 +65,31 @@ while ( have_posts() ) :
 
 			<?php
 			if ( $parent ) :
-				printf(
-					/* translators: %s: parent post title. */
-					esc_html__( 'Return to %s', 'prismleaf' ),
-					'<div class="prismleaf-entry-parent-link"><a href="' . esc_url( get_permalink( $parent ) ) . '">' . esc_html( get_the_title( $parent ) ) . '</a></div>'
-				);
+				?>
+				<div class="prismleaf-entry-parent-link">
+					<?php
+					printf(
+						/* translators: %s: parent post title. */
+						esc_html__( 'Return to %s', 'prismleaf' ),
+						'<a href="' . esc_url( get_permalink( $parent ) ) . '">' . esc_html( get_the_title( $parent ) ) . '</a>'
+					);
+					?>
+				</div>
+				<?php
 			endif;
 
 			if ( $attachment_meta ) :
-				printf(
-					/* translators: %s: dimensions. */
-					esc_html_e( 'Dimensions', 'prismleaf' ),
-					'<div class="prismleaf-entry-dimensions">' . esc_html( sprintf( '%dx%d', $attachment_meta['width'], $attachment_meta['height'] ) ) . '</div>'
-				);
+				?>
+				<div class="prismleaf-entry-dimensions">
+					<?php
+					printf(
+						/* translators: %s: dimensions. */
+						esc_html__( 'Dimensions: %s', 'prismleaf' ),
+						esc_html( sprintf( '%dx%d', $attachment_meta['width'], $attachment_meta['height'] ) )
+					);
+					?>
+				</div>
+				<?php
 			endif;
 			?>
 		</article>

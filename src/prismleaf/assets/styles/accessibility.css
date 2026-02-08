@@ -67,7 +67,7 @@ select:focus-visible,
 textarea:focus-visible,
 summary:focus-visible,
 [tabindex]:not([tabindex="-1"]):focus-visible {
-	outline: var(--prismleaf-focus-width) var(--prismleaf-focus-style) var(--prismleaf-color-primary-1);
+	outline: var(--prismleaf-focus-width) var(--prismleaf-focus-style) var(--prismleaf-color-primary-surface-1);
 	outline-offset: var(--prismleaf-focus-offset);
 	border-radius: var(--prismleaf-focus-radius);
 }

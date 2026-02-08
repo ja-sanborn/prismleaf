@@ -5,7 +5,7 @@
 	--prismleaf-header-tagline-color: var(--prismleaf-color-surface-on-muted);
 	--prismleaf-site-title-flex-direction: row;
 	--prismleaf-site-title-link-color: var(--prismleaf-color-primary-surface-1);
-	--prismleaf-site-title-link-hover-color: var(--prismleaf-color-primary-surface-6);
+	--prismleaf-site-title-link-hover-color: var(--prismleaf-color-primary-surface-5);
 }
 
 .prismleaf-site-title {
@@ -56,7 +56,7 @@
 
 .prismleaf-site-tagline {
 	color: var(--prismleaf-header-tagline-color);
-	font-family: var(--prismleaf-font-sans-serif);
+	font-family: var(--prismleaf-font-sans);
 	font-size: var(--prismleaf-font-size-md);
 	line-height: var(--prismleaf-line-height-base);
 	text-align: inherit;

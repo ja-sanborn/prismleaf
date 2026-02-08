@@ -56,7 +56,6 @@ $mobile_menu_overlay_id = 'prismleaf-mobile-menu-overlay';
 					'menu_id'        => $primary_menu_id,
 					'items_wrap'     => '<ul class="prismleaf-menu-items %2$s">%3$s</ul>',
 					'fallback_cb'    => false,
-					'depth'          => 1,
 				)
 			);
 			?>
@@ -107,7 +106,6 @@ $mobile_menu_overlay_id = 'prismleaf-mobile-menu-overlay';
 					'menu_id'        => $secondary_menu_id,
 					'items_wrap'     => '<ul class="prismleaf-menu-items %2$s">%3$s</ul>',
 					'fallback_cb'    => false,
-					'depth'          => 1,
 				)
 			);
 			?>
@@ -141,7 +139,6 @@ $mobile_menu_overlay_id = 'prismleaf-mobile-menu-overlay';
 					'menu_id'        => $mobile_menu_id,
 					'items_wrap'     => '<ul class="prismleaf-menu-items prismleaf-mobile-menu-items %2$s">%3$s</ul>',
 					'fallback_cb'    => false,
-					'depth'          => 1,
 				)
 			);
 			?>

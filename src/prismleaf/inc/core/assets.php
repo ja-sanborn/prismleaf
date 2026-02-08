@@ -309,6 +309,26 @@ if ( ! function_exists( 'prismleaf_enqueue_scripts' ) ) {
 }
 add_action( 'wp_enqueue_scripts', 'prismleaf_enqueue_scripts' );
 
+if ( ! function_exists( 'prismleaf_enqueue_menu_script' ) ) {
+	/**
+	 * Ensure the menu helpers download after the core scripts.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	function prismleaf_enqueue_menu_script() {
+		wp_enqueue_script(
+			'prismleaf-menu',
+			PRISMLEAF_URI . 'assets/scripts/menu.js',
+			array(),
+			PRISMLEAF_VERSION,
+			true
+		);
+	}
+}
+add_action( 'wp_enqueue_scripts', 'prismleaf_enqueue_menu_script' );
+
 if ( ! function_exists( 'prismleaf_enqueue_customizer_components' ) ) {
 	/**
 	 * Enqueue shared Customizer component scripts.

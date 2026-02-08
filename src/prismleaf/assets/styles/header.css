@@ -52,6 +52,8 @@
 	max-height: var(--prismleaf-header-max-height);
 	overflow-x: hidden;
 	overflow-y: var(--prismleaf-region-overflow);
+	position: relative;
+	z-index: 10;
 }
 
 .prismleaf-header-row {

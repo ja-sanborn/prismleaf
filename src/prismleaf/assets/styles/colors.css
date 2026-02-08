@@ -322,7 +322,7 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-	border-color: var(--prismleaf-color-primary-1);
+	border-color: var(--prismleaf-color-primary-surface-1);
 }
 
 ::placeholder {
