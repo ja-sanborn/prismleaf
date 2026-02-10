@@ -18,11 +18,13 @@ $use_heading_tag  = is_front_page() || is_home();
 $title_tag        = $use_heading_tag ? 'h1' : 'span';
 
 $title_classes = array(
+	'site-title',
 	'prismleaf-site-title',
 	'prismleaf-site-title-position-' . $title_position,
 );
 
 $tagline_classes = array(
+	'site-tagline',
 	'prismleaf-site-tagline',
 	'prismleaf-site-tagline-' . $tagline_position,
 );

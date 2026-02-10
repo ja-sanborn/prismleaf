@@ -20,9 +20,9 @@ get_header();
 	while ( have_posts() ) :
 		the_post();
 
-		$title_id    = 'content-title-' . wp_unique_id();
-		$entry_title = get_the_title();
-		$edit_link   = get_edit_post_link( get_the_ID(), 'raw', false );
+		$title_id            = 'content-title-' . wp_unique_id();
+		$entry_title         = get_the_title();
+		$edit_link           = get_edit_post_link( get_the_ID(), 'raw', false );
 		$show_featured_image = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_featured_image', true );
 
 	get_template_part(
@@ -66,6 +66,7 @@ get_header();
 				?>
 			</div>
 		</article>
+		<?php comments_template(); ?>
 	</section>
 	<?php
 endwhile;

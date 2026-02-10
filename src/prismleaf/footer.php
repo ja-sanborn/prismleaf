@@ -91,7 +91,7 @@ if ( ( $outer_left_sidebar || $outer_right_sidebar ) && $inner_footer ) {
 	<?php endif; ?>
 
 	<?php if ( $outer_footer ) : ?>
-		<footer class="prismleaf-region-footer prismleaf-region">
+		<footer class="footer prismleaf-region-footer prismleaf-region">
 			<?php get_template_part( 'template-parts/footer-content' ); ?>
 		</footer>
 	<?php endif; ?>
