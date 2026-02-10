@@ -428,6 +428,7 @@ if ( ! function_exists( 'prismleaf_register_content_options_section' ) ) {
 				'palette_default_fallback' => '',
 			)
 		);
+
 	}
 }
 add_action( 'customize_register', 'prismleaf_register_content_options_section' );

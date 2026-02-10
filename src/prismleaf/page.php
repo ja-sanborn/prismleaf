@@ -24,6 +24,7 @@ get_header();
 		$entry_title         = get_the_title();
 		$edit_link           = get_edit_post_link( get_the_ID(), 'raw', false );
 		$show_featured_image = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_featured_image', true );
+		$show_comments       = prismleaf_get_theme_mod_show_comments_on_pages();
 
 	get_template_part(
 		'template-parts/content-title',
@@ -66,7 +67,9 @@ get_header();
 				?>
 			</div>
 		</article>
-		<?php comments_template(); ?>
+		<?php if ( $show_comments ) : ?>
+			<?php comments_template(); ?>
+		<?php endif; ?>
 	</section>
 	<?php
 endwhile;

@@ -559,6 +559,34 @@ if ( ! function_exists( 'prismleaf_sanitize_author_avatar_shape' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_sanitize_comment_avatar_shape' ) ) {
+	/**
+	 * Sanitize the comment avatar shape selection.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_comment_avatar_shape( $value ) {
+		return prismleaf_sanitize_author_avatar_shape( $value );
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_comment_button_shape' ) ) {
+	/**
+	 * Sanitize the comment button shape selection.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_comment_button_shape( $value ) {
+		return prismleaf_sanitize_pagination_shape( $value );
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_footer_widget_alignment' ) ) {
 	/**
 	 * Sanitize the footer widget alignment value.
