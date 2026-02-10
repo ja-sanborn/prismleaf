@@ -428,6 +428,175 @@ if ( ! function_exists( 'prismleaf_register_content_options_section' ) ) {
 				'palette_default_fallback' => '',
 			)
 		);
+
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_content_heading_comments',
+				'label'      => __( 'Comment Styling', 'prismleaf' ),
+				'section'    => 'prismleaf_content_options',
+				'priority'   => 6000,
+			)
+		);
+
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_content_show_comments_on_pages',
+				'section'          => 'prismleaf_content_options',
+				'label'            => __( 'Show comments on pages', 'prismleaf' ),
+				'description'      => __( 'Display the comments area on static pages.', 'prismleaf' ),
+				'priority'         => 6010,
+				'default_key'      => 'content_show_comments_on_pages',
+				'default_fallback' => true,
+			)
+		);
+
+		prismleaf_add_checkbox_control(
+			$wp_customize,
+			array(
+				'setting_id'       => 'prismleaf_content_show_comments_on_posts',
+				'section'          => 'prismleaf_content_options',
+				'label'            => __( 'Show comments on posts', 'prismleaf' ),
+				'description'      => __( 'Display the comments area on single posts.', 'prismleaf' ),
+				'priority'         => 6020,
+				'default_key'      => 'content_show_comments_on_posts',
+				'default_fallback' => true,
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'        => 'prismleaf_comment_avatar_shape',
+				'section'           => 'prismleaf_content_options',
+				'label'             => __( 'Avatar shape', 'prismleaf' ),
+				'description'       => __( 'Control how comment avatars are rounded.', 'prismleaf' ),
+				'priority'          => 6030,
+				'default_key'       => 'comment_avatar_shape',
+				'default_fallback'  => 'Circle',
+				'sanitize_callback' => 'prismleaf_sanitize_comment_avatar_shape',
+				'choices'           => array(
+					'Square' => __( 'Square', 'prismleaf' ),
+					'Round'  => __( 'Round', 'prismleaf' ),
+					'Circle' => __( 'Circle', 'prismleaf' ),
+				),
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_comment_title_color_source',
+				'base_setting_id'          => 'prismleaf_comment_title_color_base',
+				'palette_setting_id'       => 'prismleaf_comment_title_color_palette',
+				'section'                  => 'prismleaf_content_options',
+				'label'                    => __( 'Title color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 6040,
+				'source_default_key'       => 'comment_title_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'comment_title_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'comment_title_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_comment_author_color_source',
+				'base_setting_id'          => 'prismleaf_comment_author_color_base',
+				'palette_setting_id'       => 'prismleaf_comment_author_color_palette',
+				'section'                  => 'prismleaf_content_options',
+				'label'                    => __( 'Author color', 'prismleaf' ),
+				'description'              => __( 'Optional. Leave blank to use the theme default.', 'prismleaf' ),
+				'priority'                 => 6050,
+				'source_default_key'       => 'comment_author_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'comment_author_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'comment_author_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_comment_meta_color_source',
+				'base_setting_id'          => 'prismleaf_comment_meta_color_base',
+				'palette_setting_id'       => 'prismleaf_comment_meta_color_palette',
+				'section'                  => 'prismleaf_content_options',
+				'label'                    => __( 'Meta color', 'prismleaf' ),
+				'description'              => __( 'Optional. Applies normal/hover states to comment meta text.', 'prismleaf' ),
+				'priority'                 => 6060,
+				'source_default_key'       => 'comment_meta_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'comment_meta_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'comment_meta_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_comment_link_color_source',
+				'base_setting_id'          => 'prismleaf_comment_link_color_base',
+				'palette_setting_id'       => 'prismleaf_comment_link_color_palette',
+				'section'                  => 'prismleaf_content_options',
+				'label'                    => __( 'Link color', 'prismleaf' ),
+				'description'              => __( 'Optional. Applies normal/hover states to comment links.', 'prismleaf' ),
+				'priority'                 => 6070,
+				'source_default_key'       => 'comment_link_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'comment_link_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'comment_link_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_palette_source_control(
+			$wp_customize,
+			array(
+				'source_setting_id'        => 'prismleaf_comment_button_color_source',
+				'base_setting_id'          => 'prismleaf_comment_button_color_base',
+				'palette_setting_id'       => 'prismleaf_comment_button_color_palette',
+				'section'                  => 'prismleaf_content_options',
+				'label'                    => __( 'Button color', 'prismleaf' ),
+				'description'              => __( 'Optional. Applies normal/hover states to the submit button.', 'prismleaf' ),
+				'priority'                 => 6080,
+				'source_default_key'       => 'comment_button_color_source',
+				'source_default_fallback'  => '',
+				'base_default_key'         => 'comment_button_color_base',
+				'base_default_fallback'    => '',
+				'palette_default_key'      => 'comment_button_color_palette',
+				'palette_default_fallback' => '',
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'        => 'prismleaf_comment_button_shape',
+				'section'           => 'prismleaf_content_options',
+				'label'             => __( 'Button shape', 'prismleaf' ),
+				'description'       => __( 'Control the corner style used for comment action buttons.', 'prismleaf' ),
+				'priority'          => 6090,
+				'default_key'       => 'comment_button_shape',
+				'default_fallback'  => 'Round',
+				'sanitize_callback' => 'prismleaf_sanitize_comment_button_shape',
+				'choices'           => array(
+					'Square' => __( 'Square', 'prismleaf' ),
+					'Round'  => __( 'Round', 'prismleaf' ),
+					'Pill'   => __( 'Pill', 'prismleaf' ),
+				),
+			)
+		);
 	}
 }
 add_action( 'customize_register', 'prismleaf_register_content_options_section' );

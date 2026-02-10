@@ -33,6 +33,7 @@ if ( ! function_exists( 'prismleaf_output_customizer_styles' ) ) {
 		$css .= prismleaf_get_widget_css_vars();
 		$css .= prismleaf_get_archive_results_css_vars();
 		$css .= prismleaf_get_author_css_vars();
+		$css .= prismleaf_get_comments_css_vars();
 		$css .= prismleaf_get_pagination_css_vars();
 		if ( '' === $css ) {
 			return;
@@ -1113,6 +1114,135 @@ if ( ! function_exists( 'prismleaf_get_author_css_vars' ) ) {
 
 		if ( '' !== $author_text_color ) {
 			$css .= prismleaf_build_css_var( '--prismleaf-author-bio-color', $author_text_color );
+		}
+
+		return $css;
+	}
+}
+
+if ( ! function_exists( 'prismleaf_get_comments_css_vars' ) ) {
+	/**
+	 * Generate CSS overrides for comment styling.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	function prismleaf_get_comments_css_vars() {
+		$avatar_shape = prismleaf_get_theme_mod_comment_avatar_shape(
+			'prismleaf_comment_avatar_shape',
+			'comment_avatar_shape',
+			'Circle'
+		);
+		$avatar_radius_map = array(
+			'Square' => '0',
+			'Round'  => '--prismleaf-radius-small',
+			'Circle' => '--prismleaf-radius-full',
+		);
+		$avatar_radius     = isset( $avatar_radius_map[ $avatar_shape ] ) ? $avatar_radius_map[ $avatar_shape ] : '--prismleaf-radius-full';
+
+		$button_shape = prismleaf_get_theme_mod_comment_button_shape(
+			'prismleaf_comment_button_shape',
+			'comment_button_shape',
+			'Round'
+		);
+		$button_radius_map = array(
+			'Square' => '0',
+			'Round'  => '--prismleaf-radius-small',
+			'Pill'   => '--prismleaf-radius-pill',
+		);
+		$button_radius     = isset( $button_radius_map[ $button_shape ] ) ? $button_radius_map[ $button_shape ] : '--prismleaf-radius-small';
+
+		$title_color = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_comment_title_color_palette',
+			'surface_1',
+			''
+		);
+		$author_color = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_comment_author_color_palette',
+			'container_5',
+			''
+		);
+		$author_hover = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_comment_author_color_palette',
+			'container_1',
+			''
+		);
+		$meta_color  = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_comment_meta_color_palette',
+			'container_5',
+			''
+		);
+		$meta_hover  = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_comment_meta_color_palette',
+			'container_1',
+			''
+		);
+		$link_color  = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_comment_link_color_palette',
+			'container_5',
+			''
+		);
+		$link_hover  = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_comment_link_color_palette',
+			'container_1',
+			''
+		);
+		$button_bg   = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_comment_button_color_palette',
+			'surface_1',
+			''
+		);
+		$button_text = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_comment_button_color_palette',
+			'surface_on',
+			''
+		);
+		$button_hover = prismleaf_get_theme_mod_palette_source_value(
+			'prismleaf_comment_button_color_palette',
+			'surface_5',
+			''
+		);
+
+		$css  = '';
+		$css .= prismleaf_build_css_var( '--prismleaf-comment-avatar-radius', $avatar_radius );
+		$css .= prismleaf_build_css_var( '--prismleaf-comment-submit-radius', $button_radius );
+
+		if ( '' !== $title_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-comments-title-color', $title_color );
+		}
+		if ( '' !== $author_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-author-color', $author_color );
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-author-link-color', $author_color );
+		}
+		if ( '' !== $author_hover ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-author-hover-color', $author_hover );
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-author-link-hover-color', $author_hover );
+		}
+		if ( '' !== $meta_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-comments-muted-color', $meta_color );
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-item-meta-color', $meta_color );
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-item-meta-link-color', $meta_color );
+		}
+		if ( '' !== $meta_hover ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-comments-muted-hover-color', $meta_hover );
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-item-meta-hover-color', $meta_hover );
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-item-meta-link-hover-color', $meta_hover );
+		}
+		if ( '' !== $link_color ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-comments-link-color', $link_color );
+		}
+		if ( '' !== $link_hover ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-comments-link-hover-color', $link_hover );
+		}
+		if ( '' !== $button_bg ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-submit-background', $button_bg );
+		}
+		if ( '' !== $button_text ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-submit-color', $button_text );
+		}
+		if ( '' !== $button_hover ) {
+			$css .= prismleaf_build_css_var( '--prismleaf-comment-submit-hover-background', $button_hover );
 		}
 
 		return $css;

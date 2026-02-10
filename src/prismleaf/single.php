@@ -33,6 +33,7 @@ while ( have_posts() ) :
 	$show_featured_image = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_featured_image', true );
 	$show_metadata       = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_metadata', true );
 	$show_author         = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_author', true );
+	$show_comments       = prismleaf_get_theme_mod_show_comments_on_posts();
 
 	get_template_part(
 		'template-parts/content-title',
@@ -134,7 +135,9 @@ while ( have_posts() ) :
 			)
 		);
 
-		comments_template();
+		if ( $show_comments ) {
+			comments_template();
+		}
 		?>
 	</section>
 	<?php

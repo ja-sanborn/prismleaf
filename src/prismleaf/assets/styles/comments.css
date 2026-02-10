@@ -2,11 +2,11 @@
 
 	/* Comments region tokens. */
 	--prismleaf-comments-margin-top: var(--prismleaf-space-5);
-	--prismleaf-comments-title-color: var(--prismleaf-color-primary-surface-1);
+	--prismleaf-comments-title-color: var(--prismleaf-color-secondary-surface-1);
 	--prismleaf-comments-text-color: var(--prismleaf-color-container-on);
 	--prismleaf-comments-muted-color: var(--prismleaf-color-container-on-muted);
-	--prismleaf-comments-link-color: var(--prismleaf-color-tertiary-container-5);
-	--prismleaf-comments-link-hover-color: var(--prismleaf-color-tertiary-container-1);
+	--prismleaf-comments-link-color: var(--prismleaf-color-tertiary-surface-5);
+	--prismleaf-comments-link-hover-color: var(--prismleaf-color-tertiary-surface-1);
 	--prismleaf-comments-divider-color: var(--prismleaf-color-outline-variant);
 	--prismleaf-comments-item-gap: var(--prismleaf-space-3);
 
@@ -20,9 +20,12 @@
 	--prismleaf-comment-item-padding: var(--prismleaf-space-3);
 	--prismleaf-comment-item-elevation: var(--prismleaf-shadow-elevation-1);
 	--prismleaf-comment-item-author-elevation: var(--prismleaf-shadow-elevation-2);
-	--prismleaf-comment-item-meta-size: var(--prismleaf-font-size-sm);
-	--prismleaf-comment-author-color: var(--prismleaf-color-primary-container-5);
-	--prismleaf-comment-author-hover-color: var(--prismleaf-color-primary-container-1);
+	--prismleaf-comment-item-meta-color: var(--prismleaf-color-tertiary-container-5);
+	--prismleaf-comment-item-meta-link-color: var(--prismleaf-color-tertiary-container-5);
+	--prismleaf-comment-item-meta-link-hover-color: var(--prismleaf-color-tertiary-container-1);
+	--prismleaf-comment-author-color: var(--prismleaf-color-secondary-container-5);
+	--prismleaf-comment-author-link-color: var(--prismleaf-color-secondary-container-5);
+	--prismleaf-comment-author-link-hover-color: var(--prismleaf-color-secondary-container-1);
 	--prismleaf-comment-avatar-radius: var(--prismleaf-radius-full);
 
 	/* Form tokens. */
@@ -36,14 +39,19 @@
 	--prismleaf-comment-form-input-radius: var(--prismleaf-radius-small);
 	--prismleaf-comment-form-input-padding: var(--prismleaf-space-2);
 	--prismleaf-comment-required-color: var(--prismleaf-color-error-surface-1);
-	--prismleaf-comment-submit-background: var(--prismleaf-color-secondary-surface-1);
-	--prismleaf-comment-submit-color: var(--prismleaf-color-secondary-surface-on);
-	--prismleaf-comment-submit-hover-background: var(--prismleaf-color-secondary-surface-5);
-	--prismleaf-comment-submit-radius: var(--prismleaf-radius-medium);
+	--prismleaf-comment-submit-background: var(--prismleaf-color-tertiary-surface-1);
+	--prismleaf-comment-submit-color: var(--prismleaf-color-tertiary-surface-on);
+	--prismleaf-comment-submit-hover-background: var(--prismleaf-color-tertiary-surface-5);
+	--prismleaf-comment-submit-radius: var(--prismleaf-radius-small);
 }
 
-.comments-area {
-	margin-top: var(--prismleaf-comments-margin-top);
+.comments-area a {
+	color: var(--prismleaf-comments-link-color);
+}
+
+.comments-area a:hover,
+.comments-area a:focus-visible {
+	color: var(--prismleaf-comments-link-hover-color);
 }
 
 .comments-title {
@@ -97,11 +105,12 @@
 	row-gap: var(--prismleaf-space-1);
 	align-items: center;
 	margin-bottom: var(--prismleaf-space-2);
-	font-size: var(--prismleaf-comment-item-meta-size);
+	font-size: var(--prismleaf-font-size-sm);
 	color: var(--prismleaf-comments-muted-color);
 }
 
 .comment-author {
+	color: var(--prismleaf-comment-author-color);
 	display: contents;
 }
 
@@ -114,7 +123,7 @@
 
 .comment-author .fn,
 .comment-author .fn a {
-	color: var(--prismleaf-comment-author-color);
+	color: var(--prismleaf-comment-author-link-color);
 	font-weight: var(--prismleaf-font-weight-semibold);
 	font-style: normal;
 	text-decoration: none;
@@ -124,12 +133,17 @@
 
 .comment-author .fn a:hover,
 .comment-author .fn a:focus-visible {
-	color: var(--prismleaf-comment-author-hover-color);
+	color: var(--prismleaf-comment-author-link-hover-color);
 	text-decoration: underline;
 }
 
 .comment-author .says {
 	display: none;
+}
+
+.comment-meta,
+.comment-metadata {
+	color: var(--prismleaf-comment-item-meta-color);
 }
 
 .comment-metadata {
@@ -141,8 +155,7 @@
 .comment-metadata a,
 .comment-reply-link,
 .comment-edit-link {
-	color: var(--prismleaf-comments-link-color);
-	text-decoration: none;
+	color: var(--prismleaf-comment-item-meta-link-color);
 }
 
 .comment-body a:hover,
@@ -153,8 +166,7 @@
 .comment-reply-link:focus-visible,
 .comment-edit-link:hover,
 .comment-edit-link:focus-visible {
-	color: var(--prismleaf-comments-link-hover-color);
-	text-decoration: underline;
+	color: var(--prismleaf-comment-item-meta-link-hover-color);
 }
 
 .comment-content {
@@ -169,7 +181,7 @@
 	display: inline-block;
 	margin-top: var(--prismleaf-space-1);
 	color: var(--prismleaf-comments-muted-color);
-	font-size: var(--prismleaf-comment-item-meta-size);
+	font-size: var(--prismleaf-font-size-sm);
 }
 
 .reply {
