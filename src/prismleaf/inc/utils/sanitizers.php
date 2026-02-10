@@ -152,20 +152,6 @@ if ( ! function_exists( 'prismleaf_sanitize_int' ) ) {
 	}
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_float' ) ) {
-	/**
-	 * Sanitize a decimal number value.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $value Value to sanitize.
-	 * @return float
-	 */
-	function prismleaf_sanitize_float( $value ) {
-		return is_numeric( $value ) ? (float) $value : 0.0;
-	}
-}
-
 if ( ! function_exists( 'prismleaf_sanitize_transport' ) ) {
 	/**
 	 * Sanitize a Customizer transport value.
@@ -1112,36 +1098,3 @@ if ( ! function_exists( 'prismleaf_sanitize_background_preset' ) ) {
 	}
 }
 
-if ( ! function_exists( 'prismleaf_sanitize_json' ) ) {
-	/**
-	 * Sanitize JSON with an expected key list.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed    $value         JSON value to sanitize.
-	 * @param string[] $expected_keys Required keys.
-	 * @return string
-	 */
-	function prismleaf_sanitize_json( $value, $expected_keys ) {
-		if ( ! is_array( $expected_keys ) || empty( $expected_keys ) ) {
-			return '';
-		}
-
-		$decoded = prismleaf_decode_json_with_keys( $value, $expected_keys );
-		if ( null === $decoded ) {
-			return '';
-		}
-
-		$clean = array();
-		foreach ( $expected_keys as $key ) {
-			$clean_value = sanitize_hex_color( $decoded[ $key ] );
-			if ( ! $clean_value ) {
-				return '';
-			}
-
-			$clean[ $key ] = $clean_value;
-		}
-
-		return wp_json_encode( $clean );
-	}
-}

@@ -20,16 +20,16 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$title_id      = 'content-title-' . wp_unique_id();
-	$entry_title   = get_the_title();
-	$author_id     = get_the_author_meta( 'ID' );
-	$author_name   = get_the_author_meta( 'display_name', $author_id );
-	$author_bio    = get_the_author_meta( 'description', $author_id );
-	$author_link   = get_author_posts_url( $author_id );
-	$author_image  = get_avatar( $author_id, 64 );
-	$category_list = get_the_category_list( ', ' );
-	$tag_list      = get_the_tag_list( '', ', ' );
-	$edit_link     = get_edit_post_link( get_the_ID(), 'raw', false );
+	$title_id            = 'content-title-' . wp_unique_id();
+	$entry_title         = get_the_title();
+	$author_id           = get_the_author_meta( 'ID' );
+	$author_name         = get_the_author_meta( 'display_name', $author_id );
+	$author_bio          = get_the_author_meta( 'description', $author_id );
+	$author_link         = get_author_posts_url( $author_id );
+	$author_image        = get_avatar( $author_id, 64 );
+	$category_list       = get_the_category_list( ', ' );
+	$tag_list            = get_the_tag_list( '', ', ' );
+	$edit_link           = get_edit_post_link( get_the_ID(), 'raw', false );
 	$show_featured_image = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_featured_image', true );
 	$show_metadata       = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_metadata', true );
 	$show_author         = prismleaf_get_theme_mod_bool( 'prismleaf_content_show_author', true );
