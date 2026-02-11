@@ -360,6 +360,103 @@ if ( ! function_exists( 'prismleaf_register_search_options_section' ) ) {
 				'palette_default_fallback' => '',
 			)
 		);
+
+		prismleaf_add_section_header_control(
+			$wp_customize,
+			array(
+				'setting_id' => 'prismleaf_search_heading_types',
+				'label'      => __( 'Search Types', 'prismleaf' ),
+				'section'    => 'prismleaf_search_options',
+				'priority'   => 5000,
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'        => 'prismleaf_result_layout_default',
+				'section'           => 'prismleaf_search_options',
+				'label'             => __( 'Default type layout', 'prismleaf' ),
+				'description'       => __( 'Base layout used by the default results type and as a fallback for Home, Archive, and Search types.', 'prismleaf' ),
+				'priority'          => 5010,
+				'default_key'       => 'result_layout_default',
+				'default_fallback'  => 'grid',
+				'sanitize_callback' => 'prismleaf_sanitize_archive_results_layout_default',
+				'choices'           => array(
+					'grid'      => __( 'Grid', 'prismleaf' ),
+					'list'      => __( 'List', 'prismleaf' ),
+					'title'     => __( 'Title', 'prismleaf' ),
+					'full'      => __( 'Full', 'prismleaf' ),
+					'firstfull' => __( 'First Full', 'prismleaf' ),
+				),
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'        => 'prismleaf_result_layout_home',
+				'section'           => 'prismleaf_search_options',
+				'label'             => __( 'Home type layout', 'prismleaf' ),
+				'description'       => __( 'Leave as Inherit Default to use the Default type layout.', 'prismleaf' ),
+				'priority'          => 5020,
+				'default_key'       => 'result_layout_home',
+				'default_fallback'  => '',
+				'sanitize_callback' => 'prismleaf_sanitize_archive_results_layout',
+				'choices'           => array(
+					''          => __( 'Inherit Default', 'prismleaf' ),
+					'grid'      => __( 'Grid', 'prismleaf' ),
+					'list'      => __( 'List', 'prismleaf' ),
+					'title'     => __( 'Title', 'prismleaf' ),
+					'full'      => __( 'Full', 'prismleaf' ),
+					'firstfull' => __( 'First Full', 'prismleaf' ),
+				),
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'        => 'prismleaf_result_layout_archive',
+				'section'           => 'prismleaf_search_options',
+				'label'             => __( 'Archive type layout', 'prismleaf' ),
+				'description'       => __( 'Leave as Inherit Default to use the Default type layout.', 'prismleaf' ),
+				'priority'          => 5030,
+				'default_key'       => 'result_layout_archive',
+				'default_fallback'  => '',
+				'sanitize_callback' => 'prismleaf_sanitize_archive_results_layout',
+				'choices'           => array(
+					''          => __( 'Inherit Default', 'prismleaf' ),
+					'grid'      => __( 'Grid', 'prismleaf' ),
+					'list'      => __( 'List', 'prismleaf' ),
+					'title'     => __( 'Title', 'prismleaf' ),
+					'full'      => __( 'Full', 'prismleaf' ),
+					'firstfull' => __( 'First Full', 'prismleaf' ),
+				),
+			)
+		);
+
+		prismleaf_add_select_control(
+			$wp_customize,
+			array(
+				'setting_id'        => 'prismleaf_result_layout_search',
+				'section'           => 'prismleaf_search_options',
+				'label'             => __( 'Search type layout', 'prismleaf' ),
+				'description'       => __( 'Leave as Inherit Default to use the Default type layout.', 'prismleaf' ),
+				'priority'          => 5040,
+				'default_key'       => 'result_layout_search',
+				'default_fallback'  => '',
+				'sanitize_callback' => 'prismleaf_sanitize_archive_results_layout',
+				'choices'           => array(
+					''          => __( 'Inherit Default', 'prismleaf' ),
+					'grid'      => __( 'Grid', 'prismleaf' ),
+					'list'      => __( 'List', 'prismleaf' ),
+					'title'     => __( 'Title', 'prismleaf' ),
+					'full'      => __( 'Full', 'prismleaf' ),
+					'firstfull' => __( 'First Full', 'prismleaf' ),
+				),
+			)
+		);
 	}
 }
 

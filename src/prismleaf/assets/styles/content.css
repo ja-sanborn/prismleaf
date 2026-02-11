@@ -18,6 +18,13 @@
 	--prismleaf-content-padding: var(--prismleaf-space-3);
 	--prismleaf-content-margin: var(--prismleaf-space-2);
 	--prismleaf-content-title-color: var(--prismleaf-color-primary-surface-1);
+	--prismleaf-content-title-card-background-color: var(--prismleaf-color-surface-3);
+	--prismleaf-content-title-card-border-color: var(--prismleaf-color-outline);
+	--prismleaf-content-title-card-border-radius: var(--prismleaf-radius-medium);
+	--prismleaf-content-title-card-border-style: var(--prismleaf-border-style);
+	--prismleaf-content-title-card-border-width: var(--prismleaf-border-width-thin);
+	--prismleaf-content-title-card-elevation: var(--prismleaf-shadow-elevation-1);
+	--prismleaf-content-title-card-padding: var(--prismleaf-space-3);
 	--prismleaf-content-meta-text-color: var(--prismleaf-color-surface-on-muted);
 	--prismleaf-content-meta-link-color: var(--prismleaf-color-tertiary-surface-1);
 	--prismleaf-content-meta-link-hover-color: var(--prismleaf-color-tertiary-surface-5);
@@ -41,6 +48,22 @@
 
 .prismleaf-content-header {
 	margin-bottom: var(--prismleaf-space-4);
+}
+
+.prismleaf-content-title-card {
+	inline-size: 100%;
+	background-color: var(--prismleaf-content-title-card-background-color);
+	border-color: var(--prismleaf-content-title-card-border-color);
+	border-radius: var(--prismleaf-content-title-card-border-radius);
+	border-style: var(--prismleaf-content-title-card-border-style);
+	border-width: var(--prismleaf-content-title-card-border-width);
+	box-shadow: var(--prismleaf-content-title-card-elevation);
+	padding: var(--prismleaf-content-title-card-padding);
+	margin-bottom: var(--prismleaf-space-4);
+}
+
+.prismleaf-content-title-card .prismleaf-content-header {
+	margin-bottom: 0;
 }
 
 .prismleaf-content-title {
@@ -159,6 +182,19 @@
 .prismleaf-entry-categories a:hover,
 .prismleaf-entry-tags a:hover {
 	color: var(--prismleaf-content-meta-link-hover-color);
+}
+
+/* Keep comma-separated category/tag links in normal inline flow. */
+.prismleaf-entry-categories,
+.prismleaf-entry-tags {
+	display: block;
+}
+
+.prismleaf-entry-categories::before,
+.prismleaf-entry-tags::before {
+	display: inline-block;
+	vertical-align: middle;
+	margin-inline-end: var(--prismleaf-space-2);
 }
 
 .prismleaf-entry-content hr,

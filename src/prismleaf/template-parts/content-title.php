@@ -15,12 +15,17 @@ $title_tag     = isset( $args['title_tag'] ) ? strtolower( trim( (string) $args[
 $description   = isset( $args['description'] ) ? (string) $args['description'] : '';
 $edit_link     = isset( $args['edit_link'] ) ? (string) $args['edit_link'] : '';
 $allowed_tags  = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
+$has_description = '' !== trim( wp_strip_all_tags( $description ) );
+$show_card       = $has_description && ! is_singular();
 
 if ( ! in_array( $title_tag, $allowed_tags, true ) ) {
 	$title_tag = 'h1';
 }
 ?>
 
+<?php if ( $show_card ) : ?>
+<div class="prismleaf-content-title-card">
+<?php endif; ?>
 <header class="prismleaf-content-header">
 	<div class="prismleaf-content-title-row">
 		<div class="prismleaf-content-title-start">
@@ -45,3 +50,6 @@ if ( ! in_array( $title_tag, $allowed_tags, true ) ) {
 		<p class="prismleaf-content-description"><?php echo wp_kses_post( $description ); ?></p>
 	<?php endif; ?>
 </header>
+<?php if ( $show_card ) : ?>
+</div>
+<?php endif; ?>

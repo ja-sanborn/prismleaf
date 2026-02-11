@@ -258,6 +258,52 @@ if ( ! function_exists( 'prismleaf_get_theme_mod_theme_mode' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_get_archive_results_layout' ) ) {
+	/**
+	 * Get the archive results layout by type with default inheritance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $type Layout type: default|home|archive|search.
+	 * @return string
+	 */
+	function prismleaf_get_archive_results_layout( $type = 'default' ) {
+		$type = strtolower( trim( (string) $type ) );
+		if ( ! in_array( $type, array( 'default', 'home', 'archive', 'search' ), true ) ) {
+			$type = 'default';
+		}
+
+		$default_layout = prismleaf_sanitize_archive_results_layout_default(
+			get_theme_mod(
+				'prismleaf_result_layout_default',
+				prismleaf_get_default_option( 'result_layout_default', 'grid' )
+			)
+		);
+
+		if ( 'default' === $type ) {
+			return $default_layout;
+		}
+
+		$setting_map = array(
+			'home'    => 'prismleaf_result_layout_home',
+			'archive' => 'prismleaf_result_layout_archive',
+			'search'  => 'prismleaf_result_layout_search',
+		);
+
+		$setting_id = isset( $setting_map[ $type ] ) ? $setting_map[ $type ] : '';
+		if ( '' === $setting_id ) {
+			return $default_layout;
+		}
+
+		$override = prismleaf_sanitize_archive_results_layout( get_theme_mod( $setting_id, '' ) );
+		if ( '' === $override ) {
+			return $default_layout;
+		}
+
+		return $override;
+	}
+}
+
 if ( ! function_exists( 'prismleaf_get_theme_mod_palette_json' ) ) {
 	/**
 	 * Get a palette JSON theme mod value.

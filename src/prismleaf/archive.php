@@ -29,7 +29,7 @@ get_template_part(
 ?>
 
 <section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
-	<?php get_template_part( 'template-parts/archive-results', null, array( 'layout' => 'grid' ) ); ?>
+	<?php get_template_part( 'template-parts/archive-results', null, array( 'type' => 'archive' ) ); ?>
 </section>
 
 <?php
