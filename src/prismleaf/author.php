@@ -19,7 +19,7 @@ $author_image = get_avatar( $author_id, 64 );
 $title_id     = 'content-title-' . wp_unique_id();
 $description  = $author_bio;
 
-if ( '' !== $author_image ) {
+if ( '' !== $author_bio ) {
 	ob_start();
 	get_template_part(
 		'template-parts/author-bio',
@@ -53,16 +53,7 @@ get_template_part(
 ?>
 
 <section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
-	<?php
-	get_template_part(
-		'template-parts/archive-results',
-		null,
-		array(
-			'show_poem' => false,
-			'layout'    => 'grid',
-		)
-	);
-	?>
+	<?php get_template_part( 'template-parts/archive-results', null, array( 'type' => 'archive', ) ); ?>
 </section>
 
 <?php

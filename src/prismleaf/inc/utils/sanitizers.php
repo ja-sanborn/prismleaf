@@ -533,6 +533,41 @@ if ( ! function_exists( 'prismleaf_sanitize_pagination_shape' ) ) {
 	}
 }
 
+if ( ! function_exists( 'prismleaf_sanitize_archive_results_layout_default' ) ) {
+	/**
+	 * Sanitize the default archive results layout.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_archive_results_layout_default( $value ) {
+		$value   = strtolower( trim( (string) $value ) );
+		$allowed = array( 'grid', 'list', 'title', 'full', 'firstfull' );
+		return in_array( $value, $allowed, true ) ? $value : 'grid';
+	}
+}
+
+if ( ! function_exists( 'prismleaf_sanitize_archive_results_layout' ) ) {
+	/**
+	 * Sanitize an archive results layout override (allows empty for inheritance).
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @return string
+	 */
+	function prismleaf_sanitize_archive_results_layout( $value ) {
+		$value = strtolower( trim( (string) $value ) );
+		if ( '' === $value ) {
+			return '';
+		}
+
+		return prismleaf_sanitize_archive_results_layout_default( $value );
+	}
+}
+
 if ( ! function_exists( 'prismleaf_sanitize_author_avatar_shape' ) ) {
 	/**
 	 * Sanitize the author avatar shape selection.

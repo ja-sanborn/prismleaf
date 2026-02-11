@@ -33,7 +33,7 @@ get_template_part(
 ?>
 
 <section class="prismleaf-content-area" aria-labelledby="<?php echo esc_attr( $title_id ); ?>">
-	<?php get_template_part( 'template-parts/archive-results', null, array( 'layout' => 'list' ) ); ?>
+	<?php get_template_part( 'template-parts/archive-results', null, array( 'type' => 'search', 'show_poem' => true ) ); ?>
 </section>
 
 <?php

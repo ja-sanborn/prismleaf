@@ -15,16 +15,7 @@ get_header();
 ?>
 
 <section class="prismleaf-content-area" aria-labelledby="site-title">
-	<?php
-	get_template_part(
-		'template-parts/archive-results',
-		null,
-		array(
-			'show_poem' => false,
-			'layout'    => 'grid',
-		)
-	);
-	?>
+	<?php get_template_part( 'template-parts/archive-results', null, array( 'type' => 'default', ) ); ?>
 </section>
 
 <?php
